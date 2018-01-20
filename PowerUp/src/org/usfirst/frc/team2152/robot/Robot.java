@@ -7,8 +7,10 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.utilities.Log;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,6 +27,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Log m_logger;
+	public Dashboard powerUpDashboard = new Dashboard();
+	public static String PLATE_ASSIGNMENT;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -56,6 +60,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
 	}
 
 	/**
@@ -71,6 +76,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
+		powerUpDashboard.putPlateAssignment();
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
