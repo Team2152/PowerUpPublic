@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
 import org.usfirst.frc.team2152.robot.RobotMap;
+import org.usfirst.frc.team2152.robot.commands.TankDriveJoystick;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -59,11 +60,12 @@ public class DriveTrain extends Subsystem {
 	left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_Id);
 	left3.setNeutralMode(NeutralMode.Brake);
 	left3.setSafetyEnabled(true);
-	left2.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
+	left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
 	
 	drive = new DifferentialDrive(right1,left1);
 	
 	}
+	
 	/***
 	 * 
 	 * Move motors using Tank Drive
@@ -79,6 +81,7 @@ public class DriveTrain extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new TankDriveJoystick());
     }
 }
 
