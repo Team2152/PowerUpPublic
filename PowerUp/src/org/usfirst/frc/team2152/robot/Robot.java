@@ -76,6 +76,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		//PLATE_ASSIGNMENT must be defined before autonomous is finalized for a match
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 		powerUpDashboard.putPlateAssignment();
 		m_autonomousCommand = m_chooser.getSelected();

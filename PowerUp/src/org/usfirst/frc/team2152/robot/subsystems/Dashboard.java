@@ -10,55 +10,62 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Dashboard extends Subsystem {
-	String ALLIANCE_PLATE_SIDE = null;
-	String SWITCH_PLATE_SIDE = null;
+	// Variable Declaration
+	String switchPlateSide = "";
+	String scalePlateSide = "";
 
 	/**
 	 * Gets our alliance's plate assignment for our switch and the scale and
 	 * puts them on the SmartDashboard
 	 */
 	public void putPlateAssignment() {
-		String ALLIANCE_PLATE = Robot.PLATE_ASSIGNMENT.substring(0, 1);
-		String SWITCH_PLATE = Robot.PLATE_ASSIGNMENT.substring(1, 2);
+		/*
+		 * Our plate on the opponent's Switch will always be on the same side as
+		 * our plate on our own Switch, According to Figure 4-1 in the manual
+		 */
 
-		if (ALLIANCE_PLATE.equals("L")) {
-			ALLIANCE_PLATE_SIDE = "Left";
+		String switchPlate = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(0));
+		String scalePlate = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(1));
+
+		if (switchPlate.equals("L")) {
+			switchPlateSide = "Left";
 		} else {
-			ALLIANCE_PLATE_SIDE = "Right";
+			switchPlateSide = "Right";
 		}
 
-		if (SWITCH_PLATE.equals("L")) {
-			SWITCH_PLATE_SIDE = "Left";
+		if (scalePlate.equals("L")) {
+			scalePlateSide = "Left";
 		} else {
-			SWITCH_PLATE_SIDE = "Right";
+			scalePlateSide = "Right";
 		}
-
-		SmartDashboard.putString("Alliance Switch Plate", ALLIANCE_PLATE_SIDE);
-		SmartDashboard.putString("Scale Plate", SWITCH_PLATE_SIDE);
+		SmartDashboard.putString("Switch Plates", switchPlateSide);
+		SmartDashboard.putString("Scale Plate", scalePlateSide);
 	}
 
 	/**
 	 * Returns the assigned location of our alliance's plate on a given
 	 * component
 	 * 
-	 * @param component
-	 *            The plate assignment to get (eg. "Alliance Switch Plate")
+	 * @param component The plate assignment to get (eg. "Switch Plates")
 	 * @return The assignment of component as a String(eg. "Left")
 	 */
 	public String getPlateAssignment(String component) {
-		String s = null;
-		if (component.equals("Alliance Switch Plate")) {
-			s = SmartDashboard.getString(ALLIANCE_PLATE_SIDE, "");
-		} else if (component.equals("Scale Plate")) {
-			s = SmartDashboard.getString(SWITCH_PLATE_SIDE, "");
+		String s = "No component recognized";
+		
+		switch (component) {
+		case "Switch Plates":
+			s = SmartDashboard.getString(switchPlateSide, "");
+			break;
+		case "Scale Plate":
+			s = SmartDashboard.getString(scalePlateSide, "");
+			break;
 		}
-
+		
 		return s;
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
+
 	}
 }
