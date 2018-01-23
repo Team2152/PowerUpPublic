@@ -27,15 +27,15 @@ public class Dashboard extends Subsystem {
 		String switchPlate = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(0));
 		String scalePlate = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(1));
 
-		if (switchPlate.equals("L")) {
+		if (switchPlate.equalsIgnoreCase("L")) {
 			switchPlateSide = "Left";
-		} else {
+		} else if (switchPlate.equalsIgnoreCase("R")) {
 			switchPlateSide = "Right";
 		}
 
-		if (scalePlate.equals("L")) {
+		if (scalePlate.equalsIgnoreCase("L")) {
 			scalePlateSide = "Left";
-		} else {
+		} else if (scalePlate.equalsIgnoreCase("R")) {
 			scalePlateSide = "Right";
 		}
 		SmartDashboard.putString("Switch Plates", switchPlateSide);
@@ -54,10 +54,10 @@ public class Dashboard extends Subsystem {
 		
 		switch (component) {
 		case "Switch Plates":
-			s = SmartDashboard.getString(switchPlateSide, "");
+			s = SmartDashboard.getString(switchPlateSide, "No Data Recieved");
 			break;
 		case "Scale Plate":
-			s = SmartDashboard.getString(scalePlateSide, "");
+			s = SmartDashboard.getString(scalePlateSide, "No Data Recieved");
 			break;
 		}
 		
