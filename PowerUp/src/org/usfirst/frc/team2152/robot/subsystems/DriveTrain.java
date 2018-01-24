@@ -7,6 +7,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -17,7 +19,7 @@ public class DriveTrain extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-
+	private static final double DISTANCE_PER_PULSE = 0.01112647398146385105288852864912;
 
 	// === Steamworks Speed Controllers
 	private WPI_TalonSRX right1;
@@ -26,6 +28,15 @@ public class DriveTrain extends Subsystem {
 	private WPI_TalonSRX left1;
 	private WPI_TalonSRX left2;
 	private WPI_TalonSRX left3;
+	
+	// === Steamworks Encoders
+	private Encoder encoderR;
+	private int encoderRA = RobotMap.DIO_0;
+	private int encoderRB = RobotMap.DIO_1;
+
+	private Encoder encoderL;
+	private int encoderLA = RobotMap.DIO_2;
+	private int encoderLB = RobotMap.DIO_3;
 
 	// === Drive Train Object
 	private DifferentialDrive drive;
@@ -58,6 +69,16 @@ public class DriveTrain extends Subsystem {
 
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(true);
+		
+		encoderR = new Encoder(encoderRA, encoderRB, true, EncodingType.k4X);
+		encoderR.setDistancePerPulse(DISTANCE_PER_PULSE);
+		encoderR.setSamplesToAverage(1);
+		encoderR.reset();
+
+		encoderL = new Encoder(encoderLA, encoderLB, false, EncodingType.k4X);
+		encoderL.setDistancePerPulse(DISTANCE_PER_PULSE);
+		encoderL.setSamplesToAverage(1);
+		encoderL.reset();
 
 	}
 
@@ -72,6 +93,52 @@ public class DriveTrain extends Subsystem {
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		drive.tankDrive(leftSpeed, rightSpeed);
 	}
+	
+	/**
+	 * The inches on the right encoder
+	 * 
+	 * @return The distance in inches
+	 */
+	public double getRightDistance() {
+		return (encoderR.getDistance());
+	}
+
+	/**
+	 * The inches on the left encoder
+	 * 
+	 * @return The distance in inches
+	 */
+
+	public double getLeftDistance() {
+		return (encoderL.getDistance());
+	}
+	
+	public void resetAllEncoders() {
+		encoderR.reset();
+		encoderL.reset();
+	}
+	
+	/**
+	 * Set the speed of the right motors
+	 * 
+	 * @param speed
+	 *            from -1 to 1
+	 */
+	public void setRightSpeed(double speed) {
+		right1.set(speed);
+	}
+
+	/**
+	 * Set the speed of the left motors
+	 * 
+	 * @param speed
+	 *            from -1 to 1
+	 */
+	public void setLeftSpeed(double speed) {
+		left1.set(speed);
+	}
+	
+	
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
