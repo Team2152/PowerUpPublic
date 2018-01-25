@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -28,7 +29,7 @@ public class DriveTrain extends Subsystem {
 	private WPI_TalonSRX left1;
 	private WPI_TalonSRX left2;
 	private WPI_TalonSRX left3;
-	
+
 	// === Steamworks Encoders
 	private Encoder encoderR;
 	private int encoderRA = RobotMap.DIO_0;
@@ -69,7 +70,7 @@ public class DriveTrain extends Subsystem {
 
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(true);
-		
+
 		encoderR = new Encoder(encoderRA, encoderRB, true, EncodingType.k4X);
 		encoderR.setDistancePerPulse(DISTANCE_PER_PULSE);
 		encoderR.setSamplesToAverage(1);
@@ -85,15 +86,28 @@ public class DriveTrain extends Subsystem {
 	/***
 	 * 
 	 * Move motors using Tank Drive
-	 * @param leftSpeed
-	 * 	The speed of the left motor
-	 * @param rightSpeed
-	 * 	The speed of the right motor
+	 * @param leftSpeed 
+	 * 					from -1 to 1
+	 * @param rightSpeed 
+	 * 					from -1 to 1
 	 */
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		drive.tankDrive(leftSpeed, rightSpeed);
 	}
 	
+	/**
+	 * Arcade drive implements single stick driving.
+	 * 
+	 * @param forward
+	 *            The value to use for forwards/backwards
+	 * @param turn
+	 *            The value to use for the rotate right/left
+	 */
+	public void arcadeDrive(double forward, double turn) {
+		drive.arcadeDrive(forward, turn);
+
+	}
+
 	/**
 	 * The inches on the right encoder
 	 * 
@@ -112,12 +126,12 @@ public class DriveTrain extends Subsystem {
 	public double getLeftDistance() {
 		return (encoderL.getDistance());
 	}
-	
+
 	public void resetAllEncoders() {
 		encoderR.reset();
 		encoderL.reset();
 	}
-	
+
 	/**
 	 * Set the speed of the right motors
 	 * 
@@ -138,7 +152,33 @@ public class DriveTrain extends Subsystem {
 		left1.set(speed);
 	}
 	
-	
+	/**
+	 * returns the right encoder object to be used in PIDs
+	 * 
+	 * @param type
+	 *            Which parameter of the encoder you are using as a process
+	 *            control variable.
+	 * @return the right encoder object
+	 */
+	public Encoder getEncoderR(PIDSourceType type) {
+		encoderR.setPIDSourceType(type);
+		return encoderR;
+	}
+
+	/**
+	 * returns the left encoder object to be used in PIDs
+	 * 
+	 * @param type
+	 *            Which parameter of the encoder you are using as a process
+	 *            control variable.
+	 * @return the left encoder object
+	 */
+	public Encoder getEncoderL(PIDSourceType type) {
+		encoderL.setPIDSourceType(type);
+		return encoderL;
+	}
+
+
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.

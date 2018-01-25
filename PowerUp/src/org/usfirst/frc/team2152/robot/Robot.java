@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2152.robot.utilities.NavX;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
 
@@ -27,6 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Log m_logger;
+	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
 	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_75,Gain.DEFAULT_DEADBAND);
 
