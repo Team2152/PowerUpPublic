@@ -8,6 +8,9 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
+import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2152.robot.utilities.NavX;
+import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -29,6 +32,9 @@ public class Robot extends TimedRobot {
 	public static Log m_logger;
 	public Dashboard powerUpDashboard = new Dashboard();
 	public static String PLATE_ASSIGNMENT;
+	public static final NavX navxSubsystem = new NavX();
+	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
+	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_75,Gain.DEFAULT_DEADBAND);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -41,8 +47,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_logger = new Log(true);
-		
-		
+
+
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -119,6 +125,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+
 	}
 
 	/**
