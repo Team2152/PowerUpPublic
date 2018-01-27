@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -153,7 +156,7 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-
-
+			dButtonA.whenReleased(new MoveByEncoder(130,130,.75, true));
+			dButtonB.whenReleased(new PreCannedTurn(90,false));
 	}
 }

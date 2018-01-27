@@ -22,20 +22,17 @@ public class MoveByEncoder extends Command implements PIDOutput {
 	double errorFromHeadingHH = 0.0;
 	float setPointHH = 0.0f;
 	private boolean clearBacklash = false;
-	
-	
-	// Needs to be tuned for new robot/carpet
-	
-	
+
 	public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrainSubsystem);
+		requires(Robot.navxSubsystem);
 		this.clearBacklash = clearBacklash;
 		motorSpeed = speed;
 		LeftDistance = leftDistance;
 		RightDistance = rightDistance;
-		requires(Robot.navxSubsystem);
+		
 
 		// Setup Heading Hold PID
 
@@ -76,6 +73,11 @@ public class MoveByEncoder extends Command implements PIDOutput {
 		
 		Robot.driveTrainSubsystem.arcadeDrive(0, 0);
 
+			contrL.setPID(PIDConstants.ENCODER_DRIVE_LOW_Kp, PIDConstants.ENCODER_DRIVE_LOW_Ki,
+					PIDConstants.ENCODER_DRIVE_LOW_Kd);
+			contrR.setPID(PIDConstants.ENCODER_DRIVE_LOW_Kp, PIDConstants.ENCODER_DRIVE_LOW_Ki,
+					PIDConstants.ENCODER_DRIVE_LOW_Kd);
+		
 		Robot.driveTrainSubsystem.resetAllEncoders();
 		contrR.setSetpoint(RightDistance);
 		contrL.setSetpoint(LeftDistance);

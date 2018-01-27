@@ -70,7 +70,7 @@ public class DriveTrain extends Subsystem {
 		left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
 
 		drive = new DifferentialDrive(left1,right1);
-		drive.setSafetyEnabled(true);
+		drive.setSafetyEnabled(false);
 
 		encoderR = new Encoder(encoderRA, encoderRB, true, EncodingType.k4X);
 		encoderR.setDistancePerPulse(DISTANCE_PER_PULSE);
@@ -93,7 +93,7 @@ public class DriveTrain extends Subsystem {
 	 * 					from -1 to 1
 	 */
 	public void tankDrive(double leftSpeed, double rightSpeed) {
-		drive.tankDrive(leftSpeed, rightSpeed);
+		drive.tankDrive(leftSpeed, rightSpeed,false);
 	}
 	
 	/**

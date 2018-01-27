@@ -33,6 +33,13 @@ public class PreCannedTurn extends Command implements PIDOutput {
 		this.spinLeft = spinLeft;
 
 	}
+	
+	public PreCannedTurn(int setpoint, boolean spinLeft){
+		requires(Robot.driveTrainSubsystem);
+		requires(Robot.navxSubsystem);
+		this.setPointPCT = setpoint;
+		this.spinLeft = spinLeft;
+	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
