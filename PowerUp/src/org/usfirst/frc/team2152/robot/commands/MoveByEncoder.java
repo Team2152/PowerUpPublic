@@ -22,7 +22,11 @@ public class MoveByEncoder extends Command implements PIDOutput {
 	double errorFromHeadingHH = 0.0;
 	float setPointHH = 0.0f;
 	private boolean clearBacklash = false;
-
+	
+	
+	// Needs to be tuned for new robot/carpet
+	
+	
 	public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
