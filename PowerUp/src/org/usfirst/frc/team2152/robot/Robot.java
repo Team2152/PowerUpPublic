@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
+import org.usfirst.frc.team2152.robot.auto.BaselineRight;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
@@ -51,6 +53,9 @@ public class Robot extends TimedRobot {
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		m_chooser.addDefault("No Auto", null);
+		m_chooser.addObject("BaseLine Left", new BaselineLeft());
+		m_chooser.addObject("BaseLine Right", new BaselineRight());
 	}
 
 	/**
@@ -65,8 +70,10 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("Raw 1", Robot.m_oi.driverXbox.getRawAxis(1));
+		SmartDashboard.putNumber("Raw 4", Robot.m_oi.driverXbox.getRawAxis(4));
 		Scheduler.getInstance().run();
-		
+
 	}
 
 	/**

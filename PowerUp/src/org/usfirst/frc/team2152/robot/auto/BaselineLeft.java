@@ -26,6 +26,6 @@ public class BaselineLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new MoveByEncoder(0,0,0,true)); // Needs to be tuned for new robot/carpet
+    	addSequential(new MoveByEncoder(120, 120, 0.5, true)); // Needs to be tuned for new robot/carpet
     }
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Takes input from the joystick and outputs it to the motors, PID turning and
@@ -29,6 +30,8 @@ public class LimeDrive extends Command {
 		double outputTurn = 0;
 		outputThrottle = Robot.m_oi.driverXbox.getRawAxis(1);
 		outputTurn = Robot.m_oi.driverXbox.getRawAxis(4);
+		
+
 		if (Robot.m_oi.driverXbox.getRawButton(5) || (Math.abs(outputThrottle) <= 0.25)) {
 			Robot.driveTrainSubsystem.arcadeDrive(0.0, (outputTurn * 0.66));
 		} else {

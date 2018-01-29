@@ -105,7 +105,7 @@ public class DriveTrain extends Subsystem {
 	 *            The value to use for the rotate right/left
 	 */
 	public void arcadeDrive(double forward, double turn) {
-		drive.arcadeDrive(forward, turn);
+		drive.arcadeDrive(forward, turn, false);
 
 	}
 
