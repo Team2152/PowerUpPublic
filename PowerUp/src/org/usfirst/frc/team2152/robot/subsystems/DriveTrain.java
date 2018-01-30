@@ -93,7 +93,7 @@ public class DriveTrain extends Subsystem {
 	 * 					from -1 to 1
 	 */
 	public void tankDrive(double leftSpeed, double rightSpeed) {
-		drive.tankDrive(leftSpeed, rightSpeed,false);
+		drive.tankDrive(leftSpeed, rightSpeed);
 	}
 	
 	/**
