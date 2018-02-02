@@ -5,6 +5,7 @@ import org.usfirst.frc.team2152.robot.commands.LimeDrive;
 import org.usfirst.frc.team2152.robot.commands.TankDriveJoystick;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -72,7 +73,7 @@ public class DriveTrain extends Subsystem {
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(false);
 
-		encoderR = new Encoder(encoderRA, encoderRB, true, EncodingType.k4X);
+		/*encoderR = new Encoder(encoderRA, encoderRB, true, EncodingType.k4X);
 		encoderR.setDistancePerPulse(DISTANCE_PER_PULSE);
 		encoderR.setSamplesToAverage(1);
 		encoderR.reset();
@@ -81,6 +82,13 @@ public class DriveTrain extends Subsystem {
 		encoderL.setDistancePerPulse(DISTANCE_PER_PULSE);
 		encoderL.setSamplesToAverage(1);
 		encoderL.reset();
+		*/
+		
+		right1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		
+		
+		
 
 	}
 
@@ -178,6 +186,16 @@ public class DriveTrain extends Subsystem {
 		encoderL.setPIDSourceType(type);
 		return encoderL;
 	}
+	
+	public double getRSensorPosition(){
+		return right1.getSelectedSensorPosition(0);
+	}
+	
+	public double getLSensorPosition(){
+		return left1.getSelectedSensorPosition(0);
+	}
+	
+	
 
 
 

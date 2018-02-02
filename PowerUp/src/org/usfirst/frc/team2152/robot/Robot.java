@@ -70,8 +70,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putNumber("Raw 1", Robot.m_oi.driverXbox.getRawAxis(1));
-		SmartDashboard.putNumber("Raw 4", Robot.m_oi.driverXbox.getRawAxis(4));
+		SmartDashboard.putNumber("L Sensor Position", driveTrainSubsystem.getLSensorPosition());
+		SmartDashboard.putNumber("R Sensor Position", driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 
 	}
@@ -131,6 +131,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("L Sensor Position", driveTrainSubsystem.getLSensorPosition());
+		SmartDashboard.putNumber("R Sensor Position", driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 
 	}
