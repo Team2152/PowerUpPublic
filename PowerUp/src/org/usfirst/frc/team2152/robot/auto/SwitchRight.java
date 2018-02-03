@@ -2,7 +2,9 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -27,10 +29,11 @@ public class SwitchRight extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	String switchPosition = Robot.PLATE_ASSIGNMENT.substring(0,1);
+    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	if (switchPosition == "L"){
-    		// Needs to be tuned for new robot/carpet
+    		// Navigate to left side and deliver Cube
     	} else if (switchPosition == "R"){
-    		// Needs to be tuned for new robot/carpet
+    		// Navigate to right side and deliver Cube
     	} 
     }
 }

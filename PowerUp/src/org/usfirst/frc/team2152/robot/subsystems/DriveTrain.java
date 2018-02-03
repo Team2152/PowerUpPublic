@@ -22,9 +22,9 @@ public class DriveTrain extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
+	
 	private static final double DISTANCE_PER_PULSE = 0.01112647398146385105288852864912;
 
-	// === Steamworks Speed Controllers
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
 	private WPI_TalonSRX right3;
@@ -40,13 +40,13 @@ public class DriveTrain extends Subsystem {
 	private Encoder encoderL;
 	private int encoderLA = RobotMap.DIO_2;
 	private int encoderLB = RobotMap.DIO_3;
+	
 
 	// === Drive Train Object
 	private DifferentialDrive drive;
 
 	public DriveTrain() {
 
-		// Steamworks Motor Controllers
 		// Create TalonSRX Objects for each of the motors
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_Id);
 		right1.setNeutralMode(NeutralMode.Brake);
@@ -72,8 +72,10 @@ public class DriveTrain extends Subsystem {
 
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(false);
-
-		/*encoderR = new Encoder(encoderRA, encoderRB, true, EncodingType.k4X);
+		
+		
+		//Steamworks encoders
+		encoderR = new Encoder(encoderRA, encoderRB, true, EncodingType.k4X);
 		encoderR.setDistancePerPulse(DISTANCE_PER_PULSE);
 		encoderR.setSamplesToAverage(1);
 		encoderR.reset();
@@ -82,10 +84,13 @@ public class DriveTrain extends Subsystem {
 		encoderL.setDistancePerPulse(DISTANCE_PER_PULSE);
 		encoderL.setSamplesToAverage(1);
 		encoderL.reset();
-		*/
+		
 		
 		right1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		right1.setSensorPhase(false);
+		
 		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
+		left1.setSensorPhase(false);
 		
 		
 		
@@ -187,10 +192,19 @@ public class DriveTrain extends Subsystem {
 		return encoderL;
 	}
 	
+	/**
+	 * Returns the position of the encoder that is connected to the lead right motor controller
+	 * @return the value of the sensor position as a double
+	 */
 	public double getRSensorPosition(){
 		return right1.getSelectedSensorPosition(0);
 	}
 	
+	
+	/**
+	 * Returns the position of the encoder that is connected to the lead left motor controller
+	 * @return the value of the sensor position as a double
+	 */
 	public double getLSensorPosition(){
 		return left1.getSelectedSensorPosition(0);
 	}

@@ -7,8 +7,12 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
+import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
+import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
+import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
@@ -37,10 +41,10 @@ public class Robot extends TimedRobot {
 	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
 	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_75,Gain.DEFAULT_DEADBAND);
-
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -52,10 +56,17 @@ public class Robot extends TimedRobot {
 
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		
+		SmartDashboard.putNumber("Autonomous Delay", 0);
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
+		m_chooser.addObject("BaseLine Center", new BaselineCenter());
+		m_chooser.addObject("Switch Left", new SwitchLeft());
+		m_chooser.addObject("Switch Right", new SwitchRight());
+		m_chooser.addObject("Switch Center", new SwitchCenter());
 	}
 
 	/**
@@ -70,8 +81,6 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putNumber("L Sensor Position", driveTrainSubsystem.getLSensorPosition());
-		SmartDashboard.putNumber("R Sensor Position", driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 
 	}
@@ -92,7 +101,7 @@ public class Robot extends TimedRobot {
 		//PLATE_ASSIGNMENT must be defined before autonomous is finalized for a match
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 		powerUpDashboard.putPlateAssignment();
-		m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = (Command) m_chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -131,8 +140,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("L Sensor Position", driveTrainSubsystem.getLSensorPosition());
-		SmartDashboard.putNumber("R Sensor Position", driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 
 	}
