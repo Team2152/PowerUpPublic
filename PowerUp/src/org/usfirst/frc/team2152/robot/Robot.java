@@ -36,7 +36,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static Log m_logger;
-	public Dashboard powerUpDashboard = new Dashboard();
+	public static Dashboard powerUpDashboard = new Dashboard();
 	public static String PLATE_ASSIGNMENT;
 	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
-		SmartDashboard.putNumber("Autonomous Delay", 0);
+		SmartDashboard.putNumber("Auto Delay", 0);
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_chooser.addDefault("No Auto", null);
@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
 		//PLATE_ASSIGNMENT must be defined before autonomous is finalized for a match
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 		powerUpDashboard.putPlateAssignment();
-		m_autonomousCommand = (Command) m_chooser.getSelected();
+		m_autonomousCommand = m_chooser.getSelected();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {

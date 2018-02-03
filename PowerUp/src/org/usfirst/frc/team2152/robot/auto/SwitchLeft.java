@@ -28,11 +28,12 @@ public class SwitchLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	String switchPosition = Robot.PLATE_ASSIGNMENT.substring(0,1);
+    	//Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	if (switchPosition == "L"){
+    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	if (switchPosition == "Left"){
     		// Navigate to left side and deliver Cube
-    	} else if (switchPosition == "R"){
+    	} else if (switchPosition == "Right"){
     		// Navigate to right side and deliver Cube
     	} 
     }
