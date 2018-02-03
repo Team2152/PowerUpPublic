@@ -103,13 +103,6 @@ public class Robot extends TimedRobot {
 		powerUpDashboard.putPlateAssignment();
 		m_autonomousCommand = (Command) m_chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
-
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
