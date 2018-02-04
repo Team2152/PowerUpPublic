@@ -25,8 +25,8 @@ public class RobotMap {
 	// public static int rangefinderModule = 1;
 
 	// === Steamworks Drive Train Subsystem IDs
-	public static final int LEFT_DRIVE_1_CAN_Id  = 1;
-	public static final int LEFT_DRIVE_2_CAN_Id  = 2;
+	public static final int LEFT_DRIVE_1_CAN_Id  = 7;
+	public static final int LEFT_DRIVE_2_CAN_Id  = 8;
 	public static final int LEFT_DRIVE_3_CAN_Id  = 3;
 
 	public static final int RIGHT_DRIVE_1_CAN_Id = 4;
@@ -42,4 +42,12 @@ public class RobotMap {
 	public static final int DIO_1 = 1; // ENCODER 1B
 	public static final int DIO_2 = 2; // ENCODER 2A
 	public static final int DIO_3 = 3; // ENCODER 2B
+	
+	public static final int LIFT_MOVE_1_CAN_ID    = 7; 
+
+	
+	public static final int CUBE_INTAKE_RIGHT    = 1;
+	public static final int CUBE_INTAKE_LEFT     = 2;
+	
+	
 }

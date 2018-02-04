@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.subsystems.CubeIntake;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.utilities.NavX;
@@ -35,6 +36,8 @@ public class Robot extends TimedRobot {
 	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
 	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_75,Gain.DEFAULT_DEADBAND);
+	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
+	
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
