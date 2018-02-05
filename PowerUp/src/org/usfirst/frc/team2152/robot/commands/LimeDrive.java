@@ -28,8 +28,8 @@ public class LimeDrive extends Command {
 	protected void execute() {
 		double outputThrottle = 0;
 		double outputTurn = 0;
-		outputThrottle = Robot.m_oi.driverXbox.getRawAxis(1);
-		outputTurn = Robot.m_oi.driverXbox.getRawAxis(4);
+		outputThrottle = Robot.driveTrainJoysickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(1));
+		outputTurn = Robot.driveTrainJoysickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4));
 		
 
 		if (Robot.m_oi.driverXbox.getRawButton(5) || (Math.abs(outputThrottle) <= 0.25)) {

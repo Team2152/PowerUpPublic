@@ -156,7 +156,7 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-			dButtonB.whenReleased(new PreCannedTurn(90,false));
-			dButtonA.whenReleased(new MoveByEncoder(120	, 120, 0.75, false));
+			//dButtonB.whenReleased(new PreCannedTurn(90,false));
+			//dButtonA.whenReleased(new MoveByEncoder(120	, 120, 0.75, false));
 	}
 }
