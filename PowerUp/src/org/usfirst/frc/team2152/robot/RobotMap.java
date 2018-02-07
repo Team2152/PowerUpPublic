@@ -33,17 +33,5 @@ public class RobotMap {
 	public static final int LEFT_DRIVE_2_CAN_Id  = 5;
 	public static final int LEFT_DRIVE_3_CAN_Id  = 6;
 
-	
-	
-	
-	//Steamworks encoder IDs
-	public static final int RIGHT_ENCODER_A_DI   = 0;
-	public static final int RIGHT_ENCODER_B_DI   = 1;
-	public static final int LEFT_ENCODER_A_DI    = 2;
-	public static final int LEFT_ENCODER_B_DI    = 3;
-	
-	public static final int DIO_0 = 0; // ENCODER 1A
-	public static final int DIO_1 = 1; // ENCODER 1B
-	public static final int DIO_2 = 2; // ENCODER 2A
-	public static final int DIO_3 = 3; // ENCODER 2B
+
 }

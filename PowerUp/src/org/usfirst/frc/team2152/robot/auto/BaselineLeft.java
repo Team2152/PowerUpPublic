@@ -1,6 +1,5 @@
 package org.usfirst.frc.team2152.robot.auto;
 
-import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -29,6 +28,5 @@ public class BaselineLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	addSequential(new MoveByEncoder(120, 120, 0.5, true)); // Needs to be tuned for new robot/carpet
     }
 }

@@ -39,8 +39,7 @@ public class LimeDrive extends Command {
 		}
 		
 		if(Robot.m_oi.driverXbox.getRawButton(1)){
-			Robot.driveTrainSubsystem.resetREncoder();
-			Robot.driveTrainSubsystem.resetLEncoder();
+			Robot.driveTrainSubsystem.resetEncoders(true, true);
 		}
 	}
 

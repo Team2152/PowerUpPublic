@@ -8,19 +8,24 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class MoveByPosition extends Command {
-
-    public MoveByPosition() {
+	private double leftDistance = 0;
+	private double rightDistance = 0;
+    public MoveByPosition(double leftDistance, double rightDistance) {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis); 
+        // eg. requires(chassis);
+    	this.leftDistance = leftDistance;
+    	this.rightDistance = rightDistance;
+    	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrainSubsystem.moveByPosition(4096);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.driveTrainSubsystem.moveByPosition(leftDistance,rightDistance);
     	
     }
 
