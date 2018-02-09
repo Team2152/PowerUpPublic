@@ -6,8 +6,11 @@ import org.usfirst.frc.team2152.robot.commands.CubeIntakeMove;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -18,18 +21,30 @@ public class CubeIntake extends Subsystem {
 	// here. Call these from Commands.
 	
 	DoubleSolenoid cubeSolenoid;
-	private WPI_TalonSRX cubeIntakeRight;
-	private WPI_TalonSRX cubeIntakeLeft;
+	private Victor cubeIntakeRight;
+	private Victor cubeIntakeLeft;
 	
+	private DigitalInput cubeDetectOuterRight;
+	private DigitalInput cubeDetectOuterLeft;
+	private DigitalInput cubeDetectInnerRight;
+	private DigitalInput cubeDetectInnerLeft;
 	
 	
 	public CubeIntake(){
 
-		cubeIntakeRight = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_RIGHT);
-		cubeIntakeLeft = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_LEFT);
+		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT);
+		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT);
 		
 		cubeSolenoid = new DoubleSolenoid(0, 1);
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
+		
+		
+		cubeDetectOuterRight = new DigitalInput(RobotMap.DIO_4);
+		cubeDetectOuterLeft  = new DigitalInput(RobotMap.DIO_5);
+		cubeDetectInnerRight = new DigitalInput(RobotMap.DIO_6);
+		cubeDetectInnerLeft  = new DigitalInput(RobotMap.DIO_7);
+		
+		
 	}
 	
 	public void cubeIntakeMove(double cubeIntakeSpeed){
@@ -60,6 +75,26 @@ public class CubeIntake extends Subsystem {
 	public void cubeSolenoidClose(){
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
+	
+	public boolean cubeDetectOutRight(){
+		return cubeDetectOuterRight.get();
+	}
+
+	public boolean cubeDetectOutLeft(){
+		return cubeDetectOuterLeft.get();
+		
+	}
+	
+	public boolean cubeDetectInRight(){
+		return !cubeDetectInnerRight.get();
+	}
+	
+	public boolean cubeDetectInLeft(){
+		return !cubeDetectInnerLeft.get();
+		
+	}
+	
+	
 	
 	
 	
