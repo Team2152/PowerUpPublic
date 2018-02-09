@@ -25,7 +25,9 @@ public class DriveTrain extends Subsystem {
 	private static final int kSlotIdx = 0;
 	private static final int kPIDLoopIdx = 0;
 	private static final int kTimeoutMs = 10;
-	
+	private static double kP = 0.1;//.046;
+	private static double kI = 0;//.00007;
+	private static double kD = 0;//.0;
 	
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
@@ -72,28 +74,29 @@ public class DriveTrain extends Subsystem {
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(false);
 		
+		
 		right1.configNominalOutputForward(0, kTimeoutMs);
 		right1.configNominalOutputReverse(0, kTimeoutMs);
 		right1.configPeakOutputForward(1, kTimeoutMs);
 		right1.configPeakOutputReverse(-1, kTimeoutMs);
 		right1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
 		right1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
-		right1.config_kP(kPIDLoopIdx, 0.1, kTimeoutMs);
-		right1.config_kI(kPIDLoopIdx, 0.001, kTimeoutMs);
-		right1.config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+		right1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
+		right1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
+		right1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		right1.setSensorPhase(true);
 		
-	
+		
 		left1.configNominalOutputForward(0, kTimeoutMs);
 		left1.configNominalOutputReverse(0, kTimeoutMs);
 		left1.configPeakOutputForward(1, kTimeoutMs);
 		left1.configPeakOutputReverse(-1, kTimeoutMs);
 		left1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
 		left1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
-		left1.config_kP(kPIDLoopIdx, 0.1, kTimeoutMs);
-		left1.config_kI(kPIDLoopIdx, 0.001, kTimeoutMs);
-		left1.config_kD(kPIDLoopIdx, 0.0, kTimeoutMs);
+		left1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
+		left1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
+		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		left1.setSensorPhase(false);
 		
@@ -177,6 +180,36 @@ public class DriveTrain extends Subsystem {
 		
 	}
 	
+	public void invertMotors(boolean leftInvert, boolean rightInvert,boolean leftSensorInvert,boolean rightSensorInvert){
+		left1.setInverted(leftInvert);
+		left2.setInverted(leftInvert);
+		left3.setInverted(leftInvert);
+		right1.setInverted(rightInvert);
+		right2.setInverted(rightInvert);
+		right3.setInverted(rightInvert);
+		
+		left1.setSensorPhase(leftSensorInvert);
+		right1.setSensorPhase(rightSensorInvert);
+	}
+	
+	public void setPID(double p, double i, double d){
+		kP = p;
+		kI = i;
+		kD = d;
+	}
+	
+	public double getP(){
+		return kP;
+	}
+	
+	public double getI(){
+		return kI;
+	}
+	
+	public double getD(){
+		return kD;
+	}
+	
 	
 	
 
@@ -185,8 +218,8 @@ public class DriveTrain extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new LimeDrive());
-		//setDefaultCommand(new TankDriveJoystick());
+		//setDefaultCommand(new LimeDrive());
+		setDefaultCommand(new TankDriveJoystick());
 	}
 }
 

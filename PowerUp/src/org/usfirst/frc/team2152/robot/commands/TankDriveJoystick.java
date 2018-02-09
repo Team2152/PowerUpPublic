@@ -24,6 +24,11 @@ public class TankDriveJoystick extends Command {
 	protected void execute() {
 		Robot.driveTrainSubsystem.tankDrive(Robot.driveTrainJoysickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(OI.XBOX_LEFT_YAXIS)),
 				Robot.driveTrainJoysickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(OI.XBOX_RIGHT_YAXIS)));
+		
+		
+		if(Robot.m_oi.driverXbox.getRawButton(1)){
+			Robot.driveTrainSubsystem.resetEncoders(true, true);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

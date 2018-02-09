@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
+import org.usfirst.frc.team2152.robot.commands.TankDriveByTime;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -155,7 +156,8 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-			dButtonB.whenReleased(new MoveByPosition(4096,4096));
+			dButtonX.whenReleased(new TankDriveByTime(.75,.75,3));
+			dButtonB.whenReleased(new MoveByPosition(5000 * 3,5000 * 3));
 			//dButtonB.whenReleased(new PreCannedTurn(90,false));
 			//dButtonA.whenReleased(new MoveByEncoder(120	, 120, 0.75, false));
 	}

@@ -60,6 +60,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Auto Delay", 0);
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		SmartDashboard.putNumber("P", driveTrainSubsystem.getP());
+		SmartDashboard.putNumber("I", driveTrainSubsystem.getI());
+		SmartDashboard.putNumber("D", driveTrainSubsystem.getD());
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
@@ -81,6 +85,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
+		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
 
 	}
@@ -134,6 +140,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Encoder Difference", Math.abs(Robot.driveTrainSubsystem.getRSensorPosition() - Robot.driveTrainSubsystem.getLSensorPosition()));
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
