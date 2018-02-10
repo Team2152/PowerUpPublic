@@ -77,11 +77,11 @@ public class CubeIntake extends Subsystem {
 	}
 	
 	public boolean cubeDetectOutRight(){
-		return cubeDetectOuterRight.get();
+		return !cubeDetectOuterRight.get();
 	}
 
 	public boolean cubeDetectOutLeft(){
-		return cubeDetectOuterLeft.get();
+		return !cubeDetectOuterLeft.get();
 		
 	}
 	

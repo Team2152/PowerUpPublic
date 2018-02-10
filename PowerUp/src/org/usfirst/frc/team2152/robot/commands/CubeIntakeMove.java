@@ -66,6 +66,22 @@ public class CubeIntakeMove extends Command {
 			Robot.cubeIntakeSubsystem.cubeRotateLeft(0);
 			Robot.cubeIntakeSubsystem.cubeRotateRight(0);
 		}
+	
+		if(Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true || Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true){
+ 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+
+		}else if(joystick.getRawButton(cubeButtonBumpLid) == true){
+			Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+
+		}
+		else if (joystick.getRawButton(cubeButtonBumpRid) == true) {
+ 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+ 		}
+		
+		
+
+	
+	
 	}
 
 	
