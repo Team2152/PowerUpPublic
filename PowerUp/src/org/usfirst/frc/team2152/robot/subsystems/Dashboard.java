@@ -89,6 +89,28 @@ public class Dashboard extends Subsystem {
 		return d;
 	}
 	
+	public void putEncoderReset(){
+		SmartDashboard.putBoolean("Reset Left Encoder", false);
+		SmartDashboard.putBoolean("Reset Right Encoder", false);
+		SmartDashboard.putBoolean("Reset Both Encoders", false);
+	}
+	
+	public boolean getEncoderReset(String encoder){
+		boolean b = false;
+		switch (encoder){
+		case "Left":
+			b = SmartDashboard.getBoolean("Reset Left Encoder", false);
+			break;
+		case "Right":
+			b =	SmartDashboard.getBoolean("Reset Right Encoder", false);
+			break;
+		case "Both":
+			b = SmartDashboard.getBoolean("Reset Both Encoders", false);
+			break;
+		}
+		return b;
+	}
+	
 	/**
 	 * Shows cube possession on the Dashboard
 	 * @param status Cube possession data
