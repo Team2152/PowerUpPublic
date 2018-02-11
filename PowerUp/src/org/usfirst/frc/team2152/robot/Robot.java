@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 	public Dashboard powerUpDashboard = new Dashboard();
 	public static String PLATE_ASSIGNMENT;
 	public static final NavX navxSubsystem = new NavX();
-	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
+	public static final DriveTrain driveTrainSubsystem =  null; //new DriveTrain(); Trevor
 	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_75,Gain.DEFAULT_DEADBAND);
 	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
 	//public static final CubeMove cubeMoveSubsystem     = new CubeMove();

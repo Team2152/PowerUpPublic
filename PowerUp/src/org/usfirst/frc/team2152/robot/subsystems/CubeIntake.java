@@ -21,8 +21,12 @@ public class CubeIntake extends Subsystem {
 	// here. Call these from Commands.
 	
 	DoubleSolenoid cubeSolenoid;
-	private Victor cubeIntakeRight;
-	private Victor cubeIntakeLeft;
+	private WPI_TalonSRX cubeIntakeRight;
+	private WPI_TalonSRX cubeIntakeLeft;
+	
+	
+//	private Victor cubeIntakeRight;
+//	private Victor cubeIntakeLeft;
 	
 	private DigitalInput cubeDetectOuterRight;
 	private DigitalInput cubeDetectOuterLeft;
@@ -32,8 +36,11 @@ public class CubeIntake extends Subsystem {
 	
 	public CubeIntake(){
 
-		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT);
-		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT);
+		cubeIntakeRight = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_RIGHT);
+		cubeIntakeLeft = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_LEFT);
+		
+//		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT);
+//		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT);
 		
 		cubeSolenoid = new DoubleSolenoid(0, 1);
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);

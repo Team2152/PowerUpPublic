@@ -43,7 +43,8 @@ public class CubeIntakeMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == false && Robot.cubeIntakeSubsystem.cubeDetectInLeft() == false) {
+		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == false
+				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == false) {
 
 			if (joystick.getRawButton(cubeButtonAid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
@@ -60,32 +61,37 @@ public class CubeIntakeMove extends Command {
 				Robot.cubeIntakeSubsystem.cubeRotateRight(0);
 			}
 
-		} else{
+		} else {
 			Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
 			Robot.cubeIntakeSubsystem.cubeExpelMove(0);
 			Robot.cubeIntakeSubsystem.cubeRotateLeft(0);
 			Robot.cubeIntakeSubsystem.cubeRotateRight(0);
 		}
-	
-		if(Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true || Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true){
- 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
 
-		}else if(joystick.getRawButton(cubeButtonBumpLid) == true){
-			Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == true
+				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == true) {
+			if (joystick.getRawButton(cubeButtonYid) == true) {
+				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
+			} else {
+				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+			}
 
 		}
-		else if (joystick.getRawButton(cubeButtonBumpRid) == true) {
- 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
- 		}
-		
-		
 
-	
-	
+		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
+				|| Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
+			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+		}
+
+		if (joystick.getRawButton(cubeButtonBumpLid) == true) {
+			Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+		} else if (joystick.getRawButton(cubeButtonBumpRid) == true) {
+			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+		}
+
 	}
 
-	
-    // Make this return true when this Command no longer needs to run execute()
+	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return false;
 	}

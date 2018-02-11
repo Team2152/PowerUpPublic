@@ -9,6 +9,7 @@
 //import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 //
 //import edu.wpi.first.wpilibj.command.Subsystem;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //
 ///**
 // *
@@ -19,15 +20,28 @@
 //	// here. Call these from Commands.
 //
 //	private WPI_TalonSRX cubeMoveTalon;
+//	
+//	
+//	
 //
 //	public CubeMove(){
 //		cubeMoveTalon = new WPI_TalonSRX(RobotMap.LIFT_MOVE_1_CAN_ID);
 //		cubeMoveTalon.setNeutralMode(NeutralMode.Brake);
 //	
 //		cubeMoveTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0 ,0);
-//		cubeMoveTalon.setSensorPhase(false);		
+//		cubeMoveTalon.setSensorPhase(false);	
+//		
+//		
+//		
+//		
 //	}
 //
+//	public double getCubeEncoderPosition(){
+//		double getCubeEncoderPosition = cubeMoveTalon.getSelectedSensorPosition(0);
+//		SmartDashboard.putNumber("Cube Encoder Position", getCubeEncoderPosition);
+//		return getCubeEncoderPosition;
+//	}
+//	
 //	public void setCubeRaiseSpeed(double cubeMoveSpeed) {
 //		cubeMoveTalon.set(cubeMoveSpeed);	
 //	}
