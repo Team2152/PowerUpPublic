@@ -23,8 +23,8 @@ public class MoveByPosition extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.driveTrainSubsystem.setPID(SmartDashboard.getNumber("P", 
-    		//	0),SmartDashboard.getNumber("I", 0),SmartDashboard.getNumber("D", 0));
+    	Robot.driveTrainSubsystem.setPID(SmartDashboard.getNumber("P", 
+    			0),SmartDashboard.getNumber("I", 0),SmartDashboard.getNumber("D", 0));
     	Robot.driveTrainSubsystem.invertMotors(false, true, true, true);
     	watchDog.reset();
     	watchDog.start();

@@ -18,16 +18,16 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 /**
  *
  */
-public class DriveTrain extends Subsystem {
+public class DriveTrain extends Subsystem{
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	private static final int kSlotIdx = 0;
 	private static final int kPIDLoopIdx = 0;
 	private static final int kTimeoutMs = 10;
-	private static double kP = 0.1;//.046;
-	private static double kI = 0;//.00007;
-	private static double kD = 0;//.0;
+	private static double kP = 2.6;
+	private static double kI = 0;
+	private static double kD = 0;
 	
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
@@ -46,6 +46,17 @@ public class DriveTrain extends Subsystem {
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_Id);
 		right1.setNeutralMode(NeutralMode.Brake);
 		right1.setInverted(true);
+		right1.configNominalOutputForward(0, kTimeoutMs);
+		right1.configNominalOutputReverse(0, kTimeoutMs);
+		right1.configPeakOutputForward(1, kTimeoutMs);
+		right1.configPeakOutputReverse(-1, kTimeoutMs);
+		right1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
+		right1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
+		right1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
+		right1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
+		right1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
+		right1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		right1.setSensorPhase(true);
 
 		right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_2_CAN_Id);
 		right2.setNeutralMode(NeutralMode.Brake);
@@ -60,6 +71,17 @@ public class DriveTrain extends Subsystem {
 		left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_1_CAN_Id);
 		left1.setNeutralMode(NeutralMode.Brake);
 		left1.setInverted(true);
+		left1.configNominalOutputForward(0, kTimeoutMs);
+		left1.configNominalOutputReverse(0, kTimeoutMs);
+		left1.configPeakOutputForward(1, kTimeoutMs);
+		left1.configPeakOutputReverse(-1, kTimeoutMs);
+		left1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
+		left1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
+		left1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
+		left1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
+		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
+		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		left1.setSensorPhase(false);
 		
 		left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_2_CAN_Id);
 		left2.setNeutralMode(NeutralMode.Brake);
@@ -75,30 +97,10 @@ public class DriveTrain extends Subsystem {
 		drive.setSafetyEnabled(false);
 		
 		
-		right1.configNominalOutputForward(0, kTimeoutMs);
-		right1.configNominalOutputReverse(0, kTimeoutMs);
-		right1.configPeakOutputForward(1, kTimeoutMs);
-		right1.configPeakOutputReverse(-1, kTimeoutMs);
-		right1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
-		right1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
-		right1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-		right1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-		right1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
-		right1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		right1.setSensorPhase(true);
 		
 		
-		left1.configNominalOutputForward(0, kTimeoutMs);
-		left1.configNominalOutputReverse(0, kTimeoutMs);
-		left1.configPeakOutputForward(1, kTimeoutMs);
-		left1.configPeakOutputReverse(-1, kTimeoutMs);
-		left1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
-		left1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
-		left1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-		left1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
-		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		left1.setSensorPhase(false);
+		
+		
 		
 	}
 
@@ -175,6 +177,10 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public void moveByPosition(double setPointLeft, double setPointRight){
+		right1.configPeakOutputForward(.45, kTimeoutMs);
+		right1.configPeakOutputReverse(-.45, kTimeoutMs);
+		left1.configPeakOutputForward(.45, kTimeoutMs);
+		left1.configPeakOutputReverse(-.45, kTimeoutMs);
 		left1.set(ControlMode.Position, setPointLeft);
 		right1.set(ControlMode.Position, setPointRight);
 		
@@ -219,7 +225,7 @@ public class DriveTrain extends Subsystem {
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
 		//setDefaultCommand(new LimeDrive());
-		setDefaultCommand(new TankDriveJoystick());
+		//setDefaultCommand(new TankDriveJoystick());
 	}
 }
 
