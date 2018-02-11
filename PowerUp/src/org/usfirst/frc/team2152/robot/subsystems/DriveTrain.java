@@ -3,14 +3,13 @@ package org.usfirst.frc.team2152.robot.subsystems;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LimeDrive;
 import org.usfirst.frc.team2152.robot.commands.TankDriveJoystick;
+import org.usfirst.frc.team2152.robot.utilities.TalonPIDSource;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -22,6 +21,7 @@ public class DriveTrain extends Subsystem{
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
+	public static final double DISTANCE_PER_PULSE = (Math.PI * 6) * 4096;
 	private static final int kSlotIdx = 0;
 	private static final int kPIDLoopIdx = 0;
 	private static final int kTimeoutMs = 10;
@@ -39,9 +39,15 @@ public class DriveTrain extends Subsystem{
 
 	// === Drive Train Object
 	private DifferentialDrive drive;
-
+	
+	private TalonPIDSource talonPIDL;
+	private TalonPIDSource talonPIDR;
+	
 	public DriveTrain() {
-
+		
+		
+		
+		
 		// Create TalonSRX Objects for each of the motors
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_Id);
 		right1.setNeutralMode(NeutralMode.Brake);
@@ -98,8 +104,8 @@ public class DriveTrain extends Subsystem{
 		
 		
 		
-		
-		
+		talonPIDR = new TalonPIDSource(TalonPIDSource.RIGHT_TALON);
+		talonPIDL = new TalonPIDSource(TalonPIDSource.LEFT_TALON);
 		
 		
 	}
@@ -166,6 +172,14 @@ public class DriveTrain extends Subsystem{
 		return left1.getSelectedSensorPosition(0);
 	}
 	
+	public double getRDistance(){
+		return right1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
+	}
+	
+	public double getLDistance(){
+		return left1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
+	}
+	
 	public void resetEncoders(boolean leftReset, boolean rightReset){
 		if (leftReset){
 			left1.setSelectedSensorPosition(0, 0, 0);
@@ -175,7 +189,7 @@ public class DriveTrain extends Subsystem{
 			right1.setSelectedSensorPosition(0, 0, 0);
 		}
 	}
-	
+
 	public void moveByPosition(double setPointLeft, double setPointRight){
 		right1.configPeakOutputForward(.45, kTimeoutMs);
 		right1.configPeakOutputReverse(-.45, kTimeoutMs);
@@ -198,22 +212,15 @@ public class DriveTrain extends Subsystem{
 		right1.setSensorPhase(rightSensorInvert);
 	}
 	
-	public void setPID(double p, double i, double d){
-		kP = p;
-		kI = i;
-		kD = d;
+	
+	public TalonPIDSource getLTalonDistancePID(PIDSourceType type) {
+		talonPIDL.setPIDSourceType(type);
+		return talonPIDL;
 	}
 	
-	public double getP(){
-		return kP;
-	}
-	
-	public double getI(){
-		return kI;
-	}
-	
-	public double getD(){
-		return kD;
+	public TalonPIDSource getRTalonDistancePID(PIDSourceType type) {
+		talonPIDR.setPIDSourceType(type);
+		return talonPIDR;
 	}
 	
 	
@@ -224,8 +231,10 @@ public class DriveTrain extends Subsystem{
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
-		//setDefaultCommand(new LimeDrive());
+		setDefaultCommand(new LimeDrive());
 		//setDefaultCommand(new TankDriveJoystick());
 	}
+
+	
 }
 

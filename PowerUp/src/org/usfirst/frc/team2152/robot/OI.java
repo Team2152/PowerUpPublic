@@ -7,7 +7,9 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
+import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.TankDriveByTime;
 
@@ -158,7 +160,9 @@ public class OI {
 
 	public void setupDriverXboxButtons() {
 			dButtonX.whenReleased(new TankDriveByTime(-.75,-.75,3));
-			dButtonB.whenReleased(new MoveByPosition(4096,4096));
+			//dButtonB.whenReleased(new MoveByPosition(4096,4096));
+			dButtonB.whenReleased(new MoveByEncoder(4096 * 3, 4096 * 3, 0.250, false));
 			dButtonA.whenReleased(new ResetEncoders());
+			//dButtonY.whenReleased(new PreCannedTurn(90, .1, false));
 	}
 }

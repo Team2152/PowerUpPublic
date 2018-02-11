@@ -61,9 +61,6 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
-		SmartDashboard.putNumber("P", driveTrainSubsystem.getP());
-		SmartDashboard.putNumber("I", driveTrainSubsystem.getI());
-		SmartDashboard.putNumber("D", driveTrainSubsystem.getD());
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
