@@ -5,7 +5,6 @@ public class PIDConstants {
 	public static final double ENCODER_DRIVE_kP = .008;
 	public static final double ENCODER_DRIVE_kI = 0;
 	public static final double ENCODER_DRIVE_kD = 0;
-	
 	public static final double ENCODER_DRIVE_kTolerance = 0;
 	
 	public final static double HH_kP = 0.008;

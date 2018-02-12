@@ -52,7 +52,7 @@ public class MoveByEncoder extends Command implements PIDOutput {
 		contrR = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
 				PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getRTalonDistancePID(PIDSourceType.kDisplacement),
 				e -> {
-					Robot.driveTrainSubsystem.setRightSpeed(e  - pidHH.get());
+					Robot.driveTrainSubsystem.setRightSpeed(e - pidHH.get());
 				});
 		contrR.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_kTolerance);
 

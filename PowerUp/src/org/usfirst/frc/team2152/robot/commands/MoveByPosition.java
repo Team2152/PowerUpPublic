@@ -23,7 +23,7 @@ public class MoveByPosition extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.driveTrainSubsystem.invertMotors(false, true, true, true);
+    	Robot.driveTrainSubsystem.invertDriveTrain(false, true, true, true);
     	watchDog.reset();
     	watchDog.start();
 
@@ -50,7 +50,7 @@ public class MoveByPosition extends Command {
     	watchDog.stop();
     	Robot.driveTrainSubsystem.setLeftSpeed(0);
     	Robot.driveTrainSubsystem.setRightSpeed(0);
-    	Robot.driveTrainSubsystem.invertMotors(true, true, false, true);
+    	Robot.driveTrainSubsystem.invertDriveTrain(true, true, false, true);
     }
 
     // Called when another command which requires one or more of the same
@@ -59,7 +59,7 @@ public class MoveByPosition extends Command {
     	watchDog.stop();
     	Robot.driveTrainSubsystem.setLeftSpeed(0);
     	Robot.driveTrainSubsystem.setRightSpeed(0);
-    	Robot.driveTrainSubsystem.invertMotors(true, true, false, true);
+    	Robot.driveTrainSubsystem.invertDriveTrain(true, true, false, true);
 
     }
 }

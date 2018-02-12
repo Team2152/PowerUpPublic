@@ -28,26 +28,26 @@ public class DriveTrain extends Subsystem{
 	private static double kP = 2.6;
 	private static double kI = 0;
 	private static double kD = 0;
-	
+
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
 	private WPI_TalonSRX right3;
 	private WPI_TalonSRX left1;
 	private WPI_TalonSRX left2;
 	private WPI_TalonSRX left3;
-	
+
 
 	// === Drive Train Object
 	private DifferentialDrive drive;
-	
+
 	private TalonPIDSource talonPIDL;
 	private TalonPIDSource talonPIDR;
-	
+
 	public DriveTrain() {
-		
-		
-		
-		
+
+
+
+
 		// Create TalonSRX Objects for each of the motors
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_Id);
 		right1.setNeutralMode(NeutralMode.Brake);
@@ -73,7 +73,7 @@ public class DriveTrain extends Subsystem{
 		right3.setNeutralMode(NeutralMode.Brake);
 		right3.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_Id);
 		right3.setInverted(true);
-		
+
 		left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_1_CAN_Id);
 		left1.setNeutralMode(NeutralMode.Brake);
 		left1.setInverted(true);
@@ -88,12 +88,12 @@ public class DriveTrain extends Subsystem{
 		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		left1.setSensorPhase(false);
-		
+
 		left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_2_CAN_Id);
 		left2.setNeutralMode(NeutralMode.Brake);
 		left2.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
 		left2.setInverted(true);
-		
+
 		left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_Id);
 		left3.setNeutralMode(NeutralMode.Brake);
 		left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
@@ -101,13 +101,13 @@ public class DriveTrain extends Subsystem{
 
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(false);
-		
-		
-		
+
+
+
 		talonPIDR = new TalonPIDSource(TalonPIDSource.RIGHT_TALON);
 		talonPIDL = new TalonPIDSource(TalonPIDSource.LEFT_TALON);
-		
-		
+
+
 	}
 
 	/***
@@ -121,7 +121,7 @@ public class DriveTrain extends Subsystem{
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		drive.tankDrive(leftSpeed, rightSpeed);
 	}
-	
+
 	/**
 	 * Arcade drive implements single stick driving.
 	 * 
@@ -154,8 +154,8 @@ public class DriveTrain extends Subsystem{
 	public void setLeftSpeed(double speed) {
 		left1.set(speed);
 	}
-	
-	
+
+
 	/**
 	 * Returns the position of the encoder that is connected to the lead right motor controller
 	 * @return the value of the sensor position as a double
@@ -163,7 +163,7 @@ public class DriveTrain extends Subsystem{
 	public double getRSensorPosition(){
 		return right1.getSelectedSensorPosition(0);
 	}
-	
+
 	/**
 	 * Returns the position of the encoder that is connected to the lead left motor controller
 	 * @return the value of the sensor position as a double
@@ -171,25 +171,42 @@ public class DriveTrain extends Subsystem{
 	public double getLSensorPosition(){
 		return left1.getSelectedSensorPosition(0);
 	}
-	
+	/**
+	 * Returns the distance of the right encoder in inches
+	 * @return the value of the encoder in inches as a double
+	 */
 	public double getRDistance(){
 		return right1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
 	}
-	
+
+	/**
+	 * Returns the distance of the left encoder in inches
+	 * @return the value of the encoder in inches as a double
+	 */
 	public double getLDistance(){
 		return left1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
 	}
 	
-	public void resetEncoders(boolean leftReset, boolean rightReset){
-		if (leftReset){
+	/**
+	 * Resets the encoders
+	 * @param resetLeft determines whether or not to reset the left encoder
+	 * @param resetRight determines whether or not to reset the right encoder
+	 */
+	public void resetEncoders(boolean resetLeft, boolean resetRight){
+		if (resetLeft){
 			left1.setSelectedSensorPosition(0, 0, 0);
 		}
-		
-		if (rightReset){
+
+		if (resetRight){
 			right1.setSelectedSensorPosition(0, 0, 0);
 		}
 	}
-
+	
+	/**
+	 * Uses Phoenix's move by position control mode
+	 * @param setPointLeft left setpoint in encoder ticks
+	 * @param setPointRight right setpoint in encoder ticks
+	 */
 	public void moveByPosition(double setPointLeft, double setPointRight){
 		right1.configPeakOutputForward(.45, kTimeoutMs);
 		right1.configPeakOutputReverse(-.45, kTimeoutMs);
@@ -197,36 +214,45 @@ public class DriveTrain extends Subsystem{
 		left1.configPeakOutputReverse(-.45, kTimeoutMs);
 		left1.set(ControlMode.Position, setPointLeft);
 		right1.set(ControlMode.Position, setPointRight);
-		
+
 	}
-	
-	public void invertMotors(boolean leftInvert, boolean rightInvert,boolean leftSensorInvert,boolean rightSensorInvert){
+	/**
+	 * Inverts the drive train motors and encoders
+	 * @param leftInvert determines whether or not to invert the left motors
+	 * @param rightInvert determines whether or not to invert the right motors
+	 * @param leftSensorInvert determines whether or not to invert the left encoder 
+	 * @param rightSensorInvert determines whether or not to invert the right encoder
+	 */
+	public void invertDriveTrain(boolean leftInvert, boolean rightInvert,boolean leftSensorInvert,boolean rightSensorInvert){
 		left1.setInverted(leftInvert);
 		left2.setInverted(leftInvert);
 		left3.setInverted(leftInvert);
 		right1.setInverted(rightInvert);
 		right2.setInverted(rightInvert);
 		right3.setInverted(rightInvert);
-		
+
 		left1.setSensorPhase(leftSensorInvert);
 		right1.setSensorPhase(rightSensorInvert);
 	}
-	
-	
+
+	/**
+	 * Returns the left encoder as a PIDSource
+	 * @param type encoding type
+	 * @return the left encoder as a PIDSource
+	 */
 	public TalonPIDSource getLTalonDistancePID(PIDSourceType type) {
 		talonPIDL.setPIDSourceType(type);
 		return talonPIDL;
 	}
-	
+	/**
+	 * Returns the right encoder as a PIDSource
+	 * @param type encoding type
+	 * @return the right encoder as a PIDSource
+	 */
 	public TalonPIDSource getRTalonDistancePID(PIDSourceType type) {
 		talonPIDR.setPIDSourceType(type);
 		return talonPIDR;
 	}
-	
-	
-	
-
-
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
@@ -235,6 +261,6 @@ public class DriveTrain extends Subsystem{
 		//setDefaultCommand(new TankDriveJoystick());
 	}
 
-	
+
 }
 
