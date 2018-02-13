@@ -43,8 +43,10 @@ public class CubeIntakeMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == false
-				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == false) {
+		Robot.powerUpDashboard.putCubeStatus(Robot.cubeIntakeSubsystem.cubeDetectInLeft(), Robot.cubeIntakeSubsystem.cubeDetectInRight(), Robot.cubeIntakeSubsystem.cubeDetectOutLeft(), Robot.cubeIntakeSubsystem.cubeDetectOutRight());
+		
+		if (Robot.powerUpDashboard.getCubeStatus("InnerRight") == false
+				&& Robot.powerUpDashboard.getCubeStatus("InnerLeft") == false) {
 
 			if (joystick.getRawButton(cubeButtonAid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
@@ -68,8 +70,8 @@ public class CubeIntakeMove extends Command {
 			Robot.cubeIntakeSubsystem.cubeRotateRight(0);
 		}
 
-		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == true
-				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == true) {
+		if (Robot.powerUpDashboard.getCubeStatus("InnerRight") == true
+				&& Robot.powerUpDashboard.getCubeStatus("InnerLeft") == true) {
 			if (joystick.getRawButton(cubeButtonYid) == true) {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
 			} else {
@@ -78,8 +80,8 @@ public class CubeIntakeMove extends Command {
 
 		}
 
-		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
-				|| Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
+		if (Robot.powerUpDashboard.getCubeStatus("OuterRight") == true
+				&& Robot.powerUpDashboard.getCubeStatus("OuterLeft") == true) {
 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
 		}
 
