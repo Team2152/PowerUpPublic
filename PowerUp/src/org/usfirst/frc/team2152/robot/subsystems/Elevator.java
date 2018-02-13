@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
+import org.usfirst.frc.team2152.robot.commands.Elevate;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,12 +10,12 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Elevator extends Subsystem{
 	public static final double DEFAULT_SPEED = 0.5;
 	
-	private CANTalon oneMotor;
+	private WPI_TalonSRX oneMotor;
 	
 	
 	public Elevator() {
 		
-		oneMotor = new CANTalon(RbotMap.motorTheOneId);
+		oneMotor = new WPI_TalonSRX(RbotMap.motorTheOneId);
 		oneMotor.setSafetyEnabled(false);
 		oneMotor.setInverted(true);
 	}
@@ -31,13 +33,20 @@ public class Elevator extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new DriveTrainJoystick());
+		setDefaultCommand(new Elevate());
 		}
 		
 		public void speed(double speed) {
-			motor.setSpeed(speed);
+			oneMotor.setSpeed(speed);
 		}
 		
+		public void up(double speed) {
+			oneMotor.setSpeed(speed);
+		}
+		
+		public void down(double speed) {
+			oneMotor.setspeed(-speed);
+		}
 	}
 
 
