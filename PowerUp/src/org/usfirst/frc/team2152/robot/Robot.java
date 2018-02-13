@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
 	public static String PLATE_ASSIGNMENT;
 	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
-	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_75,Gain.XBOX_DEADBAND);
+	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_100,Gain.XBOX_DEADBAND);
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Auto Delay", 0);
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
 		
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
@@ -137,6 +138,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		SmartDashboard.putNumber("Encoder Difference", Math.abs(Robot.driveTrainSubsystem.getRSensorPosition() - Robot.driveTrainSubsystem.getLSensorPosition()));
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());

@@ -35,7 +35,7 @@ public class PreCannedTurn extends Command implements PIDOutput {
 		pidPCT = new PIDController(PIDConstants.PCT_Kp, PIDConstants.PCT_Ki, PIDConstants.PCT_Kd,
 				Robot.navxSubsystem.getAHRS(), this);
 		pidPCT.disable();
-		pidPCT.setOutputRange(-1, 1);
+		pidPCT.setOutputRange(-.75, .75);
 		pidPCT.setAbsoluteTolerance(PIDConstants.PCT_TOLERANCE);
 		pidPCT.setContinuous(false);
 		Timer.delay(.25);

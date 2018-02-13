@@ -16,9 +16,9 @@ public class PIDConstants {
 	public final static double HH_OUT_MIN = -0.5;
 	public final static double HH_OUT_MAX = 0.5;
 	
-	public final static double PCT_Kp = .008;
-	public final static double PCT_Ki = 0.001;    
-	public final static double PCT_Kd = 0;
+	public final static double PCT_Kp = .02;
+	public final static double PCT_Ki = 0.00001;   
+	public final static double PCT_Kd = 0.0564;
 	public final static double PCT_TOLERANCE = 4;
 	public final static float PCT_IN_MIN = -180.0f;
 	public final static float PCT_IN_MAX = 180.0f;
