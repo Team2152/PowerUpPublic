@@ -21,7 +21,7 @@ public class DriveTrain extends Subsystem{
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	public static final double DISTANCE_PER_PULSE = (Math.PI * 6) * 4096;
+	public static final double DISTANCE_PER_PULSE = (Math.PI * 6) / 4096;
 	private static final int kSlotIdx = 0;
 	private static final int kPIDLoopIdx = 0;
 	private static final int kTimeoutMs = 10;
