@@ -13,6 +13,7 @@ import org.usfirst.frc.team2152.robot.auto.BaselineRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
+import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
@@ -21,6 +22,7 @@ import org.usfirst.frc.team2152.robot.utilities.Log;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -41,6 +43,7 @@ public class Robot extends TimedRobot {
 	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
 	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_100,Gain.XBOX_DEADBAND);
+
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -58,6 +61,9 @@ public class Robot extends TimedRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
 		SmartDashboard.putNumber("Auto Delay", 0);
+		SmartDashboard.putNumber("Left Speed", 0);
+		SmartDashboard.putNumber("Right Speed", 0);
+		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
@@ -83,6 +89,18 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("Right 1 Current", Robot.driveTrainSubsystem.getCurrent(1));
+		SmartDashboard.putNumber("Right 2 Current", Robot.driveTrainSubsystem.getCurrent(2));
+		SmartDashboard.putNumber("Right 3 Current", Robot.driveTrainSubsystem.getCurrent(3));
+		
+		SmartDashboard.putNumber("AVG Right", (Robot.driveTrainSubsystem.getCurrent(1) + (Robot.driveTrainSubsystem.getCurrent(2) + (Robot.driveTrainSubsystem.getCurrent(3))/3)));
+		
+		SmartDashboard.putNumber("Left 1 Current", Robot.driveTrainSubsystem.getCurrent(4));
+		SmartDashboard.putNumber("Left 2 Current", Robot.driveTrainSubsystem.getCurrent(5));
+		SmartDashboard.putNumber("Left 3 Current", Robot.driveTrainSubsystem.getCurrent(6));
+		
+		SmartDashboard.putNumber("AVG Left", (Robot.driveTrainSubsystem.getCurrent(4) + (Robot.driveTrainSubsystem.getCurrent(5) + (Robot.driveTrainSubsystem.getCurrent(6))/3)));
+
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
@@ -138,6 +156,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		SmartDashboard.putNumber("Encoder Difference", Math.abs(Robot.driveTrainSubsystem.getRSensorPosition() - Robot.driveTrainSubsystem.getLSensorPosition()));
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());

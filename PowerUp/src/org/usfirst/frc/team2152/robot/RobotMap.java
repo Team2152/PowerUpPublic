@@ -29,9 +29,9 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE_2_CAN_Id = 2;
 	public static final int RIGHT_DRIVE_3_CAN_Id = 3;
 	
-	public static final int LEFT_DRIVE_1_CAN_Id  = 4;
-	public static final int LEFT_DRIVE_2_CAN_Id  = 5;
-	public static final int LEFT_DRIVE_3_CAN_Id  = 6;
+	public static final int LEFT_DRIVE_1_CAN_Id  = 5;
+	public static final int LEFT_DRIVE_2_CAN_Id  = 6;
+	public static final int LEFT_DRIVE_3_CAN_Id  = 7;
 
 
 }

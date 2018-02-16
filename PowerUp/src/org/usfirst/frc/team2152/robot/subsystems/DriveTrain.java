@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
+import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LimeDrive;
 import org.usfirst.frc.team2152.robot.commands.TankDriveJoystick;
@@ -98,7 +99,7 @@ public class DriveTrain extends Subsystem{
 		left3.setNeutralMode(NeutralMode.Brake);
 		left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
 		left3.setInverted(true);
-
+		
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(false);
 
@@ -252,6 +253,48 @@ public class DriveTrain extends Subsystem{
 	public TalonPIDSource getRTalonDistancePID(PIDSourceType type) {
 		talonPIDR.setPIDSourceType(type);
 		return talonPIDR;
+	}
+	
+	
+	public double getCurrent(int talonID){
+		switch(talonID){
+		case(1):
+			return right1.getOutputCurrent();
+		case(2):
+			return right2.getOutputCurrent();
+		case(3):
+			return right3.getOutputCurrent();
+		case(4):
+			return left1.getOutputCurrent();
+		case(5):
+			return left2.getOutputCurrent();
+		case(6):
+			return left3.getOutputCurrent();
+		default:
+			return 0;
+		}
+	}
+	
+	public double avgCurrent(int valToAVG){
+		switch(valToAVG){
+		case(1):
+			return (Robot.driveTrainSubsystem.getCurrent(4) + 
+					(Robot.driveTrainSubsystem.getCurrent(5) + 
+					(Robot.driveTrainSubsystem.getCurrent(6))))/3;
+		case(2):
+			return  (Robot.driveTrainSubsystem.getCurrent(1) + 
+					(Robot.driveTrainSubsystem.getCurrent(2) + 
+					(Robot.driveTrainSubsystem.getCurrent(3))))/3;
+		case(3):
+			return (Robot.driveTrainSubsystem.getCurrent(1) +
+					Robot.driveTrainSubsystem.getCurrent(2) +
+					Robot.driveTrainSubsystem.getCurrent(3) +
+					Robot.driveTrainSubsystem.getCurrent(4) +
+					Robot.driveTrainSubsystem.getCurrent(5) +
+					Robot.driveTrainSubsystem.getCurrent(6))/6;
+		default:
+			return 0;
+		}
 	}
 
 	public void initDefaultCommand() {

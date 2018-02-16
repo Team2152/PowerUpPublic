@@ -156,13 +156,15 @@ public class OI {
 	public void setupOperatorButtons() {
 
 		
+		
 	}
 
 	public void setupDriverXboxButtons() {
-			dButtonX.whenReleased(new TankDriveByTime(-.75,-.75, 1.5));
-			dButtonB.whenReleased(new MoveByEncoder(4096 * 5, 4096 * 5, 0.250, false));
-			dButtonA.whenReleased(new ResetEncoders());
-			dButtonY.whenReleased((new PreCannedTurn(90,.5,true)));
+//			dButtonX.whenReleased(new TankDriveByTime(-.75,-.75, 1.5));
+//			dButtonB.whenReleased(new MoveByEncoder(4096 * 5, 4096 * 5, 0.250, false));
+//			dButtonA.whenReleased(new ResetEncoders());
+//			dButtonY.whenReleased((new PreCannedTurn(90,.5,true)));
+			
 	}
 	
 }
