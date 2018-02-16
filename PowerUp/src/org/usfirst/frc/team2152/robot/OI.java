@@ -49,7 +49,7 @@ public class OI {
 
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
-	// button.whenReleased(new ExampleCommand()); TEST
+	// button.whenReleased(new ExampleCommand());
 	public final static int POV_0 = 0;
 	public final static int POV_45 = 45;
 	public final static int POV_90 = 90;
