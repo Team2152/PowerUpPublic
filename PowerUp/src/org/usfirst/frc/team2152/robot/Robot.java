@@ -8,7 +8,7 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.subsystems.CubeIntake;
-//import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
+import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.utilities.NavX;
@@ -35,10 +35,12 @@ public class Robot extends TimedRobot {
 	public static Dashboard powerUpDashboard = new Dashboard();
 	public static String PLATE_ASSIGNMENT;
 	public static final NavX navxSubsystem = new NavX();
-	public static final DriveTrain driveTrainSubsystem =  null; //new DriveTrain(); Trevor
-	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_75,Gain.DEFAULT_DEADBAND);
+	public static final DriveTrain driveTrainSubsystem = null; // new
+																// DriveTrain();
+																// Trevor
+	public static final Gain driveTrainJoysickGain = new Gain(Gain.PCT_75, Gain.DEFAULT_DEADBAND);
 	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
-	//public static final CubeMove cubeMoveSubsystem     = new CubeMove();
+    public static final CubeMove cubeMoveSubsystem = new CubeMove();
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -51,7 +53,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_logger = new Log(true);
-
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -70,7 +71,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		
+
 	}
 
 	/**
@@ -80,13 +81,15 @@ public class Robot extends TimedRobot {
 	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
 	 * getString code to get the auto name from the text box below the Gyro
 	 *
-	 * <p>You can add additional auto modes by adding additional commands to the
+	 * <p>
+	 * You can add additional auto modes by adding additional commands to the
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
-		//PLATE_ASSIGNMENT must be defined before autonomous is finalized for a match
+		// PLATE_ASSIGNMENT must be defined before autonomous is finalized for a
+		// match
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 		powerUpDashboard.putPlateAssignment();
 		m_autonomousCommand = m_chooser.getSelected();
@@ -122,7 +125,6 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
 
 	}
 

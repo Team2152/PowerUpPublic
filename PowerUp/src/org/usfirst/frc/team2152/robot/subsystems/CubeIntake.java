@@ -19,92 +19,98 @@ public class CubeIntake extends Subsystem {
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	
+
 	DoubleSolenoid cubeSolenoid;
-	private WPI_TalonSRX cubeIntakeRight;
-	private WPI_TalonSRX cubeIntakeLeft;
-	
-	
-//	private Victor cubeIntakeRight;
-//	private Victor cubeIntakeLeft;
-	
+	// private WPI_TalonSRX cubeIntakeRight;
+	// private WPI_TalonSRX cubeIntakeLeft;
+
+	private Victor cubeIntakeRight;
+	private Victor cubeIntakeLeft;
+
 	private DigitalInput cubeDetectOuterRight;
 	private DigitalInput cubeDetectOuterLeft;
 	private DigitalInput cubeDetectInnerRight;
 	private DigitalInput cubeDetectInnerLeft;
-	
-	
-	public CubeIntake(){
 
-		cubeIntakeRight = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_RIGHT);
-		cubeIntakeLeft = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_LEFT);
-		
-//		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT);
-//		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT);
-		
+	public CubeIntake() {
+
+		// cubeIntakeRight = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_RIGHT);
+		// cubeIntakeLeft = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_LEFT);
+
+		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT);
+		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT);
+
 		cubeSolenoid = new DoubleSolenoid(0, 1);
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
-		
-		
-		cubeDetectOuterRight = new DigitalInput(RobotMap.DIO_4);
-		cubeDetectOuterLeft  = new DigitalInput(RobotMap.DIO_5);
-		cubeDetectInnerRight = new DigitalInput(RobotMap.DIO_6);
-		cubeDetectInnerLeft  = new DigitalInput(RobotMap.DIO_7);
-		
-		
+
+		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_4);
+		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_5);
+		cubeDetectInnerRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_6);
+		cubeDetectInnerLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_7);
+
 	}
-	
-	public void cubeIntakeMove(double cubeIntakeSpeed){
+
+	// Sets intake speed
+	public void cubeIntakeMove(double cubeIntakeSpeed) {
 		cubeIntakeRight.set(-cubeIntakeSpeed);
 		cubeIntakeLeft.set(cubeIntakeSpeed);
-		
+
 	}
-	
-	public void cubeExpelMove(double cubeExpelSpeed){
+
+	// Sets expell speed
+	public void cubeExpelMove(double cubeExpelSpeed) {
 		cubeIntakeRight.set(cubeExpelSpeed);
 		cubeIntakeLeft.set(-cubeExpelSpeed);
 	}
-	
-	public void cubeRotateRight(double cubeRotateSpeed){
-		cubeIntakeRight.set(cubeRotateSpeed);
-		cubeIntakeLeft.set(cubeRotateSpeed);
+
+	// Sets rotate right speed
+	public void cubeRotateRight(double cubeRotateRightSpeed) {
+		cubeIntakeRight.set(cubeRotateRightSpeed);
+		cubeIntakeLeft.set(cubeRotateRightSpeed);
 	}
-	
-	public void cubeRotateLeft(double cubeRotateLeftSpeed){
+
+	// Sets rotate left speed
+	public void cubeRotateLeft(double cubeRotateLeftSpeed) {
 		cubeIntakeRight.set(-cubeRotateLeftSpeed);
 		cubeIntakeLeft.set(-cubeRotateLeftSpeed);
 	}
-	
-	public void cubeSolenoidOpen(){
+
+	// Opens the solenoid
+	public void cubeSolenoidOpen() {
 		cubeSolenoid.set(DoubleSolenoid.Value.kForward);
 	}
-	
-	public void cubeSolenoidClose(){
+
+	// Closes the solenoid
+	public void cubeSolenoidClose() {
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
-	
-	public boolean cubeDetectOutRight(){
+
+	//If the sharp sensor detects a cube it will return true
+	//The value is inverted because sharp sensors return false when something is detected
+	public boolean cubeDetectOutRight() {
 		return !cubeDetectOuterRight.get();
 	}
 
-	public boolean cubeDetectOutLeft(){
+	//If the sharp sensor detects a cube it will return true
+	//The value is inverted because sharp sensors return false when something is detected
+	public boolean cubeDetectOutLeft() {
 		return !cubeDetectOuterLeft.get();
-		
+
 	}
-	
-	public boolean cubeDetectInRight(){
+
+	//If the sharp sensor detects a cube it will return true
+	//The value is inverted because sharp sensors return false when something is detected
+	public boolean cubeDetectInRight() {
 		return !cubeDetectInnerRight.get();
 	}
-	
-	public boolean cubeDetectInLeft(){
+
+	//If the sharp sensor detects a cube it will return true
+	//The value is inverted because sharp sensors return false when something is detected
+	public boolean cubeDetectInLeft() {
 		return !cubeDetectInnerLeft.get();
-		
+
 	}
-	
-	
-	
-	
-	
+
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());

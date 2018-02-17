@@ -23,6 +23,21 @@ public class CubeIntakeMove extends Command {
 	int cubeButtonBumpRid = 6;
 	Joystick joystick;
 
+	/**
+	 * This command controls the cube intake and the solenoid. you can intake in
+	 * and out and clamp via joystick. To see the joystick controls refer to the
+	 * joystick spreadsheet.
+	 * 
+	 * @param cubeIntakeSpeed
+	 *            Sets intake speed
+	 * @param cubeExpelSpeed
+	 *            Sets expel speed
+	 * @param cubeRotateRightSpeed
+	 *            Sets right rotation speed
+	 * @param cubeRotateLeftSpeed
+	 *            Sets left rotation speed
+	 * @param joystick
+	 */
 	public CubeIntakeMove(double cubeIntakeSpeed, double cubeExpelSpeed, double cubeRotateRightSpeed,
 			double cubeRotateLeftSpeed, Joystick joystick) {
 		// Use requires() here to declare subsystem dependencies
@@ -43,11 +58,19 @@ public class CubeIntakeMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		Robot.powerUpDashboard.putCubeStatus(Robot.cubeIntakeSubsystem.cubeDetectInLeft(), Robot.cubeIntakeSubsystem.cubeDetectInRight(), Robot.cubeIntakeSubsystem.cubeDetectOutLeft(), Robot.cubeIntakeSubsystem.cubeDetectOutRight());
-		
-		if (Robot.powerUpDashboard.getCubeStatus("InnerRight") == false
-				&& Robot.powerUpDashboard.getCubeStatus("InnerLeft") == false) {
+		// Send our sensor status to the dashboard
+		Robot.powerUpDashboard.putCubeStatus(Robot.cubeIntakeSubsystem.cubeDetectInLeft(),
+				Robot.cubeIntakeSubsystem.cubeDetectInRight(), Robot.cubeIntakeSubsystem.cubeDetectOutLeft(),
+				Robot.cubeIntakeSubsystem.cubeDetectOutRight());
 
+		// When both inner sensors show NO cube presense then
+		// check then joystick buttons and act on them if they are pressed
+		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == false
+				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == false) {
+
+			// Using else if so that only one button is usable at a time in the
+			// following priority: A Y X B
+			// A button intakes until inner sensors are triggered
 			if (joystick.getRawButton(cubeButtonAid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
 			} else if (joystick.getRawButton(cubeButtonYid) == true) {
@@ -64,14 +87,20 @@ public class CubeIntakeMove extends Command {
 			}
 
 		} else {
+			// If BOTH INNER sensors are triggered then stop all intake motors
+			// Sensors, with this code configuration, must be installed very
+			// close to the back of the manipulator
 			Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
 			Robot.cubeIntakeSubsystem.cubeExpelMove(0);
 			Robot.cubeIntakeSubsystem.cubeRotateLeft(0);
 			Robot.cubeIntakeSubsystem.cubeRotateRight(0);
 		}
 
-		if (Robot.powerUpDashboard.getCubeStatus("InnerRight") == true
-				&& Robot.powerUpDashboard.getCubeStatus("InnerLeft") == true) {
+		// If BOTH INNER sensors are triggered then it will allow the user to expel the cube
+		// Sensors, with this code configuration, must be installed very
+		// close to the back of the manipulator
+		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == true
+				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == true) {
 			if (joystick.getRawButton(cubeButtonYid) == true) {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
 			} else {
@@ -80,11 +109,15 @@ public class CubeIntakeMove extends Command {
 
 		}
 
-		if (Robot.powerUpDashboard.getCubeStatus("OuterRight") == true
-				&& Robot.powerUpDashboard.getCubeStatus("OuterLeft") == true) {
+		// If BOTH OUTER sensors are triggered then the solenoid will actuate and will close the clamp
+		// They have to placed in order to see enough of the cube
+		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
+				&& Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
 		}
 
+		//This is the manual override for the solenoid clamp 
+		//Checks for a button press and will open and close the clamp
 		if (joystick.getRawButton(cubeButtonBumpLid) == true) {
 			Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
 		} else if (joystick.getRawButton(cubeButtonBumpRid) == true) {
@@ -95,6 +128,8 @@ public class CubeIntakeMove extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		// This is the default command for the CubeIntake Subsystem. Must return
+		// false.
 		return false;
 	}
 
@@ -105,5 +140,9 @@ public class CubeIntakeMove extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
+		Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+		Robot.cubeIntakeSubsystem.cubeRotateLeft(0);
+		Robot.cubeIntakeSubsystem.cubeRotateRight(0);
 	}
 }

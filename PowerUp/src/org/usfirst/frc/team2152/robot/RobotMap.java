@@ -25,32 +25,34 @@ public class RobotMap {
 	// public static int rangefinderModule = 1;
 
 	// === Steamworks Drive Train Subsystem IDs
-	public static final int LEFT_DRIVE_1_CAN_Id  = 7;
-	public static final int LEFT_DRIVE_2_CAN_Id  = 8;
-	public static final int LEFT_DRIVE_3_CAN_Id  = 3;
+	public static final int LEFT_DRIVE_1_CAN_Id = 7;
+	public static final int LEFT_DRIVE_2_CAN_Id = 8;
+	public static final int LEFT_DRIVE_3_CAN_Id = 3;
 
 	public static final int RIGHT_DRIVE_1_CAN_Id = 4;
 	public static final int RIGHT_DRIVE_2_CAN_Id = 5;
 	public static final int RIGHT_DRIVE_3_CAN_Id = 6;
-	
-	public static final int RIGHT_ENCODER_A_DI   = 0;
-	public static final int RIGHT_ENCODER_B_DI   = 1;
-	public static final int LEFT_ENCODER_A_DI    = 2;
-	public static final int LEFT_ENCODER_B_DI    = 3;
-	
+
+	public static final int RIGHT_ENCODER_A_DI = 0;
+	public static final int RIGHT_ENCODER_B_DI = 1;
+	public static final int LEFT_ENCODER_A_DI = 2;
+	public static final int LEFT_ENCODER_B_DI = 3;
+
 	public static final int DIO_0 = 0; // ENCODER 1A
 	public static final int DIO_1 = 1; // ENCODER 1B
 	public static final int DIO_2 = 2; // ENCODER 2A
 	public static final int DIO_3 = 3; // ENCODER 2B
+
+	public static final int CUBE_DETECT_DIO_4 = 4; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_5 = 5; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_6 = 6; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_7 = 7; // Distance Sensor
 	
-	
-	public static final int DIO_4 = 4; // Distance Sensor
-	public static final int DIO_5 = 5; // Distance Sensor
-	public static final int DIO_6 = 6; // Distance Sensor
-	public static final int DIO_7 = 7; // Distance Sensor
-//	public static final int DIO_8 = 8; // encoder cube
-	public static final int CUBE_INTAKE_RIGHT     = 1;
-	public static final int CUBE_INTAKE_LEFT      = 2;
-	//public static final int LIFT_MOVE_1_CAN_ID    = 2; 
-	
+
+	public static final int CUBE_LIMIT_MAX    = 8;
+	public static final int CUBE_LIMIT_MIN    = 9;
+	public static final int CUBE_INTAKE_RIGHT = 1;
+	public static final int CUBE_INTAKE_LEFT = 2;
+	public static final int LIFT_MOVE_1_CAN_ID = 2;
+
 }
