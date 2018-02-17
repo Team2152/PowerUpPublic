@@ -14,9 +14,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PreCannedTurn extends Command implements PIDOutput {
 
 	PIDController pidPCT;
-	double errorFromHeadingPCT = 0.0;
-	float setPointPCT = 0.0f;
-	boolean spinLeft;
+	Timer timer;
+	private double timeOut = 2;
+	private double errorFromHeadingPCT = 0.0;
+	private float setPointPCT = 0.0f;
+	private boolean spinLeft;
 	
 
 	public PreCannedTurn(int setpoint, boolean spinLeft) {
@@ -26,19 +28,24 @@ public class PreCannedTurn extends Command implements PIDOutput {
 		requires(Robot.navxSubsystem);
 		this.setPointPCT = setpoint;
 		this.spinLeft = spinLeft;
+		timer = new Timer();
+		
 
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer.reset();
+		timer.start();
+		Robot.navxSubsystem.resetAngle();
+		Timer.delay(.25);
 		pidPCT = new PIDController(PIDConstants.PCT_Kp, PIDConstants.PCT_Ki, PIDConstants.PCT_Kd,
 				Robot.navxSubsystem.getAHRS(), this);
 		pidPCT.disable();
 		pidPCT.setOutputRange(-.75, .75);
 		pidPCT.setAbsoluteTolerance(PIDConstants.PCT_TOLERANCE);
 		pidPCT.setContinuous(false);
-		Robot.navxSubsystem.resetAngle();
-		Timer.delay(.25);
+		
 		pidPCT.setSetpoint(setPointPCT);
 
 		pidPCT.enable();
@@ -56,7 +63,7 @@ public class PreCannedTurn extends Command implements PIDOutput {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE) {
+		if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE || timer.get() >= timeOut) {
 			return true;
 		} else {
 			return false;

@@ -40,6 +40,7 @@ public class MoveByEncoder extends Command implements PIDOutput {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.driveTrainSubsystem.resetEncoders(true,true);
 		pidHH = new PIDController(PIDConstants.HH_kP, PIDConstants.HH_kI, PIDConstants.HH_dD,
 				Robot.navxSubsystem.getAHRS(), this);
 		pidHH.disable();
@@ -93,8 +94,7 @@ public class MoveByEncoder extends Command implements PIDOutput {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if ((Math.abs(Robot.driveTrainSubsystem.getLSensorPosition()) >= Math.abs(LeftDistance))
-				&& (Math.abs(Robot.driveTrainSubsystem.getRSensorPosition()) >= Math.abs(RightDistance))) {
+		if (contrR.onTarget() && contrL.onTarget()) {
 			return true;
 		} else {
 			return false;
