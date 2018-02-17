@@ -147,13 +147,13 @@ public class OI {
 			dButtonStart = new JoystickButton(driverXbox, dButtonStartid);
 			dButtonLClick = new JoystickButton(driverXbox, dButtonLClickid);
 			dButtonRClick = new JoystickButton(driverXbox, dButtonRClickid);
-			dPOV0 = new POV(POV_0);
-            dPOV90 = new POV(POV_90);
-            dPOV135 = new POV(POV_135);
-            dPOV180 = new POV(POV_180);
-            dPOV225 = new POV(POV_225);
-            dPOV270 = new POV(POV_270);
-            dPOV315 = new POV(POV_315);
+			dPOV0 = new POV(driverXbox, POV_0);
+            dPOV90 = new POV(driverXbox, POV_90);
+            dPOV135 = new POV(driverXbox, POV_135);
+            dPOV180 = new POV(driverXbox, POV_180);
+            dPOV225 = new POV(driverXbox, POV_225);
+            dPOV270 = new POV(driverXbox, POV_270);
+            dPOV315 = new POV(driverXbox, POV_315);
 			setupDriverXboxButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup driver joystick: " + e.toString());
@@ -171,13 +171,13 @@ public class OI {
 			oButtonStart = new JoystickButton(operatorXbox, oButtonStartid);
 			oButtonLClick = new JoystickButton(operatorXbox, oButtonLClickid);
 			oButtonRClick = new JoystickButton(operatorXbox, oButtonRClickid);
-			oPOV0 = new POV(POV_0);
-            oPOV90 = new POV(POV_90);
-            oPOV135 = new POV(POV_135);
-            oPOV180 = new POV(POV_180);
-            oPOV225 = new POV(POV_225);
-            oPOV270 = new POV(POV_270);
-            oPOV315 = new POV(POV_315);
+			oPOV0 = new POV(operatorXbox, POV_0);
+            oPOV90 = new POV(operatorXbox, POV_90);
+            oPOV135 = new POV(operatorXbox, POV_135);
+            oPOV180 = new POV(operatorXbox, POV_180);
+            oPOV225 = new POV(operatorXbox,POV_225);
+            oPOV270 = new POV(operatorXbox,POV_270);
+            oPOV315 = new POV(operatorXbox,POV_315);
 			setupOperatorButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
@@ -192,11 +192,12 @@ public class OI {
 
 	public void setupDriverXboxButtons() {
 //			dButtonX.whenReleased(new TankDriveByTime(-.75,-.75, 1.5));
-//			dButtonB.whenReleased(new MoveByEncoder(4096 * 5, 4096 * 5, 0.250, false));
+			dButtonB.whenReleased(new MoveByEncoder(130, 130, 0.250, false));
 //			dButtonA.whenReleased(new ResetEncoders());
 //			dButtonY.whenReleased((new PreCannedTurn(90,.5,true)));
-			dPOV90.whenPressed(new PreCannedTurn(90,.5,false));
-			dPOV270.whenPressed(new PreCannedTurn(-90,.5,false));
+			dPOV90.whenPressed(new PreCannedTurn(90, false));
+			dPOV270.whenPressed(new PreCannedTurn(-90, false));
+			dPOV180.whenPressed(new PreCannedTurn(180, false));
 			
 	}
 	

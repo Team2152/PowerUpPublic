@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -30,8 +31,8 @@ public class MoveByEncoder extends Command implements PIDOutput {
 		requires(Robot.navxSubsystem);
 		this.clearBacklash = clearBacklash;
 		motorSpeed = speed;
-		LeftDistance = leftDistance;
-		RightDistance = rightDistance;
+		LeftDistance = leftDistance / DriveTrain.DISTANCE_PER_PULSE;
+		RightDistance = rightDistance / DriveTrain.DISTANCE_PER_PULSE;
 		
 
 

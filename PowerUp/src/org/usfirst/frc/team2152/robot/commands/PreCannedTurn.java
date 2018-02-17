@@ -17,15 +17,14 @@ public class PreCannedTurn extends Command implements PIDOutput {
 	double errorFromHeadingPCT = 0.0;
 	float setPointPCT = 0.0f;
 	boolean spinLeft;
-	double maxSpeed;
+	
 
-	public PreCannedTurn(int setpoint, double maxSpeed, boolean spinLeft) {
+	public PreCannedTurn(int setpoint, boolean spinLeft) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrainSubsystem);
 		requires(Robot.navxSubsystem);
 		this.setPointPCT = setpoint;
-		this.maxSpeed = maxSpeed;
 		this.spinLeft = spinLeft;
 
 	}
@@ -38,7 +37,6 @@ public class PreCannedTurn extends Command implements PIDOutput {
 		pidPCT.setOutputRange(-.75, .75);
 		pidPCT.setAbsoluteTolerance(PIDConstants.PCT_TOLERANCE);
 		pidPCT.setContinuous(false);
-		Timer.delay(.25);
 		Robot.navxSubsystem.resetAngle();
 		Timer.delay(.25);
 		pidPCT.setSetpoint(setPointPCT);
