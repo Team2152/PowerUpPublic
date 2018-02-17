@@ -7,12 +7,9 @@
 
 package org.usfirst.frc.team2152.robot;
 
-import org.usfirst.frc.team2152.robot.commands.CubeMoveHigh;
-import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 
 import org.usfirst.frc.team2152.robot.commands.TankDriveByTime;
-import org.usfirst.frc.team2152.robot.utilities.POV;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -23,7 +20,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	////CREATING BUTTONS
+	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
 	// You create one by telling it which joystick it's on and which button
@@ -84,14 +81,6 @@ public class OI {
 	private Button oButtonStart;
 	private Button oButtonLClick;
 	private Button oButtonRClick;
-	private POV oPOV0;
-    private POV oPOV45;
-    private POV oPOV90;
-    private POV oPOV135;
-    private POV oPOV180;
-    private POV oPOV225;
-    private POV oPOV270;
-    private POV oPOV315;
 	final private int oButtonAid = 1;
 	final private int oButtonBid = 2;
 	final private int oButtonXid = 3;
@@ -114,14 +103,7 @@ public class OI {
 	private Button dButtonStart;
 	private Button dButtonLClick;
 	private Button dButtonRClick;
-	private POV dPOV0;
-    private POV dPOV45;
-    private POV dPOV90;
-    private POV dPOV135;
-    private POV dPOV180;
-    private POV dPOV225;
-    private POV dPOV270;
-    private POV dPOV315;
+
 	final private int dButtonAid = 1;
 	final private int dButtonBid = 2;
 	final private int dButtonXid = 3;
@@ -147,13 +129,7 @@ public class OI {
 			dButtonStart = new JoystickButton(driverXbox, dButtonStartid);
 			dButtonLClick = new JoystickButton(driverXbox, dButtonLClickid);
 			dButtonRClick = new JoystickButton(driverXbox, dButtonRClickid);
-			dPOV0 = new POV(driverXbox, POV_0);
-            dPOV90 = new POV(driverXbox, POV_90);
-            dPOV135 = new POV(driverXbox, POV_135);
-            dPOV180 = new POV(driverXbox, POV_180);
-            dPOV225 = new POV(driverXbox, POV_225);
-            dPOV270 = new POV(driverXbox, POV_270);
-            dPOV315 = new POV(driverXbox, POV_315);
+
 			setupDriverXboxButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup driver joystick: " + e.toString());
@@ -171,13 +147,7 @@ public class OI {
 			oButtonStart = new JoystickButton(operatorXbox, oButtonStartid);
 			oButtonLClick = new JoystickButton(operatorXbox, oButtonLClickid);
 			oButtonRClick = new JoystickButton(operatorXbox, oButtonRClickid);
-			oPOV0 = new POV(operatorXbox, POV_0);
-            oPOV90 = new POV(operatorXbox, POV_90);
-            oPOV135 = new POV(operatorXbox, POV_135);
-            oPOV180 = new POV(operatorXbox, POV_180);
-            oPOV225 = new POV(operatorXbox,POV_225);
-            oPOV270 = new POV(operatorXbox,POV_270);
-            oPOV315 = new POV(operatorXbox,POV_315);
+
 			setupOperatorButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
@@ -186,13 +156,10 @@ public class OI {
 
 	public void setupOperatorButtons() {
 
-		oPOV0.whenPressed(new CubeMoveHigh(.5));
-		oPOV180.whenPressed(new CubeMoveLow(.5));
 	}
 
 	public void setupDriverXboxButtons() {
 
-			
 	}
-	
+
 }
