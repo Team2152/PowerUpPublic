@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
-import org.usfirst.frc.team2152.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,15 +13,15 @@ public class Dashboard extends Subsystem {
 	 * Gets our alliance's plate assignment for our switch and the scale and
 	 * puts them on the SmartDashboard
 	 */
-	public void putPlateAssignment() {
+	public void putPlateAssignment(String plateAssignment) {
 		/*
 		 * Our plate on the opponent's Switch will always be on the same side as
 		 * our plate on our own Switch, According to Figure 4-1 in the manual
 		 */
 		String switchPlateSide = "";
 		String scalePlateSide = "";
-		String switchPlates = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(0));
-		String scalePlate = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(1));
+		String switchPlates = String.valueOf(plateAssignment.charAt(0));
+		String scalePlate = String.valueOf(plateAssignment.charAt(1));
 
 		if (switchPlates.equalsIgnoreCase("L")) {
 			switchPlateSide = "Left";
@@ -201,8 +199,8 @@ public class Dashboard extends Subsystem {
 	}
 	
 	public void putVideoRecording() {
-		//SmartDashboard.putData(new startRecording());  Needs command to be written
-		//SmartDashboard.putData(new stopRecording());  Needs command to be written
+		//SmartDashboard.putData(new startRecording());  Needs command
+		//SmartDashboard.putData(new stopRecording());  Needs command
 
 	}
 
