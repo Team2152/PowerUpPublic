@@ -86,6 +86,7 @@ public class Dashboard extends Subsystem {
 		}
 		return d;
 	}
+	
 	/**
 	 * Places toggles for reseting encoder data on the Dashboard
 	 */
@@ -130,29 +131,30 @@ public class Dashboard extends Subsystem {
 		SmartDashboard.putBoolean("Cube Detect - OuterRight", rightOut);
 	}
 	
-	/**
-	 * Returns IR limit switch status from the Dashboard
-	 * @param sensor The IR sensor to check
-	 * @return Cube possession data
-	 */
-	public boolean getCubeStatus(String sensor) {
-		boolean b = false;
-		switch (sensor){
-		case "InnerLeft":
-			b = SmartDashboard.getBoolean("Cube Detect - InnerLeft", false);
-			break;
-		case "InnerRight":
-			b = SmartDashboard.getBoolean("Cube Detect - InnerRight", false);
-			break;
-		case "OuterLeft":
-			b = SmartDashboard.getBoolean("Cube Detect - OuterLeft", false);
-			break;
-		case "OuterRight":
-			b = SmartDashboard.getBoolean("Cube Detect - OuterRight", false);
-			break;
-		}
-		return b;
-	}
+//	GetCubeStatus method is not used in order to reduce latency from the operator console and the cube manipulator
+//	/**
+//	 * Returns IR limit switch status from the Dashboard
+//	 * @param sensor The IR sensor to check
+//	 * @return Cube possession data
+//	 */
+//	public boolean getCubeStatus(String sensor) {
+//		boolean b = false;
+//		switch (sensor){
+//		case "InnerLeft":
+//			b = SmartDashboard.getBoolean("Cube Detect - InnerLeft", false);
+//			break;
+//		case "InnerRight":
+//			b = SmartDashboard.getBoolean("Cube Detect - InnerRight", false);
+//			break;
+//		case "OuterLeft":
+//			b = SmartDashboard.getBoolean("Cube Detect - OuterLeft", false);
+//			break;
+//		case "OuterRight":
+//			b = SmartDashboard.getBoolean("Cube Detect - OuterRight", false);
+//			break;
+//		}
+//		return b;
+//	}
 	
 	/**
 	 * Displays the cube solenoid state on the Dashboard
