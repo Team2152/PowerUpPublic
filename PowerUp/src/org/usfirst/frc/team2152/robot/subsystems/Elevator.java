@@ -1,8 +1,11 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
+import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.Elevate;
 
 import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,7 +18,7 @@ public class Elevator extends Subsystem{
 	
 	public Elevator() {
 		
-		oneMotor = new WPI_TalonSRX(RbotMap.motorTheOneId);
+		oneMotor = new WPI_TalonSRX(2);
 		oneMotor.setSafetyEnabled(false);
 		oneMotor.setInverted(true);
 	}
@@ -33,19 +36,23 @@ public class Elevator extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new Elevate());
+		setDefaultCommand(new Elevate(.2, Robot.m_oi.driverXbox));
 		}
 		
-		public void speed(double speed) {
-			oneMotor.setSpeed(speed);
-		}
+//		public void speed(double speed) {
+//			oneMotor.set(speed);
+//		}
 		
+		public void stop (){
+			oneMotor.set(0);
+			
+		}
 		public void up(double speed) {
-			oneMotor.setSpeed(speed);
+			oneMotor.set(-speed);
 		}
 		
 		public void down(double speed) {
-			oneMotor.setspeed(-speed);
+			oneMotor.set(speed);
 		}
 	}
 
