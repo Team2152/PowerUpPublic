@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.PIDController;
@@ -14,72 +15,77 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class MoveByEncoder extends Command implements PIDOutput {
 	double motorSpeed;
-	PIDController contrL;
-	PIDController contrR;
 	double LeftDistance = 0;
 	double RightDistance = 0;
-	PIDController pidHH;
-	double errorFromHeadingHH = 0.0;
 	float setPointHH = 0.0f;
 	private boolean clearBacklash = false;
+	
+	PIDController contrL;
+	PIDController contrR;
+	PIDController pidHH;
 
 	public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrainSubsystem);
+		requires(Robot.navxSubsystem);
 		this.clearBacklash = clearBacklash;
 		motorSpeed = speed;
-		LeftDistance = leftDistance;
-		RightDistance = rightDistance;
-		requires(Robot.navxSubsystem);
+		LeftDistance = leftDistance / DriveTrain.DISTANCE_PER_PULSE;
+		RightDistance = rightDistance / DriveTrain.DISTANCE_PER_PULSE;
+		
 
-		// Setup Heading Hold PID
 
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		pidHH = new PIDController(PIDConstants.HH_Kp, PIDConstants.HH_Ki, PIDConstants.HH_Kd,
+		Robot.driveTrainSubsystem.resetEncoders(true,true);
+		pidHH = new PIDController(PIDConstants.HH_kP, PIDConstants.HH_kI, PIDConstants.HH_dD,
 				Robot.navxSubsystem.getAHRS(), this);
 		pidHH.disable();
 		pidHH.setInputRange(PIDConstants.HH_IN_MIN, PIDConstants.HH_IN_MAX);
 		pidHH.setOutputRange(PIDConstants.HH_OUT_MIN, PIDConstants.HH_OUT_MAX);
 		pidHH.setAbsoluteTolerance(PIDConstants.HH_TOLERANCE);
 		pidHH.setContinuous(true);
-
-		contrR = new PIDController(PIDConstants.ENCODER_DRIVE_HIGH_Kp, PIDConstants.ENCODER_DRIVE_HIGH_Ki,
-				PIDConstants.ENCODER_DRIVE_HIGH_Kd, Robot.driveTrainSubsystem.getEncoderR(PIDSourceType.kDisplacement),
+		
+		
+		
+		contrR = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
+				PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getRTalonDistancePID(PIDSourceType.kDisplacement),
 				e -> {
-					Robot.driveTrainSubsystem.setRightSpeed(e + pidHH.get());
+					Robot.driveTrainSubsystem.setRightSpeed(e - pidHH.get());
 				});
-		contrR.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_HIGH_TOLERANCE);
+		contrR.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_kTolerance);
 
-		contrL = new PIDController(PIDConstants.ENCODER_DRIVE_HIGH_Kp, PIDConstants.ENCODER_DRIVE_HIGH_Ki,
-				PIDConstants.ENCODER_DRIVE_HIGH_Kd, Robot.driveTrainSubsystem.getEncoderL(PIDSourceType.kDisplacement),
+		
+		contrL = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
+				PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getLTalonDistancePID(PIDSourceType.kDisplacement),
 				e -> {
 					Robot.driveTrainSubsystem.setLeftSpeed(-e - pidHH.get());
 				});
-		contrL.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_HIGH_TOLERANCE);
+		contrL.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_kTolerance);
 		Robot.navxSubsystem.getAHRS().reset();
 		setPointHH = Robot.navxSubsystem.getAHRS().getYaw();
 		pidHH.enable();
+		
+		
 		if (clearBacklash) {
 			for (int time = 1; time <= 2; time++) {
-				Robot.driveTrainSubsystem.arcadeDrive(0.5, 0);
-				Timer.delay(0.1);
+				//Backlash stuff
 			}
 		}
 		
 		Robot.driveTrainSubsystem.arcadeDrive(0, 0);
-
-		Robot.driveTrainSubsystem.resetAllEncoders();
-		contrR.setSetpoint(RightDistance);
-		contrL.setSetpoint(LeftDistance);
-		contrL.setOutputRange(-motorSpeed, motorSpeed);
-		contrR.setOutputRange(-motorSpeed, motorSpeed);
-		contrR.enable();
-		contrL.enable();
-	}
+			
+			Robot.driveTrainSubsystem.resetEncoders(true,true);
+			contrR.setSetpoint(RightDistance);
+			contrL.setSetpoint(LeftDistance);
+			contrL.setOutputRange(-motorSpeed, motorSpeed);
+			contrR.setOutputRange(-motorSpeed, motorSpeed);
+			contrR.enable();
+			contrL.enable();
+		}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
@@ -88,8 +94,7 @@ public class MoveByEncoder extends Command implements PIDOutput {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if ((Math.abs(Robot.driveTrainSubsystem.getLeftDistance()) >= Math.abs(LeftDistance))
-				&& (Math.abs(Robot.driveTrainSubsystem.getRightDistance()) >= Math.abs(RightDistance))) {
+		if (contrR.onTarget() && contrL.onTarget()) {
 			return true;
 		} else {
 			return false;
