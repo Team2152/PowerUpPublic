@@ -2,58 +2,49 @@ package org.usfirst.frc.team2152.robot.subsystems;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
-import org.usfirst.frc.team2152.robot.commands.Elevate;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMove;
 
 import com.ctre.CANTalon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Elevator extends Subsystem{
-	public static final double DEFAULT_SPEED = 0.5;
-	
-	private WPI_TalonSRX oneMotor;
-	
-	
+public class Elevator extends Subsystem {
+
+	private WPI_TalonSRX elevatorTalon;
+	private DigitalInput elevatorMaxHeight;
 	public Elevator() {
+
+		elevatorTalon = new WPI_TalonSRX(RobotMap.ELEVATOR_MOVE_10_CAN_ID);
+		elevatorTalon.setSafetyEnabled(false);
+		elevatorTalon.setInverted(true);
 		
-		oneMotor = new WPI_TalonSRX(2);
-		oneMotor.setSafetyEnabled(false);
-		oneMotor.setInverted(true);
+		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_7);
 	}
 
-	/*
-	 * you need to:
-	 * 		create motors
-	 * 		create any ports (i.e. limitSwitch = RobotMap.limitSwitch)
-	 * 		create a constructor that can create a Elevator object
-	 * 			-in this initialize the motors
-	 * 		create any methods you will need(i.e. move(double inches) )
-	 * 
-	 * 		***if you need help ask for help or look at previous code***
-	 */
+	public void setElevatorRaiseSpeed(double raiseSpeed) {
+		elevatorTalon.set(-raiseSpeed);
+	}
+
+	public void setElevatorLowerSpeed(double lowerSpeed) {
+		elevatorTalon.set(lowerSpeed);
+	}
+
+	public void setElevatorStop() {
+		elevatorTalon.set(0);
+
+	}
+	
+	public Boolean getElevatorHeight(){
+		return !elevatorMaxHeight.get();
+	}
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new Elevate(.6, Robot.m_oi.driverXbox));
-		}
-		
-//		public void speed(double speed) {
-//			oneMotor.set(speed);
-//		}
-		
-		public void stop (){
-			oneMotor.set(0);
-			
-		}
-		public void up(double speed) {
-			oneMotor.set(-speed);
-		}
-		
-		public void down(double speed) {
-			oneMotor.set(speed);
-		}
+		setDefaultCommand(new ElevatorMove(.6, 0, Robot.m_oi.driverXbox));
 	}
 
-
+}
