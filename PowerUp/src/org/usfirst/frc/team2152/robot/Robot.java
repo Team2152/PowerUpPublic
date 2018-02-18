@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 	public static String PLATE_ASSIGNMENT;
 	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
-	public static final Gain driveTrainJoysickGain     = new Gain(Gain.PCT_100,Gain.XBOX_DEADBAND);
+	public static final Gain driveTrainJoystickGain     = new Gain(Gain.PCT_75,Gain.XBOX_DEADBAND);
 
 	
 	Command m_autonomousCommand;
