@@ -34,7 +34,8 @@ public class RobotMap {
 	public static final int LEFT_DRIVE_3_CAN_Id  = 7;
 	
 	public static final int ELEVATOR_MOVE_10_CAN_ID = 10;
-	public static final int ELEVATOR_MAX_LIMIT_DIO_7 = 7;
+	public static final int ELEVATOR_MAX_LIMIT = 7;
+	public static final int ELEVATOR_MIN_LIMIT = 8;
 
 
 }
