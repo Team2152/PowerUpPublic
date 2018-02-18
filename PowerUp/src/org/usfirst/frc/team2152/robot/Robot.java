@@ -16,6 +16,7 @@ import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2152.robot.subsystems.LED;
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
@@ -43,7 +44,7 @@ public class Robot extends TimedRobot {
 	public static final NavX navxSubsystem = new NavX();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
 	public static final Gain driveTrainJoystickGain     = new Gain(Gain.PCT_75,Gain.XBOX_DEADBAND);
-
+	public static final LED ledSubsystem = new LED();
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
