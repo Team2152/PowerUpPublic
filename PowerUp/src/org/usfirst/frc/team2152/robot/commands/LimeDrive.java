@@ -28,13 +28,17 @@ public class LimeDrive extends Command {
 	protected void execute() {
 		double outputThrottle = 0;
 		double outputTurn = 0;
-		outputThrottle = Robot.m_oi.driverXbox.getRawAxis(1);
-		outputTurn = Robot.m_oi.driverXbox.getRawAxis(4);
+		outputThrottle = Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(1));
+		outputTurn = -Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4));
 
 		if (Robot.m_oi.driverXbox.getRawButton(5) || (Math.abs(outputThrottle) <= 0.25)) {
 			Robot.driveTrainSubsystem.arcadeDrive(0.0, (outputTurn * 0.66));
 		} else {
 			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle), -(outputThrottle * outputTurn));
+		}
+		
+		if(Robot.m_oi.driverXbox.getRawButton(1)){
+			Robot.driveTrainSubsystem.resetEncoders(true, true);
 		}
 	}
 

@@ -14,44 +14,38 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PreCannedTurn extends Command implements PIDOutput {
 
 	PIDController pidPCT;
-	double errorFromHeadingPCT = 0.0;
-	float setPointPCT = 0.0f;
-	boolean spinLeft;
-	double maxSpeed;
+	Timer timer;
+	private double timeOut = 2;
+	private double errorFromHeadingPCT = 0.0;
+	private float setPointPCT = 0.0f;
+	private boolean spinLeft;
 	
-	
-	// Needs to be tuned for new robot/carpet
-	
-	
-	public PreCannedTurn(int setpoint, double maxSpeed, boolean spinLeft) {
+
+	public PreCannedTurn(int setpoint, boolean spinLeft) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrainSubsystem);
 		requires(Robot.navxSubsystem);
 		this.setPointPCT = setpoint;
-		this.maxSpeed = maxSpeed;
 		this.spinLeft = spinLeft;
+		timer = new Timer();
+		
 
-	}
-	
-	public PreCannedTurn(int setpoint, boolean spinLeft){
-		requires(Robot.driveTrainSubsystem);
-		requires(Robot.navxSubsystem);
-		this.setPointPCT = setpoint;
-		this.spinLeft = spinLeft;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer.reset();
+		timer.start();
+		Robot.navxSubsystem.resetAngle();
+		Timer.delay(.25);
 		pidPCT = new PIDController(PIDConstants.PCT_Kp, PIDConstants.PCT_Ki, PIDConstants.PCT_Kd,
 				Robot.navxSubsystem.getAHRS(), this);
 		pidPCT.disable();
-		pidPCT.setOutputRange(-1, 1);
+		pidPCT.setOutputRange(-.75, .75);
 		pidPCT.setAbsoluteTolerance(PIDConstants.PCT_TOLERANCE);
 		pidPCT.setContinuous(false);
-		Timer.delay(.25);
-		Robot.navxSubsystem.resetAngle();
-		Timer.delay(.25);
+		
 		pidPCT.setSetpoint(setPointPCT);
 
 		pidPCT.enable();
@@ -61,14 +55,15 @@ public class PreCannedTurn extends Command implements PIDOutput {
 	protected void execute() {
 		if (spinLeft) {
 			Robot.driveTrainSubsystem.tankDrive(-errorFromHeadingPCT, 0.1);
-		} else
+		} else {
 			Robot.driveTrainSubsystem.tankDrive(-0.1, errorFromHeadingPCT);
+		}
 		Robot.driveTrainSubsystem.tankDrive(-errorFromHeadingPCT, errorFromHeadingPCT);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE) {
+		if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE || timer.get() >= timeOut) {
 			return true;
 		} else {
 			return false;

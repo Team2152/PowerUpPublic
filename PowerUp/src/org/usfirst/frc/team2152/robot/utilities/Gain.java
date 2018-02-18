@@ -17,7 +17,8 @@ public class Gain {
 														// train, but not
 														// necessarily other
 														// types of motor/servos
-
+	
+	public final static double XBOX_DEADBAND = 0.25;
 	private double gain = PCT_100; // === default is FULL POWER ===
 	private double deadBand = DEFAULT_DEADBAND; // === default deadband value
 
