@@ -16,6 +16,7 @@ import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2152.robot.subsystems.Elevator;
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
