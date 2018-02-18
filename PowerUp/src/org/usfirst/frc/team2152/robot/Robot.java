@@ -84,7 +84,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	@Override
@@ -104,6 +104,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}
 
@@ -128,6 +129,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	/**
@@ -136,6 +138,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	@Override
@@ -148,6 +151,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	/**
@@ -161,6 +165,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}
 

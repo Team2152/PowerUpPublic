@@ -20,8 +20,12 @@ public class Dashboard extends Subsystem {
 		 */
 		String switchPlateSide = "";
 		String scalePlateSide = "";
-		String switchPlates = String.valueOf(plateAssignment.charAt(0));
-		String scalePlate = String.valueOf(plateAssignment.charAt(1));
+		String switchPlates = "";
+		String scalePlate = "";
+		if (plateAssignment.length() >= 3){
+			switchPlates = String.valueOf(plateAssignment.charAt(0));
+			scalePlate = String.valueOf(plateAssignment.charAt(1));
+		}
 
 		if (switchPlates.equalsIgnoreCase("L")) {
 			switchPlateSide = "Left";
@@ -69,23 +73,23 @@ public class Dashboard extends Subsystem {
 		SmartDashboard.putNumber("Right Encoder", encoderR);
 	}
 	
-	/**
-	 * Gets the encoder data from the Dashboard
-	 * @param encoder Defines the encoder to grab data from
-	 * @return The data from the encoder
-	 */
-	public double getEncoderData(String encoder) {
-		double d = 0;
-		switch (encoder) {
-		case "Left":
-			d = SmartDashboard.getNumber("Left Encoder", 0);
-			break;
-		case "Right":
-			d = SmartDashboard.getNumber("Right Encoder", 0);
-			break;
-		}
-		return d;
-	}
+//	/**
+//	 * Gets the encoder data from the Dashboard
+//	 * @param encoder Defines the encoder to grab data from
+//	 * @return The data from the encoder
+//	 */
+//	public double getEncoderData(String encoder) {
+//		double d = 0;
+//		switch (encoder) {
+//		case "Left":
+//			d = SmartDashboard.getNumber("Left Encoder", 0);
+//			break;
+//		case "Right":
+//			d = SmartDashboard.getNumber("Right Encoder", 0);
+//			break;
+//		}
+//		return d;
+//	}
 	
 	/**
 	 * Places toggles for reseting encoder data on the Dashboard
@@ -164,13 +168,13 @@ public class Dashboard extends Subsystem {
 		SmartDashboard.putBoolean("Cube Solenoid State", solenoidState);
 	}
 	
-	/**
-	 * Returns the cube solenoid state from the Dashboard
-	 * @return The recorded solenoid state
-	 */
-	public boolean getCubeSolenoid(){
-		return SmartDashboard.getBoolean("Cube Solenoid State", false);
-	}
+//	/**
+//	 * Returns the cube solenoid state from the Dashboard
+//	 * @return The recorded solenoid state
+//	 */
+//	public boolean getCubeSolenoid(){
+//		return SmartDashboard.getBoolean("Cube Solenoid State", false);
+//	}
 	
 	/**
 	 * Puts vision data onto the Dashboard
