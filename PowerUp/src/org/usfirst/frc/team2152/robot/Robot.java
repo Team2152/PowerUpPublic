@@ -101,6 +101,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		cameras.setToDisabledMode();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+
 	}
 
 	@Override
@@ -120,8 +122,9 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
-		
 		cameras.setToDisabledMode();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+
 
 	}
 
@@ -138,17 +141,17 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//PLATE_ASSIGNMENT must be defined before autonomous is finalized for a match
-		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
-		powerUpDashboard.putPlateAssignment();
+		//Plate assignment used to determine auto routine
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		m_autonomousCommand = m_chooser.getSelected();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
-		
 		cameras.setToAutoMode();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+
 	}
 
 	/**
@@ -158,6 +161,7 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	@Override
@@ -170,6 +174,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	/**
@@ -183,6 +188,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}
 

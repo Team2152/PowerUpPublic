@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
-import org.usfirst.frc.team2152.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,15 +13,19 @@ public class Dashboard extends Subsystem {
 	 * Gets our alliance's plate assignment for our switch and the scale and
 	 * puts them on the SmartDashboard
 	 */
-	public void putPlateAssignment() {
+	public void putPlateAssignment(String plateAssignment) {
 		/*
 		 * Our plate on the opponent's Switch will always be on the same side as
 		 * our plate on our own Switch, According to Figure 4-1 in the manual
 		 */
 		String switchPlateSide = "";
 		String scalePlateSide = "";
-		String switchPlates = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(0));
-		String scalePlate = String.valueOf(Robot.PLATE_ASSIGNMENT.charAt(1));
+		String switchPlates = "";
+		String scalePlate = "";
+		if (plateAssignment.length() >= 3){
+			switchPlates = String.valueOf(plateAssignment.charAt(0));
+			scalePlate = String.valueOf(plateAssignment.charAt(1));
+		}
 
 		if (switchPlates.equalsIgnoreCase("L")) {
 			switchPlateSide = "Left";
@@ -71,39 +73,108 @@ public class Dashboard extends Subsystem {
 		SmartDashboard.putNumber("Right Encoder", encoderR);
 	}
 	
+//	/**
+//	 * Gets the encoder data from the Dashboard
+//	 * @param encoder Defines the encoder to grab data from
+//	 * @return The data from the encoder
+//	 */
+//	public double getEncoderData(String encoder) {
+//		double d = 0;
+//		switch (encoder) {
+//		case "Left":
+//			d = SmartDashboard.getNumber("Left Encoder", 0);
+//			break;
+//		case "Right":
+//			d = SmartDashboard.getNumber("Right Encoder", 0);
+//			break;
+//		}
+//		return d;
+//	}
+	
 	/**
-	 * Gets the encoder data from the Dashboard
-	 * @param encoder Defines the encoder to grab data from
-	 * @return The data from the encoder
+	 * Places toggles for reseting encoder data on the Dashboard
 	 */
-	public double getEncoderData(String encoder) {
-		double d = 0;
-		switch (encoder) {
+	public void putEncoderReset(){
+		SmartDashboard.putBoolean("Reset Left Encoder", false);
+		SmartDashboard.putBoolean("Reset Right Encoder", false);
+		SmartDashboard.putBoolean("Reset Both Encoders", false);
+	}
+	
+	/**
+	 * Get status from encoder reset Toggles
+	 * @param encoder Toggle to check
+	 * @return value of the Toggle
+	 */
+	public boolean getEncoderReset(String encoder){
+		boolean b = false;
+		switch (encoder){
 		case "Left":
-			d = SmartDashboard.getNumber("Left Encoder", 0);
+			b = SmartDashboard.getBoolean("Reset Left Encoder", false);
 			break;
 		case "Right":
-			d = SmartDashboard.getNumber("Right Encoder", 0);
+			b =	SmartDashboard.getBoolean("Reset Right Encoder", false);
+			break;
+		case "Both":
+			b = SmartDashboard.getBoolean("Reset Both Encoders", false);
 			break;
 		}
-		return d;
+		return b;
 	}
 	
-	/**
-	 * Shows cube possession on the Dashboard
-	 * @param status Cube possession data
-	 */
-	public void putCubeStatus(boolean status) {
-		SmartDashboard.putBoolean("Cube Possession", status);
+	 /**
+	  * Checks cube manipulator IR limit switch status and displays on the Dashboard
+	  * @param leftIn LeftIntake Sensor
+	  * @param rightIn RightIntake Sensor
+	  * @param leftOut LeftOuttake Sensor
+	  * @param rightOut RightOuttake Sensor
+	  */
+	public void putCubeStatus(boolean leftIn, boolean rightIn, boolean leftOut, boolean rightOut) {
+		SmartDashboard.putBoolean("Cube Detect - InnerLeft", leftIn);
+		SmartDashboard.putBoolean("Cube Detect - InnerRight", rightIn);
+		SmartDashboard.putBoolean("Cube Detect - OuterLeft", leftOut);
+		SmartDashboard.putBoolean("Cube Detect - OuterRight", rightOut);
 	}
 	
+//	GetCubeStatus method is not used in order to reduce latency from the operator console and the cube manipulator
+//	/**
+//	 * Returns IR limit switch status from the Dashboard
+//	 * @param sensor The IR sensor to check
+//	 * @return Cube possession data
+//	 */
+//	public boolean getCubeStatus(String sensor) {
+//		boolean b = false;
+//		switch (sensor){
+//		case "InnerLeft":
+//			b = SmartDashboard.getBoolean("Cube Detect - InnerLeft", false);
+//			break;
+//		case "InnerRight":
+//			b = SmartDashboard.getBoolean("Cube Detect - InnerRight", false);
+//			break;
+//		case "OuterLeft":
+//			b = SmartDashboard.getBoolean("Cube Detect - OuterLeft", false);
+//			break;
+//		case "OuterRight":
+//			b = SmartDashboard.getBoolean("Cube Detect - OuterRight", false);
+//			break;
+//		}
+//		return b;
+//	}
+	
 	/**
-	 * Returns cube possession from the Dashboard
-	 * @return Cube possession data
+	 * Displays the cube solenoid state on the Dashboard
+	 * @param solenoidState 
 	 */
-	public boolean getCubeStatus() {
-		return SmartDashboard.getBoolean("Cube Possession", false);
+	public void putCubeSolenoid(boolean solenoidState){
+		SmartDashboard.putBoolean("Cube Solenoid State", solenoidState);
 	}
+	
+//	/**
+//	 * Returns the cube solenoid state from the Dashboard
+//	 * @return The recorded solenoid state
+//	 */
+//	public boolean getCubeSolenoid(){
+//		return SmartDashboard.getBoolean("Cube Solenoid State", false);
+//	}
 	
 	/**
 	 * Puts vision data onto the Dashboard
@@ -134,8 +205,8 @@ public class Dashboard extends Subsystem {
 	}
 	
 	public void putVideoRecording() {
-		//SmartDashboard.putData(new startRecording());  Needs command to be written
-		//SmartDashboard.putData(new stopRecording());  Needs command to be written
+		//SmartDashboard.putData(new startRecording());  Needs command
+		//SmartDashboard.putData(new stopRecording());  Needs command
 
 	}
 
