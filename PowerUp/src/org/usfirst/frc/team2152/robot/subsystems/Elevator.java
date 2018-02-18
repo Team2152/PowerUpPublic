@@ -36,7 +36,7 @@ public class Elevator extends Subsystem{
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new Elevate(.2, Robot.m_oi.driverXbox));
+		setDefaultCommand(new Elevate(.6, Robot.m_oi.driverXbox));
 		}
 		
 //		public void speed(double speed) {
