@@ -14,6 +14,11 @@ import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
+import org.usfirst.frc.team2152.robot.commands.Record;
+import org.usfirst.frc.team2152.robot.commands.StopRecording;
+import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
+import org.usfirst.frc.team2152.robot.network.UDPHandler;
+import org.usfirst.frc.team2152.robot.network.UDPReceiver;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.subsystems.LED;
@@ -37,6 +42,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+	public static final OdroidsCameraSettings cameras = new OdroidsCameraSettings();
 	public static OI m_oi;
 	public static Log m_logger;
 	public static Dashboard powerUpDashboard = new Dashboard();
@@ -45,6 +51,9 @@ public class Robot extends TimedRobot {
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
 	public static final Gain driveTrainJoystickGain     = new Gain(Gain.PCT_75,Gain.XBOX_DEADBAND);
 	public static final LED ledSubsystem = new LED();
+	
+	public static final UDPHandler udp = new UDPHandler();
+	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -58,7 +67,8 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		m_logger = new Log(true);
 
-
+		cameras.start();
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
 		SmartDashboard.putNumber("Auto Delay", 0);
@@ -76,6 +86,11 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Left", new SwitchLeft());
 		m_chooser.addObject("Switch Right", new SwitchRight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
+		
+		SmartDashboard.putData("StartRecording", new Record());
+		SmartDashboard.putData("StopRecording", new StopRecording());
+		
+		cameras.setToDisabledMode();
 	}
 
 	/**
@@ -85,7 +100,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		cameras.setToDisabledMode();
 	}
 
 	@Override
@@ -105,6 +120,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
 		Scheduler.getInstance().run();
+		
+		cameras.setToDisabledMode();
 
 	}
 
@@ -130,6 +147,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		
+		cameras.setToAutoMode();
 	}
 
 	/**
@@ -137,6 +156,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
 	}
 
@@ -146,7 +166,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		
+		cameras.setToTeleMode();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
