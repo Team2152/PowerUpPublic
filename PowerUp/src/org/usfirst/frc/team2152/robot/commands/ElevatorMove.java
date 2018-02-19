@@ -41,7 +41,7 @@ public class ElevatorMove extends Command {
 			Robot.elevatorSubsystem.setElevatorRaiseSpeed(0);
 		} 
 		else if (Robot.m_oi.driverXbox.getRawButton(buttonBid) == true && Robot.elevatorSubsystem.getELevatorMinHeight() == false) {
-			Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
+			Robot.elevatorSubsystem.setElevatorLowerSpeed(lowerSpeed);
 		} 
 		else if (Robot.elevatorSubsystem.getELevatorMinHeight() == true) {
 			Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
