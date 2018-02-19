@@ -8,11 +8,9 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
-import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
-import org.usfirst.frc.team2152.robot.commands.TankDriveByTime;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -192,11 +190,8 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-//			dButtonX.whenReleased(new TankDriveByTime(-.75,-.75, 1.5));
 			dButtonB.whenReleased(new MoveByEncoder(72, 72 , 0.250, false));
-//			dButtonA.whenReleased(new ResetEncoders());
 			dButtonA.whenReleased(new ResetNavx());
-//			dButtonY.whenReleased((new PreCannedTurn(90,.5,true)));
 			dPOV90.whenPressed(new PreCannedTurn(90, false));
 			dPOV270.whenPressed(new PreCannedTurn(-90, false));
 			dPOV180.whenPressed(new PreCannedTurn(180, false));

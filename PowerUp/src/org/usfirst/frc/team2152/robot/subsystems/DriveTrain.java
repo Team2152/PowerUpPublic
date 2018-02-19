@@ -4,6 +4,7 @@ import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LimeDrive;
 import org.usfirst.frc.team2152.robot.commands.TankDriveJoystick;
+import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 import org.usfirst.frc.team2152.robot.utilities.TalonPIDSource;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -19,6 +20,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  *
  */
 public class DriveTrain extends Subsystem{
+	// Note: MoveByPosition (Not MoveByEncoder) inversion settings = Robot.driveTrainSubsystem.invertDriveTrain(false, true, true, true);
+	// Note: Normal joystick and pid drive inversion settings = Robot.driveTrainSubsystem.invertDriveTrain(true, true, false, true);
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -64,17 +67,21 @@ public class DriveTrain extends Subsystem{
 		right1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		right1.setSensorPhase(true);
+		right1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 		right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_2_CAN_Id);
 		right2.setNeutralMode(NeutralMode.Brake);
 		right2.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_Id);
 		right2.setInverted(true);
+		right2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 		right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_3_CAN_Id);
 		right3.setNeutralMode(NeutralMode.Brake);
 		right3.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_Id);
 		right3.setInverted(true);
+		right3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
+		
 		left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_1_CAN_Id);
 		left1.setNeutralMode(NeutralMode.Brake);
 		left1.setInverted(true);
@@ -89,16 +96,21 @@ public class DriveTrain extends Subsystem{
 		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		left1.setSensorPhase(false);
-
+		left1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+		
 		left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_2_CAN_Id);
 		left2.setNeutralMode(NeutralMode.Brake);
 		left2.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
 		left2.setInverted(true);
+		left2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
+		
 		left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_Id);
 		left3.setNeutralMode(NeutralMode.Brake);
 		left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_Id);
 		left3.setInverted(true);
+		left3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+
 		
 		drive = new DifferentialDrive(left1,right1);
 		drive.setSafetyEnabled(false);
@@ -295,6 +307,16 @@ public class DriveTrain extends Subsystem{
 		default:
 			return 0;
 		}
+	}
+	
+	public void setRampRate(double secondsToFull, int timeOut){
+		left1.configOpenloopRamp(secondsToFull, timeOut);
+		right1.configOpenloopRamp(secondsToFull, timeOut);
+	}
+	
+	public void resetRampRate(){
+		left1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+		right1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 	}
 
 	public void initDefaultCommand() {
