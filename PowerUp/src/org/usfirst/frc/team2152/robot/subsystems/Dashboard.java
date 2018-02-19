@@ -72,8 +72,8 @@ public class Dashboard extends Subsystem {
 	 * @param encoderR Right encoder value
 	 */
 	public void putEncoderData(double encoderL, double encoderR) {
-		SmartDashboard.putNumber("Left Encoder", encoderL);
-		SmartDashboard.putNumber("Right Encoder", encoderR);
+		SmartDashboard.putNumber("L Pos", encoderL);
+		SmartDashboard.putNumber("R Pos", encoderR);
 	}
 	
 //	/**
