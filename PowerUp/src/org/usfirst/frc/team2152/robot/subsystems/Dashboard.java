@@ -1,5 +1,8 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
+import org.usfirst.frc.team2152.robot.commands.Record;
+import org.usfirst.frc.team2152.robot.commands.StopRecording;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -204,10 +207,9 @@ public class Dashboard extends Subsystem {
 		return d;
 	}
 	
-	public void putVideoRecording() {
-		//SmartDashboard.putData(new startRecording());  Needs command
-		//SmartDashboard.putData(new stopRecording());  Needs command
-
+	public void putRecording() {
+		SmartDashboard.putData("StartRecording", new Record());
+		SmartDashboard.putData("StopRecording", new StopRecording());
 	}
 
 	@Override

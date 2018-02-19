@@ -87,8 +87,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Right", new SwitchRight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		
-		SmartDashboard.putData("StartRecording", new Record());
-		SmartDashboard.putData("StopRecording", new StopRecording());
+		powerUpDashboard.putRecording();
 		
 		cameras.setToDisabledMode();
 	}
