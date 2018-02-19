@@ -12,6 +12,8 @@ public class ElevatorMove extends Command {
 	private Joystick joystick;
 	private double raiseSpeed;
 	private double lowerSpeed;
+	private int buttonAid = 1;
+	private int buttonBid = 2;
 
 	/*
 	 * create everything you will need to move by controls this will be for the
@@ -32,13 +34,20 @@ public class ElevatorMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (Robot.m_oi.driverXbox.getRawButton(1) == true) {
-			if (Robot.elevatorSubsystem.getElevatorHeight() == false) {
-				Robot.elevatorSubsystem.setElevatorRaiseSpeed(raiseSpeed);
-			} else if (Robot.elevatorSubsystem.getElevatorHeight() == true) {
-				Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
-			}
-
+		if (Robot.m_oi.driverXbox.getRawButton(buttonAid) == true && Robot.elevatorSubsystem.getElevatorMaxHeight() == false) {
+			Robot.elevatorSubsystem.setElevatorRaiseSpeed(raiseSpeed);
+		} 
+		else if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
+			Robot.elevatorSubsystem.setElevatorRaiseSpeed(0);
+		} 
+		else if (Robot.m_oi.driverXbox.getRawButton(buttonBid) == true && Robot.elevatorSubsystem.getELevatorMinHeight() == false) {
+			Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
+		} 
+		else if (Robot.elevatorSubsystem.getELevatorMinHeight() == true) {
+			Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
+		} 
+		else if (Robot.m_oi.driverXbox.getRawButton(buttonAid) == false && Robot.m_oi.driverXbox.getRawButton(buttonBid) == false) {
+			Robot.elevatorSubsystem.setElevatorStop();
 		}
 
 	}
@@ -55,6 +64,6 @@ public class ElevatorMove extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
+		Robot.elevatorSubsystem.setElevatorStop();
 	}
 }
