@@ -190,7 +190,7 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-			dButtonB.whenReleased(new MoveByEncoder(72, 72 , 0.250, false));
+			dButtonB.whenReleased(new MoveByEncoder(75, 75, .4, false));
 			dButtonA.whenReleased(new ResetNavx());
 			dPOV90.whenPressed(new PreCannedTurn(90, false));
 			dPOV270.whenPressed(new PreCannedTurn(-90, false));
