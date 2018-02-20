@@ -58,11 +58,6 @@ public class CubeIntakeMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		// Send our sensor status to the dashboard
-		Robot.powerUpDashboard.putCubeStatus(Robot.cubeIntakeSubsystem.cubeDetectInLeft(),
-				Robot.cubeIntakeSubsystem.cubeDetectInRight(), Robot.cubeIntakeSubsystem.cubeDetectOutLeft(),
-				Robot.cubeIntakeSubsystem.cubeDetectOutRight());
-
 		// When both inner sensors show NO cube presense then
 		// check then joystick buttons and act on them if they are pressed
 		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == false
