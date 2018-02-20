@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class SwitchLeft extends CommandGroup {
+public class ScaleLeft extends CommandGroup {
 
-    public SwitchLeft() {
+    public ScaleLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -35,16 +35,23 @@ public class SwitchLeft extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
-    		//Navigate to Switch and deliver cube
-        	addSequential(new MoveByEncoder(168,168,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(90,false));
-        	addSequential(new MoveByEncoder(10,10,.5,false));
-        	//Cube Delivery Commands
+    		addSequential(new MoveByEncoder(37,37,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(-45,false));
+    		addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(45,false));
+    		addSequential(new MoveByEncoder(252,252,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(90,false));
+    		addSequential(new MoveByEncoder(34,34,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else if (switchPosition == "Right"){
-    		//Only Cross Baseline
-        	addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else {
-        	addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
+
+
+
+
+
+
     }
 }
