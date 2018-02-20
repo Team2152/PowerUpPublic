@@ -9,11 +9,13 @@ package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+
+
+import org.usfirst.frc.team2152.robot.commands.TankDriveByTime;
 import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
-import org.usfirst.frc.team2152.robot.commands.TankDriveByTime;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,7 +27,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	////CREATING BUTTONS
+	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
 	// You create one by telling it which joystick it's on and which button
@@ -188,11 +190,10 @@ public class OI {
 
 	public void setupOperatorButtons() {
 
-		
-		
 	}
 
 	public void setupDriverXboxButtons() {
+
 //			dButtonX.whenReleased(new TankDriveByTime(-.75,-.75, 1.5));
 			dButtonB.whenReleased(new MoveByEncoder(72, 72 , 0.250, false));
 //			dButtonA.whenReleased(new ResetEncoders());
@@ -202,6 +203,10 @@ public class OI {
 			dPOV270.whenPressed(new PreCannedTurn(-90, false));
 			dPOV180.whenPressed(new PreCannedTurn(180, false));
 //			dButtonY.whenPressed(new LEDTest(driverXbox, 355));
+
 	}
-	
+
+
 }
+	
+

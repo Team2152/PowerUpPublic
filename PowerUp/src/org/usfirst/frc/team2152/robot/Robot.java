@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.subsystems.CubeIntake;
+import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
@@ -48,13 +50,14 @@ public class Robot extends TimedRobot {
 	public static Dashboard powerUpDashboard = new Dashboard();
 	public static String PLATE_ASSIGNMENT;
 	public static final NavX navxSubsystem = new NavX();
+	public static final Gain driveTrainJoystickGain = new Gain(Gain.PCT_75, Gain.DEFAULT_DEADBAND);
+	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
+    public static final CubeMove cubeMoveSubsystem = new CubeMove();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
-	public static final Gain driveTrainJoystickGain     = new Gain(Gain.PCT_75,Gain.XBOX_DEADBAND);
-	public static final LED ledSubsystem = new LED();
-	
+	public static final LED ledSubsystem = new LED();	
 	public static final UDPHandler udp = new UDPHandler();
 	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
-	
+
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
@@ -68,7 +71,7 @@ public class Robot extends TimedRobot {
 		m_logger = new Log(true);
 
 		cameras.start();
-		
+
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
 		SmartDashboard.putNumber("Auto Delay", 0);
@@ -107,6 +110,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+
 		SmartDashboard.putNumber("Right 1 Current", Robot.driveTrainSubsystem.getCurrent(1));
 		SmartDashboard.putNumber("Right 2 Current", Robot.driveTrainSubsystem.getCurrent(2));
 		SmartDashboard.putNumber("Right 3 Current", Robot.driveTrainSubsystem.getCurrent(3));
@@ -135,14 +139,17 @@ public class Robot extends TimedRobot {
 	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
 	 * getString code to get the auto name from the text box below the Gyro
 	 *
-	 * <p>You can add additional auto modes by adding additional commands to the
+	 * <p>
+	 * You can add additional auto modes by adding additional commands to the
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
+
 		//Plate assignment used to determine auto routine
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+
 		m_autonomousCommand = m_chooser.getSelected();
 
 		// schedule the autonomous command (example)
