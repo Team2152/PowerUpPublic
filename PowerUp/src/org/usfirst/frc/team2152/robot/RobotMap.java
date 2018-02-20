@@ -34,17 +34,16 @@ public class RobotMap {
 	public static final int LEFT_DRIVE_2_CAN_Id  = 6;
 	public static final int LEFT_DRIVE_3_CAN_Id  = 7;
 
-	public static final int CUBE_DETECT_DIO_4 = 4; // Distance Sensor
-	public static final int CUBE_DETECT_DIO_5 = 5; // Distance Sensor
-	public static final int CUBE_DETECT_DIO_6 = 6; // Distance Sensor
-	public static final int CUBE_DETECT_DIO_7 = 7; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_4  = 0; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_5  = 1; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_6  = 2; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_7  = 3; // Distance Sensor
+		public static final int CUBE_LIMIT_MAX = 4;
+	public static final int CUBE_LIMIT_MIN     = 5;
 	
-
-	public static final int CUBE_LIMIT_MAX    = 8;
-	public static final int CUBE_LIMIT_MIN    = 9;
-	public static final int CUBE_INTAKE_RIGHT = 1;
-	public static final int CUBE_INTAKE_LEFT = 2;
-	public static final int LIFT_MOVE_1_CAN_ID = 2;
+	public static final int CUBE_INTAKE_RIGHT  = 0;
+	public static final int CUBE_INTAKE_LEFT   = 1;
+	public static final int ARM_MOVE_1_CAN_ID  = 8;
 
 
 }

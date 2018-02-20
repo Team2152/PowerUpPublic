@@ -22,7 +22,7 @@ public class CubeMove extends Subsystem {
 	private DigitalInput cubeLimitMin;
 
 	public CubeMove() {
-		cubeMoveTalon = new WPI_TalonSRX(RobotMap.LIFT_MOVE_1_CAN_ID);
+		cubeMoveTalon = new WPI_TalonSRX(RobotMap.ARM_MOVE_1_CAN_ID);
 		cubeMoveTalon.setNeutralMode(NeutralMode.Brake);
 
 		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_MAX);

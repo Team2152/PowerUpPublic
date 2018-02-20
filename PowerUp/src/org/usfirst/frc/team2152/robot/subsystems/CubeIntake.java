@@ -21,9 +21,6 @@ public class CubeIntake extends Subsystem {
 	// here. Call these from Commands.
 
 	DoubleSolenoid cubeSolenoid;
-	// private WPI_TalonSRX cubeIntakeRight;
-	// private WPI_TalonSRX cubeIntakeLeft;
-
 	private Victor cubeIntakeRight;
 	private Victor cubeIntakeLeft;
 
@@ -33,9 +30,6 @@ public class CubeIntake extends Subsystem {
 	private DigitalInput cubeDetectInnerLeft;
 
 	public CubeIntake() {
-
-		// cubeIntakeRight = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_RIGHT);
-		// cubeIntakeLeft = new WPI_TalonSRX(RobotMap.CUBE_INTAKE_LEFT);
 
 		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT);
 		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT);
@@ -85,27 +79,31 @@ public class CubeIntake extends Subsystem {
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
 	}
 
-	//If the sharp sensor detects a cube it will return true
-	//The value is inverted because sharp sensors return false when something is detected
+	// If the sharp sensor detects a cube it will return true
+	// The value is inverted because sharp sensors return false when something
+	// is detected
 	public boolean cubeDetectOutRight() {
 		return !cubeDetectOuterRight.get();
 	}
 
-	//If the sharp sensor detects a cube it will return true
-	//The value is inverted because sharp sensors return false when something is detected
+	// If the sharp sensor detects a cube it will return true
+	// The value is inverted because sharp sensors return false when something
+	// is detected
 	public boolean cubeDetectOutLeft() {
 		return !cubeDetectOuterLeft.get();
 
 	}
 
-	//If the sharp sensor detects a cube it will return true
-	//The value is inverted because sharp sensors return false when something is detected
+	// If the sharp sensor detects a cube it will return true
+	// The value is inverted because sharp sensors return false when something
+	// is detected
 	public boolean cubeDetectInRight() {
 		return !cubeDetectInnerRight.get();
 	}
 
-	//If the sharp sensor detects a cube it will return true
-	//The value is inverted because sharp sensors return false when something is detected
+	// If the sharp sensor detects a cube it will return true
+	// The value is inverted because sharp sensors return false when something
+	// is detected
 	public boolean cubeDetectInLeft() {
 		return !cubeDetectInnerLeft.get();
 
