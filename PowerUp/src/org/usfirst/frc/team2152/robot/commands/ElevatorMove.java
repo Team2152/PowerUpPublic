@@ -40,10 +40,10 @@ public class ElevatorMove extends Command {
 		else if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
 			Robot.elevatorSubsystem.setElevatorRaiseSpeed(0);
 		} 
-		else if (Robot.m_oi.driverXbox.getRawButton(buttonBid) == true && Robot.elevatorSubsystem.getELevatorMinHeight() == false) {
+		else if (Robot.m_oi.driverXbox.getRawButton(buttonBid) == true && Robot.elevatorSubsystem.getElevatorMinHeight() == false) {
 			Robot.elevatorSubsystem.setElevatorLowerSpeed(lowerSpeed);
 		} 
-		else if (Robot.elevatorSubsystem.getELevatorMinHeight() == true) {
+		else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
 			Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
 		} 
 		else if (Robot.m_oi.driverXbox.getRawButton(buttonAid) == false && Robot.m_oi.driverXbox.getRawButton(buttonBid) == false) {

@@ -210,6 +210,7 @@ public class Robot extends TimedRobot {
 
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
+		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(), Robot.elevatorSubsystem.getElevatorMinHeight());
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}

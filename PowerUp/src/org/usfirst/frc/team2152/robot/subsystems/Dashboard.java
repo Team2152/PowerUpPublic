@@ -199,6 +199,11 @@ public class Dashboard extends Subsystem {
 		SmartDashboard.putData("StartRecording", new Record());
 		SmartDashboard.putData("StopRecording", new StopRecording());
 	}
+	
+	public void putElevatorStatus(boolean maxHeight, boolean minHeight) {
+		SmartDashboard.putBoolean("Elevator Max Height", maxHeight);
+		SmartDashboard.putBoolean("Elevator Min Height", minHeight);
+	}
 
 	@Override
 	protected void initDefaultCommand() {

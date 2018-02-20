@@ -43,7 +43,7 @@ public class Elevator extends Subsystem {
 		return !elevatorMaxHeight.get();
 	}
 
-	public Boolean getELevatorMinHeight() {
+	public Boolean getElevatorMinHeight() {
 		return !elevatorMinHeight.get();
 	}
 
