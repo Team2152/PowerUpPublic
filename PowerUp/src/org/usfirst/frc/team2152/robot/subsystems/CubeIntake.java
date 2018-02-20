@@ -26,8 +26,8 @@ public class CubeIntake extends Subsystem {
 
 	private DigitalInput cubeDetectOuterRight;
 	private DigitalInput cubeDetectOuterLeft;
-	private DigitalInput cubeDetectInnerRight;
-	private DigitalInput cubeDetectInnerLeft;
+	private DigitalInput cubeDetectIn;
+	
 
 	public CubeIntake() {
 
@@ -39,9 +39,8 @@ public class CubeIntake extends Subsystem {
 
 		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_0);
 		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_1);
-		cubeDetectInnerRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_2);
-		cubeDetectInnerLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_3);
-
+		cubeDetectIn = new DigitalInput(RobotMap.CUBE_DETECT_DIO_2);
+		
 	}
 
 	// Sets intake speed
@@ -108,18 +107,11 @@ public class CubeIntake extends Subsystem {
 	// If the sharp sensor detects a cube it will return true
 	// The value is inverted because sharp sensors return false when something
 	// is detected
-	public boolean cubeDetectInRight() {
-		return !cubeDetectInnerRight.get();
+	public boolean cubeDetectIn() {
+		return !cubeDetectIn.get();
 	}
 
-	// If the sharp sensor detects a cube it will return true
-	// The value is inverted because sharp sensors return false when something
-	// is detected
-	public boolean cubeDetectInLeft() {
-		return !cubeDetectInnerLeft.get();
-
-	}
-
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());

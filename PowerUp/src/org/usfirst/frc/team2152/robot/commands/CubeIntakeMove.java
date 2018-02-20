@@ -60,8 +60,7 @@ public class CubeIntakeMove extends Command {
 
 		// When both inner sensors show NO cube presense then
 		// check then joystick buttons and act on them if they are pressed
-		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == false
-				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == false) {
+		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == false) {
 
 			// Using else if so that only one button is usable at a time in the
 			// following priority: A Y X B
@@ -94,8 +93,7 @@ public class CubeIntakeMove extends Command {
 		// If BOTH INNER sensors are triggered then it will allow the user to expel the cube
 		// Sensors, with this code configuration, must be installed very
 		// close to the back of the manipulator
-		if (Robot.cubeIntakeSubsystem.cubeDetectInRight() == true
-				&& Robot.cubeIntakeSubsystem.cubeDetectInLeft() == true) {
+		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
 			if (joystick.getRawButton(cubeButtonYid) == true) {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
 			} else {
