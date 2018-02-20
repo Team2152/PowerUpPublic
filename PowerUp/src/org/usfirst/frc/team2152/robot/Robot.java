@@ -23,7 +23,11 @@ import org.usfirst.frc.team2152.robot.network.UDPHandler;
 import org.usfirst.frc.team2152.robot.network.UDPReceiver;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
+
 import org.usfirst.frc.team2152.robot.subsystems.LED;
+
+import org.usfirst.frc.team2152.robot.subsystems.Elevator;
+
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
@@ -54,9 +58,13 @@ public class Robot extends TimedRobot {
 	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
     public static final CubeMove cubeMoveSubsystem = new CubeMove();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
+
 	public static final LED ledSubsystem = new LED();	
 	public static final UDPHandler udp = new UDPHandler();
 	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
+
+	public static final Elevator elevatorSubsystem = new Elevator();
+
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
