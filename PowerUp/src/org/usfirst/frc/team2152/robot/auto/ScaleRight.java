@@ -35,11 +35,30 @@ public class ScaleRight extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
-    		
+    		// Only Cross baseline
+    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else if (switchPosition == "Right"){
-    		addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		// Navigate to right side scale plate
+    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(236,236,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-90,false));
+        	addSequential(new MoveByEncoder(63,63,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	
+        	// Cube delivery 
+
     	} else {
-    		addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
 
     }

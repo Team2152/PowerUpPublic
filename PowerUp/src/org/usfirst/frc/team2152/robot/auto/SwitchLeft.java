@@ -36,21 +36,36 @@ public class SwitchLeft extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
-    		//Navigate to Switch and deliver cube
+    		//Navigate to left switch plate
     		addSequential(new SetCubeIntake(-.5));
     		Timer.delay(.25);
-        	addSequential(new MoveByEncoder(168,168,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new SetCubeIntake(0));
+    		
+        	addSequential(new MoveByEncoder(36,36,.4,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(48,48,.4,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(93,93,.4,false));
         	addSequential(new PreCannedTurn(90,false));
-        	addSequential(new MoveByEncoder(10,10,.5,false));
+        	addSequential(new MoveByEncoder(55,55,.4,false));
+
         	//Cube Delivery Commands
         	addSequential(new SetCubeIntake(1));
     		Timer.delay(1);
     		addSequential(new SetCubeIntake(0));
     	} else if (switchPosition == "Right"){
     		//Only Cross Baseline
-        	addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(36,36,.4,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(48,48,.4,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(50,50,.4,false));
     	} else {
-        	addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(36,36,.4,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(48,48,.4,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(50,50,.4,false));
     	}
     }
 }

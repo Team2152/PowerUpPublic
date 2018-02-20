@@ -3,6 +3,7 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -32,7 +33,12 @@ public class BaselineLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	// Only cross baseline
+    	addSequential(new MoveByEncoder(36,36,.4,false));
+    	addSequential(new PreCannedTurn(-45,false));
+    	addSequential(new MoveByEncoder(48,48,.4,false));
+    	addSequential(new PreCannedTurn(45,false));
+    	addSequential(new MoveByEncoder(50,50,.4,false));
     	
     }
 }

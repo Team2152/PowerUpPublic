@@ -33,10 +33,10 @@ public class BaselineRight extends CommandGroup {
         // arm.
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	addSequential(new MoveByEncoder(40,40,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	addSequential(new PreCannedTurn(45,false));
-    	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	addSequential(new PreCannedTurn(-45,false));
-    	addSequential(new MoveByEncoder(90,90,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
     }
 }

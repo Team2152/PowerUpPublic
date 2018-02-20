@@ -32,15 +32,11 @@ public class BaselineCenter extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	addSequential(new MoveByEncoder(40,40,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	addSequential(new PreCannedTurn(45,false));
-    	addSequential(new MoveByEncoder(69,69,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	addSequential(new PreCannedTurn(45,false));
-    	addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    	addSequential(new PreCannedTurn(-90,false));
-    	addSequential(new MoveByEncoder(34,34,PIDConstants.ENCODER_DRIVE_SPEED,false));
-
-
-
+    	addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	
     }
 }
