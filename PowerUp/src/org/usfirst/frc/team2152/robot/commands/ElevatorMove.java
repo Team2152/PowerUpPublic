@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorMove extends Command {
 
-	private double speed = 0;
+	
 	private Joystick joystick;
 	private double raiseSpeed;
 	private double lowerSpeed;

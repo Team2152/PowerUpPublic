@@ -9,6 +9,8 @@ package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.CubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 //import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
@@ -196,6 +198,8 @@ public class OI {
 		dPOV90.whenPressed(new PreCannedTurn(90, false));
 		dPOV270.whenPressed(new PreCannedTurn(-90, false));
 		dPOV180.whenPressed(new PreCannedTurn(180, false));
+		dButtonX.whenPressed(new ElevatorMoveHigh(.5));
+		dButtonY.whenPressed(new ElevatorMoveLow(.1));
 	}
 
 }
