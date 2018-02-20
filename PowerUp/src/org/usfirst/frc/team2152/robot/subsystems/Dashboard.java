@@ -158,7 +158,7 @@ public class Dashboard extends Subsystem {
 	 * @param solenoidState
 	 */
 	public void putCubeSolenoid(boolean solenoidState) {
-		SmartDashboard.putBoolean("Cube Solenoid State", solenoidState);
+		SmartDashboard.putBoolean("Cube Solenoid Open", solenoidState);
 	}
 
 	/**

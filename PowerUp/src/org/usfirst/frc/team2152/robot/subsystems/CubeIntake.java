@@ -77,11 +77,13 @@ public class CubeIntake extends Subsystem {
 	// Opens the solenoid
 	public void cubeSolenoidOpen() {
 		cubeSolenoid.set(DoubleSolenoid.Value.kForward);
+		Robot.powerUpDashboard.putCubeSolenoid(true);
 	}
 
 	// Closes the solenoid
 	public void cubeSolenoidClose() {
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
+		Robot.powerUpDashboard.putCubeSolenoid(false);
 	}
 
 	// If the sharp sensor detects a cube it will return true
