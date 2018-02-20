@@ -16,15 +16,14 @@ public class Elevator extends Subsystem {
 	private WPI_TalonSRX elevatorTalon;
 	private DigitalInput elevatorMaxHeight;
 	private DigitalInput elevatorMinHeight;
-	
+
 	public Elevator() {
 
 		elevatorTalon = new WPI_TalonSRX(RobotMap.ELEVATOR_MOVE_10_CAN_ID);
 		elevatorTalon.setSafetyEnabled(false);
-		
-		
-		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_7);
-		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_8);
+
+		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_6);
+		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_7);
 	}
 
 	public void setElevatorRaiseSpeed(double raiseSpeed) {
@@ -39,21 +38,19 @@ public class Elevator extends Subsystem {
 		elevatorTalon.set(0);
 
 	}
-	
-	public Boolean getElevatorMaxHeight(){
+
+	public Boolean getElevatorMaxHeight() {
 		return !elevatorMaxHeight.get();
 	}
-	
-	public Boolean getELevatorMinHeight(){
+
+	public Boolean getELevatorMinHeight() {
 		return !elevatorMinHeight.get();
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 
-		setDefaultCommand(new ElevatorMove(.6, 0, Robot.m_oi.driverXbox));
+		setDefaultCommand(new ElevatorMove(.6, .2, Robot.m_oi.driverXbox));
 	}
 
 }
-
-
