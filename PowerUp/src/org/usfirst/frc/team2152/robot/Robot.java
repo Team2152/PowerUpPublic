@@ -98,6 +98,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("StartRecording", new Record());
 		SmartDashboard.putData("StopRecording", new StopRecording());
 
+		powerUpDashboard.putRecording();
+
 		cameras.setToDisabledMode();
 	}
 
@@ -130,8 +132,12 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("AVG Left", (Robot.driveTrainSubsystem.getCurrent(4)
 				+ (Robot.driveTrainSubsystem.getCurrent(5) + (Robot.driveTrainSubsystem.getCurrent(6)) / 3)));
 
-		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
-		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
+		// SmartDashboard.putNumber("R Pos",
+		// Robot.driveTrainSubsystem.getRSensorPosition());
+		// SmartDashboard.putNumber("L Pos",
+		// Robot.driveTrainSubsystem.getLSensorPosition());
+		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
+				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		cameras.setToDisabledMode();
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
@@ -197,10 +203,12 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
-		SmartDashboard.putNumber("Encoder Difference", Math
-				.abs(Robot.driveTrainSubsystem.getRSensorPosition() - Robot.driveTrainSubsystem.getLSensorPosition()));
+
+		SmartDashboard.putNumber("Encoder Difference", Math.abs(Robot.driveTrainSubsystem.getRSensorPosition() - Robot.driveTrainSubsystem.getLSensorPosition()));
 		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
 		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
+
+		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
