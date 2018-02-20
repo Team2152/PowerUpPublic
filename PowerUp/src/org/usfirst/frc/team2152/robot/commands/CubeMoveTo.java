@@ -28,7 +28,7 @@ public class CubeMoveTo extends Command {
 		requires(Robot.cubeMoveSubsystem);
 		this.cubeRaiseSpeed = cubeRaiseSpeed;
 		this.cubeLowerSpeed = cubeLowerSpeed;
-
+		this.joystick = joystick;
 	}
 
 	// Called just before this Command runs the first time

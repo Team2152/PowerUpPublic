@@ -28,8 +28,8 @@ public class RobotMap {
 
 	//PWM channel
 	public static final int CUBE_INTAKE_RIGHT = 0;
-	public static final int CUBE_INTAKE_LEFT = 1;
-	
+	public static final int CUBE_INTAKE_LEFT  = 1;
+	 
 	
 	
 	//DIO channel
