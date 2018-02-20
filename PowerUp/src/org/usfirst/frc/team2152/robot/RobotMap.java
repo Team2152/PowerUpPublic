@@ -15,33 +15,36 @@ package org.usfirst.frc.team2152.robot;
  */
 public class RobotMap {
 
-
-
-	//DriveTrain Motor IDs
+	// DriveTrain Motor IDs
 	public static final int RIGHT_DRIVE_1_CAN_Id = 1;
 	public static final int RIGHT_DRIVE_2_CAN_Id = 2;
 	public static final int RIGHT_DRIVE_3_CAN_Id = 3;
-	
+
 	public static final int LEFT_DRIVE_1_CAN_Id  = 5;
 	public static final int LEFT_DRIVE_2_CAN_Id  = 6;
 	public static final int LEFT_DRIVE_3_CAN_Id  = 7;
+	public static final int ARM_MOVE_8_CAN_ID    = 8;
+	public static final int ELEVATOR_MOVE_9_CAN_ID = 9;
+
+	//PWM channel
+	public static final int CUBE_INTAKE_RIGHT = 0;
+	public static final int CUBE_INTAKE_LEFT = 1;
 	
 	
+	
+	//DIO channel
+	public static final int CUBE_DETECT_DIO_0        = 0; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_1        = 1; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_2        = 2; // Distance Sensor
+	public static final int CUBE_DETECT_DIO_3        = 3; // Distance Sensor
+	public static final int CUBE_LIMIT_MAX_DIO_4     = 4;
+	public static final int CUBE_LIMIT_MIN_DIO_5     = 5;
 	public static final int ELEVATOR_MAX_LIMIT_DIO_6 = 6;
-	public static final int ELEVATOR_MAX_LIMIT_DIO_7 = 7;
-	public static final int ELEVATOR_MOVE_10_CAN_ID  = 9;
+	public static final int ELEVATOR_MIN_LIMIT_DIO_7 = 7;
 
 
-	public static final int CUBE_DETECT_DIO_4  = 0; // Distance Sensor
-	public static final int CUBE_DETECT_DIO_5  = 1; // Distance Sensor
-	public static final int CUBE_DETECT_DIO_6  = 2; // Distance Sensor
-	public static final int CUBE_DETECT_DIO_7  = 3; // Distance Sensor
-		public static final int CUBE_LIMIT_MAX = 4;
-	public static final int CUBE_LIMIT_MIN     = 5;
+
+
 	
-	public static final int CUBE_INTAKE_RIGHT  = 0;
-	public static final int CUBE_INTAKE_LEFT   = 1;
-	public static final int ARM_MOVE_1_CAN_ID  = 8;
-
 
 }

@@ -19,11 +19,11 @@ public class Elevator extends Subsystem {
 
 	public Elevator() {
 
-		elevatorTalon = new WPI_TalonSRX(RobotMap.ELEVATOR_MOVE_10_CAN_ID);
+		elevatorTalon = new WPI_TalonSRX(RobotMap.ELEVATOR_MOVE_9_CAN_ID);
 		elevatorTalon.setSafetyEnabled(false);
 
 		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_6);
-		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_7);
+		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MIN_LIMIT_DIO_7);
 	}
 
 	public void setElevatorRaiseSpeed(double raiseSpeed) {
