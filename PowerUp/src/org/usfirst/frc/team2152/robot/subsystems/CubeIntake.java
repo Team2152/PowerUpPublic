@@ -20,7 +20,7 @@ public class CubeIntake extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 
-	DoubleSolenoid cubeSolenoid;
+	private DoubleSolenoid cubeSolenoid;
 	private Victor cubeIntakeRight;
 	private Victor cubeIntakeLeft;
 
@@ -69,6 +69,11 @@ public class CubeIntake extends Subsystem {
 		cubeIntakeLeft.set(-cubeRotateLeftSpeed);
 	}
 
+	// Sets speed for auto
+	public void cubeSetMoveSpeed(double cubeMoveSpeed){
+		cubeIntakeRight.set(cubeMoveSpeed);
+		cubeIntakeLeft.set(-cubeMoveSpeed);
+	}
 	// Opens the solenoid
 	public void cubeSolenoidOpen() {
 		cubeSolenoid.set(DoubleSolenoid.Value.kForward);
