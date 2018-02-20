@@ -20,9 +20,9 @@ public class RobotMap {
 	public static final int RIGHT_DRIVE_2_CAN_ID     = 2;
 	public static final int RIGHT_DRIVE_3_CAN_ID     = 3;
 
-	public static final int LEFT_DRIVE_1_CAN_ID      = 5;
-	public static final int LEFT_DRIVE_2_CAN_ID      = 6;
-	public static final int LEFT_DRIVE_3_CAN_ID      = 7;
+	public static final int LEFT_DRIVE_1_CAN_ID      = 4;
+	public static final int LEFT_DRIVE_2_CAN_ID      = 5;
+	public static final int LEFT_DRIVE_3_CAN_ID      = 6;
 
 	// Cube
 	public static final int CUBE_ARM_MOVE_8_CAN_ID   = 8;
