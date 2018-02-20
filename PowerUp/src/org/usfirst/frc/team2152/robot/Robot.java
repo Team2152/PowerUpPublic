@@ -142,7 +142,7 @@ public class Robot extends TimedRobot {
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 		powerUpDashboard.putPlateAssignment();
 		m_autonomousCommand = m_chooser.getSelected();
-
+		cameras.sendGameData(PLATE_ASSIGNMENT);
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
