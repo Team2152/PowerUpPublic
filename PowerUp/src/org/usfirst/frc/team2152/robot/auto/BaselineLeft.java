@@ -34,11 +34,11 @@ public class BaselineLeft extends CommandGroup {
         // arm.
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	// Only cross baseline
-    	addSequential(new MoveByEncoder(36,36,.4,false));
+    	addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	addSequential(new PreCannedTurn(-45,false));
-    	addSequential(new MoveByEncoder(48,48,.4,false));
+    	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	addSequential(new PreCannedTurn(45,false));
-    	addSequential(new MoveByEncoder(50,50,.4,false));
+    	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	
     }
 }

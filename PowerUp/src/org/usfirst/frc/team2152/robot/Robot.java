@@ -76,7 +76,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_logger = new Log(true);
-
+		
 		cameras.start();
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -173,6 +173,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());

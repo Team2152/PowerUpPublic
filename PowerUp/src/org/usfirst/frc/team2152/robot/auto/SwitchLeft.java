@@ -41,13 +41,13 @@ public class SwitchLeft extends CommandGroup {
     		Timer.delay(.25);
     		addSequential(new SetCubeIntake(0));
     		
-        	addSequential(new MoveByEncoder(36,36,.4,false));
+        	addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(48,48,.4,false));
+        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(93,93,.4,false));
+        	addSequential(new MoveByEncoder(93,93,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(90,false));
-        	addSequential(new MoveByEncoder(55,55,.4,false));
+        	addSequential(new MoveByEncoder(55,55,PIDConstants.ENCODER_DRIVE_SPEED,false));
 
         	//Cube Delivery Commands
         	addSequential(new SetCubeIntake(1));
@@ -55,17 +55,17 @@ public class SwitchLeft extends CommandGroup {
     		addSequential(new SetCubeIntake(0));
     	} else if (switchPosition == "Right"){
     		//Only Cross Baseline
-    		addSequential(new MoveByEncoder(36,36,.4,false));
+    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(48,48,.4,false));
+        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(50,50,.4,false));
+        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else {
-    		addSequential(new MoveByEncoder(36,36,.4,false));
+    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(48,48,.4,false));
+        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(50,50,.4,false));
+        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
     }
 }
