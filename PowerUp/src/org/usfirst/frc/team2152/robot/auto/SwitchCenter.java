@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
+import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -33,7 +36,17 @@ public class SwitchCenter extends CommandGroup {
     	if (switchPosition == "Left"){
     		// Navigate to left side and deliver Cube
     	} else if (switchPosition == "Right"){
-    		// Navigate to right side and deliver Cube
+    		addSequential(new MoveByEncoder(40,40,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(64,64,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(37,37,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-90,false));
+        	addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-90,false));
+        	addSequential(new MoveByEncoder(25,25,PIDConstants.ENCODER_DRIVE_SPEED,false));
+
+
     	} 
     }
 }

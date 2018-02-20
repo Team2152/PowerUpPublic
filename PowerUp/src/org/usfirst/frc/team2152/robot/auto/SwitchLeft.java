@@ -1,6 +1,9 @@
 package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
+import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -32,9 +35,16 @@ public class SwitchLeft extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
-    		// Navigate to left side and deliver Cube
+    		//Navigate to Switch and deliver cube
+        	addSequential(new MoveByEncoder(168,168,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(90,false));
+        	addSequential(new MoveByEncoder(10,10,.5,false));
+        	//Cube Delivery Commands
     	} else if (switchPosition == "Right"){
-    		// Navigate to right side and deliver Cube
-    	} 
+    		//Only Cross Baseline
+        	addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	} else {
+        	addSequential(new MoveByEncoder(120,120,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	}
     }
 }
