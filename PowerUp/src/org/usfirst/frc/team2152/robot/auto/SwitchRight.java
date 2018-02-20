@@ -3,6 +3,7 @@ package org.usfirst.frc.team2152.robot.auto;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
+import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -42,10 +43,17 @@ public class SwitchRight extends CommandGroup {
         	addSequential(new MoveByEncoder(90,90,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else if (switchPosition == "Right"){
     		//Navigate to Switch and deliver cube
+    		addSequential(new SetCubeIntake(-.5));
+    		Timer.delay(.25);
+    		addSequential(new SetCubeIntake(0));
     		addSequential(new MoveByEncoder(168, 168, PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-90, false));
         	addSequential(new MoveByEncoder(10, 10, .5,false));
         	//Cube Delivery
+    		addSequential(new SetCubeIntake(1));
+    		Timer.delay(1);
+    		addSequential(new SetCubeIntake(0));
+
     	} else {
         	addSequential(new MoveByEncoder(120, 120, PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
