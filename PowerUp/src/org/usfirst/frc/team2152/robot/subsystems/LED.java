@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 
 import edu.wpi.first.wpilibj.PWM;
@@ -19,7 +20,7 @@ public class LED extends Subsystem {
 	Servo ledSignal;
 	
 	public LED() {
-		ledSignal = new Servo(4);
+		ledSignal = new Servo(RobotMap.LED_ARDUINO_PWM_4);
 		//setValue(160);
 		//ledSignal.setRaw(150);
 	}

@@ -31,8 +31,8 @@ public class CubeIntake extends Subsystem {
 
 	public CubeIntake() {
 
-		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT);
-		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT);
+		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT_PWM_0);
+		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT_PWM_1);
 
 		cubeSolenoid = new DoubleSolenoid(0, 1);
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);

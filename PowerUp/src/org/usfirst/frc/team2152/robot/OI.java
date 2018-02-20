@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.commands.CubeMoveHigh;
+import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 //import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
@@ -186,22 +188,14 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-
+		oPOV0.whenPressed(new CubeMoveHigh(.5));
+		oPOV180.whenPressed(new CubeMoveLow(.5));
 	}
 
 	public void setupDriverXboxButtons() {
-
-		// dButtonX.whenReleased(new TankDriveByTime(-.75,-.75, 1.5));
-		dButtonB.whenReleased(new MoveByEncoder(72, 72, 0.250, false));
-		// dButtonA.whenReleased(new ResetEncoders());
-
-		dButtonB.whenReleased(new MoveByEncoder(75, 75, .4, false));
-		dButtonA.whenReleased(new ResetNavx());
 		dPOV90.whenPressed(new PreCannedTurn(90, false));
 		dPOV270.whenPressed(new PreCannedTurn(-90, false));
 		dPOV180.whenPressed(new PreCannedTurn(180, false));
-		// dButtonY.whenPressed(new LEDTest(driverXbox, 355));
-
 	}
 
 }
