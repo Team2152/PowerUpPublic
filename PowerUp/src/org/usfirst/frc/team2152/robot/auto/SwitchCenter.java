@@ -31,22 +31,36 @@ public class SwitchCenter extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
-    		// Navigate to left side and deliver Cube
+    		// Navigate to left switch plate
+    		addSequential(new MoveByEncoder(53,53,.4,false));
+    		addSequential(new PreCannedTurn(-90,false));
+    		addSequential(new MoveByEncoder(74,74,.4,false));
+    		addSequential(new PreCannedTurn(90,false));
+    		addSequential(new MoveByEncoder(85,85,.4,false));
+    		
+    		// Cube Delivery
+    		
     	} else if (switchPosition == "Right"){
-    		addSequential(new MoveByEncoder(40,40,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(64,64,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(37,37,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(-90,false));
-        	addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(-90,false));
-        	addSequential(new MoveByEncoder(25,25,PIDConstants.ENCODER_DRIVE_SPEED,false));
-
-
-    	} 
+    		// Navigate to right switch plate
+    		addSequential(new MoveByEncoder(53,53,.4,false));
+    		addSequential(new PreCannedTurn(45,false));
+    		addSequential(new MoveByEncoder(46,46,.4,false));
+    		addSequential(new PreCannedTurn(-45,false));
+    		addSequential(new MoveByEncoder(51,51,.4,false));
+    		
+    		// Cube Delivery
+    	
+    	} else {
+    		// Only Cross Baseline
+    		addSequential(new MoveByEncoder(53,53,.4,false));
+    		addSequential(new PreCannedTurn(45,false));
+    		addSequential(new MoveByEncoder(46,46,.4,false));
+    		addSequential(new PreCannedTurn(-45,false));
+    		addSequential(new MoveByEncoder(51,51,.4,false));
+    	}
     }
 }
