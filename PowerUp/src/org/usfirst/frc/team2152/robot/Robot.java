@@ -172,6 +172,7 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
@@ -200,6 +201,7 @@ public class Robot extends TimedRobot {
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}

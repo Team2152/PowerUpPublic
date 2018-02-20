@@ -145,9 +145,8 @@ public class Dashboard extends Subsystem {
 	 * @param rightOut
 	 *            RightOuttake Sensor
 	 */
-	public void putCubeStatus(boolean leftIn, boolean rightIn, boolean leftOut, boolean rightOut) {
-		SmartDashboard.putBoolean("Cube Detect - InnerLeft", leftIn);
-		SmartDashboard.putBoolean("Cube Detect - InnerRight", rightIn);
+	public void putCubeStatus(boolean intake, boolean leftOut, boolean rightOut) {
+		SmartDashboard.putBoolean("Cube Detect - Intake", intake);
 		SmartDashboard.putBoolean("Cube Detect - OuterLeft", leftOut);
 		SmartDashboard.putBoolean("Cube Detect - OuterRight", rightOut);
 	}
@@ -159,6 +158,16 @@ public class Dashboard extends Subsystem {
 	 */
 	public void putCubeSolenoid(boolean solenoidState) {
 		SmartDashboard.putBoolean("Cube Solenoid Open", solenoidState);
+	}
+	
+	/**
+	 * Shows the drivers if the cube manipulator hit one of its limit switches
+	 * @param highLimit Upper Limit Switch
+	 * @param lowLimit Lower Limit Switch
+	 */
+	public void putCubeMoveStatus(boolean highLimit, boolean lowLimit){
+		SmartDashboard.putBoolean("Cube High Limit", highLimit);
+		SmartDashboard.putBoolean("Cube Low Limit", lowLimit);
 	}
 
 	/**
