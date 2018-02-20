@@ -91,10 +91,10 @@ public class Dashboard extends Subsystem {
 		double d = 0;
 		switch (encoder) {
 		case "Left":
-			d = SmartDashboard.getNumber("Left Encoder", 0);
+			d = SmartDashboard.getNumber("L Pos", 0);
 			break;
 		case "Right":
-			d = SmartDashboard.getNumber("Right Encoder", 0);
+			d = SmartDashboard.getNumber("R Pos", 0);
 			break;
 		}
 		return d;
