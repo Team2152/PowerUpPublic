@@ -35,7 +35,7 @@ public class SwitchLeft extends CommandGroup {
         // arm.
     
     	Timer.delay(SmartDashboard.getNumber("Auto Delay", 0));
-    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	String switchPosition = "Left";//Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		//Navigate to left switch plate
     		/*
@@ -49,7 +49,7 @@ public class SwitchLeft extends CommandGroup {
         	addSequential(new PreCannedTurn(45,false));
         	addSequential(new MoveByEncoder(93,93,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(90,false));
-        	addSequential(new MoveByEncoder(55,55,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
 
         	/*//Cube Delivery Commands
         	addSequential(new SetCubeIntake(1));
