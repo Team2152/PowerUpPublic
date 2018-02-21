@@ -195,11 +195,11 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-		dPOV90.whenPressed(new PreCannedTurn(90, false));
-		dPOV270.whenPressed(new PreCannedTurn(-90, false));
-		dPOV180.whenPressed(new PreCannedTurn(180, false));
-		dButtonX.whenPressed(new ElevatorMoveHigh(.5));
-		dButtonY.whenPressed(new ElevatorMoveLow(.1));
+//		dPOV90.whenPressed(new PreCannedTurn(90, false));
+//		dPOV270.whenPressed(new PreCannedTurn(-90, false));
+//		dPOV180.whenPressed(new PreCannedTurn(180, false));
+//		dButtonX.whenPressed(new ElevatorMoveHigh(.5));
+//		dButtonY.whenPressed(new ElevatorMoveLow(.1));
 	}
 
 }

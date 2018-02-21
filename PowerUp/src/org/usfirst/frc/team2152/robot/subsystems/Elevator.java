@@ -27,11 +27,11 @@ public class Elevator extends Subsystem {
 	}
 
 	public void setElevatorRaiseSpeed(double raiseSpeed) {
-		elevatorTalon.set(raiseSpeed);
+		elevatorTalon.set(-raiseSpeed);
 	}
 
 	public void setElevatorLowerSpeed(double lowerSpeed) {
-		elevatorTalon.set(-lowerSpeed);
+		elevatorTalon.set(lowerSpeed);
 	}
 
 	public void setElevatorStop() {
@@ -50,7 +50,7 @@ public class Elevator extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 
-		setDefaultCommand(new ElevatorMove(.6, .2, Robot.m_oi.driverXbox));
+		setDefaultCommand(new ElevatorMove(1, .1, Robot.m_oi.driverXbox));
 	}
 
 }

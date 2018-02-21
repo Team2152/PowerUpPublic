@@ -60,7 +60,7 @@ public class CubeIntakeMove extends Command {
 
 		// When both inner sensors show NO cube presense then
 		// check then joystick buttons and act on them if they are pressed
-		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == false) {
+//		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == false) {
 
 			// Using else if so that only one button is usable at a time in the
 			// following priority: A Y X B
@@ -80,34 +80,35 @@ public class CubeIntakeMove extends Command {
 				Robot.cubeIntakeSubsystem.cubeRotateRight(0);
 			}
 
-		} else {
-			// If BOTH INNER sensors are triggered then stop all intake motors
-			// Sensors, with this code configuration, must be installed very
-			// close to the back of the manipulator
-			Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
-			Robot.cubeIntakeSubsystem.cubeExpelMove(0);
-			Robot.cubeIntakeSubsystem.cubeRotateLeft(0);
-			Robot.cubeIntakeSubsystem.cubeRotateRight(0);
-		}
+		 
+//	}else {
+//			// If BOTH INNER sensors are triggered then stop all intake motors
+//			// Sensors, with this code configuration, must be installed very
+//			// close to the back of the manipulator
+//			Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
+//			Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+//			Robot.cubeIntakeSubsystem.cubeRotateLeft(0);
+//			Robot.cubeIntakeSubsystem.cubeRotateRight(0);
+//		}
 
 		// If BOTH INNER sensors are triggered then it will allow the user to expel the cube
 		// Sensors, with this code configuration, must be installed very
 		// close to the back of the manipulator
-		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
-			if (joystick.getRawButton(cubeButtonYid) == true) {
-				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
-			} else {
-				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
-			}
-
-		}
+//		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
+//			if (joystick.getRawButton(cubeButtonYid) == true) {
+//				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
+//			} else {
+//				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+//			}
+//
+//		}
 
 		// If BOTH OUTER sensors are triggered then the solenoid will actuate and will close the clamp
 		// They have to placed in order to see enough of the cube
-		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
-				&& Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
-			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-		}
+//		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
+//				&& Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
+//			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+//		}
 
 		//This is the manual override for the solenoid clamp 
 		//Checks for a button press and will open and close the clamp

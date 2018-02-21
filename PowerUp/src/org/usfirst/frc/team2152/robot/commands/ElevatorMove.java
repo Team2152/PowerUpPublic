@@ -34,18 +34,18 @@ public class ElevatorMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		if (Robot.m_oi.driverXbox.getRawButton(buttonAid) == true && Robot.elevatorSubsystem.getElevatorMaxHeight() == false) {
+		if (Robot.m_oi.driverXbox.getRawButton(buttonAid) == true ){//&& Robot.elevatorSubsystem.getElevatorMaxHeight() == false) {
 			Robot.elevatorSubsystem.setElevatorRaiseSpeed(raiseSpeed);
 		} 
-		else if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
-			Robot.elevatorSubsystem.setElevatorRaiseSpeed(0);
-		} 
-		else if (Robot.m_oi.driverXbox.getRawButton(buttonBid) == true && Robot.elevatorSubsystem.getElevatorMinHeight() == false) {
+//		else if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
+//			Robot.elevatorSubsystem.setElevatorRaiseSpeed(0);
+//		} 
+		else if (Robot.m_oi.driverXbox.getRawButton(buttonBid) == true){ // && Robot.elevatorSubsystem.getElevatorMinHeight() == false) {
 			Robot.elevatorSubsystem.setElevatorLowerSpeed(lowerSpeed);
 		} 
-		else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
-			Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
-		} 
+//		else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
+//			Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
+//		} 
 		else if (Robot.m_oi.driverXbox.getRawButton(buttonAid) == false && Robot.m_oi.driverXbox.getRawButton(buttonBid) == false) {
 			Robot.elevatorSubsystem.setElevatorStop();
 		}
