@@ -12,6 +12,9 @@ import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
+import org.usfirst.frc.team2152.robot.auto.ScaleCenter;
+import org.usfirst.frc.team2152.robot.auto.ScaleLeft;
+import org.usfirst.frc.team2152.robot.auto.ScaleRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
@@ -94,6 +97,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Left", new SwitchLeft());
 		m_chooser.addObject("Switch Right", new SwitchRight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
+		m_chooser.addObject("Scale Left", new ScaleLeft());
+		m_chooser.addObject("Scale Right", new ScaleRight());
+		//m_chooser.addObject("Scale Center", new ScaleCenter());
+
 
 		powerUpDashboard.putRecording();
 

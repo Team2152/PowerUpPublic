@@ -33,8 +33,8 @@ public class ScaleLeft extends CommandGroup {
         // arm.
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
-    	if (switchPosition == "Left"){
+    	String scalePosition = "Left";//Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
+    	if (scalePosition == "Left"){
     		// Navigate to left scale plate
     		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		addSequential(new PreCannedTurn(-45,false));
@@ -42,10 +42,10 @@ public class ScaleLeft extends CommandGroup {
     		addSequential(new PreCannedTurn(45,false));
     		addSequential(new MoveByEncoder(252,252,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		addSequential(new PreCannedTurn(90,false));
-    		addSequential(new MoveByEncoder(34,34,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(20,20,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		
     		// Cube Delivery
-    	} else if (switchPosition == "Right"){
+    	} else if (scalePosition == "Right"){
     		// Only cross baseline
     		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-45,false));

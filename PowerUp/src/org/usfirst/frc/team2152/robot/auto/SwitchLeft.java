@@ -6,6 +6,7 @@ import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -33,7 +34,7 @@ public class SwitchLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
+    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 5));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		//Navigate to left switch plate

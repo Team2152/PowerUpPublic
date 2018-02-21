@@ -63,6 +63,7 @@ public class Dashboard extends Subsystem {
 		case "Scale Plate":
 			s = SmartDashboard.getString("Scale Plate", "No data recieved");
 			break;
+		
 		}
 		return s;
 	}
