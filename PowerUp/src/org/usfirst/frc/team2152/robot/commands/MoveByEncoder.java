@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2152.robot.commands;
+                                                           package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
@@ -40,6 +40,7 @@ public class MoveByEncoder extends Command implements PIDOutput {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
 		Robot.driveTrainSubsystem.resetEncoders(true,true);
 		pidHH = new PIDController(PIDConstants.HH_kP, PIDConstants.HH_kI, PIDConstants.HH_dD,
 				Robot.navxSubsystem.getAHRS(), this);
@@ -107,6 +108,7 @@ public class MoveByEncoder extends Command implements PIDOutput {
 		contrR.disable();
 		Robot.driveTrainSubsystem.setRightSpeed(0);
 		Robot.driveTrainSubsystem.setLeftSpeed(0);
+		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 	}
 
@@ -117,6 +119,8 @@ public class MoveByEncoder extends Command implements PIDOutput {
 		contrR.disable();
 		Robot.driveTrainSubsystem.setRightSpeed(0);
 		Robot.driveTrainSubsystem.setLeftSpeed(0);
+		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+
 	}
 
 	@Override

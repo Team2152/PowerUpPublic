@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.subsystems.CubeIntake;
+import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
@@ -15,13 +17,23 @@ import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.Record;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBC;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBL;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBR;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRC;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRL;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRR;
 import org.usfirst.frc.team2152.robot.commands.StopRecording;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
 import org.usfirst.frc.team2152.robot.network.UDPHandler;
 import org.usfirst.frc.team2152.robot.network.UDPReceiver;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
+
 import org.usfirst.frc.team2152.robot.subsystems.LED;
+
+import org.usfirst.frc.team2152.robot.subsystems.Elevator;
+
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
@@ -48,16 +60,20 @@ public class Robot extends TimedRobot {
 	public static Dashboard powerUpDashboard = new Dashboard();
 	public static String PLATE_ASSIGNMENT;
 	public static final NavX navxSubsystem = new NavX();
+	public static final Gain driveTrainJoystickGain = new Gain(Gain.PCT_75, Gain.DEFAULT_DEADBAND);
+	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
+	public static final CubeMove cubeMoveSubsystem = new CubeMove();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
-	public static final Gain driveTrainJoystickGain     = new Gain(Gain.PCT_75,Gain.XBOX_DEADBAND);
+
 	public static final LED ledSubsystem = new LED();
-	
 	public static final UDPHandler udp = new UDPHandler();
 	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
-	
+
+	public static final Elevator elevatorSubsystem = new Elevator();
+
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -66,19 +82,17 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_logger = new Log(true);
-
+		
 		cameras.start();
-		
+
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		
+
 		SmartDashboard.putNumber("Auto Delay", 0);
 		SmartDashboard.putNumber("Left Speed", 0);
 		SmartDashboard.putNumber("Right Speed", 0);
-		
-		
+
 		SmartDashboard.putData("Auto mode", m_chooser);
-		
-		
+
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
@@ -87,10 +101,14 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Right", new SwitchRight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		
-		SmartDashboard.putData("StartRecording", new Record());
-		SmartDashboard.putData("StopRecording", new StopRecording());
-		
+		powerUpDashboard.putPositions();
+		powerUpDashboard.putRecording();
+		//POSITION = SmartDashboard.getString("Position", "");
+
 		cameras.setToDisabledMode();
+		
+		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(), Robot.elevatorSubsystem.getElevatorMinHeight());
+		
 	}
 
 	/**
@@ -101,27 +119,32 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		cameras.setToDisabledMode();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+
 	}
 
 	@Override
 	public void disabledPeriodic() {
+
 		SmartDashboard.putNumber("Right 1 Current", Robot.driveTrainSubsystem.getCurrent(1));
 		SmartDashboard.putNumber("Right 2 Current", Robot.driveTrainSubsystem.getCurrent(2));
 		SmartDashboard.putNumber("Right 3 Current", Robot.driveTrainSubsystem.getCurrent(3));
-		
-		SmartDashboard.putNumber("AVG Right", (Robot.driveTrainSubsystem.getCurrent(1) + (Robot.driveTrainSubsystem.getCurrent(2) + (Robot.driveTrainSubsystem.getCurrent(3))/3)));
-		
+
+		SmartDashboard.putNumber("AVG Right", (Robot.driveTrainSubsystem.getCurrent(1)
+				+ (Robot.driveTrainSubsystem.getCurrent(2) + (Robot.driveTrainSubsystem.getCurrent(3)) / 3)));
+
 		SmartDashboard.putNumber("Left 1 Current", Robot.driveTrainSubsystem.getCurrent(4));
 		SmartDashboard.putNumber("Left 2 Current", Robot.driveTrainSubsystem.getCurrent(5));
 		SmartDashboard.putNumber("Left 3 Current", Robot.driveTrainSubsystem.getCurrent(6));
-		
-		SmartDashboard.putNumber("AVG Left", (Robot.driveTrainSubsystem.getCurrent(4) + (Robot.driveTrainSubsystem.getCurrent(5) + (Robot.driveTrainSubsystem.getCurrent(6))/3)));
 
-		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
-		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
+		SmartDashboard.putNumber("AVG Left", (Robot.driveTrainSubsystem.getCurrent(4)
+				+ (Robot.driveTrainSubsystem.getCurrent(5) + (Robot.driveTrainSubsystem.getCurrent(6)) / 3)));
+
+		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
+				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
-		
 		cameras.setToDisabledMode();
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}
 
@@ -132,23 +155,26 @@ public class Robot extends TimedRobot {
 	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
 	 * getString code to get the auto name from the text box below the Gyro
 	 *
-	 * <p>You can add additional auto modes by adding additional commands to the
+	 * <p>
+	 * You can add additional auto modes by adding additional commands to the
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
-		//PLATE_ASSIGNMENT must be defined before autonomous is finalized for a match
+
+		// Plate assignment used to determine auto routine
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
-		powerUpDashboard.putPlateAssignment();
 		m_autonomousCommand = m_chooser.getSelected();
-		cameras.sendGameData(PLATE_ASSIGNMENT);
+		cameras.sendGameData("Plate:" + PLATE_ASSIGNMENT);
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
 		
 		cameras.setToAutoMode();
+
 	}
 
 	/**
@@ -156,8 +182,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	@Override
@@ -170,6 +199,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	/**
@@ -177,12 +207,15 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
+
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
+
 		SmartDashboard.putNumber("Encoder Difference", Math.abs(Robot.driveTrainSubsystem.getRSensorPosition() - Robot.driveTrainSubsystem.getLSensorPosition()));
-		SmartDashboard.putNumber("R Pos", Robot.driveTrainSubsystem.getRSensorPosition());
-		SmartDashboard.putNumber("L Pos", Robot.driveTrainSubsystem.getLSensorPosition());
+		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
+		
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}
 

@@ -2,23 +2,20 @@ package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LEDTest extends Command {
+public class ElevatorMoveHigh extends Command {
 
-	Joystick js = null;
-	int value = 0;
+	double raiseSpeed = 0;
 	
-    public LEDTest(Joystick joystick, int value) {
+    public ElevatorMoveHigh(double raiseSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.ledSubsystem);
-    	js = joystick;
-    	this.value = value;
+    	requires(Robot.elevatorSubsystem);
+    	this.raiseSpeed = raiseSpeed;
     }
 
     // Called just before this Command runs the first time
@@ -27,36 +24,29 @@ public class LEDTest extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*
-    	if (js.getRawButton(4) == true) {
-    		Robot.ledSubsystem.setValue(32);
-    	} else if (js.getRawButton(5) == true) {
-    		Robot.ledSubsystem.setValue(224);
-    	} else if (js.getRawButton(6) == true) { 
-    		Robot.ledSubsystem.setValue(255);
-    	} else
-    		Robot.ledSubsystem.setValue(0);
-    		*/
-    }
+    	
+    	Robot.elevatorSubsystem.setElevatorRaiseSpeed(raiseSpeed);
+   }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//if (js.getRawButton(1) == false) {
-    	//	System.out.println("Executing PWM: exiting");
-    	//	return true;
-    	//} else {
-    	//	System.out.println("Executing PWM: active");
-    	//	return false;
-    	//}
+      
+    	if(Robot.elevatorSubsystem.getElevatorMaxHeight() == true){
+    		return true;
+    	}
+    	
+    	
     	return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.elevatorSubsystem.setElevatorStop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.elevatorSubsystem.setElevatorStop();
     }
 }

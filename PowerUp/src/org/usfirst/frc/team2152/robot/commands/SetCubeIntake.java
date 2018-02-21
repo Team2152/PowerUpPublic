@@ -2,23 +2,22 @@ package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LEDTest extends Command {
+public class SetCubeIntake extends Command {
 
-	Joystick js = null;
-	int value = 0;
+	private double cubeSpeed = 0;
 	
-    public LEDTest(Joystick joystick, int value) {
+	
+    public SetCubeIntake(double cubeSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.ledSubsystem);
-    	js = joystick;
-    	this.value = value;
+    	requires(Robot.cubeIntakeSubsystem);
+    	this.cubeSpeed   = cubeSpeed;
+    
     }
 
     // Called just before this Command runs the first time
@@ -27,28 +26,14 @@ public class LEDTest extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*
-    	if (js.getRawButton(4) == true) {
-    		Robot.ledSubsystem.setValue(32);
-    	} else if (js.getRawButton(5) == true) {
-    		Robot.ledSubsystem.setValue(224);
-    	} else if (js.getRawButton(6) == true) { 
-    		Robot.ledSubsystem.setValue(255);
-    	} else
-    		Robot.ledSubsystem.setValue(0);
-    		*/
+    	// Send a positive to shoot and a negative to intake
+    	Robot.cubeIntakeSubsystem.cubeSetMoveSpeed(cubeSpeed);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//if (js.getRawButton(1) == false) {
-    	//	System.out.println("Executing PWM: exiting");
-    	//	return true;
-    	//} else {
-    	//	System.out.println("Executing PWM: active");
-    	//	return false;
-    	//}
-    	return false;
+      	return true;
     }
 
     // Called once after isFinished returns true

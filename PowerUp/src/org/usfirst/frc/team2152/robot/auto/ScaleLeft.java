@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class SwitchCenter extends CommandGroup {
+public class ScaleLeft extends CommandGroup {
 
-    public SwitchCenter() {
+    public ScaleLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -35,32 +35,35 @@ public class SwitchCenter extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
-    		// Navigate to left switch plate
-    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(-90,false));
-    		addSequential(new MoveByEncoder(74,74,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		// Navigate to left scale plate
+    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(-45,false));
+    		addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(45,false));
+    		addSequential(new MoveByEncoder(252,252,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		addSequential(new PreCannedTurn(90,false));
-    		addSequential(new MoveByEncoder(85,85,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(34,34,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		
     		// Cube Delivery
-    		
     	} else if (switchPosition == "Right"){
-    		// Navigate to right switch plate
-    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(45,false));
-    		addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(-45,false));
-    		addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		
-    		// Cube Delivery
-    	
+    		// Only cross baseline
+    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else {
-    		// Only Cross Baseline
-    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(45,false));
-    		addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(-45,false));
-    		addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(-45,false));
+        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new PreCannedTurn(45,false));
+        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
+
+
+
+
+
+
     }
 }
