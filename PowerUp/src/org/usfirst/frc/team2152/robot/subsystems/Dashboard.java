@@ -1,6 +1,12 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
 import org.usfirst.frc.team2152.robot.commands.Record;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBC;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBL;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBR;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRC;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRL;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRR;
 import org.usfirst.frc.team2152.robot.commands.StopRecording;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -208,6 +214,15 @@ public class Dashboard extends Subsystem {
 	public void putRecording() {
 		SmartDashboard.putData("StartRecording", new Record());
 		SmartDashboard.putData("StopRecording", new StopRecording());
+	}
+	
+	public void putPositions(){
+		SmartDashboard.putData("Send Pos: BL", new SendPositionBL());
+		SmartDashboard.putData("Send Pos: BC", new SendPositionBC());
+		SmartDashboard.putData("Send Pos: BR", new SendPositionBR());
+		SmartDashboard.putData("Send Pos: RL", new SendPositionRL());
+		SmartDashboard.putData("Send Pos: RC", new SendPositionRC());
+		SmartDashboard.putData("Send Pos: RR", new SendPositionRR());
 	}
 	
 	public void putElevatorStatus(boolean maxHeight, boolean minHeight) {

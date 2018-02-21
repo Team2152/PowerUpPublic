@@ -20,6 +20,12 @@ import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.Record;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBC;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBL;
+import org.usfirst.frc.team2152.robot.commands.SendPositionBR;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRC;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRL;
+import org.usfirst.frc.team2152.robot.commands.SendPositionRR;
 import org.usfirst.frc.team2152.robot.commands.StopRecording;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
 import org.usfirst.frc.team2152.robot.network.UDPHandler;
@@ -101,8 +107,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		//m_chooser.addObject("Scale Center", new ScaleCenter());
 
-
+		
+		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();
+		//POSITION = SmartDashboard.getString("Position", "");
 
 		cameras.setToDisabledMode();
 		
@@ -164,13 +172,14 @@ public class Robot extends TimedRobot {
 
 		// Plate assignment used to determine auto routine
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-
+		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 		m_autonomousCommand = m_chooser.getSelected();
-
+		cameras.sendGameData("Plate:" + PLATE_ASSIGNMENT);
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		
 		cameras.setToAutoMode();
 
 	}

@@ -84,6 +84,10 @@ public class OdroidsCameraSettings extends Thread {
     	String msg = ("0");
     	sender.sendMsg(msg, odroid3Addr, odroid3Port);
     }
+    
+    public void sendGameData(String data) {
+    	sender.sendMsg(data, odroid1Addr, odroid1Port);
+    }
 
 	public void setToDisabledMode() {
 		pegCamDark = true;

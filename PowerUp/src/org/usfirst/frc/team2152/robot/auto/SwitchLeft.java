@@ -33,15 +33,16 @@ public class SwitchLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 5));
+    
+    	Timer.delay(SmartDashboard.getNumber("Auto Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		//Navigate to left switch plate
+    		/*
     		addSequential(new SetCubeIntake(-.5));
     		Timer.delay(.25);
     		addSequential(new SetCubeIntake(0));
-    		
+    		*/
         	addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-45,false));
         	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
@@ -50,10 +51,10 @@ public class SwitchLeft extends CommandGroup {
         	addSequential(new PreCannedTurn(90,false));
         	addSequential(new MoveByEncoder(55,55,PIDConstants.ENCODER_DRIVE_SPEED,false));
 
-        	//Cube Delivery Commands
+        	/*//Cube Delivery Commands
         	addSequential(new SetCubeIntake(1));
     		Timer.delay(1);
-    		addSequential(new SetCubeIntake(0));
+    		addSequential(new SetCubeIntake(0));*/
     	} else if (switchPosition == "Right"){
     		//Only Cross Baseline
     		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
