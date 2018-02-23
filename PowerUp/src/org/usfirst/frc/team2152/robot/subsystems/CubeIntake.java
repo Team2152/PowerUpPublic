@@ -115,6 +115,6 @@ public class CubeIntake extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new CubeIntakeMove(.5, .5, .5, .5, Robot.m_oi.operatorXbox));
+		setDefaultCommand(new CubeIntakeMove(.8, 1, .2, .2, Robot.m_oi.operatorXbox));
 	}
 }

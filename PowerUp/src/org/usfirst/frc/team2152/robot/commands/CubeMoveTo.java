@@ -43,21 +43,23 @@ public class CubeMoveTo extends Command {
 
 		// When the Left trigger is pressed and the
 		// max limit is not hit it will move the arm up.
-		if (joystick.getRawAxis(cubeLeftTriggerid) == .1 && Robot.cubeMoveSubsystem.getCubeHighLimitValue() == false) {
+		if (joystick.getRawAxis(cubeLeftTriggerid) >= .1){ // && Robot.cubeMoveSubsystem.getCubeHighLimitValue() == false) {
 			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(cubeRaiseSpeed);
 
-		} else if (Robot.cubeMoveSubsystem.getCubeHighLimitValue() == true) {
-			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(0);
-		}
+		} 
+		
+//		else if (Robot.cubeMoveSubsystem.getCubeHighLimitValue() == true) {
+//			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(0);
+//		}
 
 		// When the right trigger is pressed and the
 		// min limit is not hit it will move the arm down.
-		else if (joystick.getRawAxis(cubeRightTriggerid) >= .1
-				&& Robot.cubeMoveSubsystem.getCubeLowLimitValue() == false) {
+		else if (joystick.getRawAxis(cubeRightTriggerid) >= .1 ){ //&& Robot.cubeMoveSubsystem.getCubeLowLimitValue() == false) {
 			Robot.cubeMoveSubsystem.setCubeLowerSpeed(cubeLowerSpeed);
-		} else if (Robot.cubeMoveSubsystem.getCubeLowLimitValue() == true) {
-			Robot.cubeMoveSubsystem.setCubeLowerSpeed(0);
-		}
+		} 
+//		else if (Robot.cubeMoveSubsystem.getCubeLowLimitValue() == true) {
+//			Robot.cubeMoveSubsystem.setCubeLowerSpeed(0);
+//		}
 
 		// If either triggers are not pressed set the speeds to 0.
 		else if (joystick.getRawAxis(cubeLeftTriggerid) == 0 && joystick.getRawAxis(cubeRightTriggerid) == 0) {

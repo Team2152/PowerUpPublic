@@ -32,7 +32,7 @@ public class LED extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new LEDTest(Robot.m_oi.operatorXbox, 32));
+    	setDefaultCommand(new LEDTest(Robot.m_oi.driverXbox, 32));
     }
 }
 
