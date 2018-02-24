@@ -33,15 +33,15 @@ public class ScaleRight extends CommandGroup {
         // arm.
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	String switchPosition = "Right";//Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
-    	if (switchPosition == "Left"){
+    	String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
+    	if (scalePosition == "Left"){
     		// Only Cross baseline
     		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(45,false));
         	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-45,false));
         	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    	} else if (switchPosition == "Right"){
+    	} else if (scalePosition == "Right"){
     		// Navigate to right side scale plate
     		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(45,false));

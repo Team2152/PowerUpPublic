@@ -34,7 +34,7 @@ public class SwitchRight extends CommandGroup {
         // arm.
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	String switchPosition = "Right";//Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		//Only Cross Baseline
     		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));

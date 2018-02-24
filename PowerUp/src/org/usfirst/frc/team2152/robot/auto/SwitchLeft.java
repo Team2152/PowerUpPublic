@@ -35,7 +35,7 @@ public class SwitchLeft extends CommandGroup {
         // arm.
     
     	Timer.delay(SmartDashboard.getNumber("Auto Delay", 0));
-    	String switchPosition = "Left";//Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		//Navigate to left switch plate
     		/*

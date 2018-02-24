@@ -18,6 +18,7 @@ import org.usfirst.frc.team2152.robot.auto.ScaleRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
+import org.usfirst.frc.team2152.robot.auto.TestAuto;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.Record;
 import org.usfirst.frc.team2152.robot.commands.SendPositionBC;
@@ -105,6 +106,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Right", new ScaleRight());
+		m_chooser.addObject("TestAuto", new TestAuto());
 		//m_chooser.addObject("Scale Center", new ScaleCenter());
 
 		
@@ -116,6 +118,8 @@ public class Robot extends TimedRobot {
 		
 		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(), Robot.elevatorSubsystem.getElevatorMinHeight());
 		
+		SmartDashboard.putString("Switch Position", "Swtich machine broke");
+    	SmartDashboard.putString("Scale Position", "Scale machine broke");
 	}
 
 	/**
@@ -132,7 +136,17 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-
+		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		m_chooser.addDefault("No Auto", null);
+		m_chooser.addObject("BaseLine Left", new BaselineLeft());
+		m_chooser.addObject("BaseLine Right", new BaselineRight());
+		m_chooser.addObject("BaseLine Center", new BaselineCenter());
+		m_chooser.addObject("Switch Left", new SwitchLeft());
+		m_chooser.addObject("Switch Right", new SwitchRight());
+		m_chooser.addObject("Switch Center", new SwitchCenter());
+		m_chooser.addObject("Scale Left", new ScaleLeft());
+		m_chooser.addObject("Scale Right", new ScaleRight());
+		m_chooser.addObject("TestAuto", new TestAuto());
 		SmartDashboard.putNumber("Right 1 Current", Robot.driveTrainSubsystem.getCurrent(1));
 		SmartDashboard.putNumber("Right 2 Current", Robot.driveTrainSubsystem.getCurrent(2));
 		SmartDashboard.putNumber("Right 3 Current", Robot.driveTrainSubsystem.getCurrent(3));
@@ -151,7 +165,7 @@ public class Robot extends TimedRobot {
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		cameras.setToDisabledMode();
-		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		//powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 	}
 
@@ -171,7 +185,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 
 		// Plate assignment used to determine auto routine
-		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		//powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 		m_autonomousCommand = m_chooser.getSelected();
 		cameras.sendGameData("Plate:" + PLATE_ASSIGNMENT);
@@ -193,7 +207,6 @@ public class Robot extends TimedRobot {
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
-		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	@Override
@@ -206,7 +219,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		//powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	/**
@@ -222,8 +235,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
-		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-
 	}
 
 	/**

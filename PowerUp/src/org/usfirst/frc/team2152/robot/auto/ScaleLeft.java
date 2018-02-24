@@ -33,7 +33,7 @@ public class ScaleLeft extends CommandGroup {
         // arm.
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	String scalePosition = "Left";//Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
+    	String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
     	if (scalePosition == "Left"){
     		// Navigate to left scale plate
     		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
