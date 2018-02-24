@@ -147,19 +147,6 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("TestAuto", new TestAuto());
-		SmartDashboard.putNumber("Right 1 Current", Robot.driveTrainSubsystem.getCurrent(1));
-		SmartDashboard.putNumber("Right 2 Current", Robot.driveTrainSubsystem.getCurrent(2));
-		SmartDashboard.putNumber("Right 3 Current", Robot.driveTrainSubsystem.getCurrent(3));
-
-		SmartDashboard.putNumber("AVG Right", (Robot.driveTrainSubsystem.getCurrent(1)
-				+ (Robot.driveTrainSubsystem.getCurrent(2) + (Robot.driveTrainSubsystem.getCurrent(3)) / 3)));
-
-		SmartDashboard.putNumber("Left 1 Current", Robot.driveTrainSubsystem.getCurrent(4));
-		SmartDashboard.putNumber("Left 2 Current", Robot.driveTrainSubsystem.getCurrent(5));
-		SmartDashboard.putNumber("Left 3 Current", Robot.driveTrainSubsystem.getCurrent(6));
-
-		SmartDashboard.putNumber("AVG Left", (Robot.driveTrainSubsystem.getCurrent(4)
-				+ (Robot.driveTrainSubsystem.getCurrent(5) + (Robot.driveTrainSubsystem.getCurrent(6)) / 3)));
 
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
@@ -229,8 +216,6 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
-
-		SmartDashboard.putNumber("Encoder Difference", Math.abs(Robot.driveTrainSubsystem.getRSensorPosition() - Robot.driveTrainSubsystem.getLSensorPosition()));
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		
