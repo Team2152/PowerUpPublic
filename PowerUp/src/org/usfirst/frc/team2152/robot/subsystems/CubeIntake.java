@@ -27,7 +27,6 @@ public class CubeIntake extends Subsystem {
 	private DigitalInput cubeDetectOuterRight;
 	private DigitalInput cubeDetectOuterLeft;
 	private DigitalInput cubeDetectIn;
-	
 
 	public CubeIntake() {
 
@@ -35,8 +34,7 @@ public class CubeIntake extends Subsystem {
 		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT_PWM_1);
 
 		cubeSolenoid = new DoubleSolenoid(0, 1);
-		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
-
+		cubeSolenoidClose();
 		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_0);
 		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_1);
 		cubeDetectIn = new DigitalInput(RobotMap.CUBE_DETECT_DIO_2);
@@ -56,18 +54,7 @@ public class CubeIntake extends Subsystem {
 		cubeIntakeLeft.set(-cubeExpelSpeed);
 	}
 
-	// Sets rotate right speed
-	public void cubeRotateRight(double cubeRotateRightSpeed) {
-		cubeIntakeRight.set(cubeRotateRightSpeed);
-		cubeIntakeLeft.set(cubeRotateRightSpeed);
-	}
-
-	// Sets rotate left speed
-	public void cubeRotateLeft(double cubeRotateLeftSpeed) {
-		cubeIntakeRight.set(-cubeRotateLeftSpeed);
-		cubeIntakeLeft.set(-cubeRotateLeftSpeed);
-	}
-
+	
 	// Sets speed for auto
 	public void cubeSetMoveSpeed(double cubeMoveSpeed){
 		cubeIntakeRight.set(cubeMoveSpeed);
@@ -87,6 +74,14 @@ public class CubeIntake extends Subsystem {
 		
 		// Tells drivers the solenoid has been closed
 		Robot.powerUpDashboard.putCubeSolenoid(false);
+	}
+	
+	public void cubeSolenoidToggle(){
+		if(cubeSolenoid.get() == DoubleSolenoid.Value.kReverse){
+			cubeSolenoidOpen();
+		}else{
+			cubeSolenoidClose();
+		}
 	}
 
 	// If the sharp sensor detects a cube it will return true
@@ -115,6 +110,6 @@ public class CubeIntake extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new CubeIntakeMove(.8, 1, .2, .2, Robot.m_oi.operatorXbox));
+		setDefaultCommand(new CubeIntakeMove(.8, 1, Robot.m_oi.operatorXbox));
 	}
 }
