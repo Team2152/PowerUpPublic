@@ -77,7 +77,17 @@ public class OI {
 	public final static int XBOX_RIGHT_TRIGGER = 3;
 	// public final static int SPEED_STICK = 999999; // Deoderant...always wear
 	// it.
-
+	public final static int buttonAid = 1;
+	public final static int buttonBid = 2;
+	public final static int buttonXid = 3;
+	public final static int buttonYid = 4;
+	public final static int buttonBumpLid = 5;
+	public final static int buttonBumpRid = 6;
+	public final static int buttonBackid = 7;
+	public final static int buttonStartid = 8;
+	public final static int buttonLClickid = 9;
+	public final static int buttonRClickid = 10;
+	
 	public Joystick operatorXbox;
 	private Button oButtonA;
 	private Button oButtonB;
@@ -97,16 +107,7 @@ public class OI {
 	private POV oPOV225;
 	private POV oPOV270;
 	private POV oPOV315;
-	final private int oButtonAid = 1;
-	final private int oButtonBid = 2;
-	final private int oButtonXid = 3;
-	final private int oButtonYid = 4;
-	final private int oButtonBumpLid = 5;
-	final private int oButtonBumpRid = 6;
-	final private int oButtonBackid = 7;
-	final private int oButtonStartid = 8;
-	final private int oButtonLClickid = 9;
-	final private int oButtonRClickid = 10;
+	
 
 	public Joystick driverXbox;
 	private Button dButtonA;
@@ -127,31 +128,22 @@ public class OI {
 	private POV dPOV225;
 	private POV dPOV270;
 	private POV dPOV315;
-	final private int dButtonAid = 1;
-	final private int dButtonBid = 2;
-	final private int dButtonXid = 3;
-	final private int dButtonYid = 4;
-	final private int dButtonBumpLid = 5;
-	final private int dButtonBumpRid = 6;
-	final private int dButtonBackid = 7;
-	final private int dButtonStartid = 8;
-	final private int dButtonLClickid = 9;
-	final private int dButtonRClickid = 10;
+	
 
 	public OI() {
 		// Setup driver joystick
 		try {
 			driverXbox = new Joystick(DRIVER_XBOX);
-			dButtonA = new JoystickButton(driverXbox, dButtonAid);
-			dButtonB = new JoystickButton(driverXbox, dButtonBid);
-			dButtonX = new JoystickButton(driverXbox, dButtonXid);
-			dButtonY = new JoystickButton(driverXbox, dButtonYid);
-			dButtonBumpL = new JoystickButton(driverXbox, dButtonBumpLid);
-			dButtonBumpR = new JoystickButton(driverXbox, dButtonBumpRid);
-			dButtonBack = new JoystickButton(driverXbox, dButtonBackid);
-			dButtonStart = new JoystickButton(driverXbox, dButtonStartid);
-			dButtonLClick = new JoystickButton(driverXbox, dButtonLClickid);
-			dButtonRClick = new JoystickButton(driverXbox, dButtonRClickid);
+			dButtonA = new JoystickButton(driverXbox, buttonAid);
+			dButtonB = new JoystickButton(driverXbox, buttonBid);
+			dButtonX = new JoystickButton(driverXbox, buttonXid);
+			dButtonY = new JoystickButton(driverXbox, buttonYid);
+			dButtonBumpL = new JoystickButton(driverXbox, buttonBumpLid);
+			dButtonBumpR = new JoystickButton(driverXbox, buttonBumpRid);
+			dButtonBack = new JoystickButton(driverXbox, buttonBackid);
+			dButtonStart = new JoystickButton(driverXbox, buttonStartid);
+			dButtonLClick = new JoystickButton(driverXbox, buttonLClickid);
+			dButtonRClick = new JoystickButton(driverXbox, buttonRClickid);
 			dPOV0 = new POV(driverXbox, POV_0);
 			dPOV90 = new POV(driverXbox, POV_90);
 			dPOV135 = new POV(driverXbox, POV_135);
@@ -166,16 +158,16 @@ public class OI {
 
 		try {
 			operatorXbox = new Joystick(OPERATOR_XBOX);
-			oButtonA = new JoystickButton(operatorXbox, oButtonAid);
-			oButtonB = new JoystickButton(operatorXbox, oButtonBid);
-			oButtonX = new JoystickButton(operatorXbox, oButtonXid);
-			oButtonY = new JoystickButton(operatorXbox, oButtonYid);
-			oButtonBumpL = new JoystickButton(operatorXbox, oButtonBumpLid);
-			oButtonBumpR = new JoystickButton(operatorXbox, oButtonBumpRid);
-			oButtonBack = new JoystickButton(operatorXbox, oButtonBackid);
-			oButtonStart = new JoystickButton(operatorXbox, oButtonStartid);
-			oButtonLClick = new JoystickButton(operatorXbox, oButtonLClickid);
-			oButtonRClick = new JoystickButton(operatorXbox, oButtonRClickid);
+			oButtonA = new JoystickButton(operatorXbox, buttonAid);
+			oButtonB = new JoystickButton(operatorXbox, buttonBid);
+			oButtonX = new JoystickButton(operatorXbox, buttonXid);
+			oButtonY = new JoystickButton(operatorXbox, buttonYid);
+			oButtonBumpL = new JoystickButton(operatorXbox, buttonBumpLid);
+			oButtonBumpR = new JoystickButton(operatorXbox, buttonBumpRid);
+			oButtonBack = new JoystickButton(operatorXbox, buttonBackid);
+			oButtonStart = new JoystickButton(operatorXbox, buttonStartid);
+			oButtonLClick = new JoystickButton(operatorXbox, buttonLClickid);
+			oButtonRClick = new JoystickButton(operatorXbox, buttonRClickid);
 			oPOV0 = new POV(operatorXbox, POV_0);
 			oPOV90 = new POV(operatorXbox, POV_90);
 			oPOV135 = new POV(operatorXbox, POV_135);
