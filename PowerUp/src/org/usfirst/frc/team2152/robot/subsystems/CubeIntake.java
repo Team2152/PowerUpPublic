@@ -21,8 +21,8 @@ public class CubeIntake extends Subsystem {
 	// here. Call these from Commands.
 
 	private DoubleSolenoid cubeSolenoid;
-	private Victor cubeIntakeRight;
-	private Victor cubeIntakeLeft;
+	private Victor intakeRight;
+	private Victor intakeLeft;
 
 	private DigitalInput cubeDetectOuterRight;
 	private DigitalInput cubeDetectOuterLeft;
@@ -30,8 +30,8 @@ public class CubeIntake extends Subsystem {
 
 	public CubeIntake() {
 
-		cubeIntakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT_PWM_0);
-		cubeIntakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT_PWM_1);
+		intakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT_PWM_0);
+		intakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT_PWM_1);
 
 		cubeSolenoid = new DoubleSolenoid(0, 1);
 		cubeSolenoidClose();
@@ -43,22 +43,33 @@ public class CubeIntake extends Subsystem {
 
 	// Sets intake speed
 	public void cubeIntakeMove(double cubeIntakeSpeed) {
-		cubeIntakeRight.set(-cubeIntakeSpeed);
-		cubeIntakeLeft.set(cubeIntakeSpeed);
+		intakeRight.set(-cubeIntakeSpeed);
+		intakeLeft.set(cubeIntakeSpeed);
 
 	}
 
 	// Sets expell speed
 	public void cubeExpelMove(double cubeExpelSpeed) {
-		cubeIntakeRight.set(cubeExpelSpeed);
-		cubeIntakeLeft.set(-cubeExpelSpeed);
+		intakeRight.set(cubeExpelSpeed);
+		intakeLeft.set(-cubeExpelSpeed);
+	}
+	
+	public void cubeIntakeSensor(double cubeIntakeSpeed){
+		if(cubeDetectIn.get() == true){
+			intakeRight.set(0);
+			intakeLeft.set(0);
+		}
+		else if(cubeDetectIn.get() == false){
+			intakeRight.set(cubeIntakeSpeed);
+			
+		}
 	}
 
 	
 	// Sets speed for auto
 	public void cubeSetMoveSpeed(double cubeMoveSpeed){
-		cubeIntakeRight.set(cubeMoveSpeed);
-		cubeIntakeLeft.set(-cubeMoveSpeed);
+		intakeRight.set(cubeMoveSpeed);
+		intakeLeft.set(-cubeMoveSpeed);
 	}
 	// Opens the solenoid
 	public void cubeSolenoidOpen() {
