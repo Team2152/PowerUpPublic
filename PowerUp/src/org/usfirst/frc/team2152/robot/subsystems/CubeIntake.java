@@ -87,6 +87,13 @@ public class CubeIntake extends Subsystem {
 		Robot.powerUpDashboard.putCubeSolenoid(false);
 	}
 	
+	public void cubeSolenoidSensor(){
+		if(cubeDetectOutRight() == true && cubeDetectOutLeft() == true){
+			cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
+		}
+	}
+	
+	
 	public void cubeSolenoidToggle(){
 		if(cubeSolenoid.get() == DoubleSolenoid.Value.kReverse){
 			cubeSolenoidOpen();

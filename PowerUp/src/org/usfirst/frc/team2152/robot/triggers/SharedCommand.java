@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class SharedCommand extends Trigger{
-	public final int BUTTON_MODE = 0;
-	public final int POV_MODE = 1;
+	public final static int BUTTON_MODE = 0;
+	public final static int POV_MODE = 1;
 	private Joystick joy1;
 	private int button1;
 	private Joystick joy2;

@@ -7,8 +7,11 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.commands.AcquireCube;
+import org.usfirst.frc.team2152.robot.commands.CubeExpel;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
+import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
@@ -17,7 +20,6 @@ import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
-import org.usfirst.frc.team2152.robot.commands.TestCommand;
 import org.usfirst.frc.team2152.robot.triggers.SharedCommand;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 
@@ -130,8 +132,10 @@ public class OI {
 	private POV dPOV225;
 	private POV dPOV270;
 	private POV dPOV315;
-		
-
+	
+	private SharedCommand cubeHigh;
+	private SharedCommand cubeLow;
+	private SharedCommand cubeExpel;
 	public OI() {
 		// Setup driver joystick
 		try {
@@ -182,27 +186,28 @@ public class OI {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
 		}
 		
-		try{
-			setupSharedCommands();
-		} catch (Exception e) {
+		try {
+			cubeHigh = new SharedCommand(driverXbox, 0, operatorXbox, 0, SharedCommand.POV_MODE);
+			cubeLow = new SharedCommand(driverXbox, 180, operatorXbox, 180, SharedCommand.POV_MODE);
+			cubeExpel = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonXid, SharedCommand.BUTTON_MODE);
+		} catch (Exception e){
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
 		}
 	}
 
 	public void setupOperatorButtons() {
-		oPOV0.whenPressed(new CubeMoveHigh(.5));
-		oPOV180.whenPressed(new CubeMoveLow(.5));
+		oButtonStart.whenPressed(new CubeSolenoidToggle());
+		oButtonA.whenPressed(new AcquireCube());
 	}
 
 	public void setupDriverXboxButtons() {
-//		dPOV90.whenPressed(new PreCannedTurn(90, false));
-//		dPOV270.whenPressed(new PreCannedTurn(-90, false));
-//		dPOV180.whenPressed(new PreCannedTurn(180, false));
-//		dButtonX.whenPressed(new ElevatorMoveHigh(.5));
-//		dButtonY.whenPressed(new ElevatorMoveLow(.1));
+
 	}
 	
-	public void setupSharedCommands(){
+	public void setupSharedCommands() {
+		cubeHigh.whenActive(new CubeMoveHigh(.5));
+		cubeLow.whenActive(new CubeMoveLow(.5));
+		cubeExpel.whenActive(new CubeExpel(1, buttonXid, buttonXid, driverXbox, operatorXbox));
 	}
 
 }
