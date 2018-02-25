@@ -23,9 +23,9 @@ public class NetworkPIDSourceXAngle implements PIDSource {
 	@Override
 	public double pidGet() {
 		if (pidSourceXAngle == PIDSourceType.kDisplacement) {
-			return Robot.udp.getValue(Vars.Peg.Double.XAngle);
+			return Robot.udp.getValue(Vars.Cube.Double.XAngle);
 		} else {
-			return Robot.udp.getValue(Vars.Peg.Double.XAngle);
+			return Robot.udp.getValue(Vars.Cube.Double.XAngle);
 		}
 	}
 

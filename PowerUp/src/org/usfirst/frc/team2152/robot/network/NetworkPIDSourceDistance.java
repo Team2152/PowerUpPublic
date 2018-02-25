@@ -22,9 +22,9 @@ public class NetworkPIDSourceDistance implements PIDSource {
 	@Override
 	public double pidGet() {
 		if (pidSourceDistance == PIDSourceType.kDisplacement) {
-			return Robot.udp.getValue(Vars.Peg.Double.Distance);
+			return Robot.udp.getValue(Vars.Cube.Double.Distance);
 		} else {
-			return Robot.udp.getValue(Vars.Peg.Double.Distance);
+			return Robot.udp.getValue(Vars.Cube.Double.Distance);
 		}
 	}
 

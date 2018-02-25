@@ -8,15 +8,9 @@ package org.usfirst.frc.team2152.robot.network;
 	 */
 public class Vars {	
 
-	public static class Boiler {
-		public static enum Double implements Vars.Double, BoilerField {
-			XAngle, Distance, YAngle
-		}
-	}
-
-	public static class Peg {
-		public static enum Double implements Vars.Double, PegField {
-			XAngle, Distance, Parallax
+	public static class Cube {
+		public static enum Double implements Vars.Double, CubeField {
+			XAngle, Distance
 		}
 	}
 
@@ -25,15 +19,10 @@ public class Vars {
 	/* Groups for organization of variables. These interfaces are used
 	 * to pass the group name with the enum values.
 	 */
-	private static interface BoilerField extends Group {
-		public default java.lang.String getName() {
-			return "Boiler";
-		}
-	}
 
-	private static interface PegField extends Group {
+	private static interface CubeField extends Group {
 		public default java.lang.String getName() {
-			return "Peg";
+			return "Cube";
 		}
 	}
 

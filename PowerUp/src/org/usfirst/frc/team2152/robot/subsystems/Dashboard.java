@@ -22,6 +22,15 @@ public class Dashboard extends Subsystem {
 	 * Gets our alliance's plate assignment for our switch and the scale and
 	 * puts them on the SmartDashboard
 	 */
+	public void putUDP(boolean udpRunning) {
+		SmartDashboard.putBoolean("UDP Connection", udpRunning);
+	}
+	
+	public void putCubeVision(double angle, double distance) {
+		SmartDashboard.putNumber("Angle to Cube", angle);
+		SmartDashboard.putNumber("Distance to Cube", distance);
+	}
+	
 	public void putPlateAssignment(String plateAssignment) {
 		/*
 		 * Our plate on the opponent's Switch will always be on the same side as

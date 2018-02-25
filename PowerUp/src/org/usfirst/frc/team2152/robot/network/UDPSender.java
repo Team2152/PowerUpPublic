@@ -13,6 +13,19 @@ public class UDPSender {
 			e.printStackTrace();
 		}
     }
+    
+    public UDPSender(int localPort) {
+    	try {
+			send = new DatagramSocket(localPort);
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    public UDPSender(DatagramSocket sock) {
+    	this.send = sock;
+    }
 
     public void sendMsg(String msg, InetAddress addr, int port) {
         sendMsg(msg.getBytes(), addr, port);
