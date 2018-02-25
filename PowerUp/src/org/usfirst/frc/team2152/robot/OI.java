@@ -17,6 +17,8 @@ import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
+import org.usfirst.frc.team2152.robot.commands.TestCommand;
+import org.usfirst.frc.team2152.robot.triggers.SharedCommand;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -128,7 +130,7 @@ public class OI {
 	private POV dPOV225;
 	private POV dPOV270;
 	private POV dPOV315;
-	
+		
 
 	public OI() {
 		// Setup driver joystick
@@ -179,6 +181,12 @@ public class OI {
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
 		}
+		
+		try{
+			setupSharedCommands();
+		} catch (Exception e) {
+			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
+		}
 	}
 
 	public void setupOperatorButtons() {
@@ -192,6 +200,9 @@ public class OI {
 //		dPOV180.whenPressed(new PreCannedTurn(180, false));
 //		dButtonX.whenPressed(new ElevatorMoveHigh(.5));
 //		dButtonY.whenPressed(new ElevatorMoveLow(.1));
+	}
+	
+	public void setupSharedCommands(){
 	}
 
 }
