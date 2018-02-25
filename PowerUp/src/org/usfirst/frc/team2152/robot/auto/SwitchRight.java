@@ -53,7 +53,7 @@ public class SwitchRight extends CommandGroup {
         	addSequential(new PreCannedTurn(-45,false));
         	addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-90,false));
-        	addSequential(new MoveByEncoder(63,63,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
 
 
         	//Cube Delivery

@@ -6,6 +6,7 @@ import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,8 +33,8 @@ public class SwitchLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	Timer.delay(SmartDashboard.getNumber("Auto Delay", 500));
+    
+    	Timer.delay(SmartDashboard.getNumber("Auto Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		//Navigate to left switch plate
@@ -48,7 +49,7 @@ public class SwitchLeft extends CommandGroup {
         	addSequential(new PreCannedTurn(45,false));
         	addSequential(new MoveByEncoder(93,93,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(90,false));
-        	addSequential(new MoveByEncoder(55,55,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
 
         	/*//Cube Delivery Commands
         	addSequential(new SetCubeIntake(1));

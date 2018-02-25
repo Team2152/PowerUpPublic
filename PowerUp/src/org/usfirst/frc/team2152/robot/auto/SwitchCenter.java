@@ -32,7 +32,7 @@ public class SwitchCenter extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
+    	//Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		// Navigate to left switch plate
@@ -56,11 +56,11 @@ public class SwitchCenter extends CommandGroup {
     	
     	} else {
     		// Only Cross Baseline
-    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(45,false));
-    		addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(-45,false));
-    		addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		addSequential(new PreCannedTurn(45,false));
+//    		addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		addSequential(new PreCannedTurn(-45,false));
+//    		addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
     }
 }
