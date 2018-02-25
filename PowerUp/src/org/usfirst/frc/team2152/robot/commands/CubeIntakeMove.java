@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2152.robot.commands;
 
+import org.usfirst.frc.team2152.robot.OI;
 import org.usfirst.frc.team2152.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -13,10 +14,7 @@ public class CubeIntakeMove extends Command {
 
 	double cubeIntakeSpeed = 0;
 	double cubeExpelSpeed = 0;
-	int cubeButtonAid = 1;
-	int cubeButtonXid = 3;
-	int cubeButtonBumpLid = 5;
-	int cubeButtonBumpRid = 6;
+
 	Joystick joystick;
 
 	/**
@@ -54,9 +52,9 @@ public class CubeIntakeMove extends Command {
 			// Using else if so that only one button is usable at a time in the
 			// following priority: A X
 			// A button intakes until inner sensors are triggered
-			if (joystick.getRawButton(cubeButtonAid) == true) {
+			if (joystick.getRawButton(OI.buttonAid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
-			} else if (joystick.getRawButton(cubeButtonXid) == true) {
+			} else if (joystick.getRawButton(OI.buttonXid) == true) {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
 			} else {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
@@ -74,7 +72,7 @@ public class CubeIntakeMove extends Command {
 		// If the INNER IR sensor is triggered then it will allow the user to
 		// expel the cube
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
-			if (joystick.getRawButton(cubeButtonXid) == true) {
+			if (joystick.getRawButton(OI.buttonXid) == true) {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
 			} else {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
@@ -92,8 +90,8 @@ public class CubeIntakeMove extends Command {
 
 		// This is the manual override for the solenoid clamp
 		// Checks for a button press and will open and close the clamp
-		if (joystick.getRawButton(cubeButtonBumpLid) == true) {
-			Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+		if (joystick.getRawButton(OI.buttonStartid) == true) {
+		Robot.cubeIntakeSubsystem.cubeSolenoidToggle();
 		}
 	}
 
