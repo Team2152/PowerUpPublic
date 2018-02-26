@@ -7,8 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class CubeMoveTo extends Command {
 
-	double cubeRaiseSpeed;
-	double cubeLowerSpeed;
+	
 	int cubeLeftTriggerid = 2;
 	int cubeRightTriggerid = 3;
 	Joystick joystick;
@@ -17,17 +16,16 @@ public class CubeMoveTo extends Command {
 	 * This command controls the cube arm to raise and lower the manipulator.
 	 * 
 	 * @param cubeRaiseSpeed
-	 *            Sets lower speed
-	 * @param cubeLowerSpeed
 	 *            Sets raise speed
+	 * @param cubeLowerSpeed
+	 *            Sets lower speed
 	 * @param joystick
 	 */
-	public CubeMoveTo(double cubeRaiseSpeed, double cubeLowerSpeed, Joystick joystick) {
+	public CubeMoveTo(Joystick joystick) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeMoveSubsystem);
-		this.cubeRaiseSpeed = cubeRaiseSpeed;
-		this.cubeLowerSpeed = cubeLowerSpeed;
+	
 		this.joystick = joystick;
 	}
 
@@ -44,7 +42,7 @@ public class CubeMoveTo extends Command {
 		// When the Left trigger is pressed and the
 		// max limit is not hit it will move the arm up.
 		if (joystick.getRawAxis(cubeLeftTriggerid) >= .1){ // && Robot.cubeMoveSubsystem.getCubeHighLimitValue() == false) {
-			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(cubeRaiseSpeed);
+			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(joystick.getRawAxis(cubeLeftTriggerid)*.5);
 
 		} 
 		
@@ -55,7 +53,7 @@ public class CubeMoveTo extends Command {
 		// When the right trigger is pressed and the
 		// min limit is not hit it will move the arm down.
 		else if (joystick.getRawAxis(cubeRightTriggerid) >= .1 ){ //&& Robot.cubeMoveSubsystem.getCubeLowLimitValue() == false) {
-			Robot.cubeMoveSubsystem.setCubeLowerSpeed(cubeLowerSpeed);
+			Robot.cubeMoveSubsystem.setCubeLowerSpeed(joystick.getRawAxis(cubeRightTriggerid)*.5);
 		} 
 //		else if (Robot.cubeMoveSubsystem.getCubeLowLimitValue() == true) {
 //			Robot.cubeMoveSubsystem.setCubeLowerSpeed(0);

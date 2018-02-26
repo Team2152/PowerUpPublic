@@ -199,15 +199,15 @@ public class OI {
 
 	public void setupOperatorButtons() {
 		oButtonStart.whenPressed(new CubeSolenoidToggle());
-		//oButtonA.whenPressed(new AcquireCube());
+		oButtonA.whenPressed(new AcquireCube());
 	}
 
 	public void setupDriverXboxButtons() {
 	}
 	
 	public void setupSharedCommands() {
-//		cubeHigh.whenActive(new CubeMoveHigh(.5));
-//		cubeLow.whenActive(new CubeMoveLow(.5));
+		cubeHigh.whenActive(new CubeMoveHigh(.5));
+		cubeLow.whenActive(new CubeMoveLow(.5));
 		cubeExpel.whenActive(new CubeExpel(1, buttonXid, buttonXid, driverXbox, operatorXbox));
 	}
 

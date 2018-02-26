@@ -55,13 +55,14 @@ public class CubeIntakeMove extends Command {
 			if (joystick.getRawButton(OI.buttonAid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
 			} 
-			//else if (joystick.getRawButton(OI.buttonXid) == true) {
+//			else if (joystick.getRawButton(OI.buttonXid) == true) {
 //				Robot.cubeIntakeSubsystem.cubeExpelMove(cubeExpelSpeed);
-//			} else {
-//				Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
-//				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
-//
 //			}
+			else {
+				Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
+				//Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+
+			}
 //
 //		} else {
 //			// If the INNER IR sensor is triggered then stop all intake motors
