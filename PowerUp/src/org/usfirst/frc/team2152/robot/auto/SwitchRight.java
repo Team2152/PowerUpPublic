@@ -44,9 +44,10 @@ public class SwitchRight extends CommandGroup {
         	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else if (switchPosition == "Right"){
     		//Navigate to Switch
-    		addSequential(new SetCubeIntake(-.5));
+    		addSequential(new SetCubeIntake(.5));
     		Timer.delay(.25);
     		addSequential(new SetCubeIntake(0));
+    		
     		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(45,false));
         	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
@@ -57,7 +58,7 @@ public class SwitchRight extends CommandGroup {
 
 
         	//Cube Delivery
-    		addSequential(new SetCubeIntake(1));
+    		addSequential(new SetCubeIntake(-1));
     		Timer.delay(1);
     		addSequential(new SetCubeIntake(0));
 
