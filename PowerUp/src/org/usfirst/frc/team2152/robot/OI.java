@@ -135,7 +135,6 @@ public class OI {
 	private POV dPOV315;
 	
 	private SharedCommand cubeHigh;
-	//private SharedCommand cubeLow;
 	private SharedCommand cubeExpel;
 	public OI() {
 		// Setup driver joystick
@@ -189,7 +188,6 @@ public class OI {
 		
 		try {
 			cubeHigh = new SharedCommand(driverXbox, POV_270, operatorXbox, POV_270);
-			//cubeLow = new SharedCommand(driverXbox, 180, operatorXbox, 180, SharedCommand.POV_MODE);
 			cubeExpel = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonXid);
 			setupSharedCommands();
 		} catch (Exception e){
@@ -200,8 +198,8 @@ public class OI {
 	public void setupOperatorButtons() {
 		oButtonStart.whenPressed(new CubeSolenoidToggle());
 		oButtonA.whenPressed(new AcquireCube());
-		oPOV0.whenPressed(new ElevatorMoveHigh(.6));
-		oPOV180.whenPressed(new ElevatorMoveLow(.1));
+		//oPOV0.whenPressed(new ElevatorMoveHigh(.6));
+		//oPOV180.whenPressed(new ElevatorMoveLow(.1));
 		oPOV90.whenPressed(new CubeMoveLow(.5));
 	}
 
@@ -211,7 +209,6 @@ public class OI {
 	
 	public void setupSharedCommands() {
 		cubeHigh.whenActive(new CubeMoveHigh(.5));
-		//cubeLow.whenActive(new CubeMoveLow(.5));
 		cubeExpel.whenActive(new CubeExpel(1, buttonXid, buttonXid, driverXbox, operatorXbox));
 	}
 
