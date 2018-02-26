@@ -118,8 +118,6 @@ public class Robot extends TimedRobot {
 		
 		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(), Robot.elevatorSubsystem.getElevatorMinHeight());
 		
-		SmartDashboard.putString("Switch Position", "Swtich machine broke");
-    	SmartDashboard.putString("Scale Position", "Scale machine broke");
 	}
 
 	/**

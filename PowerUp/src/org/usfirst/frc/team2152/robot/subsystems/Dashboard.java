@@ -63,11 +63,11 @@ public class Dashboard extends Subsystem {
 	public String getPlateAssignment(String component) {
 		switch (component) {
 		case "Switch Plates":
-			return SmartDashboard.getString("Switch Plates", "Cameron Help");
+			return SmartDashboard.getString("Switch Plates", "No Data Recieved");
 		case "Scale Plate":
-			return SmartDashboard.getString("Scale Plate", "CAMERON HELP");
+			return SmartDashboard.getString("Scale Plate", "No Data Recieved");
 		default:
-			return "you didnt input a thing you weirdo";
+			return "Component Not Recognized";
 		
 		}
 	}
