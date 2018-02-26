@@ -188,9 +188,9 @@ public class OI {
 		}
 		
 		try {
-			cubeHigh = new SharedCommand(driverXbox, 270, operatorXbox, 270, SharedCommand.POV_MODE);
+			cubeHigh = new SharedCommand(driverXbox, POV_270, operatorXbox, POV_270);
 			//cubeLow = new SharedCommand(driverXbox, 180, operatorXbox, 180, SharedCommand.POV_MODE);
-			cubeExpel = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonXid, SharedCommand.BUTTON_MODE);
+			cubeExpel = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonXid);
 			setupSharedCommands();
 		} catch (Exception e){
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());

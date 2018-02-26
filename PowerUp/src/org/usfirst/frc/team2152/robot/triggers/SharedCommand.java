@@ -16,34 +16,19 @@ public class SharedCommand extends Button{
 	private int button1;
 	private Joystick joy2;
 	private int button2;
-	private int mode;
 	
-	public SharedCommand(Joystick joy1, int button1, Joystick joy2, int button2, int mode){
+	public SharedCommand(Joystick joy1, int button1, Joystick joy2, int button2){
 		this.joy1 = joy1;
 		this.button1 = button1;
 		this.joy2 = joy2;
 		this.button2 = button2;
-		this.mode = mode;
 	}
     public boolean get() {
-    	
-    	switch(mode){
-    	
-    	case(BUTTON_MODE):
-    		if(joy1.getRawButton(button1) == true || joy2.getRawButton(button2) == true){
+    		if(joy1.getRawButton(button1) == true || joy1.getPOV() == button1 
+    				|| joy2.getRawButton(button2) == true || joy2.getPOV() == button2){
         		return true;
         	} else {
             return false;
         	}
-        	
-    	case(POV_MODE):
-    		if(joy1.getPOV() == button1 || joy2.getPOV() == button2){
-    			return true;
-    		} else {
-    			return false;
-    		}
-    	default:
-    		return false;
-    	}
     }
 }
