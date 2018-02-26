@@ -23,6 +23,7 @@ import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2152.robot.subsystems.LED;
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
+import org.usfirst.frc.team2152.robot.subsystems.PressureSensor;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
 
@@ -51,6 +52,7 @@ public class Robot extends TimedRobot {
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
 	public static final Gain driveTrainJoystickGain     = new Gain(Gain.PCT_75,Gain.XBOX_DEADBAND);
 	public static final LED ledSubsystem = new LED();
+	public static final PressureSensor  pressureSensor = new PressureSensor();
 	
 	public static final UDPHandler udp = new UDPHandler();
 	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
@@ -83,7 +85,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
-		m_chooser.addObject("Switch Left", new SwitchLeft());
+		m_chooser.addObject("Switch Left", new SwitchLeft()); 
 		m_chooser.addObject("Switch Right", new SwitchRight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		
