@@ -52,7 +52,7 @@ public class CubeIntakeMove extends Command {
 //			// Using else if so that only one button is usable at a time in the
 //			// following priority: A X
 //			// A button intakes until inner sensors are triggered
-			if (joystick.getRawButton(OI.buttonAid) == true) {
+			if (joystick.getRawButton(OI.buttonYid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
 			} 
 //			else if (joystick.getRawButton(OI.buttonXid) == true) {

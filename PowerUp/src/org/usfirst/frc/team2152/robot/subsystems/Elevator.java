@@ -50,7 +50,7 @@ public class Elevator extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 
-		setDefaultCommand(new ElevatorMove(.1, Robot.m_oi.driverXbox));
+		setDefaultCommand(new ElevatorMove(.1, Robot.m_oi.operatorXbox));
 	}
 
 }
