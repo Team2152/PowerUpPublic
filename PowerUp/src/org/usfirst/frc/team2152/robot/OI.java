@@ -203,6 +203,8 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
+		dPOV0.whenPressed(new ElevatorMoveHigh(.6));
+		dPOV180.whenPressed(new ElevatorMoveLow(.1));
 	}
 	
 	public void setupSharedCommands() {
