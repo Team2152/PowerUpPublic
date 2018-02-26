@@ -3,10 +3,8 @@ package org.usfirst.frc.team2152.robot.auto;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
-import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,9 +12,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class SwitchLeft extends CommandGroup {
+public class ScaleLeft extends CommandGroup {
 
-    public SwitchLeft() {
+    public ScaleLeft() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -33,30 +31,22 @@ public class SwitchLeft extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    
-    	Timer.delay(SmartDashboard.getNumber("Auto Delay", 0));
-    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
-    	if (switchPosition == "Left"){
-    		//Navigate to left switch plate
+    	
+    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
+    	String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
+    	if (scalePosition == "Left"){
+    		// Navigate to left scale plate
+    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(-45,false));
+    		addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(45,false));
+    		addSequential(new MoveByEncoder(252,252,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new PreCannedTurn(90,false));
+    		addSequential(new MoveByEncoder(20,20,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		
-    		addSequential(new SetCubeIntake(.5));
-    		Timer.delay(.25);
-    		addSequential(new SetCubeIntake(0));
-    		
-        	addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(93,93,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(90,false));
-        	addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
-
-        	//Cube Delivery Commands
-        	addSequential(new SetCubeIntake(-1));
-    		Timer.delay(1);
-    		addSequential(new SetCubeIntake(0));
-    	} else if (switchPosition == "Right"){
-    		//Only Cross Baseline
+    		// Cube Delivery
+    	} else if (scalePosition == "Right"){
+    		// Only cross baseline
     		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	addSequential(new PreCannedTurn(-45,false));
         	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
@@ -69,5 +59,11 @@ public class SwitchLeft extends CommandGroup {
         	addSequential(new PreCannedTurn(45,false));
         	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
+
+
+
+
+
+
     }
 }

@@ -1,20 +1,16 @@
 package org.usfirst.frc.team2152.robot.auto;
 
+import org.usfirst.frc.team2152.robot.Robot;
 
-import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
-import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
-import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
-
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class BaselineCenter extends CommandGroup {
+public class TestAuto extends CommandGroup {
 
-    public BaselineCenter() {
+    public TestAuto() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -31,12 +27,9 @@ public class BaselineCenter extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    	addSequential(new PreCannedTurn(45,false));
-    	addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    	addSequential(new PreCannedTurn(45,false));
-    	addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	
+    	SmartDashboard.putString("Switch Position", Robot.powerUpDashboard.getPlateAssignment("Switch Plates"));
+    	SmartDashboard.putString("Scale Position", Robot.powerUpDashboard.getPlateAssignment("Scale Plate"));
+
     }
 }

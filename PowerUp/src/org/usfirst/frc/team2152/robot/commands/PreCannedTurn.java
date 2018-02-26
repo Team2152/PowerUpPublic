@@ -35,6 +35,7 @@ public class PreCannedTurn extends Command implements PIDOutput {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
 		timer.reset();
 		timer.start();
 		Robot.navxSubsystem.resetAngle();
@@ -63,7 +64,7 @@ public class PreCannedTurn extends Command implements PIDOutput {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE || timer.get() >= timeOut) {
+		if (pidPCT.onTarget()) {
 			return true;
 		} else {
 			return false;
@@ -74,6 +75,8 @@ public class PreCannedTurn extends Command implements PIDOutput {
 	protected void end() {
 		Robot.driveTrainSubsystem.tankDrive(0, 0);
 		pidPCT.disable();
+		Robot.driveTrainSubsystem.resetRampRate();
+
 	}
 
 	// Called when another command which requires one or more of the same
@@ -81,6 +84,7 @@ public class PreCannedTurn extends Command implements PIDOutput {
 	protected void interrupted() {
 		Robot.driveTrainSubsystem.tankDrive(0, 0);
 		pidPCT.disable();
+		Robot.driveTrainSubsystem.resetRampRate();
 	}
 
 	@Override

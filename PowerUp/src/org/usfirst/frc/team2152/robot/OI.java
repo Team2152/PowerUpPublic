@@ -7,13 +7,21 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.commands.AcquireCube;
+import org.usfirst.frc.team2152.robot.commands.CubeExpel;
+import org.usfirst.frc.team2152.robot.commands.CubeMoveHigh;
+import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
+import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
-import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
+//import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
-import org.usfirst.frc.team2152.robot.commands.TankDriveByTime;
+import org.usfirst.frc.team2152.robot.commands.TestCommand;
+import org.usfirst.frc.team2152.robot.triggers.SharedCommand;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,7 +33,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	////CREATING BUTTONS
+	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
 	// You create one by telling it which joystick it's on and which button
@@ -74,7 +82,17 @@ public class OI {
 	public final static int XBOX_RIGHT_TRIGGER = 3;
 	// public final static int SPEED_STICK = 999999; // Deoderant...always wear
 	// it.
-
+	public final static int buttonAid = 1;
+	public final static int buttonBid = 2;
+	public final static int buttonXid = 3;
+	public final static int buttonYid = 4;
+	public final static int buttonBumpLid = 5;
+	public final static int buttonBumpRid = 6;
+	public final static int buttonBackid = 7;
+	public final static int buttonStartid = 8;
+	public final static int buttonLClickid = 9;
+	public final static int buttonRClickid = 10;
+	
 	public Joystick operatorXbox;
 	private Button oButtonA;
 	private Button oButtonB;
@@ -87,23 +105,14 @@ public class OI {
 	private Button oButtonLClick;
 	private Button oButtonRClick;
 	private POV oPOV0;
-    private POV oPOV45;
-    private POV oPOV90;
-    private POV oPOV135;
-    private POV oPOV180;
-    private POV oPOV225;
-    private POV oPOV270;
-    private POV oPOV315;
-	final private int oButtonAid = 1;
-	final private int oButtonBid = 2;
-	final private int oButtonXid = 3;
-	final private int oButtonYid = 4;
-	final private int oButtonBumpLid = 5;
-	final private int oButtonBumpRid = 6;
-	final private int oButtonBackid = 7;
-	final private int oButtonStartid = 8;
-	final private int oButtonLClickid = 9;
-	final private int oButtonRClickid = 10;
+	private POV oPOV45;
+	private POV oPOV90;
+	private POV oPOV135;
+	private POV oPOV180;
+	private POV oPOV225;
+	private POV oPOV270;
+	private POV oPOV315;
+	
 
 	public Joystick driverXbox;
 	private Button dButtonA;
@@ -117,45 +126,38 @@ public class OI {
 	private Button dButtonLClick;
 	private Button dButtonRClick;
 	private POV dPOV0;
-    private POV dPOV45;
-    private POV dPOV90;
-    private POV dPOV135;
-    private POV dPOV180;
-    private POV dPOV225;
-    private POV dPOV270;
-    private POV dPOV315;
-	final private int dButtonAid = 1;
-	final private int dButtonBid = 2;
-	final private int dButtonXid = 3;
-	final private int dButtonYid = 4;
-	final private int dButtonBumpLid = 5;
-	final private int dButtonBumpRid = 6;
-	final private int dButtonBackid = 7;
-	final private int dButtonStartid = 8;
-	final private int dButtonLClickid = 9;
-	final private int dButtonRClickid = 10;
-
+	private POV dPOV45;
+	private POV dPOV90;
+	private POV dPOV135;
+	private POV dPOV180;
+	private POV dPOV225;
+	private POV dPOV270;
+	private POV dPOV315;
+	
+	private SharedCommand cubeHigh;
+	//private SharedCommand cubeLow;
+	private SharedCommand cubeExpel;
 	public OI() {
 		// Setup driver joystick
 		try {
 			driverXbox = new Joystick(DRIVER_XBOX);
-			dButtonA = new JoystickButton(driverXbox, dButtonAid);
-			dButtonB = new JoystickButton(driverXbox, dButtonBid);
-			dButtonX = new JoystickButton(driverXbox, dButtonXid);
-			dButtonY = new JoystickButton(driverXbox, dButtonYid);
-			dButtonBumpL = new JoystickButton(driverXbox, dButtonBumpLid);
-			dButtonBumpR = new JoystickButton(driverXbox, dButtonBumpRid);
-			dButtonBack = new JoystickButton(driverXbox, dButtonBackid);
-			dButtonStart = new JoystickButton(driverXbox, dButtonStartid);
-			dButtonLClick = new JoystickButton(driverXbox, dButtonLClickid);
-			dButtonRClick = new JoystickButton(driverXbox, dButtonRClickid);
+			dButtonA = new JoystickButton(driverXbox, buttonAid);
+			dButtonB = new JoystickButton(driverXbox, buttonBid);
+			dButtonX = new JoystickButton(driverXbox, buttonXid);
+			dButtonY = new JoystickButton(driverXbox, buttonYid);
+			dButtonBumpL = new JoystickButton(driverXbox, buttonBumpLid);
+			dButtonBumpR = new JoystickButton(driverXbox, buttonBumpRid);
+			dButtonBack = new JoystickButton(driverXbox, buttonBackid);
+			dButtonStart = new JoystickButton(driverXbox, buttonStartid);
+			dButtonLClick = new JoystickButton(driverXbox, buttonLClickid);
+			dButtonRClick = new JoystickButton(driverXbox, buttonRClickid);
 			dPOV0 = new POV(driverXbox, POV_0);
-            dPOV90 = new POV(driverXbox, POV_90);
-            dPOV135 = new POV(driverXbox, POV_135);
-            dPOV180 = new POV(driverXbox, POV_180);
-            dPOV225 = new POV(driverXbox, POV_225);
-            dPOV270 = new POV(driverXbox, POV_270);
-            dPOV315 = new POV(driverXbox, POV_315);
+			dPOV90 = new POV(driverXbox, POV_90);
+			dPOV135 = new POV(driverXbox, POV_135);
+			dPOV180 = new POV(driverXbox, POV_180);
+			dPOV225 = new POV(driverXbox, POV_225);
+			dPOV270 = new POV(driverXbox, POV_270);
+			dPOV315 = new POV(driverXbox, POV_315);
 			setupDriverXboxButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup driver joystick: " + e.toString());
@@ -163,45 +165,54 @@ public class OI {
 
 		try {
 			operatorXbox = new Joystick(OPERATOR_XBOX);
-			oButtonA = new JoystickButton(operatorXbox, oButtonAid);
-			oButtonB = new JoystickButton(operatorXbox, oButtonBid);
-			oButtonX = new JoystickButton(operatorXbox, oButtonXid);
-			oButtonY = new JoystickButton(operatorXbox, oButtonYid);
-			oButtonBumpL = new JoystickButton(operatorXbox, oButtonBumpLid);
-			oButtonBumpR = new JoystickButton(operatorXbox, oButtonBumpRid);
-			oButtonBack = new JoystickButton(operatorXbox, oButtonBackid);
-			oButtonStart = new JoystickButton(operatorXbox, oButtonStartid);
-			oButtonLClick = new JoystickButton(operatorXbox, oButtonLClickid);
-			oButtonRClick = new JoystickButton(operatorXbox, oButtonRClickid);
+			oButtonA = new JoystickButton(operatorXbox, buttonAid);
+			oButtonB = new JoystickButton(operatorXbox, buttonBid);
+			oButtonX = new JoystickButton(operatorXbox, buttonXid);
+			oButtonY = new JoystickButton(operatorXbox, buttonYid);
+			oButtonBumpL = new JoystickButton(operatorXbox, buttonBumpLid);
+			oButtonBumpR = new JoystickButton(operatorXbox, buttonBumpRid);
+			oButtonBack = new JoystickButton(operatorXbox, buttonBackid);
+			oButtonStart = new JoystickButton(operatorXbox, buttonStartid);
+			oButtonLClick = new JoystickButton(operatorXbox, buttonLClickid);
+			oButtonRClick = new JoystickButton(operatorXbox, buttonRClickid);
 			oPOV0 = new POV(operatorXbox, POV_0);
-            oPOV90 = new POV(operatorXbox, POV_90);
-            oPOV135 = new POV(operatorXbox, POV_135);
-            oPOV180 = new POV(operatorXbox, POV_180);
-            oPOV225 = new POV(operatorXbox,POV_225);
-            oPOV270 = new POV(operatorXbox,POV_270);
-            oPOV315 = new POV(operatorXbox,POV_315);
+			oPOV90 = new POV(operatorXbox, POV_90);
+			oPOV135 = new POV(operatorXbox, POV_135);
+			oPOV180 = new POV(operatorXbox, POV_180);
+			oPOV225 = new POV(operatorXbox, POV_225);
+			oPOV270 = new POV(operatorXbox, POV_270);
+			oPOV315 = new POV(operatorXbox, POV_315);
 			setupOperatorButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
 		}
+		
+		try {
+			cubeHigh = new SharedCommand(driverXbox, POV_270, operatorXbox, POV_270);
+			//cubeLow = new SharedCommand(driverXbox, 180, operatorXbox, 180, SharedCommand.POV_MODE);
+			cubeExpel = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonXid);
+			setupSharedCommands();
+		} catch (Exception e){
+			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
+		}
 	}
 
 	public void setupOperatorButtons() {
-
-		
-		
+		oButtonStart.whenPressed(new CubeSolenoidToggle());
+		oButtonA.whenPressed(new AcquireCube());
+		oPOV0.whenPressed(new ElevatorMoveHigh(.6));
+		oPOV180.whenPressed(new ElevatorMoveLow(.1));
+		oPOV90.whenPressed(new CubeMoveLow(.5));
 	}
 
 	public void setupDriverXboxButtons() {
-//			dButtonX.whenReleased(new TankDriveByTime(-.75,-.75, 1.5));
-			dButtonB.whenReleased(new MoveByEncoder(72, 72 , 0.250, false));
-//			dButtonA.whenReleased(new ResetEncoders());
-			dButtonA.whenReleased(new ResetNavx());
-//			dButtonY.whenReleased((new PreCannedTurn(90,.5,true)));
-			dPOV90.whenPressed(new PreCannedTurn(90, false));
-			dPOV270.whenPressed(new PreCannedTurn(-90, false));
-			dPOV180.whenPressed(new PreCannedTurn(180, false));
-//			dButtonY.whenPressed(new LEDTest(driverXbox, 355));
+		
 	}
 	
+	public void setupSharedCommands() {
+		cubeHigh.whenActive(new CubeMoveHigh(.5));
+		//cubeLow.whenActive(new CubeMoveLow(.5));
+		cubeExpel.whenActive(new CubeExpel(1, buttonXid, buttonXid, driverXbox, operatorXbox));
+	}
+
 }

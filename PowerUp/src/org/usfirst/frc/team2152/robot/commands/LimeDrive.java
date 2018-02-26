@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,7 +23,7 @@ public class LimeDrive extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
+		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -30,6 +32,7 @@ public class LimeDrive extends Command {
 		double outputTurn = 0;
 		outputThrottle = Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(1));
 		outputTurn = -Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4));
+
 
 		if (Robot.m_oi.driverXbox.getRawButton(5) || (Math.abs(outputThrottle) <= 0.25)) {
 			Robot.driveTrainSubsystem.arcadeDrive(0.0, (outputTurn * 0.66));
