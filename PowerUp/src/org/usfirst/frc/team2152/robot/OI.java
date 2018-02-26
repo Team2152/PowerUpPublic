@@ -20,6 +20,7 @@ import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
+import org.usfirst.frc.team2152.robot.commands.TestCommand;
 import org.usfirst.frc.team2152.robot.triggers.SharedCommand;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 
@@ -190,6 +191,7 @@ public class OI {
 			cubeHigh = new SharedCommand(driverXbox, 0, operatorXbox, 0, SharedCommand.POV_MODE);
 			cubeLow = new SharedCommand(driverXbox, 180, operatorXbox, 180, SharedCommand.POV_MODE);
 			cubeExpel = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonXid, SharedCommand.BUTTON_MODE);
+			setupSharedCommands();
 		} catch (Exception e){
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
 		}
@@ -197,16 +199,15 @@ public class OI {
 
 	public void setupOperatorButtons() {
 		oButtonStart.whenPressed(new CubeSolenoidToggle());
-		oButtonA.whenPressed(new AcquireCube());
+		//oButtonA.whenPressed(new AcquireCube());
 	}
 
 	public void setupDriverXboxButtons() {
-
 	}
 	
 	public void setupSharedCommands() {
-		cubeHigh.whenActive(new CubeMoveHigh(.5));
-		cubeLow.whenActive(new CubeMoveLow(.5));
+//		cubeHigh.whenActive(new CubeMoveHigh(.5));
+//		cubeLow.whenActive(new CubeMoveLow(.5));
 		cubeExpel.whenActive(new CubeExpel(1, buttonXid, buttonXid, driverXbox, operatorXbox));
 	}
 

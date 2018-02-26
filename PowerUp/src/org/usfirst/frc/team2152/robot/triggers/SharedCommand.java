@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SharedCommand extends Trigger{
+public class SharedCommand extends Button{
+	
 	public final static int BUTTON_MODE = 0;
 	public final static int POV_MODE = 1;
 	private Joystick joy1;
@@ -25,6 +26,7 @@ public class SharedCommand extends Trigger{
 		this.mode = mode;
 	}
     public boolean get() {
+    	
     	switch(mode){
     	
     	case(BUTTON_MODE):
@@ -33,6 +35,7 @@ public class SharedCommand extends Trigger{
         	} else {
             return false;
         	}
+        	
     	case(POV_MODE):
     		if(joy1.getPOV() == button1 || joy2.getPOV() == button2){
     			return true;

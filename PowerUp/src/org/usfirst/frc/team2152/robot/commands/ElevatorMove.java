@@ -33,7 +33,7 @@ public class ElevatorMove extends Command {
 	protected void execute() {
 
 		if(Robot.m_oi.operatorXbox.getRawAxis(leftTrigger) >= .1 && Robot.m_oi.driverXbox.getRawAxis(rightTrigger) <= .1 && Robot.elevatorSubsystem.getElevatorMaxHeight() == false){
-			Robot.elevatorSubsystem.setElevatorRaiseSpeed(Robot.m_oi.operatorXbox.getRawAxis(leftTrigger)*.1);
+			Robot.elevatorSubsystem.setElevatorRaiseSpeed(Robot.m_oi.operatorXbox.getRawAxis(leftTrigger)*.8);
 		}
 		else if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
 			Robot.elevatorSubsystem.setElevatorRaiseSpeed(0);

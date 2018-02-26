@@ -16,8 +16,7 @@ public class CubeExpel extends Command {
 	private int operatorButtonID;
 	private int driverButtonID;
 
-	public CubeExpel(double expelSpeed, int driverButton, int operatorButtonID, Joystick operatorJoystick,
-			Joystick driverJoystick) {
+	public CubeExpel(double expelSpeed, int driverButtonID, int operatorButtonID, Joystick operatorJoystick, Joystick driverJoystick) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeIntakeSubsystem);
@@ -50,6 +49,8 @@ public class CubeExpel extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+
 	}
 
 	// Called when another command which requires one or more of the same
