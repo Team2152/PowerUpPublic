@@ -28,6 +28,8 @@ public class AcquireCube extends CommandGroup {
 		addSequential(new AutoCubeMoveLow());
 		addSequential(new CubeIntakeSensor(0.8));
 		addSequential(new AutoCubeMoveHigh());
+		addSequential(new CubeIntakeSensor(0.5));
+
 		System.out.println("ACQ cube ended");
 	}
 }

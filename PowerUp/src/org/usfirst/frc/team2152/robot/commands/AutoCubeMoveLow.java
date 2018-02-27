@@ -24,7 +24,7 @@ public class AutoCubeMoveLow extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new CubeMoveLowByTime(.7,0.5));
+    	addSequential(new CubeMoveLowByTime(.5,0.5));
     	addSequential(new CubeMoveLow(.3));
     }
 }

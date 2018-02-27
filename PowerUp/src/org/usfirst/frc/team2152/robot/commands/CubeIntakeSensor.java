@@ -57,7 +57,7 @@ public class CubeIntakeSensor extends Command {
 			  bGotACube = true;
 		    }
 		    
-		    if (bGotACube == true && timer.get() >= 0.150)
+		    if (bGotACube == true && timer.get() >= 0.5)
 		    	return true;
 		}
 		

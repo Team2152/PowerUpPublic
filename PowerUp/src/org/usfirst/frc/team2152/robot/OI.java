@@ -93,7 +93,7 @@ public class OI {
 	public final static int buttonStartid = 8;
 	public final static int buttonLClickid = 9;
 	public final static int buttonRClickid = 10;
-	
+
 	public Joystick operatorXbox;
 	private Button oButtonA;
 	private Button oButtonB;
@@ -113,7 +113,6 @@ public class OI {
 	private POV oPOV225;
 	private POV oPOV270;
 	private POV oPOV315;
-	
 
 	public Joystick driverXbox;
 	private Button dButtonA;
@@ -134,9 +133,14 @@ public class OI {
 	private POV dPOV225;
 	private POV dPOV270;
 	private POV dPOV315;
-	
+
 	private SharedCommand cubeHigh;
-	private SharedCommand cubeExpel;
+	private SharedCommand expelCube;
+	private SharedCommand acquireCube;
+	private SharedCommand raiseCube;
+	private SharedCommand clampCube;
+	private SharedCommand lowerCube;
+
 	public OI() {
 		// Setup driver joystick
 		try {
@@ -186,31 +190,37 @@ public class OI {
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
 		}
-		
+
 		try {
-			cubeHigh = new SharedCommand(driverXbox, POV_270, operatorXbox, POV_270);
-			cubeExpel = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonXid);
+			// cubeHigh = new SharedCommand(driverXbox, POV_180, operatorXbox,
+			// POV_180);
+			expelCube = new SharedCommand(driverXbox, buttonBumpRid, operatorXbox, buttonXid);
+			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, operatorXbox, buttonStartid);
+			raiseCube = new SharedCommand(driverXbox, buttonYid, operatorXbox, buttonAid);
+			clampCube = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonBid);
+			lowerCube = new SharedCommand(driverXbox, buttonAid, operatorXbox, buttonYid);
 			setupSharedCommands();
-		} catch (Exception e){
+		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
 		}
 	}
 
 	public void setupOperatorButtons() {
-		oButtonStart.whenPressed(new CubeSolenoidToggle());
-		oButtonB.whenPressed(new AcquireCube());
-		//oPOV0.whenPressed(new ElevatorMoveHigh(.6));
-		//oPOV180.whenPressed(new ElevatorMoveLow(.1));
-		oPOV90.whenPressed(new AutoCubeMoveLow());
+
 	}
 
 	public void setupDriverXboxButtons() {
-		
+
 	}
-	
+
 	public void setupSharedCommands() {
-		cubeHigh.whenActive(new AutoCubeMoveHigh());
-		cubeExpel.whenActive(new CubeExpel(1, buttonXid, buttonXid, driverXbox, operatorXbox));
+		// cubeHigh.whenActive(new AutoCubeMoveHigh());
+
+		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
+		acquireCube.whenReleased(new AcquireCube());
+		raiseCube.whenReleased(new AutoCubeMoveHigh());
+		clampCube.whenReleased(new CubeSolenoidToggle());
+		lowerCube.whenReleased(new AutoCubeMoveLow());
 	}
 
 }

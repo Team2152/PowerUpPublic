@@ -28,12 +28,15 @@ public class AutoCubeMoveHigh extends CommandGroup {
         // arm.
     	if(Robot.cubeIntakeSubsystem.cubeDetectIn() == true){
     		System.out.println("USING CUBE IN GAINS");
-    		addSequential(new CubeMoveHighByTime(.5,3 ));
-        	addSequential(new CubeMoveHighByTime(.3,1));
+    		addSequential(new CubeMoveHighByTime(.55,3 ));
+        	addSequential(new CubeMoveHighByTime(.35,1));
+        	addSequential(new CubeMoveHigh(.35));
     	} else {
     		System.out.println("USING NOCUBE GAINS");
     	    addSequential(new CubeMoveHighByTime(.4, 0.75));
     	    addSequential(new CubeMoveHighByTime(.25,1));
+        	addSequential(new CubeMoveHigh(.25));
+
     	}
     }
 }
