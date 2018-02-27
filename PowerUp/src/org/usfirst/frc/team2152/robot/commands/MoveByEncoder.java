@@ -73,7 +73,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 		 if (clearBacklash) {
 			 for (int time = 1; time <= 2; time++) {
-				 //Backlash stuff
+				 Robot.driveTrainSubsystem.arcadeDrive(0.5, 0);
+				 Timer.delay(0.1);
 			 }
 		 }
 
