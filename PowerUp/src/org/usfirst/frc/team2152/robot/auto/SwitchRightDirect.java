@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
-import org.usfirst.frc.team2152.robot.commands.Delay;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
@@ -15,9 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class SwitchRight extends CommandGroup {
+public class SwitchRightDirect extends CommandGroup {
 
-    public SwitchRight() {
+    public SwitchRightDirect() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -53,25 +52,19 @@ public class SwitchRight extends CommandGroup {
     		
     		
     		//Position 2
-    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,true));
-        	addSequential(new PreCannedTurn(45,false));
-        	
-        	addSequential(new MoveByEncoder(45,45,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	
-        	addSequential(new PreCannedTurn(-45 - 5, true));
-        	addSequential(new Delay(0.5));
-        	addSequential(new MoveByEncoder(75,75,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	
-        	addSequential(new PreCannedTurn(-85,false));
-        	
-        	addSequential(new MoveByEncoder(35,35,PIDConstants.ENCODER_DRIVE_SPEED,false, 2));
+    		//addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	//addSequential(new PreCannedTurn(45,false));
+        	//addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	//addSequential(new PreCannedTurn(-45,false));
+        	//addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	//addSequential(new PreCannedTurn(-90,false));
+        	//addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
         	
         	//Switch Direct
-        	//addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true,3.5));
+        	addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true,3.5));
 
 
         	//Cube Delivery
-        	
     		addSequential(new SetCubeIntake(1,1));
 
 

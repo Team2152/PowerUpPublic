@@ -26,6 +26,19 @@ import edu.wpi.first.wpilibj.command.Command;
 	 PIDController pidHH;
 	 Timer timer = new Timer();
 
+	 public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash, double watchDogTime) {
+		 // Use requires() here to declare subsystem dependencies
+		 // eg. requires(chassis);
+		 requires(Robot.driveTrainSubsystem);
+		 requires(Robot.navxSubsystem);
+		 this.clearBacklash = clearBacklash;
+		 motorSpeed = speed;
+		 LeftDistance = leftDistance / DriveTrain.DISTANCE_PER_PULSE;
+		 RightDistance = rightDistance / DriveTrain.DISTANCE_PER_PULSE;
+		 this.watchDogTime = watchDogTime;
+
+	 }
+	 
 	 public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash) {
 		 // Use requires() here to declare subsystem dependencies
 		 // eg. requires(chassis);

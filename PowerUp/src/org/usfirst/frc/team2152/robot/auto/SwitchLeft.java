@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.commands.Delay;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
@@ -39,17 +40,28 @@ public class SwitchLeft extends CommandGroup {
     	if (switchPosition == "Left"){
     		//Navigate to left switch plate
     		
-//    		addSequential(new SetCubeIntake(.5));
-//    		Timer.delay(.25);
-//    		addSequential(new SetCubeIntake(0));
-    		
-        	addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		//Position 2
+    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,true));
         	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(93,93,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(90,false));
-        	addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	
+        	addSequential(new MoveByEncoder(45,45,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	
+        	addSequential(new PreCannedTurn(45 + 5, true));
+        	addSequential(new Delay(0.5));
+        	addSequential(new MoveByEncoder(75,75,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	
+        	addSequential(new PreCannedTurn(85,false));
+        	
+        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false, 2));
+        	
+        	//Switch Direct
+        	//addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true,3.5));
+
+
+        	//Cube Delivery
+        	
+    		addSequential(new SetCubeIntake(1,1));
+
 
         	//Cube Delivery Commands
         	addSequential(new SetCubeIntake(-1,3));

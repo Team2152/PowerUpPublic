@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
 		
 		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(), Robot.elevatorSubsystem.getElevatorMinHeight());
 		
-		
+		Robot.driveTrainSubsystem.setBreakMode(true);
 	}
 
 	/**
@@ -129,6 +129,7 @@ public class Robot extends TimedRobot {
 	public void disabledInit() {
 		cameras.setToDisabledMode();
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		Robot.driveTrainSubsystem.setBreakMode(false);
 
 	}
 
@@ -168,6 +169,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		Robot.driveTrainSubsystem.setBreakMode(true);
 		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
 
 		m_chooser.addDefault("No Auto", null);
@@ -207,6 +209,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		Robot.driveTrainSubsystem.setBreakMode(true);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

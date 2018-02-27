@@ -318,6 +318,28 @@ public class DriveTrain extends Subsystem{
 		left1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 		right1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 	}
+	
+	public void setBreakMode(boolean isBreakMode){
+		if(isBreakMode == true){
+			right1.setNeutralMode(NeutralMode.Brake);
+			right2.setNeutralMode(NeutralMode.Brake);
+			right3.setNeutralMode(NeutralMode.Brake);
+			
+			left1.setNeutralMode(NeutralMode.Brake);
+			left2.setNeutralMode(NeutralMode.Brake);
+			left3.setNeutralMode(NeutralMode.Brake);
+			
+		} else {
+			right1.setNeutralMode(NeutralMode.Coast);
+			right2.setNeutralMode(NeutralMode.Coast);
+			right3.setNeutralMode(NeutralMode.Coast);
+			
+			left1.setNeutralMode(NeutralMode.Coast);
+			left2.setNeutralMode(NeutralMode.Coast);
+			left3.setNeutralMode(NeutralMode.Coast);
+
+		}
+	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
