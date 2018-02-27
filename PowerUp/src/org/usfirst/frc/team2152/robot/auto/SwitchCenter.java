@@ -37,9 +37,6 @@ public class SwitchCenter extends CommandGroup {
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		// Navigate to left switch plate
-//    		addSequential(new SetCubeIntake(.5));
-//    		Timer.delay(.25);
-//    		addSequential(new SetCubeIntake(0));
     		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		addSequential(new PreCannedTurn(-90,false));
     		addSequential(new MoveByEncoder(74,74,PIDConstants.ENCODER_DRIVE_SPEED,false));
