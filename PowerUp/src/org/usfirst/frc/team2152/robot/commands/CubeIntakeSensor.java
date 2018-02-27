@@ -20,15 +20,14 @@ public class CubeIntakeSensor extends Command {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeIntakeSubsystem);
+		requires(Robot.cubeMoveSubsystem);
 		this.intakeSpeed = intakeSpeed;
-		
-		
-		
+
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		
+
 		timer.reset();
 		watchdog.reset();
 		Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
@@ -36,15 +35,15 @@ public class CubeIntakeSensor extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		
-		//Robot.cubeIntakeSubsystem.cubeIntakeSensor(intakeSpeed);
+
+		// Robot.cubeIntakeSubsystem.cubeIntakeSensor(intakeSpeed);
 		Robot.cubeIntakeSubsystem.cubeIntakeMove(intakeSpeed);
-		//Robot.cubeIntakeSubsystem.cubeSolenoidSensor();
-		if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true || 
-				Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)){
+		// Robot.cubeIntakeSubsystem.cubeSolenoidSensor();
+		if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true
+				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
 			watchdog.start();
 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-			//System.out.println("Executing Close Solenoid");
+			// System.out.println("Executing Close Solenoid");
 		}
 
 	}
@@ -52,20 +51,20 @@ public class CubeIntakeSensor extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
-		    if (bGotACube == false) {
-			  timer.start();
-			  bGotACube = true;
-		    }
-		    
-		    if (bGotACube == true && timer.get() >= 0.5)
-		    	return true;
+			if (bGotACube == false) {
+				timer.start();
+				bGotACube = true;
+			}
+
+			if (bGotACube == true && timer.get() >= 0.5)
+				return true;
 		}
-		
-		//if (watchdog.get() > watchdogTime) {
-		//	System.out.println("WATCHDOG TIMER POPPED");
-		//	return true;
-		//}
-		
+
+		if (watchdog.get() >= watchdogTime) {
+			System.out.println("WATCHDOG TIMER POPPED");
+			return true;
+		}
+
 		return false;
 	}
 

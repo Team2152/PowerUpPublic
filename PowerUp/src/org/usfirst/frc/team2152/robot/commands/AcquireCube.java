@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2152.robot.commands;
 
+import org.usfirst.frc.team2152.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -28,7 +30,10 @@ public class AcquireCube extends CommandGroup {
 		addSequential(new AutoCubeMoveLow());
 		addSequential(new CubeIntakeSensor(0.8));
 		addSequential(new AutoCubeMoveHigh());
-		addSequential(new CubeIntakeSensor(0.5));
+		if (Robot.cubeIntakeSubsystem.cubeDetectIn() || Robot.cubeIntakeSubsystem.cubeDetectOutLeft()
+				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight()) {
+			addSequential(new CubeIntakeSensor(0.5));
+		}
 
 		System.out.println("ACQ cube ended");
 	}
