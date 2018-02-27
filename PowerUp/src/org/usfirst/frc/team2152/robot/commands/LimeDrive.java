@@ -34,8 +34,8 @@ public class LimeDrive extends Command {
 		outputTurn = -Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4));
 
 
-		if (Robot.m_oi.driverXbox.getRawButton(5) || (Math.abs(outputThrottle) <= 0.25)) {
-			Robot.driveTrainSubsystem.arcadeDrive(0.0, (outputTurn * 0.66));
+		if (Math.abs(outputThrottle) <= 0.1) {
+			Robot.driveTrainSubsystem.arcadeDrive(0.0, (outputTurn * 0.5)+Robot.m_oi.operatorXbox.getRawAxis(0)*0.2);
 		} else {
 			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle), -(outputThrottle * outputTurn));
 		}

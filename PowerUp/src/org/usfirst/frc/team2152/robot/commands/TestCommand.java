@@ -2,56 +2,48 @@ package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class SetCubeIntake extends Command {
-
-	private double cubeSpeed = 0;
-	private double time = 0;
-	private Timer timer = new Timer();
-	
-    public SetCubeIntake(double cubeSpeed, double time) {
+public class TestCommand extends Command {
+	int counter = 0;
+    public TestCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.cubeIntakeSubsystem);
-    	this.cubeSpeed   = cubeSpeed;
-    	this.time = time;
+    	requires(Robot.driveTrainSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.reset();
-    	timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	// Send a positive to shoot and a negative to intake
-    	Robot.cubeIntakeSubsystem.cubeSetMoveSpeed(cubeSpeed);
-    	
+    	System.out.println("COMMAND ACTIVE " + counter);
+    	counter += 1;
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if( timer.get() >= time){
-    	return true;	
+    	if(counter == 100){
+    		return true;
     	} else {
-      	return false;
+        return false;
     	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	timer.stop();
-    	Robot.cubeIntakeSubsystem.cubeSetMoveSpeed(0);
+    	counter = 0;
+    	System.out.println("COMMAND END");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	counter = 0;
+    	System.out.println("COMMAND INTERRUPTED");
     }
 }

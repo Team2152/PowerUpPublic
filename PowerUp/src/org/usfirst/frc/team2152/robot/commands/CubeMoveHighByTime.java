@@ -8,19 +8,24 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeMoveHigh extends Command {
+public class CubeMoveHighByTime extends Command {
 
 	private double cubeRaiseSpeed;
-	public CubeMoveHigh(double cubeRaiseSpeed) {
+	private double time;
+	private Timer timer = new Timer();
+	public CubeMoveHighByTime(double cubeRaiseSpeed,double time) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeMoveSubsystem);
 		this.cubeRaiseSpeed = cubeRaiseSpeed;
+		this.time = time;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
+		timer.reset();
+		timer.start();
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -32,7 +37,7 @@ public class CubeMoveHigh extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Robot.cubeMoveSubsystem.isHighPosition() == true) {
+		if (Robot.cubeMoveSubsystem.isHighPosition() == true || timer.get() >= time) {
 			return true;
 		} else {
 			return false;

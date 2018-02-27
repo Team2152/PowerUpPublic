@@ -25,8 +25,8 @@ public class CubeMove extends Subsystem {
 		cubeMoveTalon = new WPI_TalonSRX(RobotMap.CUBE_ARM_MOVE_8_CAN_ID);
 		cubeMoveTalon.setNeutralMode(NeutralMode.Brake);
 
-		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_MAX_DIO_3);
-		cubeLimitMin = new DigitalInput(RobotMap.CUBE_LIMIT_MIN_DIO_4);
+		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_MAX_DIO_4);
+		cubeLimitMin = new DigitalInput(RobotMap.CUBE_LIMIT_MIN_DIO_3);
 
 	}
 
@@ -41,19 +41,24 @@ public class CubeMove extends Subsystem {
 	}
 
 	// Returns the state of the max sensor
-	public boolean getCubeHighLimitValue() {
-		return !cubeLimitMax.get();
-
+	public boolean isHighPosition() {
+		if (cubeLimitMax.get() == false)
+			return true;
+		else
+			return false;
 	}
 
 	// Returns the state of the min sensor
-	public boolean getCubeLowLimitValue() {
-		return !cubeLimitMin.get();
+	public boolean isLowPosition() {
+		if (cubeLimitMin.get() == false)
+			return true;
+		else
+			return false;
 	}
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new CubeMoveTo(.2, .2, Robot.m_oi.operatorXbox));
-	}
+		setDefaultCommand(new CubeMoveTo(Robot.m_oi.operatorXbox));	
+		}
 }

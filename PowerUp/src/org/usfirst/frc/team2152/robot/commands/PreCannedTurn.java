@@ -64,7 +64,7 @@ public class PreCannedTurn extends Command implements PIDOutput {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (pidPCT.onTarget()) {
+		if (pidPCT.getError() <= PIDConstants.PCT_TOLERANCE) {
 			return true;
 		} else {
 			return false;

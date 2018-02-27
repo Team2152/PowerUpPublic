@@ -70,16 +70,15 @@ public class Dashboard extends Subsystem {
 	 * @return The assignment of component as a String(eg. "Left")
 	 */
 	public String getPlateAssignment(String component) {
-		String s = "No data recieved";
 		switch (component) {
 		case "Switch Plates":
-			s = SmartDashboard.getString("Switch Plates", "No data recieved");
-			break;
+			return SmartDashboard.getString("Switch Plates", "No Data Recieved");
 		case "Scale Plate":
-			s = SmartDashboard.getString("Scale Plate", "No data recieved");
-			break;
+			return SmartDashboard.getString("Scale Plate", "No Data Recieved");
+		default:
+			return "Component Not Recognized";
+		
 		}
-		return s;
 	}
 
 	/**
