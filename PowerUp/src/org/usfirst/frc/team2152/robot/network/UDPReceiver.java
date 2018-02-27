@@ -12,6 +12,7 @@ import org.usfirst.frc.team2152.robot.Robot;
 public class UDPReceiver extends Thread {
 
 	public static final int UDP_PORT = 5800;
+	public static final int UDP_PORT2 = 5809;
 
 	private final static int RECIEVE_TIMEOUT = 1000; // in ms
 	private final static String threadName = "UDPReceiver";
@@ -37,6 +38,10 @@ public class UDPReceiver extends Thread {
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public UDPReceiver(DatagramSocket sock) {
+		this.socket = sock;
 	}
 	
 	public void run() {

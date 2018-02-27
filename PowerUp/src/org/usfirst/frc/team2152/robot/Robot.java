@@ -20,25 +20,19 @@ import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.auto.TestAuto;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
-import org.usfirst.frc.team2152.robot.commands.Record;
-import org.usfirst.frc.team2152.robot.commands.SendPositionBC;
-import org.usfirst.frc.team2152.robot.commands.SendPositionBL;
-import org.usfirst.frc.team2152.robot.commands.SendPositionBR;
-import org.usfirst.frc.team2152.robot.commands.SendPositionRC;
-import org.usfirst.frc.team2152.robot.commands.SendPositionRL;
-import org.usfirst.frc.team2152.robot.commands.SendPositionRR;
-import org.usfirst.frc.team2152.robot.commands.StopRecording;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
 import org.usfirst.frc.team2152.robot.network.UDPHandler;
 import org.usfirst.frc.team2152.robot.network.UDPReceiver;
+import org.usfirst.frc.team2152.robot.network.Vars;
 import org.usfirst.frc.team2152.robot.subsystems.Dashboard;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
 
 import org.usfirst.frc.team2152.robot.subsystems.LED;
 
 import org.usfirst.frc.team2152.robot.subsystems.Elevator;
-
+import org.usfirst.frc.team2152.robot.subsystems.EncoderSendSystem;
 import org.usfirst.frc.team2152.robot.subsystems.NavX;
+import org.usfirst.frc.team2152.robot.subsystems.TimeSyncSystem;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
 
@@ -70,9 +64,13 @@ public class Robot extends TimedRobot {
 
 	public static final LED ledSubsystem = new LED();
 	public static final UDPHandler udp = new UDPHandler();
+	private UDPReceiver timeReceiver = new UDPReceiver(UDPReceiver.UDP_PORT2);
 	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
 
 	public static final Elevator elevatorSubsystem = new Elevator();
+	
+	public static TimeSyncSystem timeSync = new TimeSyncSystem();
+	public static EncoderSendSystem encoderSendSystem = new EncoderSendSystem(11111, 1); //what does this do? Which port?
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -85,6 +83,22 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		m_logger = new Log(true);
+		
+		try {
+			timeReceiver.setListener((data) -> { 
+				if(data[0] == 3) {
+					timeSync.startTimeSync(data[1]);
+				}
+			});
+			timeReceiver.start();
+			encoderSendSystem.start();
+			
+			udpReceiver.setListener(udp);
+			udpReceiver.start();
+		} 
+		catch (Exception e) {
+
+		}
 		
 		cameras.start();
 
@@ -151,8 +165,7 @@ public class Robot extends TimedRobot {
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		cameras.setToDisabledMode();
-		//powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-
+		
 	}
 
 	/**
@@ -202,6 +215,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
+		powerUpDashboard.putUDP(udpReceiver.isRunning());
+		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance));
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
@@ -226,7 +241,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-
+		powerUpDashboard.putUDP(udpReceiver.isRunning());
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
