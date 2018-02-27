@@ -2,37 +2,42 @@ package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class CubeMoveHigh extends Command {
+public class CubeMoveLowByTime extends Command {
 
-	double cubeRaiseSpeed;
-	
-	
-	public CubeMoveHigh(double cubeRaiseSpeed) {
+	private double cubeLowerSpeed;
+	private double time;
+	private Timer timer = new Timer();
+	public CubeMoveLowByTime(double cubeLowerSpeed,double time) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeMoveSubsystem);
-		this.cubeRaiseSpeed = cubeRaiseSpeed;
+		this.cubeLowerSpeed = cubeLowerSpeed;
+		this.time = time;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer.reset();
+		timer.start();
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(Robot.cubeMoveSubsystem.getCubeHighLimitValue() == false ){
-			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(cubeRaiseSpeed);
+		if(Robot.cubeMoveSubsystem.isLowPosition() == false ){
+			Robot.cubeMoveSubsystem.setCubeLowerSpeed(cubeLowerSpeed);
 		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Robot.cubeMoveSubsystem.getCubeHighLimitValue() == true) {
+		if (Robot.cubeMoveSubsystem.isLowPosition() == true || timer.get() >= time) {
 			return true;
 		} else {
 			return false;
@@ -41,11 +46,12 @@ public class CubeMoveHigh extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.cubeMoveSubsystem.setCubeRaiseSpeed(0);	}
+		Robot.cubeMoveSubsystem.setCubeLowerSpeed(0);	
+	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.cubeMoveSubsystem.setCubeRaiseSpeed(0);
+		Robot.cubeMoveSubsystem.setCubeLowerSpeed(0);
 	}
 }

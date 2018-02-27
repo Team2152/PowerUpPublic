@@ -8,8 +8,9 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.AcquireCube;
+import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
+import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
-import org.usfirst.frc.team2152.robot.commands.CubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
@@ -197,10 +198,10 @@ public class OI {
 
 	public void setupOperatorButtons() {
 		oButtonStart.whenPressed(new CubeSolenoidToggle());
-		oButtonA.whenPressed(new AcquireCube());
+		oButtonB.whenPressed(new AcquireCube());
 		//oPOV0.whenPressed(new ElevatorMoveHigh(.6));
 		//oPOV180.whenPressed(new ElevatorMoveLow(.1));
-		oPOV90.whenPressed(new CubeMoveLow(.5));
+		oPOV90.whenPressed(new AutoCubeMoveLow());
 	}
 
 	public void setupDriverXboxButtons() {
@@ -208,7 +209,7 @@ public class OI {
 	}
 	
 	public void setupSharedCommands() {
-		cubeHigh.whenActive(new CubeMoveHigh(.5));
+		cubeHigh.whenActive(new AutoCubeMoveHigh());
 		cubeExpel.whenActive(new CubeExpel(1, buttonXid, buttonXid, driverXbox, operatorXbox));
 	}
 

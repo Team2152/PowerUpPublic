@@ -1,4 +1,4 @@
-                                                           package org.usfirst.frc.team2152.robot.commands;
+package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.subsystems.DriveTrain;
@@ -13,120 +13,125 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveByEncoder extends Command implements PIDOutput {
-	double motorSpeed;
-	double LeftDistance = 0;
-	double RightDistance = 0;
-	float setPointHH = 0.0f;
-	private boolean clearBacklash = false;
-	
-	PIDController contrL;
-	PIDController contrR;
-	PIDController pidHH;
+ public class MoveByEncoder extends Command implements PIDOutput {
+	 double motorSpeed;
+	 double LeftDistance = 0;
+	 double RightDistance = 0;
+	 float setPointHH = 0.0f;
+	 private boolean clearBacklash = false;
+	 double watchDogTime = 5;
 
-	public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash) {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		requires(Robot.driveTrainSubsystem);
-		requires(Robot.navxSubsystem);
-		this.clearBacklash = clearBacklash;
-		motorSpeed = speed;
-		LeftDistance = leftDistance / DriveTrain.DISTANCE_PER_PULSE;
-		RightDistance = rightDistance / DriveTrain.DISTANCE_PER_PULSE;
-		
+	 PIDController contrL;
+	 PIDController contrR;
+	 PIDController pidHH;
+	 Timer timer = new Timer();
+
+	 public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash) {
+		 // Use requires() here to declare subsystem dependencies
+		 // eg. requires(chassis);
+		 requires(Robot.driveTrainSubsystem);
+		 requires(Robot.navxSubsystem);
+		 this.clearBacklash = clearBacklash;
+		 motorSpeed = speed;
+		 LeftDistance = leftDistance / DriveTrain.DISTANCE_PER_PULSE;
+		 RightDistance = rightDistance / DriveTrain.DISTANCE_PER_PULSE;
+
+	 }
+
+	 // Called just before this Command runs the first time
+	 protected void initialize() {
+		 Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
+		 Robot.driveTrainSubsystem.resetEncoders(true,true);
+		 pidHH = new PIDController(PIDConstants.HH_kP, PIDConstants.HH_kI, PIDConstants.HH_dD,
+				 Robot.navxSubsystem.getAHRS(), this);
+		 pidHH.disable();
+		 pidHH.setInputRange(PIDConstants.HH_IN_MIN, PIDConstants.HH_IN_MAX);
+		 pidHH.setOutputRange(PIDConstants.HH_OUT_MIN, PIDConstants.HH_OUT_MAX);
+		 pidHH.setAbsoluteTolerance(PIDConstants.HH_TOLERANCE);
+		 pidHH.setContinuous(true);
+
+		 timer.reset();
+
+		 contrR = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
+				 PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getRTalonDistancePID(PIDSourceType.kDisplacement),
+				 e -> {
+					 Robot.driveTrainSubsystem.setRightSpeed(e - pidHH.get());
+				 });
+		 contrR.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_kTolerance);
 
 
-	}
+		 contrL = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
+				 PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getLTalonDistancePID(PIDSourceType.kDisplacement),
+				 e -> {
+					 Robot.driveTrainSubsystem.setLeftSpeed(-e - pidHH.get());
+				 });
+		 contrL.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_kTolerance);
+		 Robot.navxSubsystem.getAHRS().reset();
+		 setPointHH = Robot.navxSubsystem.getAHRS().getYaw();
+		 pidHH.enable();
 
-	// Called just before this Command runs the first time
-	protected void initialize() {
-		Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
-		Robot.driveTrainSubsystem.resetEncoders(true,true);
-		pidHH = new PIDController(PIDConstants.HH_kP, PIDConstants.HH_kI, PIDConstants.HH_dD,
-				Robot.navxSubsystem.getAHRS(), this);
-		pidHH.disable();
-		pidHH.setInputRange(PIDConstants.HH_IN_MIN, PIDConstants.HH_IN_MAX);
-		pidHH.setOutputRange(PIDConstants.HH_OUT_MIN, PIDConstants.HH_OUT_MAX);
-		pidHH.setAbsoluteTolerance(PIDConstants.HH_TOLERANCE);
-		pidHH.setContinuous(true);
-		
-		
-		
-		contrR = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
-				PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getRTalonDistancePID(PIDSourceType.kDisplacement),
-				e -> {
-					Robot.driveTrainSubsystem.setRightSpeed(e - pidHH.get());
-				});
-		contrR.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_kTolerance);
 
-		
-		contrL = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
-				PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getLTalonDistancePID(PIDSourceType.kDisplacement),
-				e -> {
-					Robot.driveTrainSubsystem.setLeftSpeed(-e - pidHH.get());
-				});
-		contrL.setAbsoluteTolerance(PIDConstants.ENCODER_DRIVE_kTolerance);
-		Robot.navxSubsystem.getAHRS().reset();
-		setPointHH = Robot.navxSubsystem.getAHRS().getYaw();
-		pidHH.enable();
-		
-		
-		if (clearBacklash) {
-			for (int time = 1; time <= 2; time++) {
-				//Backlash stuff
-			}
-		}
-		
-		Robot.driveTrainSubsystem.arcadeDrive(0, 0);
-			
-			Robot.driveTrainSubsystem.resetEncoders(true,true);
-			contrR.setSetpoint(RightDistance);
-			contrL.setSetpoint(LeftDistance);
-			contrL.setOutputRange(-motorSpeed, motorSpeed);
-			contrR.setOutputRange(-motorSpeed, motorSpeed);
-			contrR.enable();
-			contrL.enable();
-		}
+		 if (clearBacklash) {
+			 for (int time = 1; time <= 2; time++) {
+				 //Backlash stuff
+			 }
+		 }
 
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
+		 Robot.driveTrainSubsystem.arcadeDrive(0, 0);
 
-	}
+		 Robot.driveTrainSubsystem.resetEncoders(true,true);
+		 contrR.setSetpoint(RightDistance);
+		 contrL.setSetpoint(LeftDistance);
+		 contrL.setOutputRange(-motorSpeed, motorSpeed);
+		 contrR.setOutputRange(-motorSpeed, motorSpeed);
+		 contrR.enable();
+		 contrL.enable();
+		 
+		 timer.start();
+	 }
 
-	// Make this return true when this Command no longer needs to run execute()
-	protected boolean isFinished() {
-		if (contrR.onTarget() && contrL.onTarget()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	 // Called repeatedly when this Command is scheduled to run
+	 protected void execute() {
 
-	// Called once after isFinished returns true
-	protected void end() {
-		contrL.disable();
-		contrR.disable();
-		Robot.driveTrainSubsystem.setRightSpeed(0);
-		Robot.driveTrainSubsystem.setLeftSpeed(0);
-		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+	 }
 
-	}
+	 // Make this return true when this Command no longer needs to run execute()
+	 protected boolean isFinished() {
+		 if (contrR.onTarget() && contrL.onTarget()) {
+			 return true;
+		 } else if (timer.get() >= watchDogTime) {
+			 System.out.println("WATCHDOGTIMER*************>>>>>>>>>>>>>>>>>>********************");
+			 return true;
+	     }else {
+			 return false;
+		 }
+	 }
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	protected void interrupted() {
-		contrL.disable();
-		contrR.disable();
-		Robot.driveTrainSubsystem.setRightSpeed(0);
-		Robot.driveTrainSubsystem.setLeftSpeed(0);
-		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+	 // Called once after isFinished returns true
+	 protected void end() {
+		 contrL.disable();
+		 contrR.disable();
+		 Robot.driveTrainSubsystem.setRightSpeed(0);
+		 Robot.driveTrainSubsystem.setLeftSpeed(0);
+		 Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-	}
+	 }
 
-	@Override
-	public void pidWrite(double output) {
-		
+	 // Called when another command which requires one or more of the same
+	 // subsystems is scheduled to run
+	 protected void interrupted() {
+		 contrL.disable();
+		 contrR.disable();
+		 Robot.driveTrainSubsystem.setRightSpeed(0);
+		 Robot.driveTrainSubsystem.setLeftSpeed(0);
+		 Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-	}
+	 }
 
-}
+	 @Override
+	 public void pidWrite(double output) {
+
+
+	 }
+
+ }

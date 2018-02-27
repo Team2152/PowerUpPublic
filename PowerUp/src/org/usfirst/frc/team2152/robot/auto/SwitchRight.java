@@ -34,7 +34,7 @@ public class SwitchRight extends CommandGroup {
         // arm.
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	String switchPosition = "Right";//Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition == "Left"){
     		//Only Cross Baseline
     		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
@@ -44,23 +44,27 @@ public class SwitchRight extends CommandGroup {
         	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else if (switchPosition == "Right"){
     		//Navigate to Switch
-    		addSequential(new SetCubeIntake(.5));
-    		Timer.delay(.25);
-    		addSequential(new SetCubeIntake(0));
+//    		addSequential(new SetCubeIntake(.5));
+//    		Timer.delay(.25);
+//    		addSequential(new SetCubeIntake(0));
     		
-    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(-90,false));
-        	addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		
+    		//Position 2
+    		//addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	//addSequential(new PreCannedTurn(45,false));
+        	//addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	//addSequential(new PreCannedTurn(-45,false));
+        	//addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	//addSequential(new PreCannedTurn(-90,false));
+        	//addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        	
+        	//Switch Direct
+        	addSequential(new MoveByEncoder(132,132,PIDConstants.ENCODER_DRIVE_SPEED, false));
 
 
         	//Cube Delivery
-    		addSequential(new SetCubeIntake(-1));
-    		Timer.delay(1);
-    		addSequential(new SetCubeIntake(0));
+    		addSequential(new SetCubeIntake(1,1));
+
 
     	} else {
     		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));

@@ -8,31 +8,36 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeMoveLow extends Command {
+public class CubeMoveHighByTime extends Command {
 
-	private double cubeLowerSpeed;
-	public CubeMoveLow(double cubeLowerSpeed) {
+	private double cubeRaiseSpeed;
+	private double time;
+	private Timer timer = new Timer();
+	public CubeMoveHighByTime(double cubeRaiseSpeed,double time) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeMoveSubsystem);
-		this.cubeLowerSpeed = cubeLowerSpeed;
+		this.cubeRaiseSpeed = cubeRaiseSpeed;
+		this.time = time;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
+		timer.reset();
+		timer.start();
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(Robot.cubeMoveSubsystem.isLowPosition() == false ){
-			Robot.cubeMoveSubsystem.setCubeLowerSpeed(cubeLowerSpeed);
+		if(Robot.cubeMoveSubsystem.isHighPosition() == false ){
+			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(cubeRaiseSpeed);
 		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Robot.cubeMoveSubsystem.isLowPosition() == true) {
+		if (Robot.cubeMoveSubsystem.isHighPosition() == true || timer.get() >= time) {
 			return true;
 		} else {
 			return false;
@@ -41,12 +46,12 @@ public class CubeMoveLow extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.cubeMoveSubsystem.setCubeLowerSpeed(0);	
+		Robot.cubeMoveSubsystem.setCubeRaiseSpeed(0);	
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.cubeMoveSubsystem.setCubeLowerSpeed(0);
+		Robot.cubeMoveSubsystem.setCubeRaiseSpeed(0);
 	}
 }

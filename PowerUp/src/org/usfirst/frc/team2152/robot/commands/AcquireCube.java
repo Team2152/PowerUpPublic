@@ -25,8 +25,9 @@ public class AcquireCube extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 
-		addSequential(new CubeMoveLow(.5));
-		addSequential(new CubeIntakeSensor(1));
-		addSequential(new CubeMoveHigh(.5));
+		addSequential(new AutoCubeMoveLow());
+		addSequential(new CubeIntakeSensor(0.8));
+		addSequential(new AutoCubeMoveHigh());
+		System.out.println("ACQ cube ended");
 	}
 }

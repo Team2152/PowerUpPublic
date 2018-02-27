@@ -9,7 +9,7 @@ public class PIDConstants {
 	public static final double ENCODER_DRIVE_kI           = 0.0000;
 	public static final double ENCODER_DRIVE_kD           = 0.048;
 	public static final double ENCODER_DRIVE_kTolerance   = 2 / DriveTrain.DISTANCE_PER_PULSE;
-	public static final double ENCODER_DRIVE_SPEED        = 0.2;
+	public static final double ENCODER_DRIVE_SPEED        = 0.40;
 	public static final double AUTO_DRIVE_RAMP_RATE       = .25;
 	public static final int AUTO_DRIVE_RAMP_TIMEOUT       = 10;
 	

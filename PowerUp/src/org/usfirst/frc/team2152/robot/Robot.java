@@ -117,6 +117,7 @@ public class Robot extends TimedRobot {
 		
 		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(), Robot.elevatorSubsystem.getElevatorMinHeight());
 		
+		
 	}
 
 	/**
@@ -190,7 +191,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
-		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
 	}
 
 	@Override
@@ -216,7 +217,7 @@ public class Robot extends TimedRobot {
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		
-		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.getCubeHighLimitValue(), Robot.cubeMoveSubsystem.getCubeLowLimitValue());
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
 	}
 
 	/**
