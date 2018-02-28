@@ -27,9 +27,14 @@ public class TestAuto extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	SmartDashboard.putString("Switch Position", Robot.powerUpDashboard.getPlateAssignment("Switch Plates"));
-    	SmartDashboard.putString("Scale Position", Robot.powerUpDashboard.getPlateAssignment("Scale Plate"));
+    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	if(switchPosition.equals("Left")){
+    		//System.out.println("ITS LEFT");
+    	} else if (switchPosition.equals("Right")){
+    		//System.out.println("ITS RIGHT");
+    	} else {
+    		//System.out.println("ITS NEITHER");
+    	}
 
     }
 }

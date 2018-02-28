@@ -36,44 +36,20 @@ public class SwitchRightDirect extends CommandGroup {
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
-    	String sp = "R";//DriverStation.getInstance().getGameSpecificMessage().substring(0);
-    	if (sp == "L"){
+    	if (switchPosition.equals("Left")){
     		//Only Cross Baseline
-//    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//        	addSequential(new PreCannedTurn(45,false));
-//        	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//        	addSequential(new PreCannedTurn(-45,false));
-//        	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    	} else if (sp == "R"){
+    			addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+    	} else if (switchPosition.equals("Right")){
     		//Navigate to Switch
-//    		addSequential(new SetCubeIntake(.5));
-//    		Timer.delay(.25);
-//    		addSequential(new SetCubeIntake(0));
-    		
-    		
-    		//Position 2
-    		//addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	//addSequential(new PreCannedTurn(45,false));
-        	//addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	//addSequential(new PreCannedTurn(-45,false));
-        	//addSequential(new MoveByEncoder(80,80,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	//addSequential(new PreCannedTurn(-90,false));
-        	//addSequential(new MoveByEncoder(27,27,PIDConstants.ENCODER_DRIVE_SPEED,false));
+        		addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
         	
-        	//Switch Direct
-        	addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true,3.5));
-
-
         	//Cube Delivery
-    		addSequential(new SetCubeIntake(1,1));
+        		addSequential(new SetCubeIntake(1,1));
 
 
     	} else {
-//    		addSequential(new MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//        	addSequential(new PreCannedTurn(45,false));
-//        	addSequential(new MoveByEncoder(68,68,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//        	addSequential(new PreCannedTurn(-45,false));
-//        	addSequential(new MoveByEncoder(33,33,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		//Only Cross Baseline
+				addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
     	}
     }
 }

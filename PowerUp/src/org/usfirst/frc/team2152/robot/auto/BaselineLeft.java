@@ -33,12 +33,15 @@ public class BaselineLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-    	// Only cross baseline
-    	addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    	addSequential(new PreCannedTurn(-45,false));
-    	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    	addSequential(new PreCannedTurn(45,false));
-    	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	// If starting from center of left alliance station
+//    	addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    	addSequential(new PreCannedTurn(-45,false));
+//    	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    	addSequential(new PreCannedTurn(45,false));
+//    	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    	
+    	//Direct movement
+    	addSequential(new MoveByEncoder(120,120, PIDConstants.ENCODER_DRIVE_SPEED, true, 3.5));
     	
     }
 }

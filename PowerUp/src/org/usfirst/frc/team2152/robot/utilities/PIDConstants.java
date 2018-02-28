@@ -24,9 +24,9 @@ public class PIDConstants {
 	public final static double HH_OUT_MAX                 = 0.5;
 	
 	// Pre-Canned Turn
-	public final static double PCT_Kp                     = 0.02; //0.0095
-	public final static double PCT_Ki                     = 0.00005775; //0.00000775   
-	public final static double PCT_Kd                     = 0.048; // .001
+	public final static double PCT_Kp                     = 0.02;
+	public final static double PCT_Ki                     = 0.00005775;   
+	public final static double PCT_Kd                     = 0.048;
 	public final static double PCT_TOLERANCE              = 4;
 	public final static float PCT_IN_MIN                  = -180.0f;
 	public final static float PCT_IN_MAX                  = 180.0f;

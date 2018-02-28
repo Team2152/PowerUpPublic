@@ -12,7 +12,6 @@ import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
-import org.usfirst.frc.team2152.robot.auto.ScaleCenter;
 import org.usfirst.frc.team2152.robot.auto.ScaleLeft;
 import org.usfirst.frc.team2152.robot.auto.ScaleRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
@@ -150,16 +149,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-//		m_chooser.addDefault("No Auto", null);
-//		m_chooser.addObject("BaseLine Left", new BaselineLeft());
-//		m_chooser.addObject("BaseLine Right", new BaselineRight());
-//		m_chooser.addObject("BaseLine Center", new BaselineCenter());
-//		m_chooser.addObject("Switch Left", new SwitchLeft());
-//		m_chooser.addObject("Switch Right", new SwitchRight());
-//		m_chooser.addObject("Switch Center", new SwitchCenter());
-//		m_chooser.addObject("Scale Left", new ScaleLeft());
-//		m_chooser.addObject("Scale Right", new ScaleRight());
-//		m_chooser.addObject("TestAuto", new TestAuto());
+
 
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
@@ -183,7 +173,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Robot.driveTrainSubsystem.setBreakMode(true);
-		PLATE_ASSIGNMENT = DriverStation.getInstance().getGameSpecificMessage();
+		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
