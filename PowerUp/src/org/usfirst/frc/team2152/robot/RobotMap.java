@@ -44,8 +44,21 @@ public class RobotMap {
 	public static final int ELEVATOR_MAX_LIMIT_DIO_5 = 5;
 	public static final int ELEVATOR_MIN_LIMIT_DIO_6 = 6;
 
+	/* 
+	 * UDP Network Ports/IPs
+	 * L means LOCAL: RIO binds to these ports  
+	 * R means REMOTE: ODROID binds to these ports
+	 */
 
- 
+	public static final String LIDAR_ODROID_IP = "10.21.52.11";
+
+	public static final int UDP_VISION_PORT_L = 5800;
+	public static final int UDP_CMD_PORT_L = 5808;
+	
+	public static final int UDP_SYNC_CONF_PORT_R = 5808;
+	public static final int UDP_SYNC_TIME_PORT_R = UDP_SYNC_CONF_PORT_R;
+	public static final int UDP_ENCODER_SEND_PORT_R = 5809;
+	public static final int UDP_ODROID_CAM_SETTINGS_PORT_R = 5810;
 
 
 
