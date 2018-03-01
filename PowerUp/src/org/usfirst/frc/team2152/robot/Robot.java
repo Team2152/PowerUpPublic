@@ -174,6 +174,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Robot.driveTrainSubsystem.setBreakMode(true);
 		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		cameras.startRecording();
 
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
