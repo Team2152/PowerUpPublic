@@ -50,26 +50,27 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+
 	public static final OdroidsCameraSettings cameras = new OdroidsCameraSettings();
 	public static OI m_oi;
 	public static Log m_logger;
 	public static Dashboard powerUpDashboard = new Dashboard();
 	public static String PLATE_ASSIGNMENT;
+
 	public static final NavX navxSubsystem = new NavX();
 	public static final Gain driveTrainJoystickGain = new Gain(Gain.PCT_75, Gain.DEFAULT_DEADBAND);
+
 	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
 	public static final CubeMove cubeMoveSubsystem = new CubeMove();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
-
-	public static final LED ledSubsystem = new LED();
-	public static final UDPHandler udp = new UDPHandler();
-	private UDPReceiver timeReceiver = new UDPReceiver(UDPReceiver.UDP_PORT2);
-	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
-
 	public static final Elevator elevatorSubsystem = new Elevator();
-	
-	public static TimeSyncSystem timeSync = new TimeSyncSystem();
-	public static EncoderSendSystem encoderSendSystem = new EncoderSendSystem(11111, 1); //what does this do? Which port?
+	public static final LED ledSubsystem = new LED();
+
+	public static final UDPHandler udp = new UDPHandler();
+	private UDPReceiver timeReceiver = new UDPReceiver(RobotMap.UDP_CMD_PORT_L);
+	private UDPReceiver udpReceiver = new UDPReceiver(RobotMap.UDP_VISION_PORT_L);
+	public static TimeSyncSystem timeSync = new TimeSyncSystem(RobotMap.UDP_SYNC_CONF_PORT_R, RobotMap.UDP_SYNC_TIME_PORT_R);
+	public static EncoderSendSystem encoderSendSystem = new EncoderSendSystem(RobotMap.UDP_ENCODER_SEND_PORT_R, 1); //what does this do? Which port?
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -83,21 +84,16 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		m_logger = new Log(true);
 		
-		try {
-			timeReceiver.setListener((data) -> { 
-				if(data[0] == 3) {
-					timeSync.startTimeSync(data[1]);
-				}
-			});
-			timeReceiver.start();
-			encoderSendSystem.start();
-			
-			udpReceiver.setListener(udp);
-			udpReceiver.start();
-		} 
-		catch (Exception e) {
-
-		}
+		timeReceiver.setListener((data) -> { 
+			if(data[0] == 3) {
+				timeSync.startTimeSync(data[1]);
+			}
+		});
+		timeReceiver.start();
+		encoderSendSystem.start();
+		
+		udpReceiver.setListener(udp);
+		udpReceiver.start();
 		
 		cameras.start();
 

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2152.robot.network;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -17,9 +18,9 @@ public class OdroidsCameraSettings extends Thread {
 	private String odroid2IP = "10.21.52.12";
 	private String odroid3IP = "10.21.52.13";
 
-	private int odroid1Port = 5810;
-	private int odroid2Port = 5810;
-	private int odroid3Port = 5810;
+	private int odroid1Port = RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R;
+	private int odroid2Port = RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R;
+	private int odroid3Port = RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R;
 	private UDPSender sender = new UDPSender();
 
 	private boolean pegCamDark = true;
