@@ -43,7 +43,7 @@ public class OI {
 	// Button button = new JoystickButton(stick, buttonNumber);
 
 	// There are a few additional built in buttons you can use. Additionally,
-	// by subclassing Button you can create custom triggers and bind those to
+	// by subclassing Button you can create custom triggers and bind those tob
 	// commands the same as any other Button.
 
 	//// TRIGGERING COMMANDS WITH BUTTONS
@@ -199,6 +199,10 @@ public class OI {
 			raiseCube = new SharedCommand(driverXbox, buttonYid, operatorXbox, buttonAid);
 			clampCube = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonBid);
 			lowerCube = new SharedCommand(driverXbox, buttonAid, operatorXbox, buttonYid);
+			//  NOTE 2/28/18 Currently, binding a shared command to A on any joystick causes the pov 0 (UP)
+			// to trigger the command on the same joystick. On the day that this note was written, we are
+			// not using any POVs, but if POV 0 triggers lower cube command on driver controller or raise cube command on 
+			// operator joystick , it is a knows issue
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -210,8 +214,6 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-		dButtonStart.whenPressed(new PreCannedTurn(90,false));
-		dButtonBack.whenPressed(new PreCannedTurn( -45 + 5,false));
 
 	}
 
