@@ -40,6 +40,8 @@ public class DriveTrain extends Subsystem{
 	private WPI_TalonSRX left2;
 	private WPI_TalonSRX left3;
 
+	private int encoderCumulativeTicksL = 0;
+	private int encoderCumulativeTicksR = 0;
 
 	// === Drive Train Object
 	private DifferentialDrive drive;
@@ -48,9 +50,6 @@ public class DriveTrain extends Subsystem{
 	private TalonPIDSource talonPIDR;
 
 	public DriveTrain() {
-
-
-
 
 		// Create TalonSRX Objects for each of the motors
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_ID);
@@ -199,7 +198,24 @@ public class DriveTrain extends Subsystem{
 	public double getLDistance(){
 		return left1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
 	}
-	
+
+	/**
+	 * Returns the cumulative ticks of the right encoder
+	 * @return the value of the encoder in inches as a double
+	 */
+	public int getEncoderRTicksCumulative(){
+		return right1.getSelectedSensorPosition(0) + encoderCumulativeTicksR;
+	}
+
+	/**
+	 * Returns the cumulative ticks of the left encoder
+	 * @return the value of the encoder in inches as a double
+	 */
+	public int getEncoderLTicksCumulative(){
+		return left1.getSelectedSensorPosition(0) + encoderCumulativeTicksL;
+	}
+
+
 	/**
 	 * Resets the encoders
 	 * @param resetLeft determines whether or not to reset the left encoder
@@ -207,13 +223,33 @@ public class DriveTrain extends Subsystem{
 	 */
 	public void resetEncoders(boolean resetLeft, boolean resetRight){
 		if (resetLeft){
+			encoderCumulativeTicksL = left1.getSelectedSensorPosition(0);
 			left1.setSelectedSensorPosition(0, 0, 0);
 		}
 
 		if (resetRight){
+			encoderCumulativeTicksR = right1.getSelectedSensorPosition(0);
 			right1.setSelectedSensorPosition(0, 0, 0);
 		}
 	}
+
+	/**
+	 * Resets the cumulative encoder values that keep track of encoder distance despite resets
+	 * @param resetLeft determines whether or not to reset the left cumulative encoder value
+	 * @param resetRight determines whether or not to reset the right cumulative encoder value
+	 */
+	public void resetCumulativeEncoderVals(boolean resetLeft, boolean resetRight){
+		if (resetLeft){
+			encoderCumulativeTicksL = 0;
+			left1.setSelectedSensorPosition(0, 0, 0);
+		}
+
+		if (resetRight){
+			encoderCumulativeTicksR = 0;
+			right1.setSelectedSensorPosition(0, 0, 0);
+		}
+	}
+
 	
 	/**
 	 * Uses Phoenix's move by position control mode
