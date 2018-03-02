@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class SwitchRightDirect extends CommandGroup {
+public class SwitchLeftStraight extends CommandGroup {
 
-    public SwitchRightDirect() {
+    public SwitchLeftStraight() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -37,16 +37,16 @@ public class SwitchRightDirect extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition.equals("Left")){
-    		//Only Cross Baseline
-    			addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
-    	} else if (switchPosition.equals("Right")){
     		//Navigate to Switch
+    			addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+    		
+    		//Cube Delivery
+        		addSequential(new SetCubeIntake(1,1));
+    	} else if (switchPosition.equals("Right")){
+    		//Only Cross Baseline
         		addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
         	
-        	//Cube Delivery
-        		addSequential(new SetCubeIntake(1,1));
-
-
+ 
     	} else {
     		//Only Cross Baseline
 				addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));

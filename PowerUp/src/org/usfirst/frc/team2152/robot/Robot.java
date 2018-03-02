@@ -16,7 +16,9 @@ import org.usfirst.frc.team2152.robot.auto.ScaleLeft;
 import org.usfirst.frc.team2152.robot.auto.ScaleRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
+import org.usfirst.frc.team2152.robot.auto.SwitchLeftStraight;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
+import org.usfirst.frc.team2152.robot.auto.SwitchRightStraight;
 import org.usfirst.frc.team2152.robot.auto.TestAuto;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
@@ -90,7 +92,7 @@ public class Robot extends TimedRobot {
 				}
 			});
 			timeReceiver.start();
-			encoderSendSystem.start();
+			//encoderSendSystem.start();
 			
 			udpReceiver.setListener(udp);
 			udpReceiver.start();
@@ -114,7 +116,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
 		m_chooser.addObject("Switch Left", new SwitchLeft());
+		m_chooser.addObject("Switch Left Straight", new SwitchLeftStraight());
 		m_chooser.addObject("Switch Right", new SwitchRight());
+		m_chooser.addObject("Switch Right Straight", new SwitchRightStraight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Right", new ScaleRight());
@@ -147,6 +151,11 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putBoolean("LowerArm", Robot.cubeMoveSubsystem.isLowPosition());
+		SmartDashboard.putBoolean("HighArm", Robot.cubeMoveSubsystem.isHighPosition());
+		SmartDashboard.putBoolean("CubeLeft", Robot.cubeIntakeSubsystem.cubeDetectOutLeft());
+		SmartDashboard.putBoolean("CubeRight", Robot.cubeIntakeSubsystem.cubeDetectOutRight());
+		SmartDashboard.putBoolean("CubeCenter", Robot.cubeIntakeSubsystem.cubeDetectIn());
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 
 
@@ -180,7 +189,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
 		m_chooser.addObject("Switch Left", new SwitchLeft());
+		m_chooser.addObject("Switch Left Straight", new SwitchLeftStraight());
 		m_chooser.addObject("Switch Right", new SwitchRight());
+		m_chooser.addObject("Switch Right Straight", new SwitchRightStraight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Right", new ScaleRight());
@@ -231,6 +242,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putBoolean("LowerArm", Robot.cubeMoveSubsystem.isLowPosition());
+		SmartDashboard.putBoolean("HighArm", Robot.cubeMoveSubsystem.isHighPosition());
+		SmartDashboard.putBoolean("CubeLeft", Robot.cubeIntakeSubsystem.cubeDetectOutLeft());
+		SmartDashboard.putBoolean("CubeRight", Robot.cubeIntakeSubsystem.cubeDetectOutRight());
+		SmartDashboard.putBoolean("CubeCenter", Robot.cubeIntakeSubsystem.cubeDetectIn());
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());

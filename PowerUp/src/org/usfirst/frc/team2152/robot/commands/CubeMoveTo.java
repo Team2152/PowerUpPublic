@@ -45,9 +45,9 @@ public class CubeMoveTo extends Command {
 		// When the Left trigger is pressed and the
 		// max limit is not hit it will move the arm up.
 		if (joystick.getRawAxis(5) <= -.1 && !Robot.cubeMoveSubsystem.isLowPosition()) {
-			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(joystick.getRawAxis(5) * 0.4);
+			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(joystick.getRawAxis(5) * 1);
 		} else if (joystick.getRawAxis(5) >= .1 && !Robot.cubeMoveSubsystem.isHighPosition()) {
-			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(joystick.getRawAxis(5) * 0.4);
+			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(joystick.getRawAxis(5) * 1);
 		} else {
 			Robot.cubeMoveSubsystem.setCubeRaiseSpeed(0);
 		}

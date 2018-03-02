@@ -27,8 +27,8 @@ public class EncoderSendSystem extends Thread {
 			if(delta < 1000 / hertz)
 				continue;
 
-			System.out.println("Sending encoder data");
-			System.out.println(System.nanoTime());
+//			System.out.println("Sending encoder data");
+//			System.out.println(System.nanoTime());
 
 			int encoderL = 47;
 			int encoderR = 123456;

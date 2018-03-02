@@ -134,7 +134,7 @@ public class OdroidsCameraSettings extends Thread {
 	public void run() {
 		while (!kill) {
 			//notifyOdroids();
-			//updateRecordStatus();
+			//updateRecordStatus(); 
 			try {
 				Thread.sleep(TIMEOUT_MILIS);
 			} catch (InterruptedException e) {

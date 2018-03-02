@@ -70,7 +70,7 @@ public class UDPHandler implements UDPListener {
 
 	@Override
 	public void packetReceived(byte[] data) {
-		System.out.println(data);
+		//System.out.println(data);
 		deserialize(data);
 	}
 	

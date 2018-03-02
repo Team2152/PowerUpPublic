@@ -13,7 +13,7 @@ public class CubeIntakeSensor extends Command {
 	private double intakeSpeed = 0;
 	private Timer timer = new Timer();
 	private Timer watchdog = new Timer();
-	private double watchdogTime = 1;
+	private double watchdogTime = 5;
 	private boolean bGotACube = false;
 
 	public CubeIntakeSensor(double intakeSpeed) {

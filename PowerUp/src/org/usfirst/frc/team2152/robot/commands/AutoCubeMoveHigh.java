@@ -28,9 +28,9 @@ public class AutoCubeMoveHigh extends CommandGroup {
         // arm.
     	if(Robot.cubeIntakeSubsystem.cubeDetectIn() == true){
     		System.out.println("USING CUBE IN GAINS");
-    		addSequential(new CubeMoveHighByTime(.55,3 ));
-        	addSequential(new CubeMoveHighByTime(.35,1));
-        	addSequential(new CubeMoveHigh(.35));
+    		addSequential(new CubeMoveHighByTime(.65,3 ));
+        	addSequential(new CubeMoveHighByTime(.45,1));
+        	addSequential(new CubeMoveHigh(.45));
     	} else {
     		System.out.println("USING NOCUBE GAINS");
     	    addSequential(new CubeMoveHighByTime(.4, 0.75));
