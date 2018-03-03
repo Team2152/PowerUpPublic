@@ -39,6 +39,7 @@ import org.usfirst.frc.team2152.robot.utilities.Log;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -157,7 +158,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("CubeRight", Robot.cubeIntakeSubsystem.cubeDetectOutRight());
 		SmartDashboard.putBoolean("CubeCenter", Robot.cubeIntakeSubsystem.cubeDetectIn());
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-
+		System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
 
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
@@ -242,6 +243,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		SmartDashboard.putNumber("Match Time", Timer.getMatchTime());
 		SmartDashboard.putBoolean("LowerArm", Robot.cubeMoveSubsystem.isLowPosition());
 		SmartDashboard.putBoolean("HighArm", Robot.cubeMoveSubsystem.isHighPosition());
 		SmartDashboard.putBoolean("CubeLeft", Robot.cubeIntakeSubsystem.cubeDetectOutLeft());
@@ -251,7 +253,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
-		
+		System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
 	}
 

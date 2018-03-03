@@ -38,7 +38,7 @@ public class SwitchLeftStraight extends CommandGroup {
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition.equals("Left")){
     		//Navigate to Switch
-    			addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+    			addSequential(new MoveByEncoder(115,115,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
     		
     		//Cube Delivery
         		addSequential(new SetCubeIntake(1,1));

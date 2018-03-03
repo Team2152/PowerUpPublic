@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * heading hold available.
  */
 
-
 // Needs to tune for new robot/carpet
 public class LimeDrive extends Command {
 
@@ -23,29 +22,31 @@ public class LimeDrive extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);;
+		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE,
+				PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+		;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		double outputThrottle = 0;
 		double outputTurn = 0;
-		outputThrottle = Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(1));
-		outputTurn = -Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4));
-
+		outputThrottle = Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(1))
+				* Math.abs(Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(1))
+						* Math.abs(Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(1))));
+		outputTurn = -Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4))
+				* Math.abs(Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4))
+						* Math.abs(Robot.driveTrainJoystickGain.applyGain(Robot.m_oi.driverXbox.getRawAxis(4))));
 
 		if (Math.abs(outputThrottle) <= 0.1) {
-			Robot.driveTrainSubsystem.arcadeDrive(0.0, (outputTurn * 0.5)+Robot.m_oi.operatorXbox.getRawAxis(0)*0.2);
+			Robot.driveTrainSubsystem.arcadeDrive(0.0,
+					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.2);
+		}else if(Robot.m_oi.driverXbox.getRawAxis(2)>=0.25){
+			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle*0.25), -((outputThrottle*0.25) * outputTurn));
 		} else {
 			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle), -(outputThrottle * outputTurn));
 		}
-		
-		if(Robot.m_oi.driverXbox.getRawButton(1)){
-			Robot.driveTrainSubsystem.resetEncoders(true, true);
-		}
 	}
-
-
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {

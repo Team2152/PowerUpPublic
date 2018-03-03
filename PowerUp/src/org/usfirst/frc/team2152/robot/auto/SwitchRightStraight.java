@@ -41,7 +41,7 @@ public class SwitchRightStraight extends CommandGroup {
     			addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
     	} else if (switchPosition.equals("Right")){
     		//Navigate to Switch
-        		addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+        		addSequential(new MoveByEncoder(115,115,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
         	
         	//Cube Delivery
         		addSequential(new SetCubeIntake(1,1));

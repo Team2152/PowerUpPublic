@@ -25,6 +25,9 @@ public class Elevator extends Subsystem {
 		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_5);
 		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MIN_LIMIT_DIO_6);
 	}
+	public double getElevatorCurrentDraw(){
+		return elevatorTalon.getOutputCurrent();
+	}
 
 	public void setElevatorRaiseSpeed(double raiseSpeed) {
 		elevatorTalon.set(-raiseSpeed);
@@ -50,7 +53,7 @@ public class Elevator extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 
-		//setDefaultCommand(new ElevatorMove(.1, Robot.m_oi.operatorXbox));
+		setDefaultCommand(new ElevatorMove(.1, Robot.m_oi.operatorXbox));
 	}
 
 }

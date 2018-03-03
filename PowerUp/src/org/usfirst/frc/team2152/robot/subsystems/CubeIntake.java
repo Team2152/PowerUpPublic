@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,6 +46,7 @@ public class CubeIntake extends Subsystem {
 	public void cubeIntakeMove(double cubeIntakeSpeed) {
 		intakeRight.set(-cubeIntakeSpeed);
 		intakeLeft.set(cubeIntakeSpeed);
+		Robot.m_oi.driverXbox.setRumble(RumbleType.kRightRumble, cubeIntakeSpeed);
 
 	}
 
