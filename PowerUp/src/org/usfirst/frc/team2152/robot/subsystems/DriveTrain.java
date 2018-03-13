@@ -200,6 +200,11 @@ public class DriveTrain extends Subsystem{
 		return left1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
 	}
 	
+	public double getAverageDistance(){
+		return (getRDistance() + getLDistance())/2; 
+	}
+	
+	
 	/**
 	 * Resets the encoders
 	 * @param resetLeft determines whether or not to reset the left encoder
