@@ -210,7 +210,7 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-
+		
 	}
 
 	public void setupDriverXboxButtons() {

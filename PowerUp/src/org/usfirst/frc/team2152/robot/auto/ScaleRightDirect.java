@@ -15,9 +15,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class ScaleRight extends CommandGroup {
+public class ScaleRightDirect extends CommandGroup {
 
-	public ScaleRight() {
+	public ScaleRightDirect() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());
@@ -42,11 +42,8 @@ public class ScaleRight extends CommandGroup {
 		if (scalePosition.equals("Left")) {
 
 			// Only Cross baseline
-			addSequential(new AutoRamp(.75, 0, 1, 215));
-			addSequential(new AutoCruise(.75, -.25, 50));
-			addSequential(new AutoRamp(.75, 0, 1, 215));
-			addSequential(new AutoCruise(.75, .25, 100));
-			addSequential(new ScaleScore());
+			addSequential(new AutoRamp(.75, 0, 1, 100));
+			
 
 			// addSequential(new
 			// MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,false));
