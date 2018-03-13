@@ -57,7 +57,14 @@ public class CubeIntakeMove extends Command {
 			// A button intakes until inner sensors are triggered
 			if (driverJoystick.getRawButton(OI.buttonBid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
-			} else if (operatorJoystick.getRawAxis(3) > 0.1) {
+			}else if(driverJoystick.getPOV() == 0){
+				Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+				Robot.cubeIntakeSubsystem.cubeExpelMove(.25);
+			}
+			
+			
+			
+			else if (operatorJoystick.getRawAxis(3) > 0.1) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(operatorJoystick.getRawAxis(3));
 			} else {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(0);

@@ -1,6 +1,8 @@
 package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.CubeExpelSensor;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
@@ -38,18 +40,24 @@ public class SwitchRightStraight extends CommandGroup {
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	if (switchPosition.equals("Left")){
     		//Only Cross Baseline
-    			addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+    			//addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+            	addSequential(new AutoRamp(.4, 0, .5, 104));
+
     	} else if (switchPosition.equals("Right")){
     		//Navigate to Switch
-        		addSequential(new MoveByEncoder(115,115,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+        		//addSequential(new MoveByEncoder(115,115,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+            	addSequential(new AutoRamp(.4, 0, .5, 115));
+
         	
         	//Cube Delivery
-        		addSequential(new SetCubeIntake(1,1));
+        		addSequential(new CubeExpelSensor(1));
 
 
     	} else {
     		//Only Cross Baseline
-				addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+				//addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
+            	addSequential(new AutoRamp(.4, 0, .5, 104));
+
     	}
     }
 }

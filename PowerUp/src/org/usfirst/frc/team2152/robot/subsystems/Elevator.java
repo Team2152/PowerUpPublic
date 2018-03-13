@@ -3,8 +3,10 @@
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMove;
+import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -21,6 +23,8 @@ public class Elevator extends Subsystem {
 
 		elevatorTalon = new WPI_TalonSRX(RobotMap.ELEVATOR_MOVE_9_CAN_ID);
 		elevatorTalon.setSafetyEnabled(false);
+		elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		elevatorTalon.setSensorPhase(true);
 
 		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_5);
 		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MIN_LIMIT_DIO_6);
@@ -41,7 +45,14 @@ public class Elevator extends Subsystem {
 		elevatorTalon.set(0);
 
 	}
-
+	
+	public double getEncoder(){
+		return elevatorTalon.getSelectedSensorPosition(0);
+	}
+	
+	public double getDriveTrainGain(){
+		return elevatorTalon.getSelectedSensorPosition(0)* PIDConstants.ELEVATOR_DRIVETRAIN_GAIN;
+	}
 	public Boolean getElevatorMaxHeight() {
 		return !elevatorMaxHeight.get();
 	}

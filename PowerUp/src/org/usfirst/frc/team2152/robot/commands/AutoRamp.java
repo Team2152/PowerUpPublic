@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoRampUp extends Command {
+public class AutoRamp extends Command {
 
 	private double power = 0;
 	private double steering = 0;
@@ -19,8 +19,9 @@ public class AutoRampUp extends Command {
 	private double timeOut = 0;
 	private Timer timer = new Timer();
 	private boolean checkLeft = true;
+	private double previousPower = 0;
 
-	public AutoRampUp(double power, double steering, double rampRate, double distance) {
+	public AutoRamp(double power, double steering, double rampRate, double distance) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrainSubsystem);
@@ -39,6 +40,31 @@ public class AutoRampUp extends Command {
 		this.rampRate = rampRate;
 		this.distance = distance;
 
+	}public AutoRamp(double power, double steering, double rampRate, double distance, double previousPower) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.driveTrainSubsystem);
+		if(power > 1){
+			power = 1;
+		}else if(power < -1){
+			power = -1;
+		}
+		this.power = power;
+		if (steering > 1){
+			steering = 1;
+		}else if(steering < -1){
+			steering = -1;
+		}
+		if(previousPower > 1){
+			previousPower = 1;
+		}else if(previousPower < -1){
+			previousPower = -1;
+		}
+		this.steering = steering;
+		this.rampRate = rampRate;
+		this.distance = distance;
+		this.previousPower = previousPower;
+
 	}
 
 	// Called just before this Command runs the first time
@@ -47,6 +73,9 @@ public class AutoRampUp extends Command {
 		Robot.driveTrainSubsystem.resetEncoders(true, true);
 		rightSpeed = power - (steering / 2);
 		leftSpeed = power + (steering / 2);
+		double initRightSpeed = previousPower - (steering / 2);
+		double initLeftSpeed  = previousPower + (steering / 2);
+		
 		if (steering > 0) {
 			checkLeft = true;
 		} else if (steering < 0) {
@@ -55,6 +84,8 @@ public class AutoRampUp extends Command {
 		timeOut = ((distance / 12) / power * 13.08) + 2.5;
 		timer.reset();
 		timer.start();
+		Robot.driveTrainSubsystem.tankDrive(initLeftSpeed, initRightSpeed);
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run

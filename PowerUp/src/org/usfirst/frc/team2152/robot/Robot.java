@@ -197,6 +197,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		//m_chooser.addObject("TestAuto", new TestAuto());
+		Robot.driveTrainSubsystem.setBreakMode(false);
 		
 		// Plate assignment used to determine auto routine
 		//powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());

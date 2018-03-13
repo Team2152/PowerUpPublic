@@ -34,4 +34,11 @@ public class PIDConstants {
 	// Controller Drive
 	public static final double CONTROLLER_DRIVE_RAMP_RATE = 0;
 	public static final int CONTROLLER_DRIVE_RAMP_TIMEOUT = 10;
+	
+	// Elevator Drive
+	public static final double ELEVATOR_DRIVETRAIN_GAIN   = .1;
+	
+	// drivetrain gains
+	public static final double DRIVETRAIN_EXPONET = 2.5; 
+	
 }
