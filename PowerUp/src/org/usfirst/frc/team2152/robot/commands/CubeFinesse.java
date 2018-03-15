@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeExpelSensor extends Command {
+public class CubeFinesse extends Command {
 
 	private double speed = 0;
-	private Timer  timer = new Timer();
-    public CubeExpelSensor(double speed) {
+	private Timer timer = new Timer();
+	
+    public CubeFinesse(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.cubeIntakeSubsystem);
@@ -27,25 +28,28 @@ public class CubeExpelSensor extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
     	Robot.cubeIntakeSubsystem.cubeExpelMove(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       if(Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == false && Robot.cubeIntakeSubsystem.cubeDetectOutRight() == false && Robot.cubeIntakeSubsystem.cubeDetectIn() == false || timer.get() >= 2){
-    	   return true;
-       }else {
-    	   return false;
-       }
-       
+    	 if(Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == false && Robot.cubeIntakeSubsystem.cubeDetectOutRight() == false && Robot.cubeIntakeSubsystem.cubeDetectIn() == false || timer.get() >= 5){
+      	   return true;
+         }else {
+      	   return false;
+         }
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.cubeIntakeSubsystem.cubeExpelMove(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+
     }
 }

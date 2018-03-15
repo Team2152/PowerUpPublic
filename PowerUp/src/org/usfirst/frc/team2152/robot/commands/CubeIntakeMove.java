@@ -57,7 +57,8 @@ public class CubeIntakeMove extends Command {
 			// A button intakes until inner sensors are triggered
 			if (driverJoystick.getRawButton(OI.buttonBid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
-			}else if(driverJoystick.getPOV() == 0){
+			}
+			else if(driverJoystick.getPOV() == 0 ){
 				Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
 				Robot.cubeIntakeSubsystem.cubeExpelMove(.25);
 			}
@@ -93,10 +94,10 @@ public class CubeIntakeMove extends Command {
 		// If BOTH OUTER sensors are triggered then the solenoid will actuate
 		// and will close the clamp
 		// They have to placed in order to see enough of the cube
-		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
-				|| Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
-			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-		}
+//		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
+//				|| Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
+//			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+//		}
 
 		// This is the manual override for the solenoid clamp
 		// Checks for a button press and will open and close the clamp

@@ -81,11 +81,14 @@ public class SwitchCenter extends CommandGroup {
     	} else {
     		// Only Cross Baseline
     		
-	    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
-	    		addSequential(new PreCannedTurn(45,false));
-	    		addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
-	    		addSequential(new PreCannedTurn(-45,false));
-	    		addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new AutoRamp(.75, -.25, 1, 100));
+    		addSequential(new AutoRamp(0, .25, 1, 30, .75));
+    		
+//	    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//	    		addSequential(new PreCannedTurn(45,false));
+//	    		addSequential(new MoveByEncoder(46,46,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//	    		addSequential(new PreCannedTurn(-45,false));
+//	    		addSequential(new MoveByEncoder(51,51,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
     }
 }

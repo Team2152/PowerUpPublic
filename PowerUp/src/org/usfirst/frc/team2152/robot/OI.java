@@ -11,6 +11,7 @@ import org.usfirst.frc.team2152.robot.commands.AcquireCube;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
+import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
@@ -28,6 +29,7 @@ import org.usfirst.frc.team2152.robot.utilities.POV;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -215,16 +217,17 @@ public class OI {
 
 	public void setupDriverXboxButtons() {
 
+		dButtonA.whenReleased(new CubeFinesse(.25));
 	}
 
 	public void setupSharedCommands() {
 		// cubeHigh.whenActive(new AutoCubeMoveHigh());
 
-		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
-		acquireCube.whenReleased(new AcquireCube());
-		raiseCube.whenReleased(new AutoCubeMoveHigh());
+//		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
+//		acquireCube.whenReleased(new AcquireCube());
+//		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());
-		lowerCube.whenReleased(new AutoCubeMoveLow());
+//		lowerCube.whenReleased(new AutoCubeMoveLow());
 	}
 
 }
