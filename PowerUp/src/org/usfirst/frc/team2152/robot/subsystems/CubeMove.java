@@ -25,8 +25,8 @@ public class CubeMove extends Subsystem {
 		cubeMoveTalon = new WPI_TalonSRX(RobotMap.CUBE_ARM_MOVE_8_CAN_ID);
 		cubeMoveTalon.setNeutralMode(NeutralMode.Brake);
 
-		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_MAX_DIO_4);
-		cubeLimitMin = new DigitalInput(RobotMap.CUBE_LIMIT_MIN_DIO_3);
+		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_DIO_TOP);
+		cubeLimitMin = new DigitalInput(RobotMap.CUBE_LIMIT_DIO_BOTTOM);
 
 	}
 

@@ -35,10 +35,10 @@ public class DriveTrain extends Subsystem{
 
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
-	private WPI_TalonSRX right3;
+//	private WPI_TalonSRX right3;
 	private WPI_TalonSRX left1;
 	private WPI_TalonSRX left2;
-	private WPI_TalonSRX left3;
+//	private WPI_TalonSRX left3;
 
 
 	// === Drive Train Object
@@ -75,11 +75,11 @@ public class DriveTrain extends Subsystem{
 		right2.setInverted(true);
 		right2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-		right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_3_CAN_ID);
-		right3.setNeutralMode(NeutralMode.Brake);
-		right3.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_ID);
-		right3.setInverted(true);
-		right3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+//		right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_3_CAN_ID);
+//		right3.setNeutralMode(NeutralMode.Brake);
+//		right3.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_ID);
+//		right3.setInverted(true);
+//		right3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 		
 		left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_1_CAN_ID);
@@ -105,11 +105,11 @@ public class DriveTrain extends Subsystem{
 		left2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 		
-		left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_ID);
-		left3.setNeutralMode(NeutralMode.Brake);
-		left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_ID);
-		left3.setInverted(true);
-		left3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+//		left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_ID);
+//		left3.setNeutralMode(NeutralMode.Brake);
+//		left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_ID);
+//		left3.setInverted(true);
+//		left3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 		
 		drive = new DifferentialDrive(left1,right1);
@@ -244,10 +244,10 @@ public class DriveTrain extends Subsystem{
 	public void invertDriveTrain(boolean leftInvert, boolean rightInvert,boolean leftSensorInvert,boolean rightSensorInvert){
 		left1.setInverted(leftInvert);
 		left2.setInverted(leftInvert);
-		left3.setInverted(leftInvert);
+//		left3.setInverted(leftInvert);
 		right1.setInverted(rightInvert);
 		right2.setInverted(rightInvert);
-		right3.setInverted(rightInvert);
+//		right3.setInverted(rightInvert);
 
 		left1.setSensorPhase(leftSensorInvert);
 		right1.setSensorPhase(rightSensorInvert);
@@ -279,14 +279,14 @@ public class DriveTrain extends Subsystem{
 			return right1.getOutputCurrent();
 		case(2):
 			return right2.getOutputCurrent();
-		case(3):
-			return right3.getOutputCurrent();
+//		case(3):
+//			return right3.getOutputCurrent();
 		case(4):
 			return left1.getOutputCurrent();
 		case(5):
 			return left2.getOutputCurrent();
-		case(6):
-			return left3.getOutputCurrent();
+//		case(6):
+//			return left3.getOutputCurrent();
 		default:
 			return 0;
 		}
@@ -328,20 +328,20 @@ public class DriveTrain extends Subsystem{
 		if(isBreakMode == true){
 			right1.setNeutralMode(NeutralMode.Brake);
 			right2.setNeutralMode(NeutralMode.Brake);
-			right3.setNeutralMode(NeutralMode.Brake);
+//			right3.setNeutralMode(NeutralMode.Brake);
 			
 			left1.setNeutralMode(NeutralMode.Brake);
 			left2.setNeutralMode(NeutralMode.Brake);
-			left3.setNeutralMode(NeutralMode.Brake);
+//			left3.setNeutralMode(NeutralMode.Brake);
 			
 		} else {
 			right1.setNeutralMode(NeutralMode.Coast);
 			right2.setNeutralMode(NeutralMode.Coast);
-			right3.setNeutralMode(NeutralMode.Coast);
+//			right3.setNeutralMode(NeutralMode.Coast);
 			
 			left1.setNeutralMode(NeutralMode.Coast);
 			left2.setNeutralMode(NeutralMode.Coast);
-			left3.setNeutralMode(NeutralMode.Coast);
+//			left3.setNeutralMode(NeutralMode.Coast);
 
 		}
 	}

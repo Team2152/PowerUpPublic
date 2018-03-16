@@ -36,9 +36,9 @@ public class CubeIntake extends Subsystem {
 
 		cubeSolenoid = new DoubleSolenoid(0, 1);
 		cubeSolenoidOpen();
-		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_0);
-		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_1);
-		cubeDetectIn = new DigitalInput(RobotMap.CUBE_DETECT_DIO_2);
+		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_RIGHT);
+		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_LEFT);
+		cubeDetectIn = new DigitalInput(RobotMap.CUBE_DETECT_DIO_CENTER);
 		
 	}
 
