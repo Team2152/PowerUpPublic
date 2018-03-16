@@ -47,7 +47,7 @@ public class LimeDrive extends Command {
 			Robot.driveTrainSubsystem.arcadeDrive(0.0,
 					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.2);
 		} else {
-			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle * PIDConstants.ELEVATOR_DRIVETRAIN_GAIN),
+			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle * Robot.elevatorSubsystem.getDriveTrainGain()),
 					-(outputThrottle * outputTurn));
 		}
 	}

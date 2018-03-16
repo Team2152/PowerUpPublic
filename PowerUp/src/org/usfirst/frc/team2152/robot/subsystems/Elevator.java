@@ -51,7 +51,7 @@ public class Elevator extends Subsystem {
 	}
 	
 	public double getDriveTrainGain(){
-		return elevatorTalon.getSelectedSensorPosition(0)* PIDConstants.ELEVATOR_DRIVETRAIN_GAIN;
+		return 1 - (elevatorTalon.getSelectedSensorPosition(0)* PIDConstants.ELEVATOR_DRIVETRAIN_GAIN);
 	}
 	public Boolean getElevatorMaxHeight() {
 		return !elevatorMaxHeight.get();
