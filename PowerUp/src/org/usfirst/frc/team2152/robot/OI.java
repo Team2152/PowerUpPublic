@@ -196,11 +196,11 @@ public class OI {
 		try {
 			// cubeHigh = new SharedCommand(driverXbox, POV_180, operatorXbox,
 			// POV_180);
-			expelCube = new SharedCommand(driverXbox, buttonBumpRid, operatorXbox, buttonXid);
-			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, operatorXbox, buttonStartid);
-			raiseCube = new SharedCommand(driverXbox, buttonYid, operatorXbox, buttonAid);
-			clampCube = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonBid);
-			lowerCube = new SharedCommand(driverXbox, buttonAid, operatorXbox, buttonYid);
+			expelCube = new SharedCommand(driverXbox, buttonBumpRid, false, operatorXbox, buttonXid, false);
+			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, false, operatorXbox, buttonStartid, false);
+			raiseCube = new SharedCommand(driverXbox, buttonYid, false, operatorXbox, buttonAid, false);
+			clampCube = new SharedCommand(driverXbox, buttonXid, false, operatorXbox, buttonBid, false);
+			lowerCube = new SharedCommand(driverXbox, buttonAid, false, operatorXbox, buttonYid, false);
 			//  NOTE 2/28/18 Currently, binding a shared command to A on any joystick causes the pov 0 (UP)
 			// to trigger the command on the same joystick. On the day that this note was written, we are
 			// not using any POVs, but if POV 0 triggers lower cube command on driver controller or raise cube command on 
