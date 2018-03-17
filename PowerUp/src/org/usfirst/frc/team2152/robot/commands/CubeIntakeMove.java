@@ -4,6 +4,7 @@ import org.usfirst.frc.team2152.robot.OI;
 import org.usfirst.frc.team2152.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -83,17 +84,17 @@ public class CubeIntakeMove extends Command {
 		// If the INNER IR sensor is triggered then it will allow the user to
 		// expel the cube
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
-			if (driverJoystick.getRawAxis(3) > .1){
-				if(Robot.navxSubsystem.detectCollision() == true){
-					cubeOuttakeSensor.start();
-				}
-			}
 			if (driverJoystick.getRawButton(OI.buttonBumpRid) || operatorJoystick.getRawAxis(3) > 0.1) {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(operatorJoystick.getRawAxis(3));
 			} else {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
 			}
 
+		}
+		
+		if (driverJoystick.getRawAxis(3) > .1 && Robot.cubeIntakeSubsystem.cubeDetectIn() == true 
+				&& Robot.navxSubsystem.detectCollision()){
+				cubeOuttakeSensor.start();
 		}
 
 		// If BOTH OUTER sensors are triggered then the solenoid will actuate

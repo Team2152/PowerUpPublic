@@ -20,7 +20,7 @@ public class NavX extends Subsystem {
 	
 	private double last_world_linear_accel_y = 0;
 
-	private final static double kCollisionThreshold_DeltaG = 0.1f;
+	private final static double kCollisionThreshold_DeltaG = 0.05f;
 	
 	// Initialize your subsystem here
 	public NavX() {
@@ -61,12 +61,14 @@ public class NavX extends Subsystem {
 		navx.reset();
 	}
 	public Boolean detectCollision(){
+		Robot.m_oi.driverXbox.setRumble(RumbleType.kLeftRumble, 0);
 		Timer.delay(0.005);		// wait for a motor update time
 		double curr_world_linear_accel_y = Robot.navxSubsystem.getWorldLinearAccelY();
 		double currentJerkY = curr_world_linear_accel_y - last_world_linear_accel_y;
 		last_world_linear_accel_y = curr_world_linear_accel_y;
 
 		if ( Math.abs(currentJerkY) > kCollisionThreshold_DeltaG) {
+			Robot.m_oi.driverXbox.setRumble(RumbleType.kLeftRumble, 1);
 			return true;
 		} else {
 			return false;
