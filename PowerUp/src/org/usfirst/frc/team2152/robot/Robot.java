@@ -19,7 +19,6 @@ import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeftStraight;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchRightStraight;
-import org.usfirst.frc.team2152.robot.auto.TestAuto;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
 import org.usfirst.frc.team2152.robot.network.UDPHandler;
@@ -123,7 +122,6 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Right", new ScaleRight());
-		//m_chooser.addObject("TestAuto", new TestAuto());
 
 		
 		powerUpDashboard.putPositions();
@@ -196,7 +194,6 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Right", new ScaleRight());
-		//m_chooser.addObject("TestAuto", new TestAuto());
 		Robot.driveTrainSubsystem.setBreakMode(false);
 		
 		// Plate assignment used to determine auto routine
