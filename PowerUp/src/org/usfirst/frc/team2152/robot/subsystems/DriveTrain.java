@@ -119,8 +119,9 @@ public class DriveTrain extends Subsystem{
 
 		talonPIDR = new TalonPIDSource(TalonPIDSource.RIGHT_TALON);
 		talonPIDL = new TalonPIDSource(TalonPIDSource.LEFT_TALON);
-
-
+		
+		
+		right1.getSelectedSensorVelocity(0);
 	}
 
 	/***
@@ -344,6 +345,14 @@ public class DriveTrain extends Subsystem{
 //			left3.setNeutralMode(NeutralMode.Coast);
 
 		}
+	}
+	
+	public double getRVelocity(){
+		return right1.getSelectedSensorVelocity(0);
+	}
+	
+	public double getLVelocity(){
+		return left1.getSelectedSensorVelocity(0);
 	}
 
 	public void initDefaultCommand() {

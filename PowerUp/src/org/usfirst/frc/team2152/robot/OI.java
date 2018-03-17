@@ -136,12 +136,12 @@ public class OI {
 	private POV dPOV270;
 	private POV dPOV315;
 
-	private SharedCommand cubeHigh;
 	private SharedCommand expelCube;
 	private SharedCommand acquireCube;
 	private SharedCommand raiseCube;
 	private SharedCommand clampCube;
 	private SharedCommand lowerCube;
+	private SharedCommand cubeFinesse;
 
 	public OI() {
 		// Setup driver joystick
@@ -194,13 +194,12 @@ public class OI {
 		}
 
 		try {
-			// cubeHigh = new SharedCommand(driverXbox, POV_180, operatorXbox,
-			// POV_180);
 			expelCube = new SharedCommand(driverXbox, buttonBumpRid, false, operatorXbox, buttonXid, false);
 			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, false, operatorXbox, buttonStartid, false);
 			raiseCube = new SharedCommand(driverXbox, buttonYid, false, operatorXbox, buttonAid, false);
 			clampCube = new SharedCommand(driverXbox, buttonXid, false, operatorXbox, buttonBid, false);
 			lowerCube = new SharedCommand(driverXbox, buttonAid, false, operatorXbox, buttonYid, false);
+			cubeFinesse = new SharedCommand(driverXbox, POV_0, true, operatorXbox, buttonBackid, false);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -208,22 +207,20 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-		
 	}
 
 	public void setupDriverXboxButtons() {
 
-		dButtonA.whenReleased(new CubeFinesse(.25));
+		
 	}
 
 	public void setupSharedCommands() {
-		// cubeHigh.whenActive(new AutoCubeMoveHigh());
-
-//		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
-//		acquireCube.whenReleased(new AcquireCube());
-//		raiseCube.whenReleased(new AutoCubeMoveHigh());
+		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
+		acquireCube.whenReleased(new AcquireCube());
+		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());
-//		lowerCube.whenReleased(new AutoCubeMoveLow());
+		lowerCube.whenReleased(new AutoCubeMoveLow());
+		cubeFinesse.whenReleased(new CubeFinesse(.25));
 	}
 
 }

@@ -31,15 +31,21 @@ public class SharedCommand extends Button{
     			if(joy1.getPOV() == button1){
     				return true;
     			}
-    		} else if (is1POV == false){
+    		} 
+    		
+    		if (is1POV == false){
     			if(joy1.getRawButton(button1) == true){
     				return true;
     			}
-    		} else if (is2POV == true){
+    		}
+    		
+    		if (is2POV == true){
     			if(joy2.getPOV() == button2){
     				return true;
     			}
-    		} else if (is2POV == false){
+    		} 
+    		
+    		if (is2POV == false){
     			if(joy2.getRawButton(button2) == true){
     				return true;
     			}

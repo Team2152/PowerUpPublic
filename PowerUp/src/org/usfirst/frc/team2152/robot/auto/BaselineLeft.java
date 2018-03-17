@@ -43,7 +43,9 @@ public class BaselineLeft extends CommandGroup {
 //    	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	
     	//Direct movement
-//    	addSequential(new MoveByEncoder(120,120, PIDConstants.ENCODER_DRIVE_SPEED, true, 3.5));
+    	//addSequential(new MoveByEncoder(120,120, PIDConstants.ENCODER_DRIVE_SPEED, true, 3.5));
+    	
+    	
 		addSequential(new ClearDriveBackLash());
     	addSequential(new AutoRamp(.4, 0, .5, 120 ));
     }

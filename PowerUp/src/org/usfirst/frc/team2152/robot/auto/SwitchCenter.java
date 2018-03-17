@@ -40,15 +40,15 @@ public class SwitchCenter extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	
-    	addSequential(new ClearDriveBackLash());
+    	//addSequential(new ClearDriveBackLash());
     	
     	if (switchPosition.equals("Left")){
     		
     		// Navigate to left switch plate
 	    	
-        	addSequential(new AutoRamp(.4, .4, 1, 50));
-        	addSequential(new AutoCruise(.4 ,0, 20));
-        	addSequential(new AutoRamp(0, -.4, 1, 50, .4));
+        	addSequential(new AutoRamp(.4, .2, 1, 50));
+        	addSequential(new AutoCruise(.4 , 0, 20));
+        	//addSequential(new AutoRamp(.4, -.2, 1, 50));
     		
     		
 //    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
@@ -65,9 +65,9 @@ public class SwitchCenter extends CommandGroup {
     		
     		// Navigate to right switch plate
 
-    		addSequential(new AutoRamp(.4, -.4, 1, 50));
+    		addSequential(new AutoRamp(.4, -.2, 1, 50));
         	addSequential(new AutoCruise(.4 ,0, 20));
-        	addSequential(new AutoRamp(0, .4, 1, 50, .4));
+        	addSequential(new AutoRamp(0, .2, 1, 50, .4));
     		
     		
     		//	    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
