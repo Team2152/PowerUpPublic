@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.commands.AutoCruise;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
@@ -33,7 +34,9 @@ public class BaselineCenter extends CommandGroup {
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
 		Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
-
+		
+		addSequential(new ClearDriveBackLash());
+		
 		addSequential(new AutoRamp(.75, -.25, 1, 50));
 		addSequential(new AutoCruise(.75, .25, 50));
 		addSequential(new AutoRamp(0, 0, 1, 30, .75));

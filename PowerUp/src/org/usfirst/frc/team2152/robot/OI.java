@@ -181,8 +181,8 @@ public class OI {
 			oButtonStart = new JoystickButton(operatorXbox, buttonStartid);
 			oButtonLClick = new JoystickButton(operatorXbox, buttonLClickid);
 			oButtonRClick = new JoystickButton(operatorXbox, buttonRClickid);
-			oPOV0 = new POV(operatorXbox, POV_0);
-			oPOV90 = new POV(operatorXbox, POV_90);
+			oPOV0   = new POV(operatorXbox, POV_0);
+			oPOV90  = new POV(operatorXbox, POV_90);
 			oPOV135 = new POV(operatorXbox, POV_135);
 			oPOV180 = new POV(operatorXbox, POV_180);
 			oPOV225 = new POV(operatorXbox, POV_225);

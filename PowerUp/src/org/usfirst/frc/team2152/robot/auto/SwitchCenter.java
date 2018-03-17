@@ -39,7 +39,9 @@ public class SwitchCenter extends CommandGroup {
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	
     	addSequential(new ClearDriveBackLash());
+    	
     	if (switchPosition.equals("Left")){
     		
     		// Navigate to left switch plate

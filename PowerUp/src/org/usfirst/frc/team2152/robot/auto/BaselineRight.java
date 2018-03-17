@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.auto;
 
 
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
@@ -44,6 +45,9 @@ public class BaselineRight extends CommandGroup {
     	
     	//Direct movement
 //    	addSequential(new MoveByEncoder(120,120, PIDConstants.ENCODER_DRIVE_SPEED, true, 3.5));
+    	
+		addSequential(new ClearDriveBackLash());
+		
     	addSequential(new AutoRamp(.4, 0, .5, 120 ));
 
     }

@@ -3,6 +3,7 @@ package org.usfirst.frc.team2152.robot.auto;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoCruise;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ScaleScore;
@@ -37,6 +38,9 @@ public class ScaleLeft extends CommandGroup {
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
+    	
+		addSequential(new ClearDriveBackLash());
+		
     	if (scalePosition.equals("Left")){
     		// Navigate to left scale plate
     		

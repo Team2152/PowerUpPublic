@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelSensor;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
@@ -38,6 +39,9 @@ public class SwitchLeftStraight extends CommandGroup {
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
+    	
+		addSequential(new ClearDriveBackLash());
+
     	if (switchPosition.equals("Left")){
     		//Navigate to Switch
     			//addSequential(new MoveByEncoder(115,115,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
