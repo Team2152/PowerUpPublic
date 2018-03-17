@@ -51,7 +51,12 @@ public class Elevator extends Subsystem {
 	}
 	
 	public double getDriveTrainGain(){
-		return 1 - (elevatorTalon.getSelectedSensorPosition(0)* PIDConstants.ELEVATOR_DRIVETRAIN_GAIN);
+		if((1 - (getElevatorInches() * PIDConstants.ELEVATOR_DRIVETRAIN_GAIN)) < 0.25){
+			return 0.25;
+		} else {
+			return 1 - (getElevatorInches() * PIDConstants.ELEVATOR_DRIVETRAIN_GAIN);
+		}
+		
 	}
 	public Boolean getElevatorMaxHeight() {
 		return !elevatorMaxHeight.get();
@@ -59,6 +64,10 @@ public class Elevator extends Subsystem {
 
 	public Boolean getElevatorMinHeight() {
 		return !elevatorMinHeight.get();
+	}
+	
+	public double getElevatorInches(){
+		return elevatorTalon.getSelectedSensorPosition(0) / 22072.89;
 	}
 
 	@Override
