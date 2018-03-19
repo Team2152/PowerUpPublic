@@ -8,42 +8,45 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ClearDriveBackLash extends Command {
-
-    public ClearDriveBackLash() {
+public class CubeExpelTime extends Command {
+	private double speed = 0;
+	private double time = 0;
+	private Timer timer = new Timer();
+    public CubeExpelTime(double speed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrainSubsystem);
+    	requires(Robot.cubeIntakeSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer.reset();
+    	timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    
-			 for (int time = 1; time <= 2; time++) {
-				 Robot.driveTrainSubsystem.arcadeDrive(0.5, 0);
-				 Timer.delay(0.1);
-			 }
+    	Robot.cubeIntakeSubsystem.cubeExpelMove(speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+    	if(timer.get() > time){
+    		return true;
+    	} else {
+        return false;
+    	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrainSubsystem.tankDrive(0, 0);
-    	Robot.driveTrainSubsystem.resetEncoders(true, true);
+    	Robot.cubeIntakeSubsystem.cubeExpelMove(0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	Robot.driveTrainSubsystem.tankDrive(0, 0);
+    	Robot.cubeIntakeSubsystem.cubeExpelMove(0);
 
     }
 }

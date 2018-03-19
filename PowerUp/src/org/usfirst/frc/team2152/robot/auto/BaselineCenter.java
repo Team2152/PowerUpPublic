@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.commands.AutoCruise;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.AutoStop;
 import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
@@ -39,7 +40,9 @@ public class BaselineCenter extends CommandGroup {
 		
 		addSequential(new AutoRamp(.75, -.25, 1, 50));
 		addSequential(new AutoCruise(.75, .25, 50));
-		addSequential(new AutoRamp(0, 0, 1, 30, .75));
+    	addSequential(new AutoStop());
+
+		//addSequential(new AutoRamp(0, 0, 1, 30, .75));
 
 		// addSequential(new
 		// MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));

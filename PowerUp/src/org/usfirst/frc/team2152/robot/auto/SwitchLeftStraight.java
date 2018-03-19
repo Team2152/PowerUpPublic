@@ -2,8 +2,10 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.AutoStop;
 import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelSensor;
+import org.usfirst.frc.team2152.robot.commands.CubeExpelTime;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
@@ -44,17 +46,21 @@ public class SwitchLeftStraight extends CommandGroup {
 
     	if (switchPosition.equals("Left")){
     		//Navigate to Switch
-    			//addSequential(new MoveByEncoder(115,115,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
-    	    	addSequential(new AutoRamp(.4, 0, .5, 115 ));
-
-    		
+    		addSequential(new AutoRamp(.4, -.15, 1, 25));
+    		addSequential(new AutoRamp(.4, 0, 1, 17));
+        	addSequential(new AutoRamp(.4, .2, 1, 25));
+    		addSequential(new AutoRamp(.4, 0, 1, 40));
+        	addSequential(new AutoStop());
+        	
     		//Cube Delivery
-        		addSequential(new CubeExpelSensor(1));
+    		addSequential(new CubeExpelTime(.75,1));
     	} else if (switchPosition.equals("Right")){
     		//Only Cross Baseline
-        		//addSequential(new MoveByEncoder(104,104,PIDConstants.ENCODER_DRIVE_SPEED, true ,3.5));
-            	addSequential(new AutoRamp(.4, 0, .5, 104));
-
+    		addSequential(new AutoRamp(.4, -.15, 1, 25));
+    		addSequential(new AutoRamp(.4, 0, 1, 17));
+        	addSequential(new AutoRamp(.4, .2, 1, 25));
+    		addSequential(new AutoRamp(.4, 0, 1, 40));
+        	addSequential(new AutoStop());
  
     	} else {
     		//Only Cross Baseline

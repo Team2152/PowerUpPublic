@@ -40,42 +40,16 @@ public class AutoRamp extends Command {
 		this.rampRate = rampRate;
 		this.distance = distance;
 
-	}public AutoRamp(double power, double steering, double rampRate, double distance, double previousPower) {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		requires(Robot.driveTrainSubsystem);
-		if(power > 1){
-			power = 1;
-		}else if(power < -1){
-			power = -1;
-		}
-		this.power = power;
-		if (steering > 1){
-			steering = 1;
-		}else if(steering < -1){
-			steering = -1;
-		}
-		if(previousPower > 1){
-			previousPower = 1;
-		}else if(previousPower < -1){
-			previousPower = -1;
-		}
-		this.steering = steering;
-		this.rampRate = rampRate;
-		this.distance = distance;
-		this.previousPower = previousPower;
-
 	}
-
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.driveTrainSubsystem.setRampRate(rampRate, 100);
 		Robot.driveTrainSubsystem.resetEncoders(true, true);
 		
 		if (steering > 0) {
-			checkLeft = true;
-		} else if (steering < 0) {
 			checkLeft = false;
+		} else if (steering < 0) {
+			checkLeft = true;
 		}
 		timeOut = ((distance / 12) / power * 13.08) + 5;
 		timer.reset();
@@ -91,7 +65,6 @@ public class AutoRamp extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-
 		if (checkLeft == true) {
 			if (Robot.driveTrainSubsystem.getLDistance() >= distance || timer.get() >= timeOut) {
 				return true;
@@ -112,7 +85,8 @@ public class AutoRamp extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.driveTrainSubsystem.tankDrive(0, 0);
+		System.out.println("L Distance " + Robot.driveTrainSubsystem.getLDistance() + " R Distance " + Robot.driveTrainSubsystem.getRDistance());
+		Robot.driveTrainSubsystem.resetEncoders(true, true);
 	}
 
 	// Called when another command which requires one or more of the same

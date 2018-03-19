@@ -3,8 +3,11 @@ package org.usfirst.frc.team2152.robot.auto;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoCruise;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.AutoStop;
 import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelSensor;
+import org.usfirst.frc.team2152.robot.commands.CubeExpelTime;
+import org.usfirst.frc.team2152.robot.commands.Delay;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
@@ -36,19 +39,21 @@ public class SwitchCenter extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
+    	requires(Robot.driveTrainSubsystem);
+    	requires(Robot.cubeIntakeSubsystem);
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	
-    	//addSequential(new ClearDriveBackLash());
-    	
+    	addParallel(new ClearDriveBackLash());
+    	Robot.cubeIntakeSubsystem.cubeSolenoidClose();
     	if (switchPosition.equals("Left")){
     		
     		// Navigate to left switch plate
 	    	
-        	addSequential(new AutoRamp(.4, .2, 1, 50));
-        	addSequential(new AutoCruise(.4 , 0, 20));
-        	//addSequential(new AutoRamp(.4, -.2, 1, 50));
+        	addSequential(new AutoRamp(.4, .15, 1, 75));
+        	addSequential(new AutoRamp(.4, -.2, 1, 75));
+        	addSequential(new AutoStop());
+
     		
     		
 //    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
@@ -58,16 +63,16 @@ public class SwitchCenter extends CommandGroup {
 //	    		addSequential(new MoveByEncoder(85,85,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		
     		// Cube Delivery
-	    		addSequential(new CubeExpelSensor(1));
-
+    		addSequential(new CubeExpelTime(.75,1));
     		
     	} else if (switchPosition.equals("Right")){
     		
     		// Navigate to right switch plate
 
-    		addSequential(new AutoRamp(.4, -.2, 1, 50));
-        	addSequential(new AutoCruise(.4 ,0, 20));
-        	addSequential(new AutoRamp(0, .2, 1, 50, .4));
+    		addSequential(new AutoRamp(.4, -.15, 1, 55));
+    		addSequential(new AutoRamp(.4, 0, 1, 17));
+        	addSequential(new AutoRamp(.4, .2, 1, 55));
+        	addSequential(new AutoStop());
     		
     		
     		//	    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
@@ -78,13 +83,14 @@ public class SwitchCenter extends CommandGroup {
 //    		
     		// Cube Delivery
 	    		
-    		addSequential(new CubeExpelSensor(1));
+    		addSequential(new CubeExpelTime(.75,1));
     	
     	} else {
     		// Only Cross Baseline
     		
     		addSequential(new AutoRamp(.75, -.25, 1, 100));
-    		addSequential(new AutoRamp(0, .25, 1, 30, .75));
+    		addSequential(new AutoStop());
+    		//addSequential(new AutoRamp(0, .25, 1, 30, .75));
     		
 //	    		addSequential(new MoveByEncoder(53,53,PIDConstants.ENCODER_DRIVE_SPEED,false));
 //	    		addSequential(new PreCannedTurn(45,false));

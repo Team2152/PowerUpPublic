@@ -13,7 +13,9 @@ import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
 import org.usfirst.frc.team2152.robot.auto.ScaleLeft;
+import org.usfirst.frc.team2152.robot.auto.ScaleLeftDirect;
 import org.usfirst.frc.team2152.robot.auto.ScaleRight;
+import org.usfirst.frc.team2152.robot.auto.ScaleRightDirect;
 import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeftStraight;
@@ -122,7 +124,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Right Straight", new SwitchRightStraight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
+		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
+		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
+
 
 		
 		powerUpDashboard.putPositions();
@@ -195,7 +200,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Switch Right Straight", new SwitchRightStraight());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
+		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
+		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		Robot.driveTrainSubsystem.setBreakMode(false);
 		
 		// Plate assignment used to determine auto routine

@@ -49,6 +49,7 @@ public class SwitchLeft extends CommandGroup {
 			// Navigate to Switch
 			addSequential(new AutoRamp(.75, -.25, 1, 126));
 			addSequential(new AutoRamp(0, -.5, 1, 33));
+			
 
 			// addSequential(new
 			// MoveByEncoder(38,38,PIDConstants.ENCODER_DRIVE_SPEED,true));
