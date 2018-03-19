@@ -67,7 +67,7 @@ public class Elevator extends Subsystem {
 	}
 	
 	public double getElevatorInches(){
-		return elevatorTalon.getSelectedSensorPosition(0) / 22072.89;
+		return elevatorTalon.getSelectedSensorPosition(0) / 12416;
 	}
 
 	@Override
