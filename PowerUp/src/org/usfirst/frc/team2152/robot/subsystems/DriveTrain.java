@@ -4,6 +4,8 @@ import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LimeDrive;
 import org.usfirst.frc.team2152.robot.commands.TankDriveJoystick;
+import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceDistance;
+import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceXAngle;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 import org.usfirst.frc.team2152.robot.utilities.TalonPIDSource;
 
@@ -47,6 +49,9 @@ public class DriveTrain extends Subsystem{
 
 	private TalonPIDSource talonPIDL;
 	private TalonPIDSource talonPIDR;
+	
+	private NetworkPIDSourceDistance networkPIDSourceDistance; 
+	private NetworkPIDSourceXAngle networkPIDSourceXAngle;
 
 	public DriveTrain() {
 
@@ -120,7 +125,8 @@ public class DriveTrain extends Subsystem{
 
 		talonPIDR = new TalonPIDSource(TalonPIDSource.RIGHT_TALON);
 		talonPIDL = new TalonPIDSource(TalonPIDSource.LEFT_TALON);
-
+		
+		networkPIDSourceDistance = new NetworkPIDSourceDistance();
 
 	}
 
@@ -347,6 +353,16 @@ public class DriveTrain extends Subsystem{
 		}
 	}
 
+	public PIDSource getNetDistancePID(PIDSourceType type) {
+		networkPIDSourceDistance.setPIDSourceType(type);
+		return networkPIDSourceDistance;
+	}
+
+	public PIDSource getNetXanglePID(PIDSourceType type) {
+		networkPIDSourceXAngle.setPIDSourceType(type);
+		return networkPIDSourceXAngle;
+	}
+
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
@@ -354,15 +370,7 @@ public class DriveTrain extends Subsystem{
 		//setDefaultCommand(new TankDriveJoystick());
 	}
 
-	public PIDSource getNetDistancePID(PIDSourceType kdisplacement) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public PIDSource getNetXanglePID(PIDSourceType kdisplacement) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 }
