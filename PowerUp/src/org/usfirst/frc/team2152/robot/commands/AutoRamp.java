@@ -59,7 +59,6 @@ public class AutoRamp extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-
 		Robot.driveTrainSubsystem.arcadeDrive(-power, steering);
 	}
 
@@ -93,5 +92,6 @@ public class AutoRamp extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		Robot.driveTrainSubsystem.tankDrive(0, 0);
+		Robot.driveTrainSubsystem.resetEncoders(true, true);
 	}
 }
