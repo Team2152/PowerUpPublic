@@ -58,6 +58,14 @@ public class Elevator extends Subsystem {
 		}
 		
 	}
+	
+	public double getDriveTrainRampRate(){
+		if(getElevatorInches() * 2 <= 0.25){
+			return 1;
+		} else {
+		return getElevatorInches() * 5;
+		}
+	}
 	public Boolean getElevatorMaxHeight() {
 		return !elevatorMaxHeight.get();
 	}
