@@ -219,8 +219,8 @@ public class Dashboard extends Subsystem {
 
 	
 	public void putRecording() {
-		SmartDashboard.putData("StartRecording", new Record());
-		SmartDashboard.putData("StopRecording", new StopRecording());
+		SmartDashboard.putData("EnableRecording", new Record());
+		SmartDashboard.putData("DisableRecording", new StopRecording());
 	}
 	
 	public void putPositions(){
