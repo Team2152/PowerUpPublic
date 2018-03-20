@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -351,6 +352,16 @@ public class DriveTrain extends Subsystem{
 		//setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new LimeDrive());
 		//setDefaultCommand(new TankDriveJoystick());
+	}
+
+	public PIDSource getNetDistancePID(PIDSourceType kdisplacement) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public PIDSource getNetXanglePID(PIDSourceType kdisplacement) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

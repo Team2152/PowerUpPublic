@@ -33,7 +33,7 @@ public class ElevatorMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		double inputValue = Robot.m_oi.operatorXbox.getRawAxis(1);
-		inputValue *= 0.75;
+		inputValue *= 1;
 		if(inputValue<=-0.1 && Robot.elevatorSubsystem.getElevatorMaxHeight() == false){
 			Robot.elevatorSubsystem.setElevatorRaiseSpeed(-inputValue);
 		} else if(inputValue>=-0.1 && Robot.elevatorSubsystem.getElevatorMinHeight()==false){
