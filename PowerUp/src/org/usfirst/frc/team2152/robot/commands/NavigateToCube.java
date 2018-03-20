@@ -78,8 +78,8 @@ public class NavigateToCube extends Command implements PIDOutput {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		reachedVisionLimit = false;
-		
-
+		//SmartDashboard.putBoolean("Watchdog Exit Gear Auto", false);
+		//Robot.steamworksDashboard.putWatchdogExitGearAuto(false);
 		watchdogTimer = new Timer();
 		watchdogTimer.reset();
 		watchdogTimer.start();
