@@ -273,7 +273,11 @@ public class DriveTrain extends Subsystem{
 		return talonPIDR;
 	}
 	
-	
+	/**
+	 * Returns the Current draw of the selected motor
+	 * @param talonID the id of the talon to read
+	 * @return
+	 */
 	public double getCurrent(int talonID){
 		switch(talonID){
 		case(1):
@@ -315,16 +319,28 @@ public class DriveTrain extends Subsystem{
 		}
 	}
 	
+	/**
+	 * Sets the ramp rate of the drive train motors
+	 * @param secondsToFull the number of seconds till the motor is at the selected speed
+	 * @param timeOut
+	 */
 	public void setRampRate(double secondsToFull, int timeOut){
 		left1.configOpenloopRamp(secondsToFull, timeOut);
 		right1.configOpenloopRamp(secondsToFull, timeOut);
 	}
 	
+	/**
+	 * Resets the ramp rate of the drive train motors
+	 */
 	public void resetRampRate(){
 		left1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 		right1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 	}
 	
+	/**
+	 * Sets the neutral mode of the drive train motors
+	 * @param isBreakMode selects whether or not the motors' neutral mode is break mode or not
+	 */
 	public void setBreakMode(boolean isBreakMode){
 		if(isBreakMode == true){
 			right1.setNeutralMode(NeutralMode.Brake);
@@ -347,10 +363,18 @@ public class DriveTrain extends Subsystem{
 		}
 	}
 	
+	/**
+	 * Returns the velocity of the right side of the drivetrain
+	 * @return the velocity of the right side of the drivetrain
+	 */
 	public double getRVelocity(){
 		return right1.getSelectedSensorVelocity(0);
 	}
-	
+
+	/**
+	 * Returns the velocity of the left side of the drivetrain
+	 * @return the velocity of the left side of the drivetrain
+	 */
 	public double getLVelocity(){
 		return left1.getSelectedSensorVelocity(0);
 	}
