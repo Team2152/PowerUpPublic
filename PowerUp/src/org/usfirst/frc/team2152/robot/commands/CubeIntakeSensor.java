@@ -15,13 +15,15 @@ public class CubeIntakeSensor extends Command {
 	private Timer watchdog = new Timer();
 	private double watchdogTime = 0.5;
 	private boolean bGotACube = false;
+	private boolean isClamped = false;
+
 	public CubeIntakeSensor(double intakeSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeIntakeSubsystem);
 		requires(Robot.cubeMoveSubsystem);
 		this.intakeSpeed = intakeSpeed;
-		
+
 	}
 
 	// Called just before this Command runs the first time
@@ -37,10 +39,15 @@ public class CubeIntakeSensor extends Command {
 		// Robot.cubeIntakeSubsystem.cubeIntakeSensor(intakeSpeed);
 		Robot.cubeIntakeSubsystem.cubeIntakeMove(intakeSpeed);
 		// Robot.cubeIntakeSubsystem.cubeSolenoidSensor();
-		if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true
-				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
-			watchdog.start();
-			Robot.cubeIntakeSubsystem.cubeSolenoidClose();		}
+		if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true || Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
+			
+			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+			
+			if (isClamped == false) {
+				isClamped = true;
+				watchdog.start();
+			}
+		}
 
 	}
 
@@ -49,14 +56,14 @@ public class CubeIntakeSensor extends Command {
 		if (watchdog.get() >= watchdogTime) {
 			return true;
 		}
-		
+
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
 			if (bGotACube == false) {
 				timer.start();
 				bGotACube = true;
 			}
 
-			if (bGotACube == true && timer.get() >= 0.5){
+			if (bGotACube == true && timer.get() >= 0.5) {
 				return true;
 			}
 		}
