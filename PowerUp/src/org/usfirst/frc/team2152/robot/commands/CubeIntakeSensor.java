@@ -13,9 +13,10 @@ public class CubeIntakeSensor extends Command {
 	private double intakeSpeed = 0;
 	private Timer timer = new Timer();
 	private Timer watchdog = new Timer();
+	private Timer armTimer = new Timer();
 	private double watchdogTime = 3;
 	private boolean bGotACube = false;
-
+	private boolean armClose  = false;
 	public CubeIntakeSensor(double intakeSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -27,8 +28,10 @@ public class CubeIntakeSensor extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		armClose  = false;
 
 		timer.reset();
+		armTimer.reset();
 		watchdog.reset();
 		Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
 	}
@@ -43,13 +46,23 @@ public class CubeIntakeSensor extends Command {
 				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
 			watchdog.start();
 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-			 System.out.println("Executing Close Solenoid");
+			armTimer.start();
+			armClose = true;
 		}
 
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
+		if (watchdog.get() >= watchdogTime) {
+			return true;
+		}
+		
+		if(armTimer.get() >= .5 && armClose == true){
+				return true;
+		}
+		
+		
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
 			if (bGotACube == false) {
 				timer.start();
@@ -60,17 +73,18 @@ public class CubeIntakeSensor extends Command {
 				return true;
 		}
 
-		if (watchdog.get() >= watchdogTime) {
-			System.out.println("WATCHDOG TIMER POPPED");
-			return true;
-		}
+
+		
+		
+		
+
 
 		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
+		Robot.cubeIntakeSubsystem.cubeIntakeMove(0.25);
 	}
 
 	// Called when another command which requires one or more of the same

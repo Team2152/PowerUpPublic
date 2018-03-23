@@ -13,6 +13,7 @@ import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
 import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
+import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensor;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
@@ -197,7 +198,7 @@ public class OI {
 
 		try {
 			expelCube = new SharedCommand(driverXbox, buttonBumpRid, false, operatorXbox, buttonXid, false);
-			acquireCube = new SharedCommand(driverXbox, buttonStartid, false, operatorXbox, buttonStartid, false);
+			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, false, operatorXbox, buttonStartid, false);
 			raiseCube = new SharedCommand(driverXbox, buttonYid, false, operatorXbox, buttonAid, false);
 			clampCube = new SharedCommand(driverXbox, buttonXid, false, operatorXbox, buttonBid, false);
 			lowerCube = new SharedCommand(driverXbox, buttonAid, false, operatorXbox, buttonYid, false);
@@ -214,7 +215,7 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-
+		dButtonBack.whenReleased(new CubeIntakeSensor(.8));
 		
 	}
 

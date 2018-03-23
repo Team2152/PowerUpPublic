@@ -26,13 +26,16 @@ public class AcquireCube extends CommandGroup {
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
-		Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+		requires(Robot.cubeIntakeSubsystem);
+		requires(Robot.cubeMoveSubsystem);
+		addParallel(new SetCubeOpen());
 		addSequential(new AutoCubeMoveLow());
 		addSequential(new CubeIntakeSensor(0.8));
 		addSequential(new AutoCubeMoveHigh());
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn()) {
 			addSequential(new CubeIntakeCheck(0.5));
 		}
+		addSequential(new CubeIntakeTime(0.25, 0.75));
 
 		System.out.println("ACQ cube ended");
 	}

@@ -266,7 +266,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
-		System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
 	}
 
