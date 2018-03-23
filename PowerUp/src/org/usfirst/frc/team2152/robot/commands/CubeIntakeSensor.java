@@ -13,10 +13,8 @@ public class CubeIntakeSensor extends Command {
 	private double intakeSpeed = 0;
 	private Timer timer = new Timer();
 	private Timer watchdog = new Timer();
-	private Timer armTimer = new Timer();
-	private double watchdogTime = 3;
+	private double watchdogTime = 0.5;
 	private boolean bGotACube = false;
-	private boolean armClose  = false;
 	public CubeIntakeSensor(double intakeSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -28,10 +26,7 @@ public class CubeIntakeSensor extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		armClose  = false;
-
 		timer.reset();
-		armTimer.reset();
 		watchdog.reset();
 		Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
 	}
@@ -45,10 +40,7 @@ public class CubeIntakeSensor extends Command {
 		if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true
 				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
 			watchdog.start();
-			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-			armTimer.start();
-			armClose = true;
-		}
+			Robot.cubeIntakeSubsystem.cubeSolenoidClose();		}
 
 	}
 
@@ -57,11 +49,6 @@ public class CubeIntakeSensor extends Command {
 		if (watchdog.get() >= watchdogTime) {
 			return true;
 		}
-		
-		if(armTimer.get() >= .5 && armClose == true){
-				return true;
-		}
-		
 		
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
 			if (bGotACube == false) {
