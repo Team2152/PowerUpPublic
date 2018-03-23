@@ -6,8 +6,10 @@ import org.usfirst.frc.team2152.robot.commands.AutoStop;
 import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelSensor;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelTime;
+import org.usfirst.frc.team2152.robot.commands.Delay;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
+import org.usfirst.frc.team2152.robot.commands.ResetDriveEncoders;
 import org.usfirst.frc.team2152.robot.commands.SetCubeIntake;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
@@ -19,9 +21,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class SwitchLeftStraight extends CommandGroup {
+public class SwitchLeftDirect extends CommandGroup {
 
-    public SwitchLeftStraight() {
+    public SwitchLeftDirect() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -38,19 +40,22 @@ public class SwitchLeftStraight extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
+    	requires(Robot.cubeIntakeSubsystem);
+    	requires(Robot.driveTrainSubsystem);
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	
 		addSequential(new ClearDriveBackLash());
-
+		addSequential(new Delay(0.25));
+		//addSequential(new ResetDriveEncoders());
     	if (switchPosition.equals("Left")){
     		//Navigate to Switch
     		addSequential(new AutoRamp(.4, -.15, 1, 25));
     		addSequential(new AutoRamp(.4, 0, 1, 17));
         	addSequential(new AutoRamp(.4, .2, 1, 25));
-    		addSequential(new AutoRamp(.4, 0, 1, 40));
+    		addSequential(new AutoRamp(.4, 0, 1, 42));
         	addSequential(new AutoStop());
+
         	
     		//Cube Delivery
     		addSequential(new CubeExpelTime(.75,1));

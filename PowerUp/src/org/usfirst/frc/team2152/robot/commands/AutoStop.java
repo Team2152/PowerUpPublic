@@ -32,13 +32,11 @@ public class AutoStop extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrainSubsystem.tankDrive(0, 0);
-    	Robot.driveTrainSubsystem.resetEncoders(true, true);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	Robot.driveTrainSubsystem.tankDrive(0, 0);
-    	Robot.driveTrainSubsystem.resetEncoders(true, true);
     }
 }

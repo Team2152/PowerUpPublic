@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SetCubeClose extends Command {
+public class CubeSetOpen extends Command {
 
-    public SetCubeClose() {
+    public CubeSetOpen() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.cubeIntakeSubsystem);
@@ -21,7 +21,7 @@ public class SetCubeClose extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.cubeIntakeSubsystem.cubeSolenoidClose();
+    	Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
     }
 
     // Make this return true when this Command no longer needs to run execute()

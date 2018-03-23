@@ -35,7 +35,7 @@ public class CubeIntake extends Subsystem {
 		intakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT_PWM_1);
 
 		cubeSolenoid = new DoubleSolenoid(0, 1);
-		cubeSolenoidOpen();
+		cubeSolenoidClose();
 		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_RIGHT);
 		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_LEFT);
 		cubeDetectIn = new DigitalInput(RobotMap.CUBE_DETECT_DIO_CENTER);

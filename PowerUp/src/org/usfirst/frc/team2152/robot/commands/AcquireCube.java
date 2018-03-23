@@ -28,7 +28,7 @@ public class AcquireCube extends CommandGroup {
 		// arm.
 		requires(Robot.cubeIntakeSubsystem);
 		requires(Robot.cubeMoveSubsystem);
-		addParallel(new SetCubeOpen());
+		addParallel(new CubeSetOpen());
 		addSequential(new AutoCubeMoveLow());
 		addSequential(new CubeIntakeSensor(0.8));
 		addSequential(new AutoCubeMoveHigh());

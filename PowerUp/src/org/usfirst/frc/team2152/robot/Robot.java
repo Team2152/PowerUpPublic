@@ -18,9 +18,9 @@ import org.usfirst.frc.team2152.robot.auto.ScaleRight;
 import org.usfirst.frc.team2152.robot.auto.ScaleRightDirect;
 import org.usfirst.frc.team2152.robot.auto.SwitchCenter;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
-import org.usfirst.frc.team2152.robot.auto.SwitchLeftStraight;
+import org.usfirst.frc.team2152.robot.auto.SwitchLeftDirect;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
-import org.usfirst.frc.team2152.robot.auto.SwitchRightStraight;
+import org.usfirst.frc.team2152.robot.auto.SwitchRightDirect;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
 import org.usfirst.frc.team2152.robot.network.UDPHandler;
@@ -119,9 +119,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
 		m_chooser.addObject("Switch Left", new SwitchLeft());
-		m_chooser.addObject("Switch Left Straight", new SwitchLeftStraight());
+		m_chooser.addObject("Switch Left Straight", new SwitchLeftDirect());
 		m_chooser.addObject("Switch Right", new SwitchRight());
-		m_chooser.addObject("Switch Right Straight", new SwitchRightStraight());
+		m_chooser.addObject("Switch Right Straight", new SwitchRightDirect());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
@@ -148,6 +148,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		Robot.driveTrainSubsystem.setBreakMode(false);
 		cameras.setToDisabledMode();
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		//Robot.driveTrainSubsystem.setBreakMode(false);
@@ -195,9 +196,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("BaseLine Right", new BaselineRight());
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
 		m_chooser.addObject("Switch Left", new SwitchLeft());
-		m_chooser.addObject("Switch Left Straight", new SwitchLeftStraight());
+		m_chooser.addObject("Switch Left Straight", new SwitchLeftDirect());
 		m_chooser.addObject("Switch Right", new SwitchRight());
-		m_chooser.addObject("Switch Right Straight", new SwitchRightStraight());
+		m_chooser.addObject("Switch Right Straight", new SwitchRightDirect());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());

@@ -23,7 +23,7 @@ public class CubeIntakeSensor extends Command {
 		requires(Robot.cubeIntakeSubsystem);
 		requires(Robot.cubeMoveSubsystem);
 		this.intakeSpeed = intakeSpeed;
-
+		
 	}
 
 	// Called just before this Command runs the first time
@@ -69,15 +69,10 @@ public class CubeIntakeSensor extends Command {
 				bGotACube = true;
 			}
 
-			if (bGotACube == true && timer.get() >= 0.5)
+			if (bGotACube == true && timer.get() >= 0.5){
 				return true;
+			}
 		}
-
-
-		
-		
-		
-
 
 		return false;
 	}

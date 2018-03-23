@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class SwitchRightStraight extends CommandGroup {
+public class SwitchRightDirect extends CommandGroup {
 
-    public SwitchRightStraight() {
+    public SwitchRightDirect() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

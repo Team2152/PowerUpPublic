@@ -16,6 +16,8 @@ public class CubeExpelTime extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.cubeIntakeSubsystem);
+    	this.speed = speed;
+    	this.time = time;
     }
 
     // Called just before this Command runs the first time
