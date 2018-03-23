@@ -56,7 +56,7 @@ public class CubeIntakeMove extends Command {
 			// Using else if so that only one button is usable at a time in the
 			// following priority: A X
 			// A button intakes until inner sensors are triggered
-			if (driverJoystick.getRawButton(OI.buttonBid) == true) {
+			if (driverJoystick.getRawButton(OI.buttonBumpLid) == true) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
 			}
 			else if(driverJoystick.getPOV() == 0 ){
@@ -67,7 +67,7 @@ public class CubeIntakeMove extends Command {
 			
 			
 			else if (operatorJoystick.getRawAxis(3) > 0.1) {
-				Robot.cubeIntakeSubsystem.cubeIntakeMove(operatorJoystick.getRawAxis(3));
+				Robot.cubeIntakeSubsystem.cubeIntakeMove(operatorJoystick.getRawAxis(3)*operatorJoystick.getRawAxis(3));
 			} else {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);

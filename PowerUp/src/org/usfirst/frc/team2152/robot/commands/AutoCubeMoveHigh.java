@@ -26,17 +26,19 @@ public class AutoCubeMoveHigh extends CommandGroup {
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
+		//requires(Robot.cubeMoveSubsystem);
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() || Robot.cubeIntakeSubsystem.cubeDetectOutLeft()
 				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true) {
 			System.out.println("USING CUBE IN GAINS");
-			addSequential(new CubeMoveHighByTime(.75, 3));
-			addSequential(new CubeMoveHighByTime(.55, 1));
-			addSequential(new CubeMoveHigh(.55));
+			//Robot.cubeIntakeSubsystem.cubeIntakeMove(0.25);
+			addSequential(new CubeMoveHighByTime(.95, 3));
+			addSequential(new CubeMoveHighByTime(.65, 1));
+			addSequential(new CubeMoveHigh(.65));
 		} else {
 			System.out.println("USING NOCUBE GAINS");
-			addSequential(new CubeMoveHighByTime(.4, 0.75));
-			addSequential(new CubeMoveHighByTime(.35, 1));
-			addSequential(new CubeMoveHigh(.35));
+			addSequential(new CubeMoveHighByTime(.5, 0.75));
+			addSequential(new CubeMoveHighByTime(.45, 1));
+			addSequential(new CubeMoveHigh(.45));
 
 		}
 	}

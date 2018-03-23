@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CubeIntakeCheck extends Command {
 	private double intakeSpeed;
 	private Timer watchDogTimer = new Timer();
+	private Timer endTimer = new Timer();
+
 	public CubeIntakeCheck(double intakeSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -21,6 +23,7 @@ public class CubeIntakeCheck extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		watchDogTimer.reset();
+		endTimer.reset();
 		watchDogTimer.start();
 
 	}
@@ -32,7 +35,7 @@ public class CubeIntakeCheck extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(Robot.cubeIntakeSubsystem.cubeDetectIn() == true || watchDogTimer.get() >= 3) {
+		if(Robot.cubeIntakeSubsystem.cubeDetectIn() == true || watchDogTimer.get() >= 0.5) {
 			return true;
 		} else {
 			return false;
@@ -41,6 +44,8 @@ public class CubeIntakeCheck extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		endTimer.reset();
+
 		Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
 	}
 

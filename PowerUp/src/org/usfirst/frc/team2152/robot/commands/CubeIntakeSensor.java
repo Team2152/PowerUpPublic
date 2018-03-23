@@ -13,7 +13,7 @@ public class CubeIntakeSensor extends Command {
 	private double intakeSpeed = 0;
 	private Timer timer = new Timer();
 	private Timer watchdog = new Timer();
-	private double watchdogTime = 5;
+	private double watchdogTime = 3;
 	private boolean bGotACube = false;
 
 	public CubeIntakeSensor(double intakeSpeed) {
@@ -43,7 +43,7 @@ public class CubeIntakeSensor extends Command {
 				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
 			watchdog.start();
 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-			// System.out.println("Executing Close Solenoid");
+			 System.out.println("Executing Close Solenoid");
 		}
 
 	}

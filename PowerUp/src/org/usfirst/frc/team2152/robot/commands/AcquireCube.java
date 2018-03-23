@@ -30,8 +30,7 @@ public class AcquireCube extends CommandGroup {
 		addSequential(new AutoCubeMoveLow());
 		addSequential(new CubeIntakeSensor(0.8));
 		addSequential(new AutoCubeMoveHigh());
-		if (Robot.cubeIntakeSubsystem.cubeDetectIn() || Robot.cubeIntakeSubsystem.cubeDetectOutLeft()
-				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight()) {
+		if (Robot.cubeIntakeSubsystem.cubeDetectIn()) {
 			addSequential(new CubeIntakeCheck(0.5));
 		}
 

@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.AcquireCube;
+import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchange;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
@@ -142,6 +143,7 @@ public class OI {
 	private SharedCommand clampCube;
 	private SharedCommand lowerCube;
 	private SharedCommand cubeFinesse;
+	private SharedCommand acquireCubeExchange;
 
 	public OI() {
 		// Setup driver joystick
@@ -195,11 +197,12 @@ public class OI {
 
 		try {
 			expelCube = new SharedCommand(driverXbox, buttonBumpRid, false, operatorXbox, buttonXid, false);
-			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, false, operatorXbox, buttonStartid, false);
+			acquireCube = new SharedCommand(driverXbox, buttonStartid, false, operatorXbox, buttonStartid, false);
 			raiseCube = new SharedCommand(driverXbox, buttonYid, false, operatorXbox, buttonAid, false);
 			clampCube = new SharedCommand(driverXbox, buttonXid, false, operatorXbox, buttonBid, false);
 			lowerCube = new SharedCommand(driverXbox, buttonAid, false, operatorXbox, buttonYid, false);
 			cubeFinesse = new SharedCommand(driverXbox, POV_0, true, operatorXbox, buttonBackid, false);
+			acquireCubeExchange = new SharedCommand(driverXbox, POV_180, true, operatorXbox, POV_180, true);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -222,6 +225,7 @@ public class OI {
 		clampCube.whenReleased(new CubeSolenoidToggle());
 		lowerCube.whenReleased(new AutoCubeMoveLow());
 		cubeFinesse.whenReleased(new CubeFinesse(.25));
+		acquireCubeExchange.whenReleased(new AcquireCubeExchange());
 	}
 
 }

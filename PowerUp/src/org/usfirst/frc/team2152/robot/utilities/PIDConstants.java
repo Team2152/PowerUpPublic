@@ -39,6 +39,10 @@ public class PIDConstants {
 	public static final double ELEVATOR_DRIVETRAIN_GAIN   = 1/24.25;
 	
 	// drivetrain gains
-	public static final double DRIVETRAIN_EXPONET = 2.5; 
+	public static final double DRIVETRAIN_THROTTLE_EXPONET = 2.5;
+	public static final double DRIVETRAIN_TURN_EXPONET = 1.5; 
+
+	
+	
 	
 }
