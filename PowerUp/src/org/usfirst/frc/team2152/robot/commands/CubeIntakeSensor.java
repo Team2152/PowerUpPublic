@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CubeIntakeSensor extends Command {
 
 	private double intakeSpeed = 0;
-	private Timer timer = new Timer();
-	private Timer watchdog = new Timer();
-	private double watchdogTime = 0.5;
+	private double watchdogTime = 1;
 	private boolean bGotACube = false;
 	private boolean isClamped = false;
+	private Timer timer; 
+	private Timer watchdog;
 
 	public CubeIntakeSensor(double intakeSpeed) {
 		// Use requires() here to declare subsystem dependencies
@@ -28,9 +28,12 @@ public class CubeIntakeSensor extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		timer.reset();
-		watchdog.reset();
+		timer = new Timer();
+		watchdog = new Timer();
+		isClamped = false;
 		Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+		watchdog.stop();
+		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -39,12 +42,13 @@ public class CubeIntakeSensor extends Command {
 		// Robot.cubeIntakeSubsystem.cubeIntakeSensor(intakeSpeed);
 		Robot.cubeIntakeSubsystem.cubeIntakeMove(intakeSpeed);
 		// Robot.cubeIntakeSubsystem.cubeSolenoidSensor();
-		if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true || Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
-			
+		if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true
+				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)) {
+			//System.out.println("CUBE CLAMP");
 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-			
 			if (isClamped == false) {
 				isClamped = true;
+				watchdog.reset();
 				watchdog.start();
 			}
 		}
@@ -53,12 +57,11 @@ public class CubeIntakeSensor extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (watchdog.get() >= watchdogTime) {
-			return true;
-		}
-
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
+			//System.out.println("Cube Detect In");
 			if (bGotACube == false) {
+				timer.stop();
+				timer.reset();
 				timer.start();
 				bGotACube = true;
 			}
@@ -68,17 +71,26 @@ public class CubeIntakeSensor extends Command {
 			}
 		}
 
+		if (watchdog.get() >= watchdogTime) {
+			//System.out.println("CUBE WATCH DOG");
+			return true;
+		}
+
 		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.cubeIntakeSubsystem.cubeIntakeMove(0.25);
+		watchdog.stop();
+		timer.stop();
+		Robot.cubeIntakeSubsystem.cubeIntakeMove(0.0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		watchdog.stop();
+		timer.stop();
 		Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
 	}
 }
