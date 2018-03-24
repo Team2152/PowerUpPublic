@@ -1,5 +1,6 @@
     package org.usfirst.frc.team2152.robot.subsystems;
 
+import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMove;
@@ -79,7 +80,7 @@ public class Elevator extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 
-		setDefaultCommand(new ElevatorMove(.1, Robot.m_oi.operatorXbox));
+		setDefaultCommand(new ElevatorMove(.1, ControllerMap.elevatorJoystick));
 	}
 
 }

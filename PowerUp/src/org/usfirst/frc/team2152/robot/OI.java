@@ -197,12 +197,12 @@ public class OI {
 		}
 
 		try {
-			expelCube = new SharedCommand(driverXbox, buttonBumpRid, false, operatorXbox, buttonXid, false);
-			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, false, operatorXbox, buttonStartid, false);
-			raiseCube = new SharedCommand(driverXbox, buttonYid, false, operatorXbox, buttonAid, false);
-			clampCube = new SharedCommand(driverXbox, buttonXid, false, operatorXbox, buttonBid, false);
-			lowerCube = new SharedCommand(driverXbox, buttonAid, false, operatorXbox, buttonYid, false);
-			cubeFinesse = new SharedCommand(driverXbox, POV_0, true, operatorXbox, buttonBackid, false);
+			expelCube = new SharedCommand(driverXbox, ControllerMap.expelCubeDriver, false, operatorXbox, ControllerMap.expelCubeOperator, false);
+			acquireCube = new SharedCommand(driverXbox, ControllerMap.acquireCubeDriver, false, operatorXbox, ControllerMap.acquireCubeOperator, false);
+			raiseCube = new SharedCommand(driverXbox, ControllerMap.raiseCubeDriver, false, operatorXbox, ControllerMap.raiseCubeOperator, false);
+			clampCube = new SharedCommand(driverXbox, ControllerMap.clampCubeDriver, false, operatorXbox, ControllerMap.clampCubeOperator, false);
+			lowerCube = new SharedCommand(driverXbox, ControllerMap.lowerCubeDriver, false, operatorXbox, ControllerMap.lowerCubeOperator, false);
+			cubeFinesse = new SharedCommand(driverXbox, ControllerMap.cubeFinesseDriver, true, operatorXbox, ControllerMap.cubeFinesseOperator, false);
 			acquireCubeExchange = new SharedCommand(driverXbox, POV_180, true, operatorXbox, POV_180, true);
 			setupSharedCommands();
 		} catch (Exception e) {
@@ -220,7 +220,7 @@ public class OI {
 	}
 
 	public void setupSharedCommands() {
-		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
+		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator, operatorXbox, driverXbox));
 		acquireCube.whenReleased(new AcquireCube());
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());

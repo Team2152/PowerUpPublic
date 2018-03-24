@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2152.robot.commands;
 
+import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -9,7 +10,6 @@ public class ElevatorMove extends Command {
 
 	
 	private Joystick joy1;
-	private Joystick joy2;
 	private double lowerSpeed;
 	private int leftTrigger = 2;
 	private int rightTrigger = 3;
@@ -23,7 +23,6 @@ public class ElevatorMove extends Command {
 		requires(Robot.elevatorSubsystem);
 		this.lowerSpeed = lowerSpeed;
 		this.joy1 = joy1;
-		this.joy2 = joy2;
 	}
 
 	// Called just before this Command runs the first time
@@ -31,7 +30,7 @@ public class ElevatorMove extends Command {
 	}
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double inputValue = Robot.m_oi.operatorXbox.getRawAxis(1);
+		double inputValue = joy1.getRawAxis(ControllerMap.elevatorMoveAxis);
 		inputValue *= 1;
 		if(inputValue<=-0.1 && Robot.elevatorSubsystem.getElevatorMaxHeight() == false){
 			Robot.elevatorSubsystem.setElevatorRaiseSpeed(-inputValue);

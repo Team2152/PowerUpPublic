@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
+import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.CubeIntakeMove;
@@ -127,6 +128,6 @@ public class CubeIntake extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new CubeIntakeMove(1, 1,Robot.m_oi.driverXbox, Robot.m_oi.operatorXbox));
+		setDefaultCommand(new CubeIntakeMove(1, 1, ControllerMap.cubeIntakeJoy1, ControllerMap.cubeIntakeJoy2));
 	}
 }

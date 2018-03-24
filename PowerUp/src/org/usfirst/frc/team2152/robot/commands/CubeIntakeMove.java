@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2152.robot.commands;
 
+import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -52,11 +53,11 @@ public class CubeIntakeMove extends Command {
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == false) {
 
 			// A button intakes until inner sensors are triggered
-			if (driverJoystick.getRawAxis(3) >= 0.1) {
-				Robot.cubeIntakeSubsystem.cubeIntakeMove(driverJoystick.getRawAxis(3));
-			} else if(driverJoystick.getRawAxis(2) >= 0.1){
-				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(2));
-			} else if (operatorJoystick.getRawAxis(3) > 0.1) {
+			if (driverJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisDriver) >= 0.1) {
+				Robot.cubeIntakeSubsystem.cubeIntakeMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisDriver));
+			} else if(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver) >= 0.1){
+				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver));
+			} else if (operatorJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisOperator) > 0.1) {
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(operatorJoystick.getRawAxis(3)*operatorJoystick.getRawAxis(3));
 			} else {
 				Robot.m_oi.driverXbox.setRumble(RumbleType.kRightRumble, 0);
@@ -66,10 +67,10 @@ public class CubeIntakeMove extends Command {
 			// When the inner IR sensor shows NO cube presence then
 			// check then joystick buttons and act on them if they are pressed
 		} else if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
-			if (driverJoystick.getRawAxis(2) >= 0.1) {
-				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(2));
-			} else if(operatorJoystick.getRawAxis(3) >= 0.1){
-				Robot.cubeIntakeSubsystem.cubeExpelMove(operatorJoystick.getRawAxis(3));
+			if (driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver) >= 0.1) {
+				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver));
+			} else if(operatorJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisOperator) >= 0.1){
+				Robot.cubeIntakeSubsystem.cubeExpelMove(operatorJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisOperator));
 			} else {
 				Robot.m_oi.driverXbox.setRumble(RumbleType.kRightRumble, 0);
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);

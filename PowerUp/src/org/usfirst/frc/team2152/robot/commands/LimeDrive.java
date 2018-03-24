@@ -1,5 +1,6 @@
 package org.usfirst.frc.team2152.robot.commands;
 
+import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
@@ -30,8 +31,8 @@ public class LimeDrive extends Command {
 	protected void execute() {
 		double outputThrottle = 0;
 		double outputTurn = 0;
-		double inputThrottle = Robot.m_oi.driverXbox.getRawAxis(1);
-		double inputTurn = -Robot.m_oi.driverXbox.getRawAxis(4);
+		double inputThrottle = ControllerMap.limeDriveThrottle.getRawAxis(1);
+		double inputTurn = -ControllerMap.limeDriveTurn.getRawAxis(4);
 		outputThrottle = Math.pow(Math.abs(inputThrottle), PIDConstants.DRIVETRAIN_THROTTLE_EXPONET);
 		outputTurn = Math.pow(Math.abs(inputTurn), PIDConstants.DRIVETRAIN_TURN_EXPONET);
 		if(inputThrottle < 0){
@@ -44,7 +45,7 @@ public class LimeDrive extends Command {
 		
 		if (Math.abs(outputThrottle) <= 0.1) {
 			Robot.driveTrainSubsystem.arcadeDrive(0.0,
-					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.2);
+					(outputTurn * 0.45) + ControllerMap.limeDriveAssistTurn.getRawAxis(0) * 0.2);
 		} else {
 			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle),
 					-(outputThrottle * outputTurn));
