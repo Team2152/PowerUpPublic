@@ -22,6 +22,9 @@ public class ControllerMap {
 	public static int cubeFinesseDriver = OI.POV_0;
 	public static int cubeFinesseOperator = OI.buttonBackid;
 	
+	public static int acquireCubeExchangeDriver = OI.POV_180;
+	public static int acquireCubeExchangeOperator = OI.POV_180;
+	
 	// -----Drive Train-----
 	public static Joystick limeDriveThrottle = Robot.m_oi.driverXbox;
 	public static Joystick limeDriveTurn = Robot.m_oi.driverXbox;

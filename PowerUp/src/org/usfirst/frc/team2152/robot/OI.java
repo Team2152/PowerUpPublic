@@ -203,7 +203,7 @@ public class OI {
 			clampCube = new SharedCommand(driverXbox, ControllerMap.clampCubeDriver, false, operatorXbox, ControllerMap.clampCubeOperator, false);
 			lowerCube = new SharedCommand(driverXbox, ControllerMap.lowerCubeDriver, false, operatorXbox, ControllerMap.lowerCubeOperator, false);
 			cubeFinesse = new SharedCommand(driverXbox, ControllerMap.cubeFinesseDriver, true, operatorXbox, ControllerMap.cubeFinesseOperator, false);
-			acquireCubeExchange = new SharedCommand(driverXbox, POV_180, true, operatorXbox, POV_180, true);
+			acquireCubeExchange = new SharedCommand(driverXbox, ControllerMap.acquireCubeExchangeDriver, true, operatorXbox, ControllerMap.acquireCubeExchangeOperator, true);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());

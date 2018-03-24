@@ -52,7 +52,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot{
 	public static final OdroidsCameraSettings cameras = new OdroidsCameraSettings();
 	public static OI m_oi;
 	public static Log m_logger;
