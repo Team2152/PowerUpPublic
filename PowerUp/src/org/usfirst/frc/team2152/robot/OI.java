@@ -24,7 +24,6 @@ import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
-import org.usfirst.frc.team2152.robot.commands.TestCommand;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 import org.usfirst.frc.team2152.robot.utilities.SharedCommand;
 
@@ -216,7 +215,6 @@ public class OI {
 
 	public void setupDriverXboxButtons() {
 		dButtonBack.whenReleased(new CubeIntakeSensor(.8));
-		
 	}
 
 	public void setupSharedCommands() {
