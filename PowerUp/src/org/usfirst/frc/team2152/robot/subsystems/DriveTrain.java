@@ -42,6 +42,8 @@ public class DriveTrain extends Subsystem{
 	private WPI_TalonSRX left2;
 //	private WPI_TalonSRX left3;
 
+	private int encoderCumulativeTicksL = 0;
+	private int encoderCumulativeTicksR = 0;
 
 	// === Drive Train Object
 	private DifferentialDrive drive;
@@ -209,6 +211,23 @@ public class DriveTrain extends Subsystem{
 	public double getAverageDistance(){
 		return (getRDistance() + getLDistance())/2; 
 	}
+
+	/**
+	 * Returns the cumulative ticks of the right encoder
+	 * @return the cumulative (ignoring resets) value of the encoder in ticks
+	 */
+	public int getEncoderRTicksCumulative() {
+		return right1.getSelectedSensorPosition(0) + encoderCumulativeTicksR;
+	}
+
+	/**
+	 * Returns the cumulative ticks of the left encoder
+	 * @return the cumulative (ignoring resets) value of the encoder in ticks
+	 */
+	public int getEncoderLTicksCumulative() {
+		return left1.getSelectedSensorPosition(0) + encoderCumulativeTicksR;
+	}
+
 	
 	
 	/**
@@ -218,12 +237,24 @@ public class DriveTrain extends Subsystem{
 	 */
 	public void resetEncoders(boolean resetLeft, boolean resetRight){
 		if (resetLeft){
+			encoderCumulativeTicksL += left1.getSelectedSensorPosition(0);
 			left1.setSelectedSensorPosition(0, 0, 0);
 		}
 
 		if (resetRight){
+			encoderCumulativeTicksR += right1.getSelectedSensorPosition(0);
 			right1.setSelectedSensorPosition(0, 0, 0);
 		}
+	}
+	
+	/**
+	 * Resets cumulative encoder values
+	 * @param l determines whether or not to reset the left encoder cumulative value
+	 * @param r determines whether or not to reset the right encoder cumulative value
+	 */
+	public void resetCumulativeEncoderValues(boolean l, boolean r) {
+		if(l) encoderCumulativeTicksL = 0;
+		if(r) encoderCumulativeTicksR = 0;
 	}
 	
 	/**
