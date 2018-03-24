@@ -4,8 +4,6 @@ import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 
-import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.SafePWM;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
 

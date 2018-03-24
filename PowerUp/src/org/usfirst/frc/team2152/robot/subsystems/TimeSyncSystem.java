@@ -1,7 +1,6 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import org.usfirst.frc.team2152.robot.commands.SyncTime;

@@ -1,13 +1,11 @@
 package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
-import org.usfirst.frc.team2152.robot.commands.AutoCruise;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
 import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
-import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ScaleScore;
-import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
+
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -61,10 +59,10 @@ public class ScaleLeft extends CommandGroup {
 //    		
     		// Cube Delivery
     	} else if (scalePosition.equals("Right")){
+    		addSequential(new AutoRamp(.75 ,0 , 1, 215));
+    		addSequential(new AutoRamp(.75, .25, 1, 50));
     		addSequential(new AutoRamp(.75, 0, 1, 215));
-    		addSequential(new AutoCruise(.75, .25, 50));
-    		addSequential(new AutoRamp(.75, 0, 1, 215));
-    		addSequential(new AutoCruise(.75, -.25, 100));
+    		addSequential(new AutoRamp(.75, -.25, 1, 100));
     		addSequential(new ScaleScore());
     		// Only cross baseline
 //    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));

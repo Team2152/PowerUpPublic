@@ -14,8 +14,6 @@ public class AutoRamp extends Command {
 	private double steering = 0;
 	private double rampRate = 0;
 	private double distance = 0;
-	private double rightSpeed = 0;
-	private double leftSpeed = 0;
 	private double timeOut = 0;
 	private Timer timer = new Timer();
 	private boolean checkLeft = true;

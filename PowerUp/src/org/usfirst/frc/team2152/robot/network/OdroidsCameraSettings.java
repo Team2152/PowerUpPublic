@@ -1,7 +1,5 @@
 package org.usfirst.frc.team2152.robot.network;
 
-import org.usfirst.frc.team2152.robot.Robot;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

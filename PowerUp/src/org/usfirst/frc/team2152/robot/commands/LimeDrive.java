@@ -4,7 +4,6 @@ import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Takes input from the joystick and outputs it to the motors, PID turning and
