@@ -1,16 +1,15 @@
-package org.usfirst.frc.team2152.robot.auto;
+package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
-public class TestAuto extends CommandGroup {
+public class ScaleScore extends CommandGroup {
 
-    public TestAuto() {
+    public ScaleScore() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -27,14 +26,17 @@ public class TestAuto extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
-    	if(switchPosition.equals("Left")){
-    		//System.out.println("ITS LEFT");
-    	} else if (switchPosition.equals("Right")){
-    		//System.out.println("ITS RIGHT");
-    	} else {
-    		//System.out.println("ITS NEITHER");
-    	}
+    	requires(Robot.driveTrainSubsystem);
+    	requires(Robot.elevatorSubsystem);
+    	requires(Robot.cubeMoveSubsystem);
+    	requires(Robot.cubeIntakeSubsystem);
+    	
+    	addSequential(new ElevatorMoveHigh(.65));
+    	addSequential(new MoveByEncoder(5, 5, .25, false, 2));
+    	addSequential(new CubeExpelSensor(1));
+    	addSequential(new MoveByEncoder(-7, -7, .25, false, 2));
+    	addSequential(new ElevatorMoveLow(.25));
 
+    	
     }
 }

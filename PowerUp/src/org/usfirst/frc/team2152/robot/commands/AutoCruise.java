@@ -42,14 +42,12 @@ public class AutoCruise extends Command {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Robot.driveTrainSubsystem.resetEncoders(true, true);
-		rightSpeed = power - (steering / 2);
-		leftSpeed = power + (steering / 2);
 		if (steering > 0) {
 			checkLeft = true;
 		} else if (steering < 0) {
 			checkLeft = false;
 		}
-		timeOut = ((distance / 12) / power * 13.08) + 1;
+		timeOut = ((distance / 12) / power * 13.08) + 5;
 		timer.reset();
 		timer.start();
 	}
@@ -57,7 +55,7 @@ public class AutoCruise extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 
-		Robot.driveTrainSubsystem.tankDrive(leftSpeed, rightSpeed);
+		Robot.driveTrainSubsystem.arcadeDrive(-power, steering);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -83,6 +81,7 @@ public class AutoCruise extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.driveTrainSubsystem.tankDrive(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same

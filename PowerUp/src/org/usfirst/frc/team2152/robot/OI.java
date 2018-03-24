@@ -8,9 +8,12 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.AcquireCube;
+import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchange;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
+import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
+import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensor;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
@@ -22,12 +25,13 @@ import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
 import org.usfirst.frc.team2152.robot.commands.TestCommand;
-import org.usfirst.frc.team2152.robot.triggers.SharedCommand;
 import org.usfirst.frc.team2152.robot.utilities.POV;
+import org.usfirst.frc.team2152.robot.utilities.SharedCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -134,12 +138,13 @@ public class OI {
 	private POV dPOV270;
 	private POV dPOV315;
 
-	private SharedCommand cubeHigh;
 	private SharedCommand expelCube;
 	private SharedCommand acquireCube;
 	private SharedCommand raiseCube;
 	private SharedCommand clampCube;
 	private SharedCommand lowerCube;
+	private SharedCommand cubeFinesse;
+	private SharedCommand acquireCubeExchange;
 
 	public OI() {
 		// Setup driver joystick
@@ -179,8 +184,8 @@ public class OI {
 			oButtonStart = new JoystickButton(operatorXbox, buttonStartid);
 			oButtonLClick = new JoystickButton(operatorXbox, buttonLClickid);
 			oButtonRClick = new JoystickButton(operatorXbox, buttonRClickid);
-			oPOV0 = new POV(operatorXbox, POV_0);
-			oPOV90 = new POV(operatorXbox, POV_90);
+			oPOV0   = new POV(operatorXbox, POV_0);
+			oPOV90  = new POV(operatorXbox, POV_90);
 			oPOV135 = new POV(operatorXbox, POV_135);
 			oPOV180 = new POV(operatorXbox, POV_180);
 			oPOV225 = new POV(operatorXbox, POV_225);
@@ -192,17 +197,13 @@ public class OI {
 		}
 
 		try {
-			// cubeHigh = new SharedCommand(driverXbox, POV_180, operatorXbox,
-			// POV_180);
-			expelCube = new SharedCommand(driverXbox, buttonBumpRid, operatorXbox, buttonXid);
-			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, operatorXbox, buttonStartid);
-			raiseCube = new SharedCommand(driverXbox, buttonYid, operatorXbox, buttonAid);
-			clampCube = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonBid);
-			lowerCube = new SharedCommand(driverXbox, buttonAid, operatorXbox, buttonYid);
-			//  NOTE 2/28/18 Currently, binding a shared command to A on any joystick causes the pov 0 (UP)
-			// to trigger the command on the same joystick. On the day that this note was written, we are
-			// not using any POVs, but if POV 0 triggers lower cube command on driver controller or raise cube command on 
-			// operator joystick , it is a knows issue
+			expelCube = new SharedCommand(driverXbox, buttonBumpRid, false, operatorXbox, buttonXid, false);
+			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, false, operatorXbox, buttonStartid, false);
+			raiseCube = new SharedCommand(driverXbox, buttonYid, false, operatorXbox, buttonAid, false);
+			clampCube = new SharedCommand(driverXbox, buttonXid, false, operatorXbox, buttonBid, false);
+			lowerCube = new SharedCommand(driverXbox, buttonAid, false, operatorXbox, buttonYid, false);
+			cubeFinesse = new SharedCommand(driverXbox, POV_0, true, operatorXbox, buttonBackid, false);
+			acquireCubeExchange = new SharedCommand(driverXbox, POV_180, true, operatorXbox, POV_180, true);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -210,21 +211,22 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-
+		
 	}
 
 	public void setupDriverXboxButtons() {
-
+		dButtonBack.whenReleased(new CubeIntakeSensor(.8));
+		
 	}
 
 	public void setupSharedCommands() {
-		// cubeHigh.whenActive(new AutoCubeMoveHigh());
-
 		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
 		acquireCube.whenReleased(new AcquireCube());
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());
 		lowerCube.whenReleased(new AutoCubeMoveLow());
+		cubeFinesse.whenReleased(new CubeFinesse(.25));
+		acquireCubeExchange.whenReleased(new AcquireCubeExchange());
 	}
 
 }

@@ -8,50 +8,43 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeIntakeCheck extends Command {
-	private double intakeSpeed;
-	private Timer watchDogTimer = new Timer();
-	private Timer endTimer = new Timer();
-
-	public CubeIntakeCheck(double intakeSpeed) {
+public class ClearDriveBackLash extends Command {
+	private Timer timer = new Timer();
+	public ClearDriveBackLash() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.cubeIntakeSubsystem);
-		this.intakeSpeed = intakeSpeed;
+		requires(Robot.driveTrainSubsystem);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		watchDogTimer.reset();
-		endTimer.reset();
-		watchDogTimer.start();
-
+		timer.reset();
+		timer.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.cubeIntakeSubsystem.cubeIntakeMove(intakeSpeed);
+		Robot.driveTrainSubsystem.arcadeDrive(0.5, 0);
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(Robot.cubeIntakeSubsystem.cubeDetectIn() == true || watchDogTimer.get() >= 0.5) {
+		if( timer.get() >= 0.5){
 			return true;
 		} else {
-			return false;
+		return false;
 		}
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		endTimer.reset();
-
-		Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
+		Robot.driveTrainSubsystem.tankDrive(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
+		Robot.driveTrainSubsystem.tankDrive(0, 0);
 	}
 }
