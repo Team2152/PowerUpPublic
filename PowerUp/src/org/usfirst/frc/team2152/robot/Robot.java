@@ -71,8 +71,10 @@ public class Robot extends TimedRobot{
 
 	public static final Elevator elevatorSubsystem = new Elevator();
 	
-	public static TimeSyncSystem timeSync = new TimeSyncSystem();
-	public static EncoderSendSystem encoderSendSystem = new EncoderSendSystem(11111, 1); //what does this do? Which port?
+	public static TimeSyncSystem timeSync = new TimeSyncSystem(
+			RobotMap.UDP_SYNC_CONF_PORT_R, RobotMap.UDP_SYNC_TIME_PORT_R);
+	public static EncoderSendSystem encoderSendSystem = new EncoderSendSystem(
+			RobotMap.UDP_ENCODER_SEND_PORT_R, 20);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -93,14 +95,15 @@ public class Robot extends TimedRobot{
 				}
 			});
 			timeReceiver.start();
-			//encoderSendSystem.start();
+			encoderSendSystem.start();
 			
 			udpReceiver.setListener(udp);
 			udpReceiver.start();
 		} 
 		catch (Exception e) {
-
+			e.printStackTrace();
 		}
+		
 		
 		cameras.start();
 

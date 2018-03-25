@@ -1,16 +1,19 @@
 package org.usfirst.frc.team2152.robot.network;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import org.usfirst.frc.team2152.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 public class OdroidsCameraSettings extends Thread {
 
 	private InetAddress odroid1Addr, odroid2Addr, odroid3Addr;
 
+	/*
 	private String odroid1IP = "10.21.52.11";
 	private String odroid2IP = "10.21.52.12";
 	private String odroid3IP = "10.21.52.13";
@@ -18,6 +21,8 @@ public class OdroidsCameraSettings extends Thread {
 	private int odroid1Port = 5810;
 	private int odroid2Port = 5810;
 	private int odroid3Port = 5810;
+	*/
+
 	private UDPSender sender = new UDPSender();
 
 	private boolean pegCamDark = true;
@@ -37,9 +42,9 @@ public class OdroidsCameraSettings extends Thread {
 
 	public OdroidsCameraSettings() {
 		try {
-			odroid1Addr = InetAddress.getByName(odroid1IP);
-			odroid2Addr = InetAddress.getByName(odroid2IP);
-			odroid3Addr = InetAddress.getByName(odroid3IP);
+			odroid1Addr = InetAddress.getByName(RobotMap.ODROID_1_IP);
+			odroid2Addr = InetAddress.getByName(RobotMap.ODROID_2_IP);
+			odroid3Addr = InetAddress.getByName(RobotMap.ODROID_3_IP);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
@@ -64,27 +69,27 @@ public class OdroidsCameraSettings extends Thread {
                 (ropeCamDark ? "1;" : "0;") +
                 (intakeCamDark ? "1;" : "0;")
         );
-    	sender.sendMsg(msg, odroid1Addr, odroid1Port);
-    	sender.sendMsg(msg, odroid2Addr, odroid2Port);
+    	sender.sendMsg(msg, odroid1Addr, RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R);
+    	sender.sendMsg(msg, odroid2Addr, RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R);
     }
     
     public void updateRecordStatus() {
     	String msg = ("Rec;" + (record ? "1;" : "0;") + System.currentTimeMillis() + ";");
-    	sender.sendMsg(msg, odroid3Addr, odroid3Port);
+    	sender.sendMsg(msg, odroid3Addr, RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R);
     }
     
     public void startRecording() {
     	String msg = ("1");
-    	sender.sendMsg(msg, odroid3Addr, odroid3Port);
+    	sender.sendMsg(msg, odroid3Addr, RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R);
     }
     
     public void stopRecording() {
     	String msg = ("0");
-    	sender.sendMsg(msg, odroid3Addr, odroid3Port);
+    	sender.sendMsg(msg, odroid3Addr, RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R);
     }
     
     public void sendGameData(String data) {
-    	sender.sendMsg(data, odroid1Addr, odroid1Port);
+    	sender.sendMsg(data, odroid1Addr, RobotMap.UDP_ODROID_CAM_SETTINGS_PORT_R);
     }
 
 	public void setToDisabledMode() {

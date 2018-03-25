@@ -3,6 +3,7 @@ package org.usfirst.frc.team2152.robot.subsystems;
 import java.net.DatagramSocket;
 import java.net.UnknownHostException;
 
+import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.SyncTime;
 import org.usfirst.frc.team2152.robot.network.UDPClient;
 import org.usfirst.frc.team2152.robot.network.UDPReceiver;
@@ -14,9 +15,12 @@ public class TimeSyncSystem {
 	public UDPReceiver syncReceiver;
 	private UDPClient syncClient;
 
+	private int confPort;
+	private int timePort;
+
 	private DatagramSocket syncSock = null;
 
-	public TimeSyncSystem() {
+	public TimeSyncSystem(int confPort, int timePort) {
 		/*
 		try {
 			syncSock = new DatagramSocket(22221);
@@ -26,13 +30,15 @@ public class TimeSyncSystem {
 		*/
 		//syncReceiver = new UDPReceiver(syncSock);
 		//syncSender = new UDPSender(syncSock);
-		syncClient = new UDPClient(22221);
+		syncClient = new UDPClient();
+		this.confPort = confPort;
+		this.timePort = timePort;
 	}
 
 	public void startTimeSync(int numTrials) {
 		System.out.println("Command 3 received: Starting SyncTime");
 		try {
-			new SyncTime(syncClient, 22222, "10.21.52.12", numTrials).start();
+			new SyncTime(syncClient, confPort, timePort, RobotMap.LIDAR_ODROID_IP, numTrials).start();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
