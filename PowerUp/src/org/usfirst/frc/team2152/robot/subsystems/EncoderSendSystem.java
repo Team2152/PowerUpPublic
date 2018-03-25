@@ -48,6 +48,7 @@ public class EncoderSendSystem extends Thread {
 			// lastTime = System.currentTimeMillis();
 			try {
 				Thread.sleep(1000 / hertz);
+				//System.out.println("TEST LOOP FOR ENCTIME MSGS");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
