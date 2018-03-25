@@ -42,23 +42,6 @@ public class ElevatorMove extends Command {
 		} else {
 			Robot.elevatorSubsystem.setElevatorStop();
 		}
-		// if((joy1.getRawAxis(leftTrigger) >= .1 &&
-		// Robot.elevatorSubsystem.getElevatorMaxHeight() == false)){
-		// Robot.elevatorSubsystem.setElevatorRaiseSpeed(Robot.m_oi.operatorXbox.getRawAxis(leftTrigger)*.6);
-		// }
-		// else if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
-		// Robot.elevatorSubsystem.setElevatorRaiseSpeed(0);
-		// }
-		// else if (joy1.getRawAxis(rightTrigger) >= .1 &&
-		// Robot.elevatorSubsystem.getElevatorMinHeight() == false) {
-		// Robot.elevatorSubsystem.setElevatorLowerSpeed(lowerSpeed);
-		// }
-		// else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
-		// Robot.elevatorSubsystem.setElevatorLowerSpeed(0);
-		// }
-		// else if (Robot.m_oi.operatorXbox.getRawAxis(leftTrigger) <= .1) {
-		// Robot.elevatorSubsystem.setElevatorStop();
-		// }
 
 	}
 

@@ -18,6 +18,7 @@ import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMoveTo;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 //import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
@@ -166,7 +167,6 @@ public class OI {
 			dPOV225 = new POV(driverXbox, POV_225);
 			dPOV270 = new POV(driverXbox, POV_270);
 			dPOV315 = new POV(driverXbox, POV_315);
-			setupDriverXboxButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup driver joystick: " + e.toString());
 		}
@@ -183,26 +183,35 @@ public class OI {
 			oButtonStart = new JoystickButton(operatorXbox, buttonStartid);
 			oButtonLClick = new JoystickButton(operatorXbox, buttonLClickid);
 			oButtonRClick = new JoystickButton(operatorXbox, buttonRClickid);
-			oPOV0   = new POV(operatorXbox, POV_0);
-			oPOV90  = new POV(operatorXbox, POV_90);
+			oPOV0 = new POV(operatorXbox, POV_0);
+			oPOV90 = new POV(operatorXbox, POV_90);
 			oPOV135 = new POV(operatorXbox, POV_135);
 			oPOV180 = new POV(operatorXbox, POV_180);
 			oPOV225 = new POV(operatorXbox, POV_225);
 			oPOV270 = new POV(operatorXbox, POV_270);
 			oPOV315 = new POV(operatorXbox, POV_315);
-			setupOperatorButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
 		}
+		ControllerMap.setControllers(driverXbox, operatorXbox);
+		setupOperatorButtons();
+		setupDriverXboxButtons();
 
 		try {
-			expelCube = new SharedCommand(driverXbox, ControllerMap.expelCubeDriver, false, operatorXbox, ControllerMap.expelCubeOperator, false);
-			acquireCube = new SharedCommand(driverXbox, ControllerMap.acquireCubeDriver, false, operatorXbox, ControllerMap.acquireCubeOperator, false);
-			raiseCube = new SharedCommand(driverXbox, ControllerMap.raiseCubeDriver, false, operatorXbox, ControllerMap.raiseCubeOperator, false);
-			clampCube = new SharedCommand(driverXbox, ControllerMap.clampCubeDriver, false, operatorXbox, ControllerMap.clampCubeOperator, false);
-			lowerCube = new SharedCommand(driverXbox, ControllerMap.lowerCubeDriver, false, operatorXbox, ControllerMap.lowerCubeOperator, false);
-			cubeFinesse = new SharedCommand(driverXbox, ControllerMap.cubeFinesseDriver, true, operatorXbox, ControllerMap.cubeFinesseOperator, false);
-			acquireCubeExchange = new SharedCommand(driverXbox, ControllerMap.acquireCubeExchangeDriver, true, operatorXbox, ControllerMap.acquireCubeExchangeOperator, true);
+			expelCube = new SharedCommand(driverXbox, ControllerMap.expelCubeDriver, false, operatorXbox,
+					ControllerMap.expelCubeOperator, false);
+			acquireCube = new SharedCommand(driverXbox, ControllerMap.acquireCubeDriver, false, operatorXbox,
+					ControllerMap.acquireCubeOperator, false);
+			raiseCube = new SharedCommand(driverXbox, ControllerMap.raiseCubeDriver, false, operatorXbox,
+					ControllerMap.raiseCubeOperator, false);
+			clampCube = new SharedCommand(driverXbox, ControllerMap.clampCubeDriver, false, operatorXbox,
+					ControllerMap.clampCubeOperator, false);
+			lowerCube = new SharedCommand(driverXbox, ControllerMap.lowerCubeDriver, false, operatorXbox,
+					ControllerMap.lowerCubeOperator, false);
+			cubeFinesse = new SharedCommand(driverXbox, ControllerMap.cubeFinesseDriver, true, operatorXbox,
+					ControllerMap.cubeFinesseOperator, false);
+			acquireCubeExchange = new SharedCommand(driverXbox, ControllerMap.acquireCubeExchangeDriver, true,
+					operatorXbox, ControllerMap.acquireCubeExchangeOperator, false);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -210,15 +219,16 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-		
+		dButtonStart.whenReleased(new ElevatorMoveTo(4096, 0.5));
 	}
 
 	public void setupDriverXboxButtons() {
-		dButtonBack.whenReleased(new CubeIntakeSensor(.8));
+		
 	}
 
 	public void setupSharedCommands() {
-		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator, operatorXbox, driverXbox));
+		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,
+				operatorXbox, driverXbox));
 		acquireCube.whenReleased(new AcquireCube());
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());

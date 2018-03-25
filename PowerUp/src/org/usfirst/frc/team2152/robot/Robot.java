@@ -159,6 +159,7 @@ public class Robot extends TimedRobot{
 	@Override
 	public void disabledPeriodic() {
 		//SmartDashboard.putBoolean("Bump", Robot.navxSubsystem.detectCollision());
+		SmartDashboard.putBoolean("ELE MAX", Robot.elevatorSubsystem.getElevatorMaxHeight());
 		SmartDashboard.putBoolean("LowerArm", Robot.cubeMoveSubsystem.isLowPosition());
 		SmartDashboard.putBoolean("HighArm", Robot.cubeMoveSubsystem.isHighPosition());
 		SmartDashboard.putBoolean("CubeLeft", Robot.cubeIntakeSubsystem.cubeDetectOutLeft());
@@ -256,7 +257,8 @@ public class Robot extends TimedRobot{
 	 */
 	@Override
 	public void teleopPeriodic() {
-		
+		SmartDashboard.putBoolean("ELE MAX", Robot.elevatorSubsystem.getElevatorMaxHeight());
+
 		SmartDashboard.putNumber("R Velocity", Robot.driveTrainSubsystem.getRVelocity());
 		SmartDashboard.putNumber("L Velocity", Robot.driveTrainSubsystem.getLVelocity());
 		SmartDashboard.putNumber("Match Time", Timer.getMatchTime());
