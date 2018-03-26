@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -10,16 +11,22 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorMoveLow extends Command {
 
 	double lowerSpeed = 0;
+	Timer watchDog;
+	double timeOut = 0;
 
-	public ElevatorMoveLow(double lowerSpeed) {
+	public ElevatorMoveLow(double lowerSpeed,double timeOut) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.elevatorSubsystem);
 		this.lowerSpeed = lowerSpeed;
+		this.timeOut = timeOut;
+		
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		watchDog = new Timer();
+		watchDog.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -31,11 +38,11 @@ public class ElevatorMoveLow extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 
-		if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
+		if (Robot.elevatorSubsystem.getElevatorMinHeight() == true || watchDog.get() > timeOut) {
 			return true;
-		}
-
+		} else {
 		return false;
+		}
 	}
 
 	// Called once after isFinished returns true

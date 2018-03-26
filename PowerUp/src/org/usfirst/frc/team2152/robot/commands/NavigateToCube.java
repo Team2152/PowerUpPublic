@@ -31,8 +31,8 @@ public class NavigateToCube extends Command implements PIDOutput {
 	private double encoderAdjustment;
 
 	/**
-	 * Navigate to gear uses the Vision processing on the ODroids to navigate to
-	 * the peg using the reflective tape, usable in both auto and teleOp
+	 * Navigate to cube uses the Vision processing on the ODroids to navigate to
+	 * the cube, usable in both auto and teleOp
 	 * 
 	 * @param maxForwardSpeed
 	 *            The maximum allowable speed for the distance PID.
@@ -82,7 +82,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 		watchdogTimer = new Timer();
 		watchdogTimer.reset();
 		watchdogTimer.start();
-		cubeDistance = new PIDController(PIDConstants.ENCODER_DRIVE_SPEED, PIDConstants.ENCODER_DRIVE_kI,
+		cubeDistance = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
 				PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getNetDistancePID(PIDSourceType.kDisplacement),
 				this);
 		cubeDistance.setContinuous(false);
@@ -111,7 +111,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 			if (reachedVisionLimit == false) {
 				cubeDistance.disable();
 				cubeHeading.disable();
-				Robot.driveTrainSubsystem.resetEncoders(true, true);;
+				Robot.driveTrainSubsystem.resetEncoders(true, true);
 				reachedVisionLimit = true;
 			}
 			// System.out.println(Robot.driveTrainSubsystem.getAverageDistance());

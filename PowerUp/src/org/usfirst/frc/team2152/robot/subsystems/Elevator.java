@@ -5,6 +5,7 @@ import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMove;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
+import org.usfirst.frc.team2152.robot.utilities.TalonPIDSource;
 
 import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -16,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Elevator extends Subsystem {
@@ -25,6 +27,7 @@ public class Elevator extends Subsystem {
 	private DigitalInput elevatorMinHeight;
 	private double eleStartingHeight = 21;
 
+	private TalonPIDSource talonSource;
 	public Elevator() {
 		elevatorTalon = new WPI_TalonSRX(RobotMap.ELEVATOR_MOVE_9_CAN_ID);
 		elevatorTalon.setSafetyEnabled(false);
@@ -43,14 +46,16 @@ public class Elevator extends Subsystem {
 
 		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_5);
 		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MIN_LIMIT_DIO_6);
+		
+		talonSource = new TalonPIDSource(TalonPIDSource.ELEVATOR_TALON);
 	}
 
 	public void goToHeight(double height, double maxSpeed) {
-		elevatorTalon.configPeakOutputForward(-maxSpeed, 10);
-		elevatorTalon.configPeakOutputReverse(maxSpeed, 10);
+		elevatorTalon.configPeakOutputForward(maxSpeed, 10);
+		elevatorTalon.configPeakOutputReverse(-maxSpeed, 10);
 		elevatorTalon.set(ControlMode.Position, height);
 		System.out.println(elevatorTalon.getClosedLoopError(0));
-		System.out.println(elevatorTalon.getClosedLoopError(0));
+		System.out.println("LSDJFLSDJF:DS " + elevatorTalon.get());
 
 	}
 
@@ -99,8 +104,13 @@ public class Elevator extends Subsystem {
 		return (elevatorTalon.getSelectedSensorPosition(0) / (4096 / 24)) + eleStartingHeight;
 	}
 
-	private double convertToNativeUnits(double height) {
+	public double convertToNativeUnits(double height) {
 		return (height - eleStartingHeight) * (4096 / 24);
+	}
+	
+	public TalonPIDSource getTalonDistancePID(PIDSourceType type) {
+		talonSource.setPIDSourceType(type);
+		return talonSource;
 	}
 
 	@Override

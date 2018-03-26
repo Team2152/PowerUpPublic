@@ -21,6 +21,7 @@ import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveTo;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+import org.usfirst.frc.team2152.robot.commands.NavigateToCube;
 //import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
@@ -219,11 +220,13 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-		dButtonStart.whenReleased(new ElevatorMoveTo(4096, 0.5));
+		oPOV0.whenReleased(new ElevatorMoveHigh(0.5, 10));
+		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
 	}
 
 	public void setupDriverXboxButtons() {
-		
+		dButtonStart.whenReleased(new ElevatorMoveTo(50, 0.5));
+		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 2, 0.25, 4, 10, 9, 25));
 	}
 
 	public void setupSharedCommands() {

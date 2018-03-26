@@ -167,7 +167,7 @@ public class Robot extends TimedRobot{
 		SmartDashboard.putBoolean("CubeCenter", Robot.cubeIntakeSubsystem.cubeDetectIn());
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		//System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
-		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance));
+		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance), udp.getValue(Vars.Cube.Double.Rotation),udp.getValue(Vars.Cube.Double.Closest));
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
@@ -230,7 +230,7 @@ public class Robot extends TimedRobot{
 		SmartDashboard.putNumber("L Velocity", Robot.driveTrainSubsystem.getLVelocity());
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
-		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance));
+		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance), udp.getValue(Vars.Cube.Double.Rotation),udp.getValue(Vars.Cube.Double.Closest));
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
@@ -270,7 +270,7 @@ public class Robot extends TimedRobot{
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
-		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance));
+		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance), udp.getValue(Vars.Cube.Double.Rotation),udp.getValue(Vars.Cube.Double.Closest));
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
 	}
