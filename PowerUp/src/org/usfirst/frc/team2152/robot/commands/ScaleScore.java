@@ -31,10 +31,10 @@ public class ScaleScore extends CommandGroup {
     	requires(Robot.cubeMoveSubsystem);
     	requires(Robot.cubeIntakeSubsystem);
     	
-    	addSequential(new ElevatorMoveHigh(.65,10));
+    	addParallel(new ElevatorMoveHigh(.45,10));
     	addSequential(new MoveByEncoder(5, 5, .25, false, 2));
-    	addSequential(new CubeExpelSensor(1));
-    	addSequential(new MoveByEncoder(-7, -7, .25, false, 2));
+    	addSequential(new CubeFinesse(0.2));
+    	addParallel(new MoveByEncoder(-7, -7, .25, false, 2));
     	addSequential(new ElevatorMoveLow(.25,10));
 
     	

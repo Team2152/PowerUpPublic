@@ -6,6 +6,8 @@ import org.usfirst.frc.team2152.robot.commands.AutoStop;
 import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelTime;
 import org.usfirst.frc.team2152.robot.commands.CubeSetClose;
+import org.usfirst.frc.team2152.robot.commands.ResetDriveEncoders;
+import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -35,33 +37,36 @@ public class SwitchCenter extends CommandGroup {
         // arm.
     	requires(Robot.driveTrainSubsystem);
     	requires(Robot.cubeIntakeSubsystem);
-    	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
+    	//Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
-    	
+    	addSequential(new ResetEncoders());
     	addSequential(new CubeSetClose());
     	addSequential(new ClearDriveBackLash());
-		//addSequential(new ResetDriveEncoders());
     	if (switchPosition.equals("Left")){
     		
     		// Navigate to left switch plate
         	addSequential(new AutoRamp(.4, .15, 1, 70));
         	addSequential(new AutoRamp(.4, -.2, 1, 75));
+    		addSequential(new AutoRamp(.4, 0, 1, 5));
         	addSequential(new AutoStop());
         	
     		// Cube Delivery
     		addSequential(new CubeExpelTime(.75,1));
-    		
+        	addSequential(new CubeSetClose());
+
     	} else if (switchPosition.equals("Right")){
     		
     		// Navigate to right switch plate
     		addSequential(new AutoRamp(.4, -.15, 1, 55));
-    		addSequential(new AutoRamp(.4, 0, 1, 25));
         	addSequential(new AutoRamp(.4, .2, 1, 55));
+    		addSequential(new AutoRamp(.4, 0, 1, 12));
+
         	addSequential(new AutoStop());
     		
     		// Cube Delivery
 	    		
     		addSequential(new CubeExpelTime(.75,1));
+        	addSequential(new CubeSetClose());
     	
     	} else {
     		// Only Cross Baseline
@@ -71,5 +76,6 @@ public class SwitchCenter extends CommandGroup {
     		//addSequential(new AutoRamp(0, .25, 1, 30, .75));
 
     	}
+
     }
 }

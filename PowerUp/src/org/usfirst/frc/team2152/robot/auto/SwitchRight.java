@@ -35,7 +35,7 @@ public class SwitchRight extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	
-		addSequential(new ClearDriveBackLash());
+		//addSequential(new ClearDriveBackLash());
 
     	if (switchPosition.equals("Left")){
     		
@@ -72,7 +72,7 @@ public class SwitchRight extends CommandGroup {
     			
         	//Cube Delivery
     			
-    			addSequential(new CubeExpelSensor(1));
+    			//addSequential(new CubeExpelSensor(1));
 
 
     	} else {

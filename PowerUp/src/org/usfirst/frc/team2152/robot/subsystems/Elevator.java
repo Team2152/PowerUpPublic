@@ -34,7 +34,7 @@ public class Elevator extends Subsystem {
 		elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		elevatorTalon.setSensorPhase(false);
 		elevatorTalon.setNeutralMode(NeutralMode.Brake);
-		elevatorTalon.configOpenloopRamp(0.75, 10);
+		elevatorTalon.configOpenloopRamp(0.9, 10);
 		elevatorTalon.configNominalOutputForward(0, 0);
 		elevatorTalon.configNominalOutputReverse(0, 0);
 		elevatorTalon.configPeakOutputForward(1, 0);

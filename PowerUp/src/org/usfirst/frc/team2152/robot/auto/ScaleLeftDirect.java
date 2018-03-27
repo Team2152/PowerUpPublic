@@ -3,6 +3,10 @@ package org.usfirst.frc.team2152.robot.auto;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
 import org.usfirst.frc.team2152.robot.commands.AutoStop;
+import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
+import org.usfirst.frc.team2152.robot.commands.CubeExpelTime;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
+import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
 import org.usfirst.frc.team2152.robot.commands.ScaleScore;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -37,41 +41,24 @@ public class ScaleLeftDirect extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
     	
-		//addSequential(new ClearDriveBackLash());
+		addSequential(new ClearDriveBackLash());
 
     	if (scalePosition.equals("Left")){
     		// Navigate to left scale plate
-    		
-    		addSequential(new AutoRamp(.4, 0, 1, 200));
-    		addSequential(new AutoRamp(.4, .4, 1, 30));
+			addSequential(new MoveByEncoder(175, 175, 0.4, false));
+        	addSequential(new AutoStop());
+			addSequential(new ElevatorMoveHigh(1, 3));
+			addSequential(new AutoRamp(.3, -0.12, 1, 60));
+        	addSequential(new AutoStop());
+			addSequential(new CubeExpelTime(1, 0.85));
 
-    		addSequential(new AutoStop());
-    		addSequential(new ScaleScore());
-    		
-    		
-    		
-    		
-//    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//    		addSequential(new PreCannedTurn(-45,false));
-//    		addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//    		addSequential(new PreCannedTurn(45,false));
-//    		addSequential(new MoveByEncoder(252,252,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//    		addSequential(new PreCannedTurn(90,false));
-//    		addSequential(new MoveByEncoder(20,20,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//    		
     		// Cube Delivery
     	} else if (scalePosition.equals("Right")){
-    		addSequential(new AutoRamp(.75, 0, 1, 100));
+    		addSequential(new AutoRamp(.5, 0, 1, 100));
     		addSequential(new AutoStop());
     		
-    		// Only cross baseline
-//    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//        	addSequential(new PreCannedTurn(-45,false));
-//        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-//        	addSequential(new PreCannedTurn(45,false));
-//        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else {
-    		addSequential(new AutoRamp(.75, 0, 1, 100));
+    		addSequential(new AutoRamp(.5, 0, 1, 100));
     		addSequential(new AutoStop());
     		
 //    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));

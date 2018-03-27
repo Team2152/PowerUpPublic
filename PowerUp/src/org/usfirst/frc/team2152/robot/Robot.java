@@ -45,6 +45,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the TimedRobot
@@ -52,7 +53,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot{
+public class Robot extends TimedRobot {
 	public static final OdroidsCameraSettings cameras = new OdroidsCameraSettings();
 	public static OI m_oi;
 	public static Log m_logger;
@@ -70,11 +71,10 @@ public class Robot extends TimedRobot{
 	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
 
 	public static final Elevator elevatorSubsystem = new Elevator();
-	
-	public static TimeSyncSystem timeSync = new TimeSyncSystem(
-			RobotMap.UDP_SYNC_CONF_PORT_R, RobotMap.UDP_SYNC_TIME_PORT_R);
-	public static EncoderSendSystem encoderSendSystem = new EncoderSendSystem(
-			RobotMap.UDP_ENCODER_SEND_PORT_R, 20);
+
+	public static TimeSyncSystem timeSync = new TimeSyncSystem(RobotMap.UDP_SYNC_CONF_PORT_R,
+			RobotMap.UDP_SYNC_TIME_PORT_R);
+	public static EncoderSendSystem encoderSendSystem = new EncoderSendSystem(RobotMap.UDP_ENCODER_SEND_PORT_R, 20);
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -87,24 +87,22 @@ public class Robot extends TimedRobot{
 	public void robotInit() {
 		m_oi = new OI();
 		m_logger = new Log(true);
-		
+
 		try {
-			timeReceiver.setListener((data) -> { 
-				if(data[0] == 3) {
+			timeReceiver.setListener((data) -> {
+				if (data[0] == 3) {
 					timeSync.startTimeSync(data[1]);
 				}
 			});
 			timeReceiver.start();
 			encoderSendSystem.start();
-			
+
 			udpReceiver.setListener(udp);
 			udpReceiver.start();
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		cameras.start();
 
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -129,17 +127,16 @@ public class Robot extends TimedRobot{
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 
-
-		
 		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();
-		//POSITION = SmartDashboard.getString("Position", "");
+		// POSITION = SmartDashboard.getString("Position", "");
 
 		cameras.setToDisabledMode();
-		
-		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(), Robot.elevatorSubsystem.getElevatorMinHeight());
-		
-		//Robot.driveTrainSubsystem.setBreakMode(true);
+
+		powerUpDashboard.putElevatorStatus(Robot.elevatorSubsystem.getElevatorMaxHeight(),
+				Robot.elevatorSubsystem.getElevatorMinHeight());
+
+		// Robot.driveTrainSubsystem.setBreakMode(true);
 	}
 
 	/**
@@ -152,13 +149,14 @@ public class Robot extends TimedRobot{
 		Robot.driveTrainSubsystem.setBreakMode(false);
 		cameras.setToDisabledMode();
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		//Robot.driveTrainSubsystem.setBreakMode(false);
+		// Robot.driveTrainSubsystem.setBreakMode(false);
 
 	}
 
 	@Override
 	public void disabledPeriodic() {
-		//SmartDashboard.putBoolean("Bump", Robot.navxSubsystem.detectCollision());
+		// SmartDashboard.putBoolean("Bump",
+		// Robot.navxSubsystem.detectCollision());
 		SmartDashboard.putBoolean("ELE MAX", Robot.elevatorSubsystem.getElevatorMaxHeight());
 		SmartDashboard.putBoolean("LowerArm", Robot.cubeMoveSubsystem.isLowPosition());
 		SmartDashboard.putBoolean("HighArm", Robot.cubeMoveSubsystem.isHighPosition());
@@ -166,13 +164,14 @@ public class Robot extends TimedRobot{
 		SmartDashboard.putBoolean("CubeRight", Robot.cubeIntakeSubsystem.cubeDetectOutRight());
 		SmartDashboard.putBoolean("CubeCenter", Robot.cubeIntakeSubsystem.cubeDetectIn());
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		//System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
-		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance), udp.getValue(Vars.Cube.Double.Rotation),udp.getValue(Vars.Cube.Double.Closest));
+		// System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
+		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
+				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
 		cameras.setToDisabledMode();
-		
+
 	}
 
 	/**
@@ -189,9 +188,9 @@ public class Robot extends TimedRobot{
 	 */
 	@Override
 	public void autonomousInit() {
-		//Robot.driveTrainSubsystem.setBreakMode(true);
+		// Robot.driveTrainSubsystem.setBreakMode(true);
 		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		//cameras.startRecording();
+		// cameras.startRecording();
 
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Left", new BaselineLeft());
@@ -207,16 +206,16 @@ public class Robot extends TimedRobot{
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		Robot.driveTrainSubsystem.setBreakMode(false);
-		
+
 		// Plate assignment used to determine auto routine
-		//powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		// powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		m_autonomousCommand = m_chooser.getSelected();
 		cameras.sendGameData("Plate:" + PLATE_ASSIGNMENT);
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
-		
+
 		cameras.setToAutoMode();
 
 	}
@@ -230,10 +229,12 @@ public class Robot extends TimedRobot{
 		SmartDashboard.putNumber("L Velocity", Robot.driveTrainSubsystem.getLVelocity());
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
-		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance), udp.getValue(Vars.Cube.Double.Rotation),udp.getValue(Vars.Cube.Double.Closest));
+		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
+				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
-		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(),
+				Robot.cubeMoveSubsystem.isLowPosition());
 	}
 
 	@Override
@@ -249,7 +250,7 @@ public class Robot extends TimedRobot{
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
-		//powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
+		// powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 	}
 
 	/**
@@ -269,10 +270,13 @@ public class Robot extends TimedRobot{
 		SmartDashboard.putBoolean("CubeCenter", Robot.cubeIntakeSubsystem.cubeDetectIn());
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
 		SmartDashboard.putNumber("Navx Angle", Robot.navxSubsystem.getAngle());
-		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),Robot.driveTrainSubsystem.getRSensorPosition());
-		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance), udp.getValue(Vars.Cube.Double.Rotation),udp.getValue(Vars.Cube.Double.Closest));
+		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
+				Robot.driveTrainSubsystem.getRSensorPosition());
+		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
+				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
 		Scheduler.getInstance().run();
-		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(), Robot.cubeMoveSubsystem.isLowPosition());
+		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(),
+				Robot.cubeMoveSubsystem.isLowPosition());
 	}
 
 	/**
