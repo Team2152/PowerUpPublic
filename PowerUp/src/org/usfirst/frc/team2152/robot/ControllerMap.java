@@ -50,14 +50,16 @@ public class ControllerMap {
 	public static int elevatorMoveLow = 1; // OI.POV_180;
 	
 	// Climber 
-	public static int climberMoveOperator = 1;
+	public static int climberMoveUPOperator = 1;
+	public static int climberMoveLOWOperator = 1;
+
 
 	public static void setControllers(Joystick driver, Joystick operator) {
 
 		expelCubeOperator = OI.buttonXid;
 
 		acquireCubeDriver = OI.buttonBumpLid;
-		acquireCubeOperator = OI.buttonBumpLid;
+		acquireCubeOperator = OI.buttonRClickid;
 
 		raiseCubeDriver = OI.buttonYid;
 		raiseCubeOperator = OI.buttonAid;
@@ -102,7 +104,9 @@ public class ControllerMap {
 		
 		// -----Climber-----
 		climberMoveJoystick = operator;
-		climberMoveOperator = OI.buttonBumpRid;
+		climberMoveUPOperator = OI.buttonBumpRid;
+		climberMoveLOWOperator = OI.buttonBumpLid;
+
 	}
 
 }

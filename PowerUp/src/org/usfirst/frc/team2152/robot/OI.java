@@ -141,7 +141,6 @@ public class OI {
 	private POV dPOV315;
 
 	private SharedCommand expelCube;
-	private SharedCommand acquireCube;
 	private SharedCommand raiseCube;
 	private SharedCommand clampCube;
 	private SharedCommand lowerCube;
@@ -202,8 +201,6 @@ public class OI {
 		try {
 			expelCube = new SharedCommand(driverXbox, ControllerMap.expelCubeDriver, false, operatorXbox,
 					ControllerMap.expelCubeOperator, false);
-			acquireCube = new SharedCommand(driverXbox, ControllerMap.acquireCubeDriver, false, operatorXbox,
-					ControllerMap.acquireCubeOperator, false);
 			raiseCube = new SharedCommand(driverXbox, ControllerMap.raiseCubeDriver, false, operatorXbox,
 					ControllerMap.raiseCubeOperator, false);
 			clampCube = new SharedCommand(driverXbox, ControllerMap.clampCubeDriver, false, operatorXbox,
@@ -223,18 +220,20 @@ public class OI {
 	public void setupOperatorButtons() {
 		oPOV0.whenReleased(new ElevatorMoveHigh(0.75, 10));
 		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
-		oButtonBumpR.whenPressed(new ClimberMove(0.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveOperator));
+		oButtonBumpR.whenPressed(new ClimberMove(-1, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveUPOperator));
+		oButtonBumpL.whenPressed(new ClimberMove(.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveLOWOperator));
+
 	}
 
 	public void setupDriverXboxButtons() {
 		dButtonStart.whenReleased(new ElevatorMoveTo(50, 0.5));
 		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 2, 0.25, 4, 15, 0, 27, 5));
+		dButtonBumpL.whenReleased(new AcquireCube());
 	}
 
 	public void setupSharedCommands() {
 		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,
 				operatorXbox, driverXbox));
-		acquireCube.whenReleased(new AcquireCube());
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());
 		lowerCube.whenReleased(new AutoCubeMoveLow());

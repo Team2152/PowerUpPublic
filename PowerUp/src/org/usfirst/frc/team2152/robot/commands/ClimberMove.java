@@ -31,7 +31,7 @@ public class ClimberMove extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(joystick.getRawButton(buttonID)){
+    	if(!joystick.getRawButton(buttonID)){
     		return true;
     	} else {
         return false;
