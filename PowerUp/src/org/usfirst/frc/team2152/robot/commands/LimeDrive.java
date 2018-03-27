@@ -30,7 +30,7 @@ public class LimeDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveTrainSubsystem.setRampRate(Robot.elevatorSubsystem.getDriveTrainRampRate(), 0);
+		//Robot.driveTrainSubsystem.setRampRate(Robot.elevatorSubsystem.getDriveTrainRampRate(), 0);
 		double outputThrottle = 0;
 		double outputTurn = 0;
 		double inputThrottle = ControllerMap.limeDriveThrottle.getRawAxis(1);
@@ -49,7 +49,7 @@ public class LimeDrive extends Command {
 
 		if (Math.abs(outputThrottle) <= 0.1) {
 			Robot.driveTrainSubsystem.arcadeDrive(0.0,
-					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.2);
+					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.35);
 		} else {
 			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle), -(outputThrottle * outputTurn));
 		}

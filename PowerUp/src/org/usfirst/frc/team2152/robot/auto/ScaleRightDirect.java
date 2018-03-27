@@ -46,7 +46,7 @@ public class ScaleRightDirect extends CommandGroup {
 
 		String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
 
-		addSequential(new ClearDriveBackLash());
+		//addSequential(new ClearDriveBackLash());
 		addSequential(new ResetEncoders());
 		addSequential(new CubeSetClose());
 		if (scalePosition.equals("Left")) {

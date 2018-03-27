@@ -220,7 +220,7 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-		oPOV0.whenReleased(new ElevatorMoveHigh(0.5, 10));
+		oPOV0.whenReleased(new ElevatorMoveHigh(0.75, 10));
 		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
 	}
 
