@@ -24,6 +24,7 @@ public class LimeDrive extends Command {
 	protected void initialize() {
 		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE,
 				PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+		Robot.driveTrainSubsystem.setBreakMode(true);
 
 	}
 

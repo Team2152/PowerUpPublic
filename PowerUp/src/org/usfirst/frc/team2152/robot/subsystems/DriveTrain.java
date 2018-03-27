@@ -128,6 +128,7 @@ public class DriveTrain extends Subsystem{
 		talonPIDL = new TalonPIDSource(TalonPIDSource.LEFT_TALON);
 		
 		networkPIDSourceDistance = new NetworkPIDSourceDistance();
+		networkPIDSourceXAngle = new NetworkPIDSourceXAngle();
 		right1.getSelectedSensorVelocity(0);
 	}
 

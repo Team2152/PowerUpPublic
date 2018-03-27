@@ -226,7 +226,7 @@ public class OI {
 
 	public void setupDriverXboxButtons() {
 		dButtonStart.whenReleased(new ElevatorMoveTo(50, 0.5));
-		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 2, 0.25, 4, 10, 9, 25));
+		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 2, 0.25, 4, 15, 0, 27, 5));
 	}
 
 	public void setupSharedCommands() {

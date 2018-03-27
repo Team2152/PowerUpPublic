@@ -26,7 +26,7 @@ public class CubeAutoAcquire extends CommandGroup {
         // arm.
     	addSequential(new ElevatorMoveLow(0.25, 10));
     	addSequential(new AutoCubeMoveLow());
-    	addSequential(new NavigateToCube(0.75, 2, 2, 0.45, 4, 10, 9, 25));
+    	addSequential(new NavigateToCube(0.75, 2, 2, 0.45, 4, 10, 9, 25, 5));
 		addSequential(new CubeIntakeSensor(1));
 		//addSequential(new MoveByEncoder(-20, -20, 0.75, false));
 

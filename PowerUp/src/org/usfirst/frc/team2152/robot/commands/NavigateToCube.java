@@ -26,6 +26,8 @@ public class NavigateToCube extends Command implements PIDOutput {
 	double watchdogDistance;
 	double toleranceWait;
 	double theDistanceSetpoint = 14.5;
+	double timeOut;
+	double startDistance;
 	private boolean reachedVisionLimit = false;
 	private double visionLimit = 25;
 	private double encoderAdjustment;
@@ -53,7 +55,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 	 */
 	public NavigateToCube(double maxForwardSpeed, double headingTolerance, double distanceTolerance,
 			double maxTurnSpeed, double waitTime, double watchdogDistance, double encoderAdjustment,
-			double visionLimit) {
+			double visionLimit, double timeOut) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrainSubsystem);
@@ -67,6 +69,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 		this.watchdogDistance = watchdogDistance;
 		this.encoderAdjustment = encoderAdjustment;
 		this.visionLimit = visionLimit;
+		this.timeOut = timeOut;
 		// System.out.println(" NavigateToGear Constructor Initialized");
 
 		// LiveWindow.addActuator("Gear Distance", "Gear", gearDistance);
@@ -76,6 +79,8 @@ public class NavigateToCube extends Command implements PIDOutput {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		Robot.driveTrainSubsystem.setRampRate(0, 100);
+		Robot.driveTrainSubsystem.setBreakMode(true);
 		reachedVisionLimit = false;
 		//SmartDashboard.putBoolean("Watchdog Exit Gear Auto", false);
 		//Robot.steamworksDashboard.putWatchdogExitGearAuto(false);
@@ -100,6 +105,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 		cubeHeading.setOutputRange(-maxTurnSpeed, maxTurnSpeed);
 		cubeDistance.setSetpoint(theDistanceSetpoint);
 		cubeHeading.setSetpoint(0);
+		startDistance = Robot.driveTrainSubsystem.getNetDistancePID(PIDSourceType.kDisplacement).pidGet();
 		cubeHeading.enable();
 		cubeDistance.enable();
 
@@ -107,32 +113,46 @@ public class NavigateToCube extends Command implements PIDOutput {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Robot.udp.getValue(Vars.Cube.Double.Distance) <= visionLimit) {
-			if (reachedVisionLimit == false) {
-				cubeDistance.disable();
-				cubeHeading.disable();
-				Robot.driveTrainSubsystem.resetEncoders(true, true);
-				reachedVisionLimit = true;
-			}
-			// System.out.println(Robot.driveTrainSubsystem.getAverageDistance());
-			Robot.driveTrainSubsystem.arcadeDrive(-0.35, 0);
-		} else {
-			Robot.driveTrainSubsystem.arcadeDrive(cubeDistance.get(), -cubeHeading.get());
-		}
+		System.out.println("Navigate to Cube Error " + cubeDistance.getError());
+		//		if (Robot.udp.getValue(Vars.Cube.Double.Distance) <= visionLimit) {
+		//			if (reachedVisionLimit == false) {
+		//				cubeDistance.disable();
+		//				cubeHeading.disable();
+		//				Robot.driveTrainSubsystem.resetEncoders(true, true);
+		//				reachedVisionLimit = true;
+		//			}
+		//			// System.out.println(Robot.driveTrainSubsystem.getAverageDistance());
+		//			Robot.driveTrainSubsystem.arcadeDrive(-0.35, 0);
+		//		} else {
+		Robot.driveTrainSubsystem.arcadeDrive(cubeDistance.get(), cubeHeading.get());
+		//}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 
-		boolean bWatchdogExit = (watchdogTimer.get() > toleranceWait);
+		//		boolean bWatchdogExit = (watchdogTimer.get() > toleranceWait);
+		//
+		//		double averageDistance = Robot.driveTrainSubsystem.getAverageDistance();
+		//		if (bWatchdogExit || (reachedVisionLimit && averageDistance >= encoderAdjustment)) {
+		//			if (bWatchdogExit) {
+		//			//	Robot.steamworksDashboard.putWatchdogExitGearAuto(true);
+		//			}
+		//			return true;
+		//		} else {
+		//			return false;
+		//		}
 
-		double averageDistance = Robot.driveTrainSubsystem.getAverageDistance();
-		if (bWatchdogExit || (reachedVisionLimit && averageDistance >= encoderAdjustment)) {
-			if (bWatchdogExit) {
-			//	Robot.steamworksDashboard.putWatchdogExitGearAuto(true);
-			}
+		if (Math.abs(Robot.driveTrainSubsystem.getNetDistancePID(PIDSourceType.kDisplacement).pidGet()) < distanceTolerance) { 
+			System.out.println("Navigate To Cube Exit On Displacement");
 			return true;
-		} else {
+		}  else if(cubeDistance.onTarget()){
+			System.out.println("Navigate To Cube Exit On Target");
+			return true;
+		} else if (watchdogTimer.get() >= timeOut) {
+			System.out.println("Navigate To Cube Exit TimeOut");
+			return true;
+		}else {
 			return false;
 		}
 	}
@@ -148,6 +168,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		Robot.driveTrainSubsystem.tankDrive(0, 0);
+		Robot.driveTrainSubsystem.setRampRate(0, 0);
 		cubeHeading.disable();
 		cubeDistance.disable();
 	}
