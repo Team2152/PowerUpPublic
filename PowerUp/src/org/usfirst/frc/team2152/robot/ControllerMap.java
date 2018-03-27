@@ -14,48 +14,48 @@ public class ControllerMap {
 	public static Joystick cubeIntakeJoy2 = null; // Robot.m_oi.driverXbox;
 	public static Joystick climberMoveJoystick = null;
 
-	public static int expelCubeDriver = 1; // OI.buttonBumpRid;
-	public static int expelCubeOperator = 1; // OI.buttonXid;
+	public static int expelCubeDriver = -1; // OI.buttonBumpRid;
+	public static int expelCubeOperator = -1; // OI.buttonXid;
 
-	public static int acquireCubeDriver = 1; // OI.buttonBumpLid;
-	public static int acquireCubeOperator = 1; // OI.buttonBumpLid;
+	public static int acquireCubeDriver = -1; // OI.buttonBumpLid;
+	public static int acquireCubeOperator = -1; // OI.buttonBumpLid;
 
-	public static int raiseCubeDriver = 1; // OI.buttonYid;
-	public static int raiseCubeOperator = 1; // OI.buttonAid;
+	public static int raiseCubeDriver = -1; // OI.buttonYid;
+	public static int raiseCubeOperator = -1; // OI.buttonAid;
 
-	public static int clampCubeDriver = 1; // OI.buttonXid;
-	public static int clampCubeOperator = 1; // OI.buttonBid;
+	public static int clampCubeDriver = -1; // OI.buttonXid;
+	public static int clampCubeOperator = -1; // OI.buttonBid;
 
-	public static int lowerCubeDriver = 1; // OI.buttonAid;
-	public static int lowerCubeOperator = 1; // OI.buttonYid;
+	public static int lowerCubeDriver = -1; // OI.buttonAid;
+	public static int lowerCubeOperator = -1; // OI.buttonYid;
 
-	public static int cubeFinesseDriver = 1; // OI.POV_0;
-	public static int cubeFinesseOperator = 1; // OI.buttonStartid;
+	public static int cubeFinesseDriver = -1; // OI.POV_0;
+	public static int cubeFinesseOperator = -1; // OI.buttonStartid;
 	
 	
 	
-	public static int acquireCubeExchangeDriver = 1; // OI.POV_180;
-	public static int acquireCubeExchangeOperator = 1; // OI.buttonBackid;
-	public static int cubeIntakeIntakeAxisDriver = 1; // 3;
-	public static int cubeIntakeIntakeAxisOperator = 1; // 3;
+	public static int acquireCubeExchangeDriver = -1; // OI.POV_180;
+	public static int acquireCubeExchangeOperator = -1; // OI.buttonBackid;
+	public static int cubeIntakeIntakeAxisDriver = -1; // 3;
+	public static int cubeIntakeIntakeAxisOperator = -1; // 3;
 
-	public static int cubeIntakeExpelAxisDriver = 1; // 2;
-	public static int cubeIntakeExpelAxisOperator = 1; // 3;
-	public static int elevatorMoveAxis = 1; // 1;
+	public static int cubeIntakeExpelAxisDriver = -1; // 2;
+	public static int cubeIntakeExpelAxisOperator = -1; // 3;
+	public static int elevatorMoveAxis = -1; // 1;
 	
 	
 
 	// Operator
-	public static int elevatorMoveHigh = 1; // OI.POV_0;
-	public static int elevatorMoveLow = 1; // OI.POV_180;
+	public static int elevatorMoveHigh = -1; // OI.POV_0;
+	public static int elevatorMoveLow = -1; // OI.POV_180;
 	
 	// Climber 
-	public static int climberMoveUPOperator = 1;
-	public static int climberMoveLOWOperator = 1;
+	public static int climberMoveUPOperator = -1;
+	public static int climberMoveLOWOperator = -1;
 
 
 	public static void setControllers(Joystick driver, Joystick operator) {
-
+		expelCubeDriver = OI.buttonBid; 
 		expelCubeOperator = OI.buttonXid;
 
 		acquireCubeDriver = OI.buttonBumpLid;
