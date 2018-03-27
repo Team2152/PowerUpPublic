@@ -20,6 +20,7 @@ public class Climber extends Subsystem {
 	public void setSpeed(double speed){
 		elevatorTalon.set(speed);
 	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
