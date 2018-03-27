@@ -29,6 +29,9 @@ public class RobotMap {
 
 	// Elevator
 	public static final int ELEVATOR_MOVE_9_CAN_ID   = 9;
+	
+	// Climber
+	public static final int CLIMBER_MOVE_10_CAN_ID   = 10;
 
 	// PWM channel
 	public static final int CUBE_INTAKE_RIGHT_PWM_0  = 0;

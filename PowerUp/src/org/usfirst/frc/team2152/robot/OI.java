@@ -11,6 +11,7 @@ import org.usfirst.frc.team2152.robot.commands.AcquireCube;
 import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchange;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
+import org.usfirst.frc.team2152.robot.commands.ClimberMove;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
 import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
 import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensor;
@@ -222,6 +223,7 @@ public class OI {
 	public void setupOperatorButtons() {
 		oPOV0.whenReleased(new ElevatorMoveHigh(0.5, 10));
 		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
+		oButtonBumpR.whenPressed(new ClimberMove(0.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveOperator));
 	}
 
 	public void setupDriverXboxButtons() {

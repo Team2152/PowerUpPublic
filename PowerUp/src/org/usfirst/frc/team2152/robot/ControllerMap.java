@@ -12,6 +12,7 @@ public class ControllerMap {
 	public static Joystick limeDriveAssistTurn = null;// Robot.m_oi.operatorXbox;
 	public static Joystick cubeIntakeJoy1 = null; // Robot.m_oi.driverXbox;
 	public static Joystick cubeIntakeJoy2 = null; // Robot.m_oi.driverXbox;
+	public static Joystick climberMoveJoystick = null;
 
 	public static int expelCubeDriver = 1; // OI.buttonBumpRid;
 	public static int expelCubeOperator = 1; // OI.buttonXid;
@@ -30,7 +31,9 @@ public class ControllerMap {
 
 	public static int cubeFinesseDriver = 1; // OI.POV_0;
 	public static int cubeFinesseOperator = 1; // OI.buttonStartid;
-
+	
+	
+	
 	public static int acquireCubeExchangeDriver = 1; // OI.POV_180;
 	public static int acquireCubeExchangeOperator = 1; // OI.buttonBackid;
 	public static int cubeIntakeIntakeAxisDriver = 1; // 3;
@@ -39,10 +42,15 @@ public class ControllerMap {
 	public static int cubeIntakeExpelAxisDriver = 1; // 2;
 	public static int cubeIntakeExpelAxisOperator = 1; // 3;
 	public static int elevatorMoveAxis = 1; // 1;
+	
+	
 
 	// Operator
 	public static int elevatorMoveHigh = 1; // OI.POV_0;
 	public static int elevatorMoveLow = 1; // OI.POV_180;
+	
+	// Climber 
+	public static int climberMoveOperator = 1;
 
 	public static void setControllers(Joystick driver, Joystick operator) {
 
@@ -65,6 +73,8 @@ public class ControllerMap {
 
 		acquireCubeExchangeDriver = OI.POV_180;
 		acquireCubeExchangeOperator = OI.buttonBackid;
+		
+		
 
 		// -----Drive Train-----
 		limeDriveThrottle = driver;// Robot.m_oi.driverXbox;
@@ -89,7 +99,10 @@ public class ControllerMap {
 		// Operator
 		elevatorMoveHigh = OI.POV_0;
 		elevatorMoveLow = OI.POV_180;
-
+		
+		// -----Climber-----
+		climberMoveJoystick = operator;
+		climberMoveOperator = OI.buttonBumpRid;
 	}
 
 }

@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2152.robot;
 
+import org.usfirst.frc.team2152.robot.subsystems.Climber;
 import org.usfirst.frc.team2152.robot.subsystems.CubeIntake;
 import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
@@ -64,6 +65,7 @@ public class Robot extends TimedRobot {
 	public static final CubeIntake cubeIntakeSubsystem = new CubeIntake();
 	public static final CubeMove cubeMoveSubsystem = new CubeMove();
 	public static final DriveTrain driveTrainSubsystem = new DriveTrain();
+	public static final Climber climberSubsystem = new Climber();
 
 	public static final LED ledSubsystem = new LED();
 	public static final UDPHandler udp = new UDPHandler();
