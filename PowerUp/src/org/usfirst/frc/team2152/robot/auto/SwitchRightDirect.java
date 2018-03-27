@@ -36,7 +36,7 @@ public class SwitchRightDirect extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String switchPosition = Robot.powerUpDashboard.getPlateAssignment("Switch Plates");
     	
-		addSequential(new ClearDriveBackLash());
+		//addSequential(new ClearDriveBackLash());
 
     	if (switchPosition.equals("Left")){
     		//Only Cross Baseline

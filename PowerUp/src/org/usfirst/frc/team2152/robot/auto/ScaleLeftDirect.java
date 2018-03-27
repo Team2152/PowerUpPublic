@@ -41,7 +41,7 @@ public class ScaleLeftDirect extends CommandGroup {
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
     	
-		addSequential(new ClearDriveBackLash());
+		//addSequential(new ClearDriveBackLash());
 
     	if (scalePosition.equals("Left")){
     		// Navigate to left scale plate

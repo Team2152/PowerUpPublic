@@ -148,7 +148,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		Robot.driveTrainSubsystem.setBreakMode(false);
+		Robot.driveTrainSubsystem.setBreakMode(true);
 		cameras.setToDisabledMode();
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		// Robot.driveTrainSubsystem.setBreakMode(false);
