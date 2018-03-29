@@ -27,6 +27,7 @@ import org.usfirst.frc.team2152.robot.commands.NavigateToCube;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
+import org.usfirst.frc.team2152.robot.commands.RunAutoInTele;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 import org.usfirst.frc.team2152.robot.utilities.SharedCommand;
 
@@ -222,7 +223,7 @@ public class OI {
 		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
 		oButtonBumpR.whenPressed(new ClimberMove(-1, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveUPOperator));
 		oButtonBumpL.whenPressed(new ClimberMove(.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveLOWOperator));
-
+		oPOV270.whenReleased(new RunAutoInTele());
 	}
 
 	public void setupDriverXboxButtons() {
