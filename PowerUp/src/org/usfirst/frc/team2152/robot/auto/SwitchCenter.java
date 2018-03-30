@@ -45,9 +45,9 @@ public class SwitchCenter extends CommandGroup {
     	if (switchPosition.equals("Left")){
     		
     		// Navigate to left switch plate
-        	addSequential(new AutoRamp(.4, .15, 1, 70));
-        	addSequential(new AutoRamp(.4, -.2, 1, 75));
-    		addSequential(new AutoRamp(.4, 0, 1, 5));
+        	addSequential(new AutoRamp(.4, .15, 1, 65));
+        	addSequential(new AutoRamp(.4, -.2, 1, 70));
+    		addSequential(new AutoRamp(.4, 0, 1, 10));
         	addSequential(new AutoStop());
         	
     		// Cube Delivery
@@ -59,8 +59,7 @@ public class SwitchCenter extends CommandGroup {
     		// Navigate to right switch plate
     		addSequential(new AutoRamp(.4, -.15, 1, 55));
         	addSequential(new AutoRamp(.4, .2, 1, 55));
-    		addSequential(new AutoRamp(.4, 0, 1, 12));
-
+    		addSequential(new AutoRamp(.4, 0, 1, 17));
         	addSequential(new AutoStop());
     		
     		// Cube Delivery
@@ -71,9 +70,10 @@ public class SwitchCenter extends CommandGroup {
     	} else {
     		// Only Cross Baseline
     		
-    		addSequential(new AutoRamp(.75, -.25, 1, 100));
-    		addSequential(new AutoStop());
-    		//addSequential(new AutoRamp(0, .25, 1, 30, .75));
+    		addSequential(new AutoRamp(.4, -.15, 1, 55));
+        	addSequential(new AutoRamp(.4, .2, 1, 55));
+    		addSequential(new AutoRamp(.4, 0, 1, 17));
+        	addSequential(new AutoStop());
 
     	}
 

@@ -128,4 +128,5 @@ public class CubeIntake extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 		setDefaultCommand(new CubeIntakeMove(1, 1, ControllerMap.cubeIntakeJoy1, ControllerMap.cubeIntakeJoy2));
 	}
+
 }
