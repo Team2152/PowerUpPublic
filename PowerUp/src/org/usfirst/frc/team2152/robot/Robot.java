@@ -207,6 +207,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
+		
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		Robot.driveTrainSubsystem.setBreakMode(false);
 

@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -10,6 +11,8 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CubeMoveHigh extends Command {
 
 	private double cubeRaiseSpeed;
+	private Timer watchdog;
+	
 	public CubeMoveHigh(double cubeRaiseSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -19,7 +22,9 @@ public class CubeMoveHigh extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-
+		watchdog = new Timer();
+		watchdog.reset();
+		watchdog.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -31,7 +36,7 @@ public class CubeMoveHigh extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Robot.cubeMoveSubsystem.isHighPosition() == true) {
+		if (Robot.cubeMoveSubsystem.isHighPosition() == true || watchdog.get()>= 1) {
 			return true;
 		} else {
 			return false;

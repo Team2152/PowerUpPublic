@@ -19,11 +19,14 @@ public class ElevatorMoveHigh extends Command {
         // eg. requires(chassis);
     	requires(Robot.elevatorSubsystem);
     	this.raiseSpeed = raiseSpeed;
+    	this.timeOut = timeOut;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	watchDog = new Timer();
+    	watchDog.reset();
+    	watchDog.start();
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -30,11 +30,13 @@ public class LimeDrive extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		//Robot.driveTrainSubsystem.setRampRate(Robot.elevatorSubsystem.getDriveTrainRampRate(), 0);
+		// Robot.driveTrainSubsystem.setRampRate(Robot.elevatorSubsystem.getDriveTrainRampRate(),
+		// 0);
 		double outputThrottle = 0;
 		double outputTurn = 0;
 		double inputThrottle = ControllerMap.limeDriveThrottle.getRawAxis(1);
 		double inputTurn = -ControllerMap.limeDriveTurn.getRawAxis(4);
+
 		// double inputThrottle = Robot.m_oi.driverXbox.getRawAxis(1);
 		// double inputTurn = -Robot.m_oi.driverXbox.getRawAxis(4);
 		outputThrottle = Math.pow(Math.abs(inputThrottle), PIDConstants.DRIVETRAIN_THROTTLE_EXPONET);
@@ -46,10 +48,14 @@ public class LimeDrive extends Command {
 		if (inputTurn < 0) {
 			outputTurn *= -1;
 		}
-
+		if (Robot.m_oi.driverXbox.getRawButton(9) == false) {
+			if (Robot.elevatorSubsystem.getEleInches() >= 36) {
+				outputThrottle *= 0.25;
+			}
+		}
 		if (Math.abs(outputThrottle) <= 0.1) {
 			Robot.driveTrainSubsystem.arcadeDrive(0.0,
-					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.35);
+					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.25);
 		} else {
 			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle), -(outputThrottle * outputTurn));
 		}

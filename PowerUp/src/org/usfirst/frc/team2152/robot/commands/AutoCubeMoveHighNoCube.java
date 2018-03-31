@@ -30,8 +30,8 @@ public class AutoCubeMoveHighNoCube extends CommandGroup {
 		requires(Robot.cubeIntakeSubsystem);
 		
     	System.out.println("USING NOCUBE GAINS");
-		addSequential(new CubeMoveHighByTime(.45, 0.75));
-		addSequential(new CubeMoveHighByTime(.35, 1));
-		addSequential(new CubeMoveHigh(.35));
+		addSequential(new CubeMoveHighByTime(.725, 0.475));
+		addSequential(new CubeMoveHighByTime(.5, .6));
+		addSequential(new CubeMoveHigh(.375));
     }
 }

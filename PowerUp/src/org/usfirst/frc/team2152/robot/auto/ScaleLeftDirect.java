@@ -45,10 +45,10 @@ public class ScaleLeftDirect extends CommandGroup {
 
     	if (scalePosition.equals("Left")){
     		// Navigate to left scale plate
-			addSequential(new MoveByEncoder(175, 175, 0.4, false));
+			addSequential(new MoveByEncoder(195, 195, 0.4, false));
         	addSequential(new AutoStop());
 			addSequential(new ElevatorMoveHigh(1, 3));
-			addSequential(new AutoRamp(.3, -0.12, 1, 60));
+			addSequential(new AutoRamp(.3, -0.12, 1, 56));
         	addSequential(new AutoStop());
 			addSequential(new CubeExpelTime(1, 0.85));
 

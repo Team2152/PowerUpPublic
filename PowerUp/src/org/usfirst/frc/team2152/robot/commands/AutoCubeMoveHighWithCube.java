@@ -30,7 +30,7 @@ public class AutoCubeMoveHighWithCube extends CommandGroup {
 		requires(Robot.cubeIntakeSubsystem);
 		
     	System.out.println("USING CUBE IN GAINS");
-		addParallel(new CubeIntakeTime(0.25, 5.5));
+		addParallel(new CubeIntakeTime(0.35, 5.5));
 		addSequential(new CubeMoveHighByTime(1, 0.2));
 		addSequential(new CubeMoveHighByTime(.65, 0.2));
 		addSequential(new CubeMoveHigh(.4));

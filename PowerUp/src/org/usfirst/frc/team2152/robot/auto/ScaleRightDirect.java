@@ -53,7 +53,7 @@ public class ScaleRightDirect extends CommandGroup {
 			System.out.println("LEFT");
 
 			// Only Cross baseline
-			addSequential(new AutoRamp(.75, 0, 1, 100));
+			addSequential(new AutoRamp(.5, 0, 1, 100));
         	addSequential(new AutoStop());
 
 			// addSequential(new
@@ -61,10 +61,10 @@ public class ScaleRightDirect extends CommandGroup {
 		} else if (scalePosition.equals("Right")) {
 			System.out.println("RIGHT");
 			// Navigate to right side scale plate
-			addSequential(new MoveByEncoder(175, 175, 0.4, false));
+			addSequential(new MoveByEncoder(195, 195, 0.4, false));
         	addSequential(new AutoStop());
 			addSequential(new ElevatorMoveHigh(1, 3));
-			addSequential(new AutoRamp(.3, 0.12, 1, 60));
+			addSequential(new AutoRamp(.3, 0.12, 1, 56));
         	addSequential(new AutoStop());
 			addSequential(new CubeExpelTime(1, 0.85));
 			//addSequential(new ScaleScore());
@@ -72,7 +72,7 @@ public class ScaleRightDirect extends CommandGroup {
 			// Cube delivery
 
 		} else {
-			addSequential(new AutoRamp(.75, 0, 1, 100));
+			addSequential(new AutoRamp(.5, 0, 1, 100));
         	addSequential(new AutoStop());
 
 

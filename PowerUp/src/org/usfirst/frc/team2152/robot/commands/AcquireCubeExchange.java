@@ -28,8 +28,9 @@ public class AcquireCubeExchange extends CommandGroup {
         // arm.
     	Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
 		addSequential(new AutoCubeMoveLow());
+		//addSequential(new CubeIntakeSensorLiDAR(0.8));
 		addSequential(new CubeIntakeSensor(0.8));
-//		if (Robot.cubeIntakeSubsystem.cubeDetectIn() || Robot.cubeIntakeSubsystem.cubeDetectOutLeft()
+		//		if (Robot.cubeIntakeSubsystem.cubeDetectIn() || Robot.cubeIntakeSubsystem.cubeDetectOutLeft()
 //				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight()) {
 //			addSequential(new CubeIntakeCheck(0.5));
 //		}

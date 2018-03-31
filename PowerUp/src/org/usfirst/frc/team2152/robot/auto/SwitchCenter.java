@@ -47,7 +47,7 @@ public class SwitchCenter extends CommandGroup {
     		// Navigate to left switch plate
         	addSequential(new AutoRamp(.4, .15, 1, 65));
         	addSequential(new AutoRamp(.4, -.2, 1, 70));
-    		addSequential(new AutoRamp(.4, 0, 1, 10));
+    		addSequential(new AutoRamp(.4, 0, 1, 7));
         	addSequential(new AutoStop());
         	
     		// Cube Delivery

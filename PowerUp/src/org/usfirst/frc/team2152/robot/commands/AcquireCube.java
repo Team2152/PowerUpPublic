@@ -31,6 +31,7 @@ public class AcquireCube extends CommandGroup {
 		
 		addParallel(new CubeSetOpen());
 		addSequential(new AutoCubeMoveLow());
+		//addSequential(new CubeIntakeSensorLiDAR(0.8));
 		addSequential(new CubeIntakeSensor(0.8));
 		addSequential(new AutoCubeMoveHigh());
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn()) {

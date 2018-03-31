@@ -3,6 +3,7 @@ package org.usfirst.frc.team2152.robot.subsystems;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LimeDrive;
+import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceClosest;
 import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceDistance;
 import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceXAngle;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
@@ -53,6 +54,7 @@ public class DriveTrain extends Subsystem{
 	
 	private NetworkPIDSourceDistance networkPIDSourceDistance; 
 	private NetworkPIDSourceXAngle networkPIDSourceXAngle;
+	private NetworkPIDSourceClosest networkPIDClosest;
 
 	public DriveTrain() {
 
@@ -129,6 +131,8 @@ public class DriveTrain extends Subsystem{
 		
 		networkPIDSourceDistance = new NetworkPIDSourceDistance();
 		networkPIDSourceXAngle = new NetworkPIDSourceXAngle();
+		networkPIDClosest = new NetworkPIDSourceClosest();
+		
 		right1.getSelectedSensorVelocity(0);
 	}
 
@@ -424,6 +428,10 @@ public class DriveTrain extends Subsystem{
 	public PIDSource getNetXanglePID(PIDSourceType type) {
 		networkPIDSourceXAngle.setPIDSourceType(type);
 		return networkPIDSourceXAngle;
+	}
+	public PIDSource getClosestPID(PIDSourceType type) {
+		networkPIDClosest.setPIDSourceType(type);
+		return networkPIDClosest;
 	}
 
 	public void initDefaultCommand() {
