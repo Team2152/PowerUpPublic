@@ -8,26 +8,33 @@
 package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.AcquireCube;
+import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchange;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
+import org.usfirst.frc.team2152.robot.commands.ClimberMove;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
+import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
+import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensor;
 import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
+import org.usfirst.frc.team2152.robot.commands.ElevatorMoveTo;
 import org.usfirst.frc.team2152.robot.commands.LEDTest;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+import org.usfirst.frc.team2152.robot.commands.NavigateToCube;
 //import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
-import org.usfirst.frc.team2152.robot.commands.TestCommand;
-import org.usfirst.frc.team2152.robot.triggers.SharedCommand;
+import org.usfirst.frc.team2152.robot.commands.RunAutoInTele;
 import org.usfirst.frc.team2152.robot.utilities.POV;
+import org.usfirst.frc.team2152.robot.utilities.SharedCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -134,12 +141,12 @@ public class OI {
 	private POV dPOV270;
 	private POV dPOV315;
 
-	private SharedCommand cubeHigh;
 	private SharedCommand expelCube;
-	private SharedCommand acquireCube;
 	private SharedCommand raiseCube;
 	private SharedCommand clampCube;
 	private SharedCommand lowerCube;
+	private SharedCommand cubeFinesse;
+	private SharedCommand acquireCubeExchange;
 
 	public OI() {
 		// Setup driver joystick
@@ -162,7 +169,6 @@ public class OI {
 			dPOV225 = new POV(driverXbox, POV_225);
 			dPOV270 = new POV(driverXbox, POV_270);
 			dPOV315 = new POV(driverXbox, POV_315);
-			setupDriverXboxButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup driver joystick: " + e.toString());
 		}
@@ -186,23 +192,26 @@ public class OI {
 			oPOV225 = new POV(operatorXbox, POV_225);
 			oPOV270 = new POV(operatorXbox, POV_270);
 			oPOV315 = new POV(operatorXbox, POV_315);
-			setupOperatorButtons();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup operator joystick: " + e.toString());
 		}
+		ControllerMap.setControllers(driverXbox, operatorXbox);
+		setupOperatorButtons();
+		setupDriverXboxButtons();
 
 		try {
-			// cubeHigh = new SharedCommand(driverXbox, POV_180, operatorXbox,
-			// POV_180);
-			expelCube = new SharedCommand(driverXbox, buttonBumpRid, operatorXbox, buttonXid);
-			acquireCube = new SharedCommand(driverXbox, buttonBumpLid, operatorXbox, buttonStartid);
-			raiseCube = new SharedCommand(driverXbox, buttonYid, operatorXbox, buttonAid);
-			clampCube = new SharedCommand(driverXbox, buttonXid, operatorXbox, buttonBid);
-			lowerCube = new SharedCommand(driverXbox, buttonAid, operatorXbox, buttonYid);
-			//  NOTE 2/28/18 Currently, binding a shared command to A on any joystick causes the pov 0 (UP)
-			// to trigger the command on the same joystick. On the day that this note was written, we are
-			// not using any POVs, but if POV 0 triggers lower cube command on driver controller or raise cube command on 
-			// operator joystick , it is a knows issue
+			expelCube = new SharedCommand(driverXbox, ControllerMap.expelCubeDriver, false, operatorXbox,
+					ControllerMap.expelCubeOperator, false);
+			raiseCube = new SharedCommand(driverXbox, ControllerMap.raiseCubeDriver, false, operatorXbox,
+					ControllerMap.raiseCubeOperator, false);
+			clampCube = new SharedCommand(driverXbox, ControllerMap.clampCubeDriver, false, operatorXbox,
+					ControllerMap.clampCubeOperator, false);
+			lowerCube = new SharedCommand(driverXbox, ControllerMap.lowerCubeDriver, false, operatorXbox,
+					ControllerMap.lowerCubeOperator, false);
+			cubeFinesse = new SharedCommand(driverXbox, ControllerMap.cubeFinesseDriver, true, operatorXbox,
+					ControllerMap.cubeFinesseOperator, false);
+			acquireCubeExchange = new SharedCommand(driverXbox, ControllerMap.acquireCubeExchangeDriver, true,
+					operatorXbox, ControllerMap.acquireCubeExchangeOperator, false);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -210,21 +219,27 @@ public class OI {
 	}
 
 	public void setupOperatorButtons() {
-
+		oPOV0.whenReleased(new ElevatorMoveHigh(0.75, 10));
+		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
+		oButtonBumpR.whenPressed(new ClimberMove(-1, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveUPOperator));
+		oButtonBumpL.whenPressed(new ClimberMove(.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveLOWOperator));
+		oPOV270.whenReleased(new RunAutoInTele());
 	}
 
 	public void setupDriverXboxButtons() {
-
+		dButtonStart.whenReleased(new ElevatorMoveTo(50, 0.5));
+		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 2, 0.25, 4, 15, 0, 27, 5));
+		dButtonBumpL.whenReleased(new AcquireCube());
 	}
 
 	public void setupSharedCommands() {
-		// cubeHigh.whenActive(new AutoCubeMoveHigh());
-
-		expelCube.whenPressed(new CubeExpel(1, buttonBumpRid, buttonXid, operatorXbox, driverXbox));
-		acquireCube.whenReleased(new AcquireCube());
+		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,
+				operatorXbox, driverXbox));
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());
 		lowerCube.whenReleased(new AutoCubeMoveLow());
+		cubeFinesse.whenReleased(new CubeFinesse(.25));
+		acquireCubeExchange.whenReleased(new AcquireCubeExchange());
 	}
 
 }

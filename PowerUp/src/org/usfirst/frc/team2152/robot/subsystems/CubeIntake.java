@@ -1,17 +1,15 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
+import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.CubeIntakeMove;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -35,11 +33,11 @@ public class CubeIntake extends Subsystem {
 		intakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT_PWM_1);
 
 		cubeSolenoid = new DoubleSolenoid(0, 1);
-		cubeSolenoidOpen();
-		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_0);
-		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_1);
-		cubeDetectIn = new DigitalInput(RobotMap.CUBE_DETECT_DIO_2);
-		
+		cubeSolenoidClose();
+		cubeDetectOuterRight = new DigitalInput(RobotMap.CUBE_DETECT_DIO_RIGHT);
+		cubeDetectOuterLeft = new DigitalInput(RobotMap.CUBE_DETECT_DIO_LEFT);
+		cubeDetectIn = new DigitalInput(RobotMap.CUBE_DETECT_DIO_CENTER);
+
 	}
 
 	// Sets intake speed
@@ -55,28 +53,28 @@ public class CubeIntake extends Subsystem {
 		intakeRight.set(cubeExpelSpeed);
 		intakeLeft.set(-cubeExpelSpeed);
 	}
-	
-//	public void cubeIntakeSensor(double cubeIntakeSpeed){
-//		if(cubeDetectIn.get() == true){
-//			intakeRight.set(0);
-//			intakeLeft.set(0);
-//		}
-//		else if(cubeDetectIn.get() == false){
-//			intakeRight.set(cubeIntakeSpeed);
-//			
-//		}
-//	}
 
-	
+	// public void cubeIntakeSensor(double cubeIntakeSpeed){
+	// if(cubeDetectIn.get() == true){
+	// intakeRight.set(0);
+	// intakeLeft.set(0);
+	// }
+	// else if(cubeDetectIn.get() == false){
+	// intakeRight.set(cubeIntakeSpeed);
+	//
+	// }
+	// }
+
 	// Sets speed for auto
-	public void cubeSetMoveSpeed(double cubeMoveSpeed){
+	public void cubeSetMoveSpeed(double cubeMoveSpeed) {
 		intakeRight.set(cubeMoveSpeed);
 		intakeLeft.set(-cubeMoveSpeed);
 	}
+
 	// Opens the solenoid
 	public void cubeSolenoidOpen() {
 		cubeSolenoid.set(DoubleSolenoid.Value.kReverse);
-		
+
 		// Tells drivers the solenoid has been opened
 		Robot.powerUpDashboard.putCubeSolenoid(true);
 	}
@@ -84,22 +82,21 @@ public class CubeIntake extends Subsystem {
 	// Closes the solenoid
 	public void cubeSolenoidClose() {
 		cubeSolenoid.set(DoubleSolenoid.Value.kForward);
-		
+
 		// Tells drivers the solenoid has been closed
 		Robot.powerUpDashboard.putCubeSolenoid(false);
 	}
-	
-	public void cubeSolenoidSensor(){
-		if(cubeDetectOutRight() == true && cubeDetectOutLeft() == true){
+
+	public void cubeSolenoidSensor() {
+		if (cubeDetectOutRight() == true && cubeDetectOutLeft() == true) {
 			cubeSolenoidClose();
 		}
 	}
-	
-	
-	public void cubeSolenoidToggle(){
-		if(cubeSolenoid.get() == DoubleSolenoid.Value.kForward){
+
+	public void cubeSolenoidToggle() {
+		if (cubeSolenoid.get() == DoubleSolenoid.Value.kForward) {
 			cubeSolenoidOpen();
-		}else{
+		} else {
 			cubeSolenoidClose();
 		}
 	}
@@ -126,10 +123,10 @@ public class CubeIntake extends Subsystem {
 		return !cubeDetectIn.get();
 	}
 
-	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new CubeIntakeMove(1, 1,Robot.m_oi.driverXbox, Robot.m_oi.operatorXbox));
+		setDefaultCommand(new CubeIntakeMove(1, 1, ControllerMap.cubeIntakeJoy1, ControllerMap.cubeIntakeJoy2));
 	}
+
 }

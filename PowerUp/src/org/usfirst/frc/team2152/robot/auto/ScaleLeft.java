@@ -1,9 +1,11 @@
 package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
-import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
+import org.usfirst.frc.team2152.robot.commands.AutoRamp;
+import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
-import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
+import org.usfirst.frc.team2152.robot.commands.ScaleScore;
+
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -34,30 +36,48 @@ public class ScaleLeft extends CommandGroup {
     	
     	Timer.delay(SmartDashboard.getNumber("Autonomous Delay", 0));
     	String scalePosition = Robot.powerUpDashboard.getPlateAssignment("Scale Plate");
+    	
+		addSequential(new ClearDriveBackLash());
+		
     	if (scalePosition.equals("Left")){
     		// Navigate to left scale plate
-    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(-45,false));
-    		addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(45,false));
-    		addSequential(new MoveByEncoder(252,252,PIDConstants.ENCODER_DRIVE_SPEED,false));
-    		addSequential(new PreCannedTurn(90,false));
-    		addSequential(new MoveByEncoder(20,20,PIDConstants.ENCODER_DRIVE_SPEED,false));
     		
+    		addSequential(new AutoRamp(.75, 0, 1, 325));
+    		addSequential(new PreCannedTurn(90,false));
+    		addSequential(new ScaleScore());
+    		
+    		
+    		
+    		
+//    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		addSequential(new PreCannedTurn(-45,false));
+//    		addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		addSequential(new PreCannedTurn(45,false));
+//    		addSequential(new MoveByEncoder(252,252,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		addSequential(new PreCannedTurn(90,false));
+//    		addSequential(new MoveByEncoder(20,20,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		
     		// Cube Delivery
     	} else if (scalePosition.equals("Right")){
+    		addSequential(new AutoRamp(.75 ,0 , 1, 215));
+    		addSequential(new AutoRamp(.75, .25, 1, 50));
+    		addSequential(new AutoRamp(.75, 0, 1, 215));
+    		addSequential(new AutoRamp(.75, -.25, 1, 100));
+    		addSequential(new ScaleScore());
     		// Only cross baseline
-    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//        	addSequential(new PreCannedTurn(-45,false));
+//        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//        	addSequential(new PreCannedTurn(45,false));
+//        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	} else {
-    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(-45,false));
-        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
-        	addSequential(new PreCannedTurn(45,false));
-        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
+    		addSequential(new AutoRamp(.75, 0, 1, 100));
+    		
+//    		addSequential(new MoveByEncoder(36,36,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//        	addSequential(new PreCannedTurn(-45,false));
+//        	addSequential(new MoveByEncoder(48,48,PIDConstants.ENCODER_DRIVE_SPEED,false));
+//        	addSequential(new PreCannedTurn(45,false));
+//        	addSequential(new MoveByEncoder(50,50,PIDConstants.ENCODER_DRIVE_SPEED,false));
     	}
 
 

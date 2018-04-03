@@ -5,10 +5,10 @@ import org.usfirst.frc.team2152.robot.Robot;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
-public class TalonPIDSource implements PIDSource{
+public class TalonPIDSource implements PIDSource {
 	public static final int LEFT_TALON = 0;
 	public static final int RIGHT_TALON = 1;
-	
+	public static final int ELEVATOR_TALON = 2;
 	private PIDSourceType pidSourceDistance = PIDSourceType.kDisplacement;
 	private int talon = 0;
 	
@@ -31,6 +31,8 @@ public class TalonPIDSource implements PIDSource{
 			return Robot.driveTrainSubsystem.getLSensorPosition();
 		} else if (talon ==RIGHT_TALON){
 			return Robot.driveTrainSubsystem.getRSensorPosition();
+		} else if(talon == ELEVATOR_TALON){
+			return Robot.elevatorSubsystem.getEncoder();
 		} else {
 			return 0;
 		}

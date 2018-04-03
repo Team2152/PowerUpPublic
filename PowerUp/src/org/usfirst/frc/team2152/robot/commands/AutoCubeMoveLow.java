@@ -1,5 +1,7 @@
 package org.usfirst.frc.team2152.robot.commands;
 
+import org.usfirst.frc.team2152.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -24,6 +26,8 @@ public class AutoCubeMoveLow extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	requires(Robot.cubeIntakeSubsystem);
+    	requires(Robot.cubeMoveSubsystem);
     	addSequential(new CubeMoveLowByTime(.5,0.5));
     	addSequential(new CubeMoveLow(.3));
     }

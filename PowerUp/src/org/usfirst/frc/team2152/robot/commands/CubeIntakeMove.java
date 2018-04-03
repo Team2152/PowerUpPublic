@@ -1,11 +1,11 @@
 package org.usfirst.frc.team2152.robot.commands;
 
-import org.usfirst.frc.team2152.robot.OI;
+import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,7 +17,7 @@ public class CubeIntakeMove extends Command {
 
 	Joystick operatorJoystick;
 	Joystick driverJoystick;
-
+	Command cubeOuttakeSensor;
 	/**
 	 * This command controls the cube intake and the solenoid. you can intake in
 	 * and out and clamp via joystick. To see the joystick controls refer to the
@@ -38,7 +38,7 @@ public class CubeIntakeMove extends Command {
 		this.cubeExpelSpeed = cubeExpelSpeed;
 		this.driverJoystick = driverJoystick;
 		this.operatorJoystick = operatorJoystick;
-
+		cubeOuttakeSensor = new CubeExpelSensor(1);
 	}
 
 	// Called just before this Command runs the first time
@@ -52,56 +52,40 @@ public class CubeIntakeMove extends Command {
 		// check then joystick buttons and act on them if they are pressed
 		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == false) {
 
-			// Using else if so that only one button is usable at a time in the
-			// following priority: A X
 			// A button intakes until inner sensors are triggered
-			if (driverJoystick.getRawButton(OI.buttonBid) == true) {
-				Robot.cubeIntakeSubsystem.cubeIntakeMove(cubeIntakeSpeed);
-			} else if (operatorJoystick.getRawAxis(3) > 0.1) {
-				Robot.cubeIntakeSubsystem.cubeIntakeMove(operatorJoystick.getRawAxis(3));
+			if (driverJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisDriver) >= 0.1) {
+				Robot.cubeIntakeSubsystem.cubeIntakeMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisDriver));
+			} else if(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver) >= 0.1){
+				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver));
+			} else if (operatorJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisOperator) > 0.1) {
+				Robot.cubeIntakeSubsystem.cubeIntakeMove(operatorJoystick.getRawAxis(3)*operatorJoystick.getRawAxis(3));
 			} else {
-				Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
+				Robot.m_oi.driverXbox.setRumble(RumbleType.kRightRumble, 0);
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
 
 			}
+			// When the inner IR sensor shows NO cube presence then
+			// check then joystick buttons and act on them if they are pressed
+		} else if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
+			if (driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver) >= 0.1) {
+				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver));
+			} else if(operatorJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisOperator) >= 0.1){
+				Robot.cubeIntakeSubsystem.cubeExpelMove(operatorJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisOperator));
+			} else {
+				Robot.m_oi.driverXbox.setRumble(RumbleType.kRightRumble, 0);
+				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+			}
 
 		} else {
-			// If the INNER IR sensor is triggered then stop all intake motors
 			Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
 			Robot.cubeIntakeSubsystem.cubeExpelMove(0);
 
 		}
-
-		// If the INNER IR sensor is triggered then it will allow the user to
-		// expel the cube
-		if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
-			if (driverJoystick.getRawButton(OI.buttonBumpRid) || operatorJoystick.getRawAxis(3) > 0.1) {
-				Robot.cubeIntakeSubsystem.cubeExpelMove(operatorJoystick.getRawAxis(3));
-			} else {
-				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
-			}
-
-		}
-
-		// If BOTH OUTER sensors are triggered then the solenoid will actuate
-		// and will close the clamp
-		// They have to placed in order to see enough of the cube
-		if (Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true
-				|| Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true) {
-			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
-		}
-
-		// This is the manual override for the solenoid clamp
-		// Checks for a button press and will open and close the clamp
-		// if (joystick.getRawButton(OI.buttonStartid) == true) {
-		// Robot.cubeIntakeSubsystem.cubeSolenoidToggle();
-		// }
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		// This is the default command for the CubeIntake Subsystem. Must return
-		// false.
+		// This is the default command for the CubeIntake Subsystem. Must return false.
 		return false;
 	}
 

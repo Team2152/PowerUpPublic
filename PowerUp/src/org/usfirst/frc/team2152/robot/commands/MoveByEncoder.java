@@ -114,7 +114,6 @@ import edu.wpi.first.wpilibj.command.Command;
 		 if (contrR.onTarget() && contrL.onTarget()) {
 			 return true;
 		 } else if (timer.get() >= watchDogTime) {
-			 System.out.println("WATCHDOGTIMER*************>>>>>>>>>>>>>>>>>>********************");
 			 return true;
 	     }else {
 			 return false;

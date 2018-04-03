@@ -6,9 +6,6 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 
-import org.usfirst.frc.team2152.robot.Robot;
-
-
 public class UDPReceiver extends Thread {
 
 	public static final int UDP_PORT = 5800;

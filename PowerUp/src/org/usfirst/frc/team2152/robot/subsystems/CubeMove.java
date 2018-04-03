@@ -1,16 +1,12 @@
 package org.usfirst.frc.team2152.robot.subsystems;
 
-import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
-import org.usfirst.frc.team2152.robot.commands.CubeMoveTo;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CubeMove extends Subsystem {
 
@@ -23,10 +19,11 @@ public class CubeMove extends Subsystem {
 
 	public CubeMove() {
 		cubeMoveTalon = new WPI_TalonSRX(RobotMap.CUBE_ARM_MOVE_8_CAN_ID);
+		cubeMoveTalon.setInverted(false);
 		cubeMoveTalon.setNeutralMode(NeutralMode.Brake);
 
-		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_MAX_DIO_4);
-		cubeLimitMin = new DigitalInput(RobotMap.CUBE_LIMIT_MIN_DIO_3);
+		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_DIO_TOP);
+		cubeLimitMin = new DigitalInput(RobotMap.CUBE_LIMIT_DIO_BOTTOM);
 
 	}
 

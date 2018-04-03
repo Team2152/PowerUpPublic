@@ -26,9 +26,11 @@ public class Dashboard extends Subsystem {
 		SmartDashboard.putBoolean("UDP Connection", udpRunning);
 	}
 	
-	public void putCubeVision(double angle, double distance) {
+	public void putCubeVision(double angle, double distance, double rotation, double closest) {
 		SmartDashboard.putNumber("Angle to Cube", angle);
 		SmartDashboard.putNumber("Distance to Cube", distance);
+		SmartDashboard.putNumber("Rotation of Cube", rotation);
+		SmartDashboard.putNumber("Closest Cube", closest);
 	}
 	
 	public void putPlateAssignment(String plateAssignment) {
