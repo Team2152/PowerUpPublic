@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class Delay extends Command {
-	private Timer timer = new Timer();
+	private Timer timer;
 	private double seconds = 0;
     public Delay(double seconds) {
         // Use requires() here to declare subsystem dependencies
@@ -17,6 +17,7 @@ public class Delay extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer = new Timer();
     	timer.start();
     }
 

@@ -13,7 +13,7 @@ public class RumbleByTime extends Command {
 	private RumbleType type;
 	private double intensity = 0;
 	private double seconds = 0;
-	private Timer timer = new Timer();
+	private Timer timer;
     public RumbleByTime(Joystick joystick,RumbleType type, double intensity, double seconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -31,6 +31,7 @@ public class RumbleByTime extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer = new Timer();
     	timer.reset();
     	timer.start();
     }

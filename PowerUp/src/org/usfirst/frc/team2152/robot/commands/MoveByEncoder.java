@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj.command.Command;
 	 PIDController contrL;
 	 PIDController contrR;
 	 PIDController pidHH;
-	 Timer timer = new Timer();
+	 Timer timer;
 
 	 public MoveByEncoder(double leftDistance, double rightDistance, double speed, boolean clearBacklash, double watchDogTime) {
 		 // Use requires() here to declare subsystem dependencies
@@ -53,6 +53,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 	 // Called just before this Command runs the first time
 	 protected void initialize() {
+		 timer = new Timer();
 		 Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
 		 Robot.driveTrainSubsystem.resetEncoders(true,true);
 		 pidHH = new PIDController(PIDConstants.HH_kP, PIDConstants.HH_kI, PIDConstants.HH_dD,

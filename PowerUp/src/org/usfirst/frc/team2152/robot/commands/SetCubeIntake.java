@@ -12,7 +12,7 @@ public class SetCubeIntake extends Command {
 
 	private double cubeSpeed = 0;
 	private double time = 0;
-	private Timer timer = new Timer();
+	private Timer timer;
 	
     public SetCubeIntake(double cubeSpeed, double time) {
         // Use requires() here to declare subsystem dependencies
@@ -24,6 +24,7 @@ public class SetCubeIntake extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer = new Timer();
     	timer.reset();
     	timer.start();
     }

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CubeExpelSensor extends Command {
 
 	private double speed = 0;
-	private Timer  timer = new Timer();
+	private Timer timer;
     public CubeExpelSensor(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -21,6 +21,7 @@ public class CubeExpelSensor extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer = new Timer();
     	timer.reset();
     	timer.start();
     }

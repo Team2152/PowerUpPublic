@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CubeFinesse extends Command {
 
 	private double speed = 0;
-	private Timer timer = new Timer();
+	private Timer timer;
 	
     public CubeFinesse(double speed) {
         // Use requires() here to declare subsystem dependencies
@@ -22,6 +22,7 @@ public class CubeFinesse extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer = new Timer();
     	timer.reset();
     	timer.start();
     }

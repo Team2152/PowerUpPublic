@@ -12,7 +12,7 @@ public class CubeMoveLowByTime extends Command {
 
 	private double cubeLowerSpeed;
 	private double time;
-	private Timer timer = new Timer();
+	private Timer timer;
 	public CubeMoveLowByTime(double cubeLowerSpeed,double time) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -23,6 +23,7 @@ public class CubeMoveLowByTime extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer = new Timer();
 		timer.reset();
 		timer.start();
 		

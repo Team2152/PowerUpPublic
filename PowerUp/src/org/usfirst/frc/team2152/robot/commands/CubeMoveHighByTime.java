@@ -12,7 +12,7 @@ public class CubeMoveHighByTime extends Command {
 
 	private double cubeRaiseSpeed;
 	private double time;
-	private Timer timer = new Timer();
+	private Timer timer;
 	public CubeMoveHighByTime(double cubeRaiseSpeed,double time) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -23,6 +23,7 @@ public class CubeMoveHighByTime extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer = new Timer();
 		timer.reset();
 		timer.start();
 		

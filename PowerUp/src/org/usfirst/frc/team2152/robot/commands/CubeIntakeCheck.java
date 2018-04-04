@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class CubeIntakeCheck extends Command {
 	private double intakeSpeed;
-	private Timer watchDogTimer = new Timer();
-	private Timer endTimer = new Timer();
+	private Timer watchDogTimer;
+	private Timer endTimer;
 
 	public CubeIntakeCheck(double intakeSpeed) {
 		// Use requires() here to declare subsystem dependencies
@@ -22,6 +22,8 @@ public class CubeIntakeCheck extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		watchDogTimer = new Timer();
+		endTimer = new Timer();
 		watchDogTimer.reset();
 		endTimer.reset();
 		watchDogTimer.start();

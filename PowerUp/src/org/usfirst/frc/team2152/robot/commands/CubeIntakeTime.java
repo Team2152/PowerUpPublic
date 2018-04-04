@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CubeIntakeTime extends Command {
 	private double speed = 0;
 	private double time = 0;
-	private Timer timer = new Timer();
+	private Timer timer;
     public CubeIntakeTime(double speed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -20,6 +20,7 @@ public class CubeIntakeTime extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer = new Timer();
     	timer.reset();
     	timer.start();
     }

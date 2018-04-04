@@ -28,13 +28,13 @@ public class PreCannedTurn extends Command implements PIDOutput {
 		requires(Robot.navxSubsystem);
 		this.setPointPCT = setpoint;
 		this.spinLeft = spinLeft;
-		timer = new Timer();
 		
 
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer = new Timer();
 		Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
 		timer.reset();
 		timer.start();

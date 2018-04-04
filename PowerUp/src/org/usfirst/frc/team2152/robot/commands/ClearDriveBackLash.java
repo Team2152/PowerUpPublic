@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ClearDriveBackLash extends Command {
-	private Timer timer = new Timer();
+	private Timer timer;
 	public ClearDriveBackLash() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -18,6 +18,7 @@ public class ClearDriveBackLash extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer = new Timer();
 		timer.reset();
 		timer.start();
 	}
