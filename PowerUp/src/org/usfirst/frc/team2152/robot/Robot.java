@@ -13,6 +13,7 @@ import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
+import org.usfirst.frc.team2152.robot.auto.PathfinderTest;
 import org.usfirst.frc.team2152.robot.auto.ScaleLeft;
 import org.usfirst.frc.team2152.robot.auto.ScaleLeftDirect;
 import org.usfirst.frc.team2152.robot.auto.ScaleRight;
@@ -128,6 +129,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
+		m_chooser.addObject("Pathfinder Test", new PathfinderTest());
 
 		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();
@@ -207,7 +209,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
-		
+		m_chooser.addObject("Pathfinder Test", new PathfinderTest());
+
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		Robot.driveTrainSubsystem.setBreakMode(false);
 
