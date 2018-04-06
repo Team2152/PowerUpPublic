@@ -184,17 +184,17 @@ public class DriveTrain extends Subsystem{
 
 	/**
 	 * Returns the position of the encoder that is connected to the lead right motor controller
-	 * @return the value of the sensor position as a double
+	 * @return the value of the sensor position as an int
 	 */
-	public double getRSensorPosition(){
+	public int getRSensorPosition(){
 		return right1.getSelectedSensorPosition(0);
 	}
 
 	/**
 	 * Returns the position of the encoder that is connected to the lead left motor controller
-	 * @return the value of the sensor position as a double
+	 * @return the value of the sensor position as an int
 	 */
-	public double getLSensorPosition(){
+	public int getLSensorPosition(){
 		return left1.getSelectedSensorPosition(0);
 	}
 	/**

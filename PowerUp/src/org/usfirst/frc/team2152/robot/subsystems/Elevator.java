@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -28,6 +29,7 @@ public class Elevator extends Subsystem {
 	private double eleStartingHeight = 21;
 
 	private TalonPIDSource talonSource;
+
 	public Elevator() {
 		elevatorTalon = new WPI_TalonSRX(RobotMap.ELEVATOR_MOVE_9_CAN_ID);
 		elevatorTalon.setSafetyEnabled(false);
@@ -40,13 +42,18 @@ public class Elevator extends Subsystem {
 		elevatorTalon.configPeakOutputForward(1, 0);
 		elevatorTalon.configPeakOutputReverse(-1, 0);
 
-		elevatorTalon.config_kP(0, PIDConstants.ELEVATOR_Kp, 0);
-		elevatorTalon.config_kI(0, PIDConstants.ELEVATOR_Ki, 0);
-		elevatorTalon.config_kD(0, PIDConstants.ELEVATOR_Kd, 0);
+//		elevatorTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
+//		elevatorTalon.selectProfileSlot(0, 0);
+//		elevatorTalon.config_kF(0, PIDConstants.ELEVATOR_Kf, 0);
+//		elevatorTalon.config_kP(0, PIDConstants.ELEVATOR_Kp, 0);
+//		elevatorTalon.config_kI(0, PIDConstants.ELEVATOR_Ki, 0);
+//		elevatorTalon.config_kD(0, PIDConstants.ELEVATOR_Kd, 0);
+//		elevatorTalon.configMotionCruiseVelocity(15000, 10);
+//		elevatorTalon.configMotionAcceleration(6000, 10);
 
 		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_5);
 		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MIN_LIMIT_DIO_6);
-		
+
 		talonSource = new TalonPIDSource(TalonPIDSource.ELEVATOR_TALON);
 	}
 
@@ -107,7 +114,7 @@ public class Elevator extends Subsystem {
 	public double convertToNativeUnits(double height) {
 		return (height - eleStartingHeight) * (4096 / 24);
 	}
-	
+
 	public TalonPIDSource getTalonDistancePID(PIDSourceType type) {
 		talonSource.setPIDSourceType(type);
 		return talonSource;
