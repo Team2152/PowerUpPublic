@@ -20,7 +20,30 @@ public class AutoRamp extends Command {
 	private double previousLeft = 0;
 	private double previousRight = 0;
 	private double previousAvg = 0;
+	
+	
+	public AutoRamp(double power, double steering, double rampRate, double distance, double timeOut) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.driveTrainSubsystem);
+		if (power > 1) {
+			power = 1;
+		} else if (power < -1) {
+			power = -1;
+		}
+		this.power = power;
+		// if (steering > 1){
+		// steering = 1;
+		// }else if(steering < -1){
+		// steering = -1;
+		// }
+		this.timeOut = timeOut;
+		this.steering = steering;
+		this.rampRate = rampRate;
+		this.distance = distance;
 
+	}
+	
 	public AutoRamp(double power, double steering, double rampRate, double distance) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -36,6 +59,7 @@ public class AutoRamp extends Command {
 		// }else if(steering < -1){
 		// steering = -1;
 		// }
+		timeOut = ((distance / 12) / (power * 13.08)) + 5;
 		this.steering = steering;
 		this.rampRate = rampRate;
 		this.distance = distance;
@@ -54,7 +78,6 @@ public class AutoRamp extends Command {
 		} else if (steering < 0) {
 			checkLeft = true;
 		}
-		timeOut = ((distance / 12) / (power * 13.08)) + 5;
 		timer.reset();
 		timer.start();
 

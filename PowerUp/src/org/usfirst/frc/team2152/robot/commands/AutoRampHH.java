@@ -26,7 +26,18 @@ public class AutoRampHH extends Command implements PIDOutput {
 
 	PIDController pidHH;
 	Timer timer = new Timer();
+	
+	public AutoRampHH(double distance, double speed, double timeOut) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.driveTrainSubsystem);
+		requires(Robot.navxSubsystem);
+		motorSpeed = speed;
+		distance = distance / DriveTrain.DISTANCE_PER_PULSE;
+		watchDogTime = timeOut;
 
+	}
+	
 	public AutoRampHH(double distance, double speed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -37,6 +48,8 @@ public class AutoRampHH extends Command implements PIDOutput {
 		watchDogTime = ((distance / 12) / (speed * 13.08)) + 5;
 
 	}
+	
+	
 
 	// Called just before this Command runs the first time
 	protected void initialize() {

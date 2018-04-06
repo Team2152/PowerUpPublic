@@ -11,11 +11,20 @@ import edu.wpi.first.wpilibj.command.Command;
 public class CubeExpelSensor extends Command {
 
 	private double speed = 0;
+	private double timeOut = 0;
 	private Timer timer;
     public CubeExpelSensor(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.cubeIntakeSubsystem);
+    	this.speed = speed;
+    }
+    
+    public CubeExpelSensor(double speed, double timeOut) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	requires(Robot.cubeIntakeSubsystem);
+    	this.timeOut = timeOut;
     	this.speed = speed;
     }
 
@@ -35,7 +44,9 @@ public class CubeExpelSensor extends Command {
     protected boolean isFinished() {
        if(Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == false && Robot.cubeIntakeSubsystem.cubeDetectOutRight() == false && Robot.cubeIntakeSubsystem.cubeDetectIn() == false || timer.get() >= 2){
     	   return true;
-       }else {
+       }else if(timeOut != 0 && timer.get() >= timeOut){
+    	   return true;
+       } else {
     	   return false;
        }
        

@@ -14,11 +14,22 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoTurn extends Command implements PIDOutput {
 	private double power;
 	private double angle;
+	private double timeOut = 0;
 	PIDController pidTurn;
 	Timer timer;
 
 	private double pidOutput;
 
+	public AutoTurn(double power, double angle, double timeOut) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(Robot.driveTrainSubsystem);
+		requires(Robot.navxSubsystem);
+		this.timeOut = timeOut;
+		this.power = -power;
+		this.angle = angle;
+	}
+	
 	public AutoTurn(double power, double angle) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -53,6 +64,8 @@ public class AutoTurn extends Command implements PIDOutput {
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		if (Math.abs(pidTurn.getError()) <= PIDConstants.AUTO_TURN_TOLERANCE) {
+			return true;
+		} else if(timeOut != 0  &&  timer.get() >= timeOut){
 			return true;
 		} else {
 			return false;
