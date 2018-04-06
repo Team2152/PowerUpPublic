@@ -116,13 +116,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		m_chooser.addDefault("No Auto", null);
-		m_chooser.addObject("BaseLine Left", new BaselineLeft());
-		m_chooser.addObject("BaseLine Right", new BaselineRight());
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
-		m_chooser.addObject("Switch Left", new SwitchLeft());
-		m_chooser.addObject("Switch Left Straight", new SwitchLeftDirect());
-		m_chooser.addObject("Switch Right", new SwitchRight());
-		m_chooser.addObject("Switch Right Straight", new SwitchRightDirect());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
@@ -196,18 +190,11 @@ public class Robot extends TimedRobot {
 		cameras.startRecording();
 
 		m_chooser.addDefault("No Auto", null);
-		m_chooser.addObject("BaseLine Left", new BaselineLeft());
-		m_chooser.addObject("BaseLine Right", new BaselineRight());
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
-		m_chooser.addObject("Switch Left", new SwitchLeft());
-		m_chooser.addObject("Switch Left Straight", new SwitchLeftDirect());
-		m_chooser.addObject("Switch Right", new SwitchRight());
-		m_chooser.addObject("Switch Right Straight", new SwitchRightDirect());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
-		
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		Robot.driveTrainSubsystem.setBreakMode(false);
 
