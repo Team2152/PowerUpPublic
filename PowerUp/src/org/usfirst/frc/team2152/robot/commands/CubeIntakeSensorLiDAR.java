@@ -14,6 +14,7 @@ public class CubeIntakeSensorLiDAR extends Command {
 	private double watchdogTime = 1;
 	private boolean bGotACube = false;
 	private boolean isClamped = false;
+	private boolean lidarSaw = false;
 	private Timer timer;
 	private Timer watchdog;
 	private Timer lidar;
@@ -36,18 +37,24 @@ public class CubeIntakeSensorLiDAR extends Command {
 		Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
 		watchdog.stop();
 		lidar.reset();
-
+		lidarSaw = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		System.out.println(Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement).pidGet());
+	protected void execute() {			 
+		System.out.println(lidar.get());
+		//System.out.println(Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement).pidGet());
 		double lidarDistance = Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement).pidGet();
-		if (lidarDistance <= 15) {
-			lidar.start();
+		if (lidarDistance <= 10 ){
+			if(lidarSaw == false){
+				lidar.start();
+				 System.out.println("Timer Start");
+				 lidarSaw = true;
+			}
 		} else {
 			lidar.stop();
 			lidar.reset();
+			lidarSaw = false;
 		}
 		// Robot.cubeIntakeSubsystem.cubeIntakeSensor(intakeSpeed);
 		Robot.cubeIntakeSubsystem.cubeIntakeMove(intakeSpeed);
@@ -56,8 +63,8 @@ public class CubeIntakeSensorLiDAR extends Command {
 		// if ((Robot.cubeIntakeSubsystem.cubeDetectOutLeft() == true
 		// || Robot.cubeIntakeSubsystem.cubeDetectOutRight() == true)
 		// || (lidarDistance <= 15 && (lidar.get() >= 1))) {
-		if (lidarDistance <= 15 && (lidar.get() >= 1)) {
-			// System.out.println("CUBE CLAMP");
+		if (lidarDistance <= 10 && (lidar.get() >= 0.25)) {
+		 System.out.println("CUBE CLAMP");
 			Robot.cubeIntakeSubsystem.cubeSolenoidClose();
 			if (isClamped == false) {
 				isClamped = true;

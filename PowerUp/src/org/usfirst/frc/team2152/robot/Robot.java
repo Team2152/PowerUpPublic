@@ -13,6 +13,7 @@ import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
 import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineRight;
+import org.usfirst.frc.team2152.robot.auto.BaselineTime;
 import org.usfirst.frc.team2152.robot.auto.ScaleLeft;
 import org.usfirst.frc.team2152.robot.auto.ScaleLeftDirect;
 import org.usfirst.frc.team2152.robot.auto.ScaleRight;
@@ -128,6 +129,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
+		m_chooser.addObject("Baseline Time", new BaselineTime());
 
 		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();
@@ -149,7 +151,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		Robot.driveTrainSubsystem.setBreakMode(true);
+		Robot.driveTrainSubsystem.setBrakeMode(true);
 		cameras.setToDisabledMode();
 		powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
 		// Robot.driveTrainSubsystem.setBreakMode(false);
@@ -207,9 +209,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
-		
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
-		Robot.driveTrainSubsystem.setBreakMode(false);
+		m_chooser.addObject("Baseline Time", new BaselineTime());
+		Robot.driveTrainSubsystem.setBrakeMode(false);
 
 		// Plate assignment used to determine auto routine
 		// powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
@@ -246,7 +248,7 @@ public class Robot extends TimedRobot {
 	public void teleopInit() {
 		Robot.driveTrainSubsystem.setRampRate(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, 100);
 
-		Robot.driveTrainSubsystem.setBreakMode(true);
+		Robot.driveTrainSubsystem.setBrakeMode(true);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

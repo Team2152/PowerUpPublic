@@ -382,7 +382,7 @@ public class DriveTrain extends Subsystem{
 	 * Sets the neutral mode of the drive train motors
 	 * @param isBreakMode selects whether or not the motors' neutral mode is break mode or not
 	 */
-	public void setBreakMode(boolean isBreakMode){
+	public void setBrakeMode(boolean isBreakMode){
 		if(isBreakMode == true){
 			right1.setNeutralMode(NeutralMode.Brake);
 			right2.setNeutralMode(NeutralMode.Brake);

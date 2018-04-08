@@ -1,15 +1,16 @@
-package org.usfirst.frc.team2152.robot.commands;
+package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team2152.robot.commands.DriveByTime;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class AutoCubeMoveHighNoCube extends CommandGroup {
+public class BaselineTime extends CommandGroup {
 
-    public AutoCubeMoveHighNoCube() {
+    public BaselineTime() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -26,12 +27,7 @@ public class AutoCubeMoveHighNoCube extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	requires(Robot.cubeMoveSubsystem);
-		requires(Robot.cubeIntakeSubsystem);
-		
-    	System.out.println("USING NOCUBE GAINS");
-		addSequential(new CubeMoveHighByTime(.65, 0.475));
-		addSequential(new CubeMoveHighByTime(.45, .6));
-		addSequential(new CubeMoveHigh(.35));
+    	requires(Robot.driveTrainSubsystem);
+    	addSequential(new DriveByTime(3));
     }
 }
