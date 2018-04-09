@@ -41,6 +41,7 @@ import org.usfirst.frc.team2152.robot.utilities.Log;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -265,6 +266,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		//System.out.println("Closest pid.get " + Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement).pidGet());
 		SmartDashboard.putBoolean("ELE MAX", Robot.elevatorSubsystem.getElevatorMaxHeight());
 
 		SmartDashboard.putNumber("R Velocity", Robot.driveTrainSubsystem.getRVelocity());

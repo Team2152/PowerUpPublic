@@ -25,11 +25,11 @@ public class NavigateToCube extends Command implements PIDOutput {
 	double maxTurnSpeed;
 	double watchdogDistance;
 	double toleranceWait;
-	double theDistanceSetpoint = 14.5;
+	double theDistanceSetpoint;
 	double timeOut;
 	double startDistance;
-	private boolean reachedVisionLimit = false;
-	private double visionLimit = 25;
+	private boolean reachedVisionLimit;
+	private double visionLimit;
 	private double encoderAdjustment;
 
 	/**
@@ -79,6 +79,9 @@ public class NavigateToCube extends Command implements PIDOutput {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		theDistanceSetpoint = 14.5; //14.5
+		reachedVisionLimit = false;
+		visionLimit = 25;
 		Robot.driveTrainSubsystem.setRampRate(0, 100);
 		Robot.driveTrainSubsystem.setBrakeMode(true);
 		reachedVisionLimit = false;
@@ -87,16 +90,16 @@ public class NavigateToCube extends Command implements PIDOutput {
 		watchdogTimer = new Timer();
 		watchdogTimer.reset();
 		watchdogTimer.start();
-		cubeDistance = new PIDController(PIDConstants.ENCODER_DRIVE_kP, PIDConstants.ENCODER_DRIVE_kI,
-				PIDConstants.ENCODER_DRIVE_kD, Robot.driveTrainSubsystem.getNetDistancePID(PIDSourceType.kDisplacement),
+		cubeDistance = new PIDController(PIDConstants.CAD_kP, PIDConstants.CAD_kI,
+				PIDConstants.CAD_kD, Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement),
 				this);
 		cubeDistance.setContinuous(false);
 		cubeDistance.disable();
 		cubeDistance.setAbsoluteTolerance(distanceTolerance);
 		cubeDistance.setOutputRange(-maxForwardSpeed, maxForwardSpeed);
 
-		cubeHeading = new PIDController(PIDConstants.HH_kP, PIDConstants.HH_kI,
-				PIDConstants.HH_dD, Robot.driveTrainSubsystem.getNetXanglePID(PIDSourceType.kDisplacement),
+		cubeHeading = new PIDController(PIDConstants.CAT_Kp, PIDConstants.CAT_Ki,
+				PIDConstants.CAT_Kd, Robot.driveTrainSubsystem.getNetXanglePID(PIDSourceType.kDisplacement),
 				this);
 		cubeHeading.setContinuous(false);
 		cubeHeading.disable();
@@ -105,7 +108,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 		cubeHeading.setOutputRange(-maxTurnSpeed, maxTurnSpeed);
 		cubeDistance.setSetpoint(theDistanceSetpoint);
 		cubeHeading.setSetpoint(0);
-		startDistance = Robot.driveTrainSubsystem.getNetDistancePID(PIDSourceType.kDisplacement).pidGet();
+		startDistance = Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement).pidGet();
 		cubeHeading.enable();
 		cubeDistance.enable();
 
@@ -143,7 +146,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 		//			return false;
 		//		}
 
-		if (Math.abs(Robot.driveTrainSubsystem.getNetDistancePID(PIDSourceType.kDisplacement).pidGet()) < distanceTolerance) { 
+		if (Math.abs(Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement).pidGet()) < distanceTolerance) { 
 			System.out.println("Navigate To Cube Exit On Displacement");
 			return true;
 		}  else if(cubeDistance.onTarget()){
@@ -151,7 +154,7 @@ public class NavigateToCube extends Command implements PIDOutput {
 			return true;
 		} else if (watchdogTimer.get() >= timeOut) {
 			System.out.println("Navigate To Cube Exit TimeOut");
-			return true;
+			return false; // Returns false for testing
 		}else {
 			return false;
 		}
@@ -159,18 +162,19 @@ public class NavigateToCube extends Command implements PIDOutput {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.driveTrainSubsystem.tankDrive(0, 0);
 		cubeHeading.disable();
 		cubeDistance.disable();
+		Robot.driveTrainSubsystem.tankDrive(0, 0);
+
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		Robot.driveTrainSubsystem.tankDrive(0, 0);
-		Robot.driveTrainSubsystem.setRampRate(0, 0);
 		cubeHeading.disable();
 		cubeDistance.disable();
+		Robot.driveTrainSubsystem.tankDrive(0, 0);
+		Robot.driveTrainSubsystem.setRampRate(0, 0);
 	}
 
 	@Override

@@ -24,11 +24,11 @@ public class CubeAutoAcquire extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new ElevatorMoveLow(0.25, 10));
-    	addSequential(new AutoCubeMoveLow());
-    	addSequential(new NavigateToCube(0.75, 2, 2, 0.45, 4, 10, 9, 25, 5));
-		addSequential(new CubeIntakeSensor(1));
-		//addSequential(new MoveByEncoder(-20, -20, 0.75, false));
+    	//addSequential(new ElevatorMoveLow(0.25, 10));
+    	//addSequential(new AutoCubeMoveLow());
+    	addSequential(new NavigateToCube(0.25, 2, 5, 0.25, 4, 15, 0, 27, 5));
+		//addSequential(new CubeIntakeSensor(1));
+		addSequential(new MoveByEncoder(14, 14, 0.25, false));
 
     }
 }

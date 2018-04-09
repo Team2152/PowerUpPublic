@@ -12,6 +12,7 @@ import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchange;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.ClimberMove;
+import org.usfirst.frc.team2152.robot.commands.CubeAutoAcquire;
 import org.usfirst.frc.team2152.robot.commands.CubeExpel;
 import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
 import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensor;
@@ -229,7 +230,7 @@ public class OI {
 
 	public void setupDriverXboxButtons() {
 		dButtonStart.whenReleased(new CubeIntakeSensorLiDAR(1));
-		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 2, 0.25, 4, 15, 0, 27, 5));
+		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 5, 0.25, 4, 15, 0, 27, 5));
 		dButtonBumpL.whenReleased(new AcquireCube());
 		
 	}

@@ -19,7 +19,7 @@ public class CubeMove extends Subsystem {
 
 	public CubeMove() {
 		cubeMoveTalon = new WPI_TalonSRX(RobotMap.CUBE_ARM_MOVE_8_CAN_ID);
-		cubeMoveTalon.setInverted(false);
+		cubeMoveTalon.setInverted(true);
 		cubeMoveTalon.setNeutralMode(NeutralMode.Brake);
 
 		cubeLimitMax = new DigitalInput(RobotMap.CUBE_LIMIT_DIO_TOP);

@@ -31,6 +31,22 @@ public class PIDConstants {
 	public final static float PCT_IN_MIN                  = -180.0f;
 	public final static float PCT_IN_MAX                  = 180.0f;
 	
+	// Cube Acquire Turn
+		public final static double CAT_Kp                     = 0.01;
+		public final static double CAT_Ki                     = 0.000057;   
+		public final static double CAT_Kd                     = 0.048;
+		public final static double CAT_TOLERANCE              = 4;
+		public final static float CAT_IN_MIN                  = -180.0f;
+		public final static float CAT_IN_MAX                  = 180.0f;
+	
+	// Cube Acquire Drive
+		public static final double CAD_kP           = 0.0125;
+		public static final double CAD_kI           = 0.0000;
+		public static final double CAD_kD           = 0.048;
+		public static final double CAD_kTolerance   = 2 / DriveTrain.DISTANCE_PER_PULSE;
+
+	
+		
 	// Controller Drive
 	public static final double CONTROLLER_DRIVE_RAMP_RATE = 0;
 	public static final int CONTROLLER_DRIVE_RAMP_TIMEOUT = 10;
