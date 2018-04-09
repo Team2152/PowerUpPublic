@@ -32,6 +32,7 @@ public class RobotMap {
 	
 	// Climber
 	public static final int CLIMBER_MOVE_10_CAN_ID   = 10;
+	public static final int CLIMBER_MOVE_6_CAN_ID    = 6;
 
 	// PWM channel
 	public static final int CUBE_INTAKE_RIGHT_PWM_0  = 0;

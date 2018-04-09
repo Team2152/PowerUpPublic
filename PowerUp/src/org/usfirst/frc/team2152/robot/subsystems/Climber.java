@@ -2,6 +2,7 @@ package org.usfirst.frc.team2152.robot.subsystems;
 
 import org.usfirst.frc.team2152.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,14 +12,18 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 
-    private WPI_TalonSRX elevatorTalon;
+    private WPI_TalonSRX elevatorTalon1;
+    private WPI_TalonSRX elevatorTalon2;
     
 	public Climber(){
-		elevatorTalon = new WPI_TalonSRX(RobotMap.CLIMBER_MOVE_10_CAN_ID);
+		elevatorTalon1 = new WPI_TalonSRX(RobotMap.CLIMBER_MOVE_10_CAN_ID);
+		elevatorTalon2 = new WPI_TalonSRX(RobotMap.CLIMBER_MOVE_6_CAN_ID);
+		
+		elevatorTalon2.set(ControlMode.Follower, RobotMap.CLIMBER_MOVE_10_CAN_ID);
 	}
 	
 	public void setSpeed(double speed){
-		elevatorTalon.set(speed);
+		elevatorTalon1.set(speed);
 	}
 	
     public void initDefaultCommand() {
