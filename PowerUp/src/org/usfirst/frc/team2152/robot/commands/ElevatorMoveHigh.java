@@ -47,6 +47,9 @@ public class ElevatorMoveHigh extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	if(Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
+    		Robot.elevatorSubsystem.setEncoder(86);
+    	}
     	Robot.elevatorSubsystem.setElevatorStop();
     }
 
