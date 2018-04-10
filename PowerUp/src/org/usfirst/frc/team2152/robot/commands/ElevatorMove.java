@@ -31,7 +31,7 @@ public class ElevatorMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true){
-			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(81));
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(86));
 		} else if(Robot.elevatorSubsystem.getElevatorMinHeight() == true){
 			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(21));
 		}
