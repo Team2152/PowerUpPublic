@@ -124,6 +124,12 @@ public class Elevator extends Subsystem {
 		talonSource.setPIDSourceType(type);
 		return talonSource;
 	}
+	
+	public void setEncoder(int encoderVal){
+		elevatorTalon.setSelectedSensorPosition(encoderVal, 0, 10);
+	}
+	
+	
 
 	@Override
 	protected void initDefaultCommand() {
