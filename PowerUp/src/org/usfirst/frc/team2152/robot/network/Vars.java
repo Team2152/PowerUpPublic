@@ -10,7 +10,7 @@ public class Vars {
 
 	public static class Cube {
 		public static enum Double implements Vars.Double, CubeField {
-			XAngle, Distance, Rotation, Closest
+			XAngle, Distance, Rotation, Closest, Yaw, Pitch, Roll
 		}
 	}
 

@@ -69,6 +69,9 @@ public class Robot extends TimedRobot {
 
 	public static final LED ledSubsystem = new LED();
 	public static final UDPHandler udp = new UDPHandler();
+	//udpReceiver2 and udp2 are binded to port 5807 to receive pitch, yaw, and roll from Odroid 12
+	public static final UDPHandler udp2 = new UDPHandler();
+	private UDPReceiver udpReceiver2 = new UDPReceiver(UDPReceiver.UDP_PORT3);
 	private UDPReceiver timeReceiver = new UDPReceiver(UDPReceiver.UDP_PORT2);
 	private UDPReceiver udpReceiver = new UDPReceiver(UDPReceiver.UDP_PORT);
 
@@ -101,6 +104,8 @@ public class Robot extends TimedRobot {
 
 			udpReceiver.setListener(udp);
 			udpReceiver.start();
+			udpReceiver2.setListener(udp2);
+			udpReceiver2.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,6 +169,8 @@ public class Robot extends TimedRobot {
 		// System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
+		//powerUpDashboard.putLidarData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
+		//		udp.getValue(Vars.Cube.Double.Roll));
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
@@ -223,6 +230,8 @@ public class Robot extends TimedRobot {
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
+		//powerUpDashboard.putLidarData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
+		//		udp.getValue(Vars.Cube.Double.Roll));
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(),
@@ -266,6 +275,8 @@ public class Robot extends TimedRobot {
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
+		//powerUpDashboard.putLidarData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
+		//		udp.getValue(Vars.Cube.Double.Roll));
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(),
 				Robot.cubeMoveSubsystem.isLowPosition());

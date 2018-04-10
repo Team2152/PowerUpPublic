@@ -10,6 +10,7 @@ public class UDPReceiver extends Thread {
 
 	public static final int UDP_PORT = 5800;
 	public static final int UDP_PORT2 = 5809;
+	public static final int UDP_PORT3 = 5807;
 
 	private final static int RECIEVE_TIMEOUT = 1000; // in ms
 	private final static String threadName = "UDPReceiver";
