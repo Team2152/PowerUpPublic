@@ -31,9 +31,9 @@ public class ElevatorMove extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true){
-			Robot.elevatorSubsystem.setEncoder(86);
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(81));
 		} else if(Robot.elevatorSubsystem.getElevatorMinHeight() == true){
-			Robot.elevatorSubsystem.setEncoder(21);
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(21));
 		}
 		double inputValue = joy1.getRawAxis(ControllerMap.elevatorMoveAxis);
 		inputValue *= 1;

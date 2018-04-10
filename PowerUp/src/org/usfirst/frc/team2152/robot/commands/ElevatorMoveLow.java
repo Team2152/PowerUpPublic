@@ -47,6 +47,9 @@ public class ElevatorMoveLow extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		if(Robot.elevatorSubsystem.getElevatorMinHeight() == true){
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(21));
+		}
 		Robot.elevatorSubsystem.setElevatorStop();
 		Robot.elevatorSubsystem.resetEleEncoder();
 	}
