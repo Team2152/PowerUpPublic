@@ -30,15 +30,17 @@ public class ElevatorMove extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+
+		System.out.println("output: " + Robot.elevatorSubsystem.getEleOutput() + " encoder: " +Robot.elevatorSubsystem.getEncoderVelocity());
 		double inputValue = joy1.getRawAxis(ControllerMap.elevatorMoveAxis);
 		inputValue *= 1;
 		if (Robot.elevatorSubsystem.getElevatorMinHeight()) {
 			Robot.elevatorSubsystem.resetEleEncoder();
 		}
 		if (inputValue <= -0.1 && Robot.elevatorSubsystem.getElevatorMaxHeight() == false) {
-			Robot.elevatorSubsystem.setElevatorRaiseSpeed(-inputValue);
+			Robot.elevatorSubsystem.setElevatorRaiseSpeed(inputValue);
 		} else if (inputValue >= -0.1 && Robot.elevatorSubsystem.getElevatorMinHeight() == false) {
-			Robot.elevatorSubsystem.setElevatorLowerSpeed(inputValue);
+			Robot.elevatorSubsystem.setElevatorLowerSpeed(-inputValue);
 		} else {
 			Robot.elevatorSubsystem.setElevatorStop();
 		}
