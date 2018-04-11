@@ -233,8 +233,7 @@ public class OI {
 	}
 
 	public void setupSharedCommands() {
-		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,
-				operatorXbox, driverXbox));
+		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,operatorXbox, driverXbox));
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());
 		lowerCube.whenReleased(new AutoCubeMoveLow());
