@@ -49,10 +49,10 @@ public class PIDConstants {
 	public final static float AUTO_TURN_IN_MIN                  = -180.0f;
 	public final static float AUTO_TURN_IN_MAX                  = 180.0f;
 	
-	public final static double ELEVATOR_Kf                     = 2.02574;
-	public final static double ELEVATOR_Kp                     = .00;
-	public final static double ELEVATOR_Ki                     = 0.0000;   
-	public final static double ELEVATOR_Kd                     = 0.0;
+	public final static double ELEVATOR_Kf                     = 1.5625;
+	public final static double ELEVATOR_Kp                     = 34.9184;
+	public final static double ELEVATOR_Ki                     = 0.001;   
+	public final static double ELEVATOR_Kd                     = 1396.736;
 	public final static double ELEVATOR_kTolerance			   = 2;
 
 	

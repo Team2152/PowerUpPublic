@@ -21,16 +21,29 @@ public class MotionMagicElevatorMove extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		// Robot.elevatorSubsystem.goToHeight(4096);
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Math.abs(joy1.getRawAxis(1)) > 0.05) {
-			double targetPos = -joy1.getRawAxis(1) * 409.6;
-			// Robot.elevatorSubsystem.goToHeight(targetPos);
-			System.out.println("Enc pos: " + Robot.elevatorSubsystem.getEncoder() + " Enc setpoint: " + targetPos
-					+ " Joystick Pos: " + -joy1.getRawAxis(1));
+		if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(86));
+		} else if (Math.abs(joy1.getRawAxis(2)) > 0.01) {
+			if (Math.abs(joy1.getRawAxis(2)) > 0.01) {
+				double targetPos = joy1.getRawAxis(2) * 409.6 * 12;
+				Robot.elevatorSubsystem.goToHeight(targetPos);
+				System.out.println("Enc error: " + (targetPos - Robot.elevatorSubsystem.getEncoder())
+						+ " Joystick Pos: " + joy1.getRawAxis(2));
+			} else {
+				Robot.elevatorSubsystem.goToHeight(0);
+			}
+		} else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(21));
+		}else {
+			Robot.elevatorSubsystem.goToHeight(0);
 		}
+
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -45,5 +58,7 @@ public class MotionMagicElevatorMove extends Command {
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		Robot.elevatorSubsystem.goToHeight(0);
+
 	}
 }

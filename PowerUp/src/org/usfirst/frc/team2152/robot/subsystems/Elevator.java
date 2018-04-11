@@ -51,8 +51,9 @@ public class Elevator extends Subsystem {
 		elevatorTalon.config_kP(0, PIDConstants.ELEVATOR_Kp, 0);
 		elevatorTalon.config_kI(0, PIDConstants.ELEVATOR_Ki, 0);
 		elevatorTalon.config_kD(0, PIDConstants.ELEVATOR_Kd, 0);
-		elevatorTalon.configMotionCruiseVelocity(378, 10);
-		elevatorTalon.configMotionAcceleration(378, 10);
+		elevatorTalon.configAllowableClosedloopError(0, 10, 10);
+		elevatorTalon.configMotionCruiseVelocity(500, 10);
+		elevatorTalon.configMotionAcceleration(650, 10);
 		elevatorTalon.configReverseSoftLimitThreshold(0, 10);
 		elevatorTalon.configReverseSoftLimitEnable(true, 10);
 
