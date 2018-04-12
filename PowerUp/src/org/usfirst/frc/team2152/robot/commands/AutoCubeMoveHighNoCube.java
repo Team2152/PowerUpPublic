@@ -27,7 +27,6 @@ public class AutoCubeMoveHighNoCube extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	requires(Robot.cubeMoveSubsystem);
-		requires(Robot.cubeIntakeSubsystem);
 		
     	System.out.println("USING NOCUBE GAINS");
 		addSequential(new CubeMoveHighByTime(.65, 0.475));

@@ -13,7 +13,7 @@ import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.ClimberMove;
 import org.usfirst.frc.team2152.robot.commands.CubeAutoAcquire;
-import org.usfirst.frc.team2152.robot.commands.CubeExpel;
+import org.usfirst.frc.team2152.robot.commands.CubeExpelJoystick;
 import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
 import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensor;
 import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensorLiDAR;
@@ -236,7 +236,7 @@ public class OI {
 	}
 
 	public void setupSharedCommands() {
-		expelCube.whenPressed(new CubeExpel(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,
+		expelCube.whenPressed(new CubeExpelJoystick(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,
 				operatorXbox, driverXbox));
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());

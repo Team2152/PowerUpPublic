@@ -26,7 +26,8 @@ public class CubeAutoAcquire extends CommandGroup {
         // arm.
     	//addSequential(new ElevatorMoveLow(0.25, 10));
     	addSequential(new AutoCubeMoveLow());
-    	addSequential(new NavigateToCube(0.5, 2, 5, 0.5, 4, 15, 0, 27, 5));
+    	addSequential(new CubeSetOpen());
+    	addSequential(new NavigateToCube(0.50, 2, 5, 0.45, 4, 15, 0, 27, 5));
 		addParallel(new CubeIntakeSensorLiDAR(1));
 		addSequential(new MoveByEncoder(14, 14, 0.25, false));
 		addSequential(new Delay(0.5));

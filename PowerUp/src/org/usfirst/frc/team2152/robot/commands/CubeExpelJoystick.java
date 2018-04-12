@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeExpel extends Command {
+public class CubeExpelJoystick extends Command {
 
 	private double expelSpeed = 0;
 	private Joystick operatorJoystick;
@@ -16,7 +16,7 @@ public class CubeExpel extends Command {
 	private int operatorButtonID;
 	private int driverButtonID;
 
-	public CubeExpel(double expelSpeed, int driverButtonID, int operatorButtonID, Joystick operatorJoystick, Joystick driverJoystick) {
+	public CubeExpelJoystick(double expelSpeed, int driverButtonID, int operatorButtonID, Joystick operatorJoystick, Joystick driverJoystick) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeIntakeSubsystem);

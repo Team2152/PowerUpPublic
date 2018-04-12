@@ -86,7 +86,7 @@ public class CubeIntakeSensorLiDAR extends Command {
 				bGotACube = true;
 			}
 
-			if (bGotACube == true && timer.get() >= 0.5) {
+			if (bGotACube == true && timer.get() >= 1) {
 				return true;
 			}
 		}
