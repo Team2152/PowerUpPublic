@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team2152.robot.Robot;
+import org.usfirst.frc.team319.models.SrxMotionProfile;
+import org.usfirst.frc.team319.models.SrxTrajectory;
+import org.usfirst.frc.team319.models.SrxTrajectoryImporter;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.SetValueMotionProfile;
@@ -11,9 +14,6 @@ import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.team319.trajectory.SrxMotionProfile;
-import com.team319.trajectory.SrxTrajectory;
-import com.team319.trajectory.SrxTrajectoryImporter;
 
 public class FollowTrajectory extends Command {
 

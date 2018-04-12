@@ -1,4 +1,4 @@
-package com.team319.trajectory;
+package org.usfirst.frc.team319.models;
 
 import com.team254.lib.trajectory.WaypointSequence;
 import com.team254.lib.trajectory.WaypointSequence.Waypoint;

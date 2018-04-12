@@ -54,7 +54,7 @@ public class Elevator extends Subsystem {
 		elevatorTalon.configAllowableClosedloopError(0, 10, 10);
 		elevatorTalon.configMotionCruiseVelocity(500, 10);
 		elevatorTalon.configMotionAcceleration(650, 10);
-		elevatorTalon.configReverseSoftLimitThreshold(0, 10);
+		elevatorTalon.configReverseSoftLimitThreshold(21, 10);
 		elevatorTalon.configReverseSoftLimitEnable(true, 10);
 
 		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_5);
@@ -136,7 +136,7 @@ public class Elevator extends Subsystem {
 	protected void initDefaultCommand() {
 
 		//setDefaultCommand(new ElevatorMove(.1, ControllerMap.elevatorJoystick));
-		//setDefaultCommand(new MotionMagicElevatorMove(.1, ControllerMap.elevatorJoystick));
+		setDefaultCommand(new MotionMagicElevatorMove(.1, ControllerMap.elevatorJoystick));
 
 	}
 

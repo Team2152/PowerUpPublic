@@ -35,7 +35,7 @@ public class DriveTrain extends Subsystem {
 	private static final int kSlotIdx = 0;
 	private static final int kPIDLoopIdx = 0;
 	private static final int kTimeoutMs = 10;
-	private static double kP = 0;
+	private static double kP = 0.00;
 	private static double kI = 0;
 	private static double kD = 0;
 
@@ -99,7 +99,7 @@ public class DriveTrain extends Subsystem {
 		left1.configPeakOutputForward(1, kTimeoutMs);
 		left1.configPeakOutputReverse(-1, kTimeoutMs);
 		left1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
-		left1.config_kF(kPIDLoopIdx, 0.307, kTimeoutMs);
+		left1.config_kF(kPIDLoopIdx, 0.337, kTimeoutMs);
 		left1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
 		left1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
 		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
@@ -492,8 +492,8 @@ public class DriveTrain extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		// setDefaultCommand(new LimeDrive());
-		setDefaultCommand(new VelocityPIDTest());
+		setDefaultCommand(new LimeDrive());
+		//setDefaultCommand(new VelocityPIDTest());
 	}
 
 }

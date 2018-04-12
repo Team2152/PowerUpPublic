@@ -1,4 +1,4 @@
-package com.team319.trajectory;
+package org.usfirst.frc.team319.models;
 
 import java.io.BufferedWriter;
 import java.io.File;

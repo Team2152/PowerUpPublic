@@ -31,7 +31,7 @@ public class MotionMagicElevatorMove extends Command {
 			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(86));
 		} else if (Math.abs(joy1.getRawAxis(2)) > 0.01) {
 			if (Math.abs(joy1.getRawAxis(2)) > 0.01) {
-				double targetPos = joy1.getRawAxis(2) * 409.6 * 12;
+				double targetPos = joy1.getRawAxis(2) * 409.6 * 25;
 				Robot.elevatorSubsystem.goToHeight(targetPos);
 				System.out.println("Enc error: " + (targetPos - Robot.elevatorSubsystem.getEncoder())
 						+ " Joystick Pos: " + joy1.getRawAxis(2));

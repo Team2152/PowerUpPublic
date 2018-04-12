@@ -1,4 +1,4 @@
-package com.team319.trajectory;
+package org.usfirst.frc.team319.models;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
