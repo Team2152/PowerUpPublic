@@ -22,6 +22,7 @@ import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeftDirect;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchRightDirect;
+import org.usfirst.frc.team2152.robot.commands.FollowTrajectory;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
 import org.usfirst.frc.team2152.robot.network.UDPHandler;
 import org.usfirst.frc.team2152.robot.network.UDPReceiver;
@@ -38,6 +39,7 @@ import org.usfirst.frc.team2152.robot.subsystems.TimeSyncSystem;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
+import org.usfirst.frc.team319.paths.FiveFeet;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -122,6 +124,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
+		m_chooser.addObject("Paths", new FollowTrajectory(new FiveFeet()));
 
 		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();

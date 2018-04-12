@@ -39,10 +39,10 @@ public class DriveTrain extends Subsystem {
 	private static double kI = 0;
 	private static double kD = 0;
 
-	private WPI_TalonSRX right1;
+	public WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
 	// private WPI_TalonSRX right3;
-	private WPI_TalonSRX left1;
+	public WPI_TalonSRX left1;
 	private WPI_TalonSRX left2;
 	// private WPI_TalonSRX left3;
 
