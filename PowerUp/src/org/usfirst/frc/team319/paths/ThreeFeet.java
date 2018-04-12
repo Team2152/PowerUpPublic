@@ -2,19 +2,18 @@ package org.usfirst.frc.team319.paths;
 
 import com.team319.trajectory.SrxMotionProfile;
 import com.team319.trajectory.SrxTrajectory;
-
-public class FiveFeet extends SrxTrajectory{
+public class ThreeFeet extends SrxTrajectory{
 	
 	// WAYPOINTS:
 	// (X,Y,degrees)
 	// (0.00,0.00,0.00)
 	// (3.00,0.00,0.00)
 	
-	public FiveFeet() {
+	public ThreeFeet() {
 		this(false);
 	}
 			
-    public FiveFeet(boolean flipped) {
+    public ThreeFeet(boolean flipped) {
 		super();
 		
 		double[][] leftPoints = {

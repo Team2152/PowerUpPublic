@@ -39,7 +39,14 @@ import org.usfirst.frc.team2152.robot.subsystems.TimeSyncSystem;
 import org.usfirst.frc.team2152.robot.utilities.Gain;
 import org.usfirst.frc.team2152.robot.utilities.Log;
 import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
+import org.usfirst.frc.team319.paths.CrossTheLine;
+import org.usfirst.frc.team319.paths.FifteenFeet;
 import org.usfirst.frc.team319.paths.FiveFeet;
+import org.usfirst.frc.team319.paths.FiveFeetAndTurn;
+import org.usfirst.frc.team319.paths.OneFoot;
+import org.usfirst.frc.team319.paths.TestSTurnAuto;
+import org.usfirst.frc.team319.paths.ThreeFeet;
+import org.usfirst.frc.team319.paths.Turn90;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -124,7 +131,21 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
-		m_chooser.addObject("Paths", new FollowTrajectory(new FiveFeet()));
+		m_chooser.addObject("FiveFeet", new FollowTrajectory(new FiveFeet()));
+		m_chooser.addObject("CrossTheLine", new FollowTrajectory(new CrossTheLine()));
+		m_chooser.addObject("FifteenFeet", new FollowTrajectory(new FifteenFeet()));
+		m_chooser.addObject("FiveFeetAndTurn", new FollowTrajectory(new FiveFeetAndTurn()));
+		m_chooser.addObject("OneFoot", new FollowTrajectory(new OneFoot()));
+		m_chooser.addObject("TestSTurnAuto", new FollowTrajectory(new TestSTurnAuto()));
+		m_chooser.addObject("ThreeFeet", new FollowTrajectory(new ThreeFeet()));
+		m_chooser.addObject("Turn90", new FollowTrajectory(new Turn90()));
+
+
+
+
+
+
+
 
 		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();
@@ -199,8 +220,15 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right", new ScaleRight());
-
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
+		m_chooser.addObject("FiveFeet", new FollowTrajectory(new FiveFeet()));
+		m_chooser.addObject("CrossTheLine", new FollowTrajectory(new CrossTheLine()));
+		m_chooser.addObject("FifteenFeet", new FollowTrajectory(new FifteenFeet()));
+		m_chooser.addObject("FiveFeetAndTurn", new FollowTrajectory(new FiveFeetAndTurn()));
+		m_chooser.addObject("OneFoot", new FollowTrajectory(new OneFoot()));
+		m_chooser.addObject("TestSTurnAuto", new FollowTrajectory(new TestSTurnAuto()));
+		m_chooser.addObject("ThreeFeet", new FollowTrajectory(new ThreeFeet()));
+		m_chooser.addObject("Turn90", new FollowTrajectory(new Turn90()));
 		Robot.driveTrainSubsystem.setBreakMode(false);
 
 		// Plate assignment used to determine auto routine
