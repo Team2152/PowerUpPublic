@@ -3,6 +3,7 @@ package org.usfirst.frc.team2152.robot.subsystems;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.RobotMap;
 import org.usfirst.frc.team2152.robot.commands.LimeDrive;
+import org.usfirst.frc.team2152.robot.commands.VelocityPIDTest;
 import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceClosest;
 import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceDistance;
 import org.usfirst.frc.team2152.robot.network.NetworkPIDSourceXAngle;
@@ -22,9 +23,11 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 /**
  *
  */
-public class DriveTrain extends Subsystem{
-	// Note: MoveByPosition (Not MoveByEncoder) inversion settings = Robot.driveTrainSubsystem.invertDriveTrain(false, true, true, true);
-	// Note: Normal joystick and pid drive inversion settings = Robot.driveTrainSubsystem.invertDriveTrain(true, true, false, true);
+public class DriveTrain extends Subsystem {
+	// Note: MoveByPosition (Not MoveByEncoder) inversion settings =
+	// Robot.driveTrainSubsystem.invertDriveTrain(false, true, true, true);
+	// Note: Normal joystick and pid drive inversion settings =
+	// Robot.driveTrainSubsystem.invertDriveTrain(true, true, false, true);
 
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
@@ -32,16 +35,16 @@ public class DriveTrain extends Subsystem{
 	private static final int kSlotIdx = 0;
 	private static final int kPIDLoopIdx = 0;
 	private static final int kTimeoutMs = 10;
-	private static double kP = 2.6;
+	private static double kP = 0;
 	private static double kI = 0;
 	private static double kD = 0;
 
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
-//	private WPI_TalonSRX right3;
+	// private WPI_TalonSRX right3;
 	private WPI_TalonSRX left1;
 	private WPI_TalonSRX left2;
-//	private WPI_TalonSRX left3;
+	// private WPI_TalonSRX left3;
 
 	private int encoderCumulativeTicksL = 0;
 	private int encoderCumulativeTicksR = 0;
@@ -51,15 +54,12 @@ public class DriveTrain extends Subsystem{
 
 	private TalonPIDSource talonPIDL;
 	private TalonPIDSource talonPIDR;
-	
-	private NetworkPIDSourceDistance networkPIDSourceDistance; 
+
+	private NetworkPIDSourceDistance networkPIDSourceDistance;
 	private NetworkPIDSourceXAngle networkPIDSourceXAngle;
 	private NetworkPIDSourceClosest networkPIDClosest;
 
 	public DriveTrain() {
-
-
-
 
 		// Create TalonSRX Objects for each of the motors
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_ID);
@@ -70,7 +70,7 @@ public class DriveTrain extends Subsystem{
 		right1.configPeakOutputForward(1, kTimeoutMs);
 		right1.configPeakOutputReverse(-1, kTimeoutMs);
 		right1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
-		right1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
+		right1.config_kF(kPIDLoopIdx, 0.307, kTimeoutMs);
 		right1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
 		right1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
 		right1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
@@ -80,69 +80,66 @@ public class DriveTrain extends Subsystem{
 
 		right2 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_2_CAN_ID);
 		right2.setNeutralMode(NeutralMode.Brake);
-		right2.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_ID);
+		right2.set(ControlMode.Follower, RobotMap.RIGHT_DRIVE_1_CAN_ID);
 		right2.setInverted(true);
 		right2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-//		right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_3_CAN_ID);
-//		right3.setNeutralMode(NeutralMode.Brake);
-//		right3.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_ID);
-//		right3.setInverted(true);
-//		right3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+		// right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_3_CAN_ID);
+		// right3.setNeutralMode(NeutralMode.Brake);
+		// right3.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_ID);
+		// right3.setInverted(true);
+		// right3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE,
+		// PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-		
 		left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_1_CAN_ID);
 		left1.setNeutralMode(NeutralMode.Brake);
-		left1.setInverted(true);
+		left1.setInverted(false);
 		left1.configNominalOutputForward(0, kTimeoutMs);
 		left1.configNominalOutputReverse(0, kTimeoutMs);
 		left1.configPeakOutputForward(1, kTimeoutMs);
 		left1.configPeakOutputReverse(-1, kTimeoutMs);
 		left1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
-		left1.config_kF(kPIDLoopIdx, 0.0, kTimeoutMs);
+		left1.config_kF(kPIDLoopIdx, 0.307, kTimeoutMs);
 		left1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
 		left1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
 		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		left1.setSensorPhase(false);
+		left1.setSensorPhase(true);
 		left1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
-		
+
 		left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_2_CAN_ID);
 		left2.setNeutralMode(NeutralMode.Brake);
-		left2.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_ID);
-		left2.setInverted(true);
+		left2.set(ControlMode.Follower, RobotMap.LEFT_DRIVE_1_CAN_ID);
+		left2.setInverted(false);
 		left2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-		
-//		left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_ID);
-//		left3.setNeutralMode(NeutralMode.Brake);
-//		left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_ID);
-//		left3.setInverted(true);
-//		left3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
+		// left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_ID);
+		// left3.setNeutralMode(NeutralMode.Brake);
+		// left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_ID);
+		// left3.setInverted(true);
+		// left3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE,
+		// PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-		
-		drive = new DifferentialDrive(left1,right1);
+		drive = new DifferentialDrive(left1, right1);
 		drive.setSafetyEnabled(false);
-
-
 
 		talonPIDR = new TalonPIDSource(TalonPIDSource.RIGHT_TALON);
 		talonPIDL = new TalonPIDSource(TalonPIDSource.LEFT_TALON);
-		
+
 		networkPIDSourceDistance = new NetworkPIDSourceDistance();
 		networkPIDSourceXAngle = new NetworkPIDSourceXAngle();
 		networkPIDClosest = new NetworkPIDSourceClosest();
-		
-		right1.getSelectedSensorVelocity(0);
+
 	}
 
 	/***
 	 * 
 	 * Move motors using Tank Drive
-	 * @param leftSpeed 
-	 * 					from -1 to 1
-	 * @param rightSpeed 
-	 * 					from -1 to 1
+	 * 
+	 * @param leftSpeed
+	 *            from -1 to 1
+	 * @param rightSpeed
+	 *            from -1 to 1
 	 */
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		drive.tankDrive(leftSpeed, rightSpeed);
@@ -181,44 +178,51 @@ public class DriveTrain extends Subsystem{
 		left1.set(speed);
 	}
 
-
 	/**
-	 * Returns the position of the encoder that is connected to the lead right motor controller
+	 * Returns the position of the encoder that is connected to the lead right motor
+	 * controller
+	 * 
 	 * @return the value of the sensor position as an int
 	 */
-	public int getRSensorPosition(){
+	public int getRSensorPosition() {
 		return right1.getSelectedSensorPosition(0);
 	}
 
 	/**
-	 * Returns the position of the encoder that is connected to the lead left motor controller
+	 * Returns the position of the encoder that is connected to the lead left motor
+	 * controller
+	 * 
 	 * @return the value of the sensor position as an int
 	 */
-	public int getLSensorPosition(){
+	public int getLSensorPosition() {
 		return left1.getSelectedSensorPosition(0);
 	}
+
 	/**
 	 * Returns the distance of the right encoder in inches
+	 * 
 	 * @return the value of the encoder in inches as a double
 	 */
-	public double getRDistance(){
+	public double getRDistance() {
 		return right1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
 	}
 
 	/**
 	 * Returns the distance of the left encoder in inches
+	 * 
 	 * @return the value of the encoder in inches as a double
 	 */
-	public double getLDistance(){
+	public double getLDistance() {
 		return left1.getSelectedSensorPosition(0) * DISTANCE_PER_PULSE;
 	}
-	
-	public double getAverageDistance(){
-		return (getRDistance() + getLDistance())/2; 
+
+	public double getAverageDistance() {
+		return (getRDistance() + getLDistance()) / 2;
 	}
 
 	/**
 	 * Returns the cumulative ticks of the right encoder
+	 * 
 	 * @return the cumulative (ignoring resets) value of the encoder in ticks
 	 */
 	public int getEncoderRTicksCumulative() {
@@ -227,47 +231,59 @@ public class DriveTrain extends Subsystem{
 
 	/**
 	 * Returns the cumulative ticks of the left encoder
+	 * 
 	 * @return the cumulative (ignoring resets) value of the encoder in ticks
 	 */
 	public int getEncoderLTicksCumulative() {
 		return left1.getSelectedSensorPosition(0) + encoderCumulativeTicksR;
 	}
 
-	
-	
 	/**
 	 * Resets the encoders
-	 * @param resetLeft determines whether or not to reset the left encoder
-	 * @param resetRight determines whether or not to reset the right encoder
+	 * 
+	 * @param resetLeft
+	 *            determines whether or not to reset the left encoder
+	 * @param resetRight
+	 *            determines whether or not to reset the right encoder
 	 */
-	public void resetEncoders(boolean resetLeft, boolean resetRight){
-		if (resetLeft){
+	public void resetEncoders(boolean resetLeft, boolean resetRight) {
+		if (resetLeft) {
 			encoderCumulativeTicksL += left1.getSelectedSensorPosition(0);
 			left1.setSelectedSensorPosition(0, 0, 0);
 		}
 
-		if (resetRight){
+		if (resetRight) {
 			encoderCumulativeTicksR += right1.getSelectedSensorPosition(0);
 			right1.setSelectedSensorPosition(0, 0, 0);
 		}
 	}
-	
+
 	/**
 	 * Resets cumulative encoder values
-	 * @param l determines whether or not to reset the left encoder cumulative value
-	 * @param r determines whether or not to reset the right encoder cumulative value
+	 * 
+	 * @param l
+	 *            determines whether or not to reset the left encoder cumulative
+	 *            value
+	 * @param r
+	 *            determines whether or not to reset the right encoder cumulative
+	 *            value
 	 */
 	public void resetCumulativeEncoderValues(boolean l, boolean r) {
-		if(l) encoderCumulativeTicksL = 0;
-		if(r) encoderCumulativeTicksR = 0;
+		if (l)
+			encoderCumulativeTicksL = 0;
+		if (r)
+			encoderCumulativeTicksR = 0;
 	}
-	
+
 	/**
 	 * Uses Phoenix's move by position control mode
-	 * @param setPointLeft left setpoint in encoder ticks
-	 * @param setPointRight right setpoint in encoder ticks
+	 * 
+	 * @param setPointLeft
+	 *            left setpoint in encoder ticks
+	 * @param setPointRight
+	 *            right setpoint in encoder ticks
 	 */
-	public void moveByPosition(double setPointLeft, double setPointRight){
+	public void moveByPosition(double setPointLeft, double setPointRight) {
 		right1.configPeakOutputForward(.45, kTimeoutMs);
 		right1.configPeakOutputReverse(-.45, kTimeoutMs);
 		left1.configPeakOutputForward(.45, kTimeoutMs);
@@ -276,20 +292,27 @@ public class DriveTrain extends Subsystem{
 		right1.set(ControlMode.Position, setPointRight);
 
 	}
+
 	/**
 	 * Inverts the drive train motors and encoders
-	 * @param leftInvert determines whether or not to invert the left motors
-	 * @param rightInvert determines whether or not to invert the right motors
-	 * @param leftSensorInvert determines whether or not to invert the left encoder 
-	 * @param rightSensorInvert determines whether or not to invert the right encoder
+	 * 
+	 * @param leftInvert
+	 *            determines whether or not to invert the left motors
+	 * @param rightInvert
+	 *            determines whether or not to invert the right motors
+	 * @param leftSensorInvert
+	 *            determines whether or not to invert the left encoder
+	 * @param rightSensorInvert
+	 *            determines whether or not to invert the right encoder
 	 */
-	public void invertDriveTrain(boolean leftInvert, boolean rightInvert,boolean leftSensorInvert,boolean rightSensorInvert){
+	public void invertDriveTrain(boolean leftInvert, boolean rightInvert, boolean leftSensorInvert,
+			boolean rightSensorInvert) {
 		left1.setInverted(leftInvert);
 		left2.setInverted(leftInvert);
-//		left3.setInverted(leftInvert);
+		// left3.setInverted(leftInvert);
 		right1.setInverted(rightInvert);
 		right2.setInverted(rightInvert);
-//		right3.setInverted(rightInvert);
+		// right3.setInverted(rightInvert);
 
 		left1.setSensorPhase(leftSensorInvert);
 		right1.setSensorPhase(rightSensorInvert);
@@ -297,126 +320,135 @@ public class DriveTrain extends Subsystem{
 
 	/**
 	 * Returns the left encoder as a PIDSource
-	 * @param type encoding type
+	 * 
+	 * @param type
+	 *            encoding type
 	 * @return the left encoder as a PIDSource
 	 */
 	public TalonPIDSource getLTalonDistancePID(PIDSourceType type) {
 		talonPIDL.setPIDSourceType(type);
 		return talonPIDL;
 	}
+
 	/**
 	 * Returns the right encoder as a PIDSource
-	 * @param type encoding type
+	 * 
+	 * @param type
+	 *            encoding type
 	 * @return the right encoder as a PIDSource
 	 */
 	public TalonPIDSource getRTalonDistancePID(PIDSourceType type) {
 		talonPIDR.setPIDSourceType(type);
 		return talonPIDR;
 	}
-	
+
 	/**
 	 * Returns the Current draw of the selected motor
-	 * @param talonID the id of the talon to read
+	 * 
+	 * @param talonID
+	 *            the id of the talon to read
 	 * @return
 	 */
-	public double getCurrent(int talonID){
-		switch(talonID){
-		case(1):
+	public double getCurrent(int talonID) {
+		switch (talonID) {
+		case (1):
 			return right1.getOutputCurrent();
-		case(2):
+		case (2):
 			return right2.getOutputCurrent();
-//		case(3):
-//			return right3.getOutputCurrent();
-		case(4):
+		// case(3):
+		// return right3.getOutputCurrent();
+		case (4):
 			return left1.getOutputCurrent();
-		case(5):
+		case (5):
 			return left2.getOutputCurrent();
-//		case(6):
-//			return left3.getOutputCurrent();
+		// case(6):
+		// return left3.getOutputCurrent();
 		default:
 			return 0;
 		}
 	}
-	
-	public double avgCurrent(int valToAVG){
-		switch(valToAVG){
-		case(1):
-			return (Robot.driveTrainSubsystem.getCurrent(4) + 
-					(Robot.driveTrainSubsystem.getCurrent(5) + 
-					(Robot.driveTrainSubsystem.getCurrent(6))))/3;
-		case(2):
-			return  (Robot.driveTrainSubsystem.getCurrent(1) + 
-					(Robot.driveTrainSubsystem.getCurrent(2) + 
-					(Robot.driveTrainSubsystem.getCurrent(3))))/3;
-		case(3):
-			return (Robot.driveTrainSubsystem.getCurrent(1) +
-					Robot.driveTrainSubsystem.getCurrent(2) +
-					Robot.driveTrainSubsystem.getCurrent(3) +
-					Robot.driveTrainSubsystem.getCurrent(4) +
-					Robot.driveTrainSubsystem.getCurrent(5) +
-					Robot.driveTrainSubsystem.getCurrent(6))/6;
+
+	public double avgCurrent(int valToAVG) {
+		switch (valToAVG) {
+		case (1):
+			return (Robot.driveTrainSubsystem.getCurrent(4)
+					+ (Robot.driveTrainSubsystem.getCurrent(5) + (Robot.driveTrainSubsystem.getCurrent(6)))) / 3;
+		case (2):
+			return (Robot.driveTrainSubsystem.getCurrent(1)
+					+ (Robot.driveTrainSubsystem.getCurrent(2) + (Robot.driveTrainSubsystem.getCurrent(3)))) / 3;
+		case (3):
+			return (Robot.driveTrainSubsystem.getCurrent(1) + Robot.driveTrainSubsystem.getCurrent(2)
+					+ Robot.driveTrainSubsystem.getCurrent(3) + Robot.driveTrainSubsystem.getCurrent(4)
+					+ Robot.driveTrainSubsystem.getCurrent(5) + Robot.driveTrainSubsystem.getCurrent(6)) / 6;
 		default:
 			return 0;
 		}
 	}
-	
+
 	/**
 	 * Sets the ramp rate of the drive train motors
-	 * @param secondsToFull the number of seconds till the motor is at the selected speed
+	 * 
+	 * @param secondsToFull
+	 *            the number of seconds till the motor is at the selected speed
 	 * @param timeOut
 	 */
-	public void setRampRate(double secondsToFull, int timeOut){
+	public void setRampRate(double secondsToFull, int timeOut) {
 		left1.configOpenloopRamp(secondsToFull, timeOut);
 		right1.configOpenloopRamp(secondsToFull, timeOut);
 	}
-	
+
 	/**
 	 * Resets the ramp rate of the drive train motors
 	 */
-	public void resetRampRate(){
+	public void resetRampRate() {
 		left1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 		right1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 	}
-	
+
 	/**
 	 * Sets the neutral mode of the drive train motors
-	 * @param isBreakMode selects whether or not the motors' neutral mode is break mode or not
+	 * 
+	 * @param isBreakMode
+	 *            selects whether or not the motors' neutral mode is break mode or
+	 *            not
 	 */
-	public void setBreakMode(boolean isBreakMode){
-		if(isBreakMode == true){
+	public void setBreakMode(boolean isBreakMode) {
+		if (isBreakMode == true) {
 			right1.setNeutralMode(NeutralMode.Brake);
 			right2.setNeutralMode(NeutralMode.Brake);
-//			right3.setNeutralMode(NeutralMode.Brake);
-			
+			// right3.setNeutralMode(NeutralMode.Brake);
+
 			left1.setNeutralMode(NeutralMode.Brake);
 			left2.setNeutralMode(NeutralMode.Brake);
-//			left3.setNeutralMode(NeutralMode.Brake);
-			
+			// left3.setNeutralMode(NeutralMode.Brake);
+
 		} else {
 			right1.setNeutralMode(NeutralMode.Coast);
 			right2.setNeutralMode(NeutralMode.Coast);
-//			right3.setNeutralMode(NeutralMode.Coast);
-			
+			// right3.setNeutralMode(NeutralMode.Coast);
+
 			left1.setNeutralMode(NeutralMode.Coast);
 			left2.setNeutralMode(NeutralMode.Coast);
-//			left3.setNeutralMode(NeutralMode.Coast);
+			// left3.setNeutralMode(NeutralMode.Coast);
 
 		}
 	}
-	
+
 	/**
 	 * Returns the velocity of the right side of the drivetrain
+	 * 
 	 * @return the velocity of the right side of the drivetrain
 	 */
-	public double getRVelocity(){
+	public double getRVelocity() {
 		return right1.getSelectedSensorVelocity(0);
 	}
 
 	/**
 	 * Returns the velocity of the left side of the drivetrain
+	 * 
 	 * @return the velocity of the left side of the drivetrain
 	 */
-	public double getLVelocity(){
+	public double getLVelocity() {
 		return left1.getSelectedSensorVelocity(0);
 	}
 
@@ -429,20 +461,39 @@ public class DriveTrain extends Subsystem{
 		networkPIDSourceXAngle.setPIDSourceType(type);
 		return networkPIDSourceXAngle;
 	}
+
 	public PIDSource getClosestPID(PIDSourceType type) {
 		networkPIDClosest.setPIDSourceType(type);
 		return networkPIDClosest;
 	}
 
-	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		//setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new LimeDrive());
-		//setDefaultCommand(new TankDriveJoystick());
+	public void speedControl(double leftSpeed, double rightSpeed) {
+		left1.set(ControlMode.Velocity, leftSpeed);
+		right1.set(ControlMode.Velocity, rightSpeed);
+
 	}
 
-	
+	public int getClosedLoopErrorL() {
+		return left1.getClosedLoopError(kSlotIdx);
+	}
 
+	public int getClosedLoopErrorR() {
+		return right1.getClosedLoopError(kSlotIdx);
+	}
+
+	public int getClosedLoopTargetL() {
+		return left1.getClosedLoopTarget(kSlotIdx);
+	}
+
+	public int getClosedLoopTargetR() {
+		return right1.getClosedLoopTarget(kSlotIdx);
+	}
+
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		// setDefaultCommand(new MySpecialCommand());
+		// setDefaultCommand(new LimeDrive());
+		setDefaultCommand(new VelocityPIDTest());
+	}
 
 }
-

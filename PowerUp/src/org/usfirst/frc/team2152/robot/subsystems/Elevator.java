@@ -136,7 +136,7 @@ public class Elevator extends Subsystem {
 	protected void initDefaultCommand() {
 
 		//setDefaultCommand(new ElevatorMove(.1, ControllerMap.elevatorJoystick));
-		setDefaultCommand(new MotionMagicElevatorMove(.1, ControllerMap.elevatorJoystick));
+		//setDefaultCommand(new MotionMagicElevatorMove(.1, ControllerMap.elevatorJoystick));
 
 	}
 
