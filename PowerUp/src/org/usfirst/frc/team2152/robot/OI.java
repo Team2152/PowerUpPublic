@@ -230,7 +230,7 @@ public class OI {
 
 	public void setupDriverXboxButtons() {
 		dButtonStart.whenReleased(new CubeIntakeSensorLiDAR(1));
-		dButtonBack.whenReleased(new NavigateToCube(0.25, 2, 5, 0.25, 4, 15, 0, 27, 5));
+		dButtonBack.whenReleased(new CubeAutoAcquire());
 		dButtonBumpL.whenReleased(new AcquireCube());
 		
 	}

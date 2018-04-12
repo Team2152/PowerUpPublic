@@ -32,7 +32,7 @@ public class PIDConstants {
 	public final static float PCT_IN_MAX                  = 180.0f;
 	
 	// Cube Acquire Turn
-		public final static double CAT_Kp                     = 0.01;
+		public final static double CAT_Kp                     = 0.005;
 		public final static double CAT_Ki                     = 0.000057;   
 		public final static double CAT_Kd                     = 0.048;
 		public final static double CAT_TOLERANCE              = 4;
