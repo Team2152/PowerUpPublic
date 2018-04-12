@@ -169,7 +169,7 @@ public class Robot extends TimedRobot {
 		// System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
-		//powerUpDashboard.putLidarData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
+		//powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
 		//		udp.getValue(Vars.Cube.Double.Roll));
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
@@ -230,7 +230,7 @@ public class Robot extends TimedRobot {
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
-		//powerUpDashboard.putLidarData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
+		//powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
 		//		udp.getValue(Vars.Cube.Double.Roll));
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
@@ -275,7 +275,7 @@ public class Robot extends TimedRobot {
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
-		//powerUpDashboard.putLidarData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
+		//powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
 		//		udp.getValue(Vars.Cube.Double.Roll));
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(),

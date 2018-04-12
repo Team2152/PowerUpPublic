@@ -26,7 +26,7 @@ public class Dashboard extends Subsystem {
 		SmartDashboard.putBoolean("UDP Connection", udpRunning);
 	}
 	
-	public void putLidarData(double pitch, double yaw, double roll) {
+	public void putIMUData(double pitch, double yaw, double roll) {
 		SmartDashboard.putNumber("Pitch", pitch);
 		SmartDashboard.putNumber("Yaw", yaw);
 		SmartDashboard.putNumber("Roll", roll);
