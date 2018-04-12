@@ -30,15 +30,29 @@ public class ElevatorMove extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		if (Robot.elevatorSubsystem.getEleOutput() == 1) {
+			System.out.println("output: " + Robot.elevatorSubsystem.getEleOutput() + "encoder: "
+					+ Robot.elevatorSubsystem.getEncoderVelocity());
+		}
+		if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(86));
+		} else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
+			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(21));
+		}
+		double targetPos = joy1.getRawAxis(2) * 409.6 * 10;
+		// Robot.elevatorSubsystem.goToHeight(targetPos);
+		// System.out.println("Enc error: " + (Robot.elevatorSubsystem.getEncoder() -
+		// targetPos) + " Joystick Pos: "
+		// + -joy1.getRawAxis(1));
 		double inputValue = joy1.getRawAxis(ControllerMap.elevatorMoveAxis);
 		inputValue *= 1;
 		if (Robot.elevatorSubsystem.getElevatorMinHeight()) {
 			Robot.elevatorSubsystem.resetEleEncoder();
 		}
 		if (inputValue <= -0.1 && Robot.elevatorSubsystem.getElevatorMaxHeight() == false) {
-			Robot.elevatorSubsystem.setElevatorRaiseSpeed(-inputValue);
+			Robot.elevatorSubsystem.setElevatorRaiseSpeed(inputValue);
 		} else if (inputValue >= -0.1 && Robot.elevatorSubsystem.getElevatorMinHeight() == false) {
-			Robot.elevatorSubsystem.setElevatorLowerSpeed(inputValue);
+			Robot.elevatorSubsystem.setElevatorLowerSpeed(-inputValue);
 		} else {
 			Robot.elevatorSubsystem.setElevatorStop();
 		}
