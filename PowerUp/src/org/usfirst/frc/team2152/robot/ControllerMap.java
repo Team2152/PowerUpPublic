@@ -74,7 +74,7 @@ public class ControllerMap {
 		cubeFinesseOperator = OI.buttonStartid;
 
 		acquireCubeExchangeDriver = OI.POV_180;
-		//acquireCubeExchangeOperator = OI.buttonBackid;
+		acquireCubeExchangeOperator = OI.buttonBackid;
 		
 		
 
