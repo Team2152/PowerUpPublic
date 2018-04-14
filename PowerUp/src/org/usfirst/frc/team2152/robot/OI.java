@@ -9,6 +9,8 @@ package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.AcquireCube;
 import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchange;
+import org.usfirst.frc.team2152.robot.commands.AcquireCubeLiDAR;
+import org.usfirst.frc.team2152.robot.commands.AcquireCubeSeekLiDAR;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.ClimberMove;
@@ -149,6 +151,7 @@ public class OI {
 	private SharedCommand lowerCube;
 	private SharedCommand cubeFinesse;
 	private SharedCommand acquireCubeExchange;
+	private SharedCommand acquireCubeSeek;
 
 	public OI() {
 		// Setup driver joystick
@@ -210,10 +213,12 @@ public class OI {
 					ControllerMap.clampCubeOperator, false);
 			lowerCube = new SharedCommand(driverXbox, ControllerMap.lowerCubeDriver, false, operatorXbox,
 					ControllerMap.lowerCubeOperator, false);
-			cubeFinesse = new SharedCommand(driverXbox, ControllerMap.cubeFinesseDriver, true, operatorXbox,
+			cubeFinesse = new SharedCommand(driverXbox, ControllerMap.cubeFinesseDriver, false, operatorXbox,
 					ControllerMap.cubeFinesseOperator, false);
 			acquireCubeExchange = new SharedCommand(driverXbox, ControllerMap.acquireCubeExchangeDriver, true,
 					operatorXbox, ControllerMap.acquireCubeExchangeOperator, false);
+			acquireCubeSeek = new SharedCommand(driverXbox, ControllerMap.acquireCubeSeekDriver, false, 
+					operatorXbox, ControllerMap.acquireCubeSeekOperator, false);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -223,15 +228,15 @@ public class OI {
 	public void setupOperatorButtons() {
 		oPOV0.whenReleased(new ElevatorMoveHigh(0.75, 10));
 		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
-		oButtonBumpR.whenPressed(new ClimberMove(-1, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveUPOperator));
-		oButtonBumpL.whenPressed(new ClimberMove(.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveLOWOperator));
+//		oButtonBumpR.whenPressed(new ClimberMove(-1, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveUPOperator));
+		oButtonBumpL.whenPressed(new ClimberMove(-.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveDownOperator));
 		oPOV270.whenReleased(new RunAutoInTele());
 	}
 
 	public void setupDriverXboxButtons() {
-		dButtonStart.whenReleased(new CubeIntakeSensorLiDAR(1));
-		dButtonBack.whenReleased(new CubeAutoAcquire());
-		dButtonBumpL.whenReleased(new AcquireCube());
+//		dButtonStart.whenReleased(new CubeIntakeSensorLiDAR(1));
+//		dButtonBack.whenReleased(new AcquireCubeSeekLiDAR());
+		dButtonBumpL.whenReleased(new AcquireCubeLiDAR());
 		
 	}
 

@@ -163,7 +163,9 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		// SmartDashboard.putBoolean("Bump",
 		// Robot.navxSubsystem.detectCollision());
+		SmartDashboard.putNumber("ELE ENC", Robot.elevatorSubsystem.getEleInches());
 		SmartDashboard.putBoolean("ELE MAX", Robot.elevatorSubsystem.getElevatorMaxHeight());
+		SmartDashboard.putBoolean("ELE MIN", Robot.elevatorSubsystem.getElevatorMinHeight());
 		SmartDashboard.putBoolean("LowerArm", Robot.cubeMoveSubsystem.isLowPosition());
 		SmartDashboard.putBoolean("HighArm", Robot.cubeMoveSubsystem.isHighPosition());
 		SmartDashboard.putBoolean("CubeLeft", Robot.cubeIntakeSubsystem.cubeDetectOutLeft());
@@ -265,9 +267,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		//System.out.println("Closest pid.get " + Robot.driveTrainSubsystem.getClosestPID(PIDSourceType.kDisplacement).pidGet());
+		SmartDashboard.putNumber("ELE ENC", Robot.elevatorSubsystem.getEleInches());
 		SmartDashboard.putBoolean("ELE MAX", Robot.elevatorSubsystem.getElevatorMaxHeight());
-
+		SmartDashboard.putBoolean("ELE MIN", Robot.elevatorSubsystem.getElevatorMinHeight());
 		SmartDashboard.putNumber("R Velocity", Robot.driveTrainSubsystem.getRVelocity());
 		SmartDashboard.putNumber("L Velocity", Robot.driveTrainSubsystem.getLVelocity());
 		SmartDashboard.putNumber("Match Time", Timer.getMatchTime());

@@ -1,13 +1,15 @@
 package org.usfirst.frc.team2152.robot.commands;
 
+import org.usfirst.frc.team2152.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class CubeAutoAcquire extends CommandGroup {
+public class AcquireCubeExchangeLiDAR extends CommandGroup {
 
-    public CubeAutoAcquire() {
+    public AcquireCubeExchangeLiDAR() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,15 +26,16 @@ public class CubeAutoAcquire extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	//addSequential(new ElevatorMoveLow(0.25, 10));
-    	addSequential(new AutoCubeMoveLow());
-    	addSequential(new CubeSetOpen());
-    	addSequential(new NavigateToCube(0.50, 2, 5, 0.45, 4, 5));
-		addParallel(new CubeIntakeSensorLiDAR(1));
-		addSequential(new MoveByEncoder(5, 5, 0.25, false));
-		addSequential(new Delay(0.5));
-    	addSequential(new AutoCubeMoveHigh());
+    	Robot.cubeIntakeSubsystem.cubeSolenoidOpen();
+		addSequential(new AutoCubeMoveLow());
+		//addSequential(new CubeIntakeSensorLiDAR(0.8));
+		addSequential(new CubeIntakeSensorLiDAR(0.8));
+		//		if (Robot.cubeIntakeSubsystem.cubeDetectIn() || Robot.cubeIntakeSubsystem.cubeDetectOutLeft()
+//				|| Robot.cubeIntakeSubsystem.cubeDetectOutRight()) {
+//			addSequential(new CubeIntakeCheck(0.5));
+//		}
 
-
-    }
+		System.out.println("ACQE cube ended");
+	}
+    
 }

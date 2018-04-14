@@ -41,10 +41,8 @@ public class DriveTrain extends Subsystem {
 
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
-	// private WPI_TalonSRX right3;
 	private WPI_TalonSRX left1;
 	private WPI_TalonSRX left2;
-	// private WPI_TalonSRX left3;
 
 	private int encoderCumulativeTicksL = 0;
 	private int encoderCumulativeTicksR = 0;
@@ -70,10 +68,6 @@ public class DriveTrain extends Subsystem {
 		right1.configPeakOutputForward(1, kTimeoutMs);
 		right1.configPeakOutputReverse(-1, kTimeoutMs);
 		right1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
-		right1.config_kF(kPIDLoopIdx, 0.307, kTimeoutMs);
-		right1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-		right1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-		right1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		right1.setSensorPhase(true);
 		right1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
@@ -84,41 +78,23 @@ public class DriveTrain extends Subsystem {
 		right2.setInverted(true);
 		right2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
-		// right3 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_3_CAN_ID);
-		// right3.setNeutralMode(NeutralMode.Brake);
-		// right3.set(ControlMode.Follower,RobotMap.RIGHT_DRIVE_1_CAN_ID);
-		// right3.setInverted(true);
-		// right3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE,
-		// PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
-
 		left1 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_1_CAN_ID);
 		left1.setNeutralMode(NeutralMode.Brake);
-		left1.setInverted(false);
+		left1.setInverted(true);
 		left1.configNominalOutputForward(0, kTimeoutMs);
 		left1.configNominalOutputReverse(0, kTimeoutMs);
 		left1.configPeakOutputForward(1, kTimeoutMs);
 		left1.configPeakOutputReverse(-1, kTimeoutMs);
 		left1.configAllowableClosedloopError(0, kPIDLoopIdx, kTimeoutMs);
-		left1.config_kF(kPIDLoopIdx, 0.307, kTimeoutMs);
-		left1.config_kP(kPIDLoopIdx, kP, kTimeoutMs);
-		left1.config_kI(kPIDLoopIdx, kI, kTimeoutMs);
-		left1.config_kD(kPIDLoopIdx, kD, kTimeoutMs);
 		left1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-		left1.setSensorPhase(true);
+		left1.setSensorPhase(false);
 		left1.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 		left2 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_2_CAN_ID);
 		left2.setNeutralMode(NeutralMode.Brake);
 		left2.set(ControlMode.Follower, RobotMap.LEFT_DRIVE_1_CAN_ID);
-		left2.setInverted(false);
+		left2.setInverted(true);
 		left2.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE, PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
-
-		// left3 = new WPI_TalonSRX(RobotMap.LEFT_DRIVE_3_CAN_ID);
-		// left3.setNeutralMode(NeutralMode.Brake);
-		// left3.set(ControlMode.Follower,RobotMap.LEFT_DRIVE_1_CAN_ID);
-		// left3.setInverted(true);
-		// left3.configOpenloopRamp(PIDConstants.CONTROLLER_DRIVE_RAMP_RATE,
-		// PIDConstants.CONTROLLER_DRIVE_RAMP_TIMEOUT);
 
 		drive = new DifferentialDrive(left1, right1);
 		drive.setSafetyEnabled(false);

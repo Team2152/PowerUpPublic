@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class CubeIntakeCheck extends Command {
+public class CubeIntakeNudgeCheck extends Command {
 	private double intakeSpeed;
 	private Timer watchDogTimer;
 	private Timer endTimer;
 
-	public CubeIntakeCheck(double intakeSpeed) {
+	public CubeIntakeNudgeCheck(double intakeSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.cubeIntakeSubsystem);
@@ -37,7 +37,9 @@ public class CubeIntakeCheck extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(Robot.cubeIntakeSubsystem.cubeDetectIn() == true || watchDogTimer.get() >= 0.5) {
+		if(Robot.cubeIntakeSubsystem.cubeDetectIn() == true && watchDogTimer.get() >= 0.5) {
+			return true;
+		} else if(Robot.cubeIntakeSubsystem.cubeDetectIn() == false){
 			return true;
 		} else {
 			return false;

@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AcquireCube extends CommandGroup {
+public class AcquireCubeSeekLiDAR extends CommandGroup {
 
-	public AcquireCube() {
+	public AcquireCubeSeekLiDAR() {
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());
@@ -29,15 +29,13 @@ public class AcquireCube extends CommandGroup {
 		requires(Robot.cubeIntakeSubsystem);
 		requires(Robot.cubeMoveSubsystem);
 		
-		addParallel(new CubeSetOpen());
+		addSequential(new CubeSetOpen());
 		addSequential(new AutoCubeMoveLow());
-		//addSequential(new CubeIntakeSensorLiDAR(0.8));
-		addSequential(new CubeIntakeSensor(0.8));
+    	addSequential(new NavigateToCube(0.50, 2, 5, 0.45, 4, 5));
+    	addParallel(new MoveByEncoder(9, 9, 0.25, false));
+		addSequential(new CubeIntakeSensorLiDAR(0.8));
 		addSequential(new AutoCubeMoveHigh());
-		if (Robot.cubeIntakeSubsystem.cubeDetectIn()) {
-			addSequential(new CubeIntakeNudgeCheck(0.5));
-		}
-		addSequential(new CubeIntakeTime(0.25, 0.75));
+		addSequential(new CubeIntakeNudgeCheck(0.5));
 
 		System.out.println("ACQ cube ended");
 	}

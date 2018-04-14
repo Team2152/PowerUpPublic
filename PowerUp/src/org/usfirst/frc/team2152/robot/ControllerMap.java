@@ -32,6 +32,9 @@ public class ControllerMap {
 	public static int cubeFinesseDriver = -1; // OI.POV_0;
 	public static int cubeFinesseOperator = -1; // OI.buttonStartid;
 	
+	public static int acquireCubeSeekDriver = -1;
+	public static int acquireCubeSeekOperator = -1;
+	
 	
 	
 	public static int acquireCubeExchangeDriver = -1; // OI.POV_180;
@@ -46,12 +49,12 @@ public class ControllerMap {
 	
 
 	// Operator
-	public static int elevatorMoveHigh = -1; // OI.POV_0;
-	public static int elevatorMoveLow = -1; // OI.POV_180;
+	public static int elevatorMoveHighOperator = -1; // OI.POV_0;
+	public static int elevatorMoveLowOperator = -1; // OI.POV_180;
 	
 	// Climber 
 	public static int climberMoveUPOperator = -1;
-	public static int climberMoveLOWOperator = -1;
+	public static int climberMoveDownOperator = -1;
 
 
 	public static void setControllers(Joystick driver, Joystick operator) {
@@ -70,11 +73,14 @@ public class ControllerMap {
 		lowerCubeDriver = OI.buttonAid;
 		lowerCubeOperator = OI.buttonYid;
 
-		cubeFinesseDriver = OI.POV_0;
-		cubeFinesseOperator = OI.buttonStartid;
+		cubeFinesseDriver = OI.buttonBumpRid;
+		cubeFinesseOperator = OI.buttonXid;
 
 		acquireCubeExchangeDriver = OI.POV_180;
 		acquireCubeExchangeOperator = OI.buttonBackid;
+		
+		acquireCubeSeekDriver = OI.buttonBid;
+		acquireCubeSeekOperator = OI.buttonStartid;
 		
 		
 
@@ -87,10 +93,10 @@ public class ControllerMap {
 		cubeIntakeJoy1 = driver; // Robot.m_oi.driverXbox;
 		cubeIntakeJoy2 = operator; // Robot.m_oi.driverXbox;
 
-		cubeIntakeIntakeAxisDriver = 3;
+		cubeIntakeIntakeAxisDriver = 2;
 		cubeIntakeIntakeAxisOperator = 3;
 
-		cubeIntakeExpelAxisDriver = 2;
+		cubeIntakeExpelAxisDriver = 3;
 		cubeIntakeExpelAxisOperator = 3;
 
 		// -----Elevator-----
@@ -99,13 +105,13 @@ public class ControllerMap {
 		elevatorMoveAxis = 1;
 
 		// Operator
-		elevatorMoveHigh = OI.POV_0;
-		elevatorMoveLow = OI.POV_180;
+		elevatorMoveHighOperator = OI.POV_0;
+		elevatorMoveLowOperator = OI.POV_180;
 		
 		// -----Climber-----
 		climberMoveJoystick = operator;
 		climberMoveUPOperator = OI.buttonBumpRid;
-		climberMoveLOWOperator = OI.buttonBumpLid;
+		climberMoveDownOperator = OI.buttonBumpLid;
 
 	}
 

@@ -54,11 +54,13 @@ public class CubeIntakeMove extends Command {
 
 			// A button intakes until inner sensors are triggered
 			if (driverJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisDriver) >= 0.1) {
+				
 				Robot.cubeIntakeSubsystem.cubeIntakeMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisDriver));
+				
 			} else if(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver) >= 0.1){
+				
 				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver));
-			} else if (operatorJoystick.getRawAxis(ControllerMap.cubeIntakeIntakeAxisOperator) > 0.1) {
-				Robot.cubeIntakeSubsystem.cubeIntakeMove(operatorJoystick.getRawAxis(3)*operatorJoystick.getRawAxis(3));
+				
 			} else {
 				Robot.m_oi.driverXbox.setRumble(RumbleType.kRightRumble, 0);
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
@@ -68,9 +70,9 @@ public class CubeIntakeMove extends Command {
 			// check then joystick buttons and act on them if they are pressed
 		} else if (Robot.cubeIntakeSubsystem.cubeDetectIn() == true) {
 			if (driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver) >= 0.1) {
+				
 				Robot.cubeIntakeSubsystem.cubeExpelMove(driverJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisDriver));
-			} else if(operatorJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisOperator) >= 0.1){
-				Robot.cubeIntakeSubsystem.cubeExpelMove(operatorJoystick.getRawAxis(ControllerMap.cubeIntakeExpelAxisOperator));
+				
 			} else {
 				Robot.m_oi.driverXbox.setRumble(RumbleType.kRightRumble, 0);
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
