@@ -474,6 +474,10 @@ public class DriveTrain extends Subsystem {
 			isReverse = true;
 		}
 	}
+	
+	public void setNormal(){
+		isReverse = false;
+	}
 	public boolean isReverse(){
 		return isReverse;
 	}

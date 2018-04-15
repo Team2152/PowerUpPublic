@@ -73,7 +73,8 @@ public class Robot extends TimedRobot {
 
 	public static final LED ledSubsystem = new LED();
 	public static final UDPHandler udp = new UDPHandler();
-	//udpReceiver2 and udp2 are binded to port 5807 to receive pitch, yaw, and roll from Odroid 12
+	// udpReceiver2 and udp2 are binded to port 5807 to receive pitch, yaw, and
+	// roll from Odroid 12
 	public static final UDPHandler udp2 = new UDPHandler();
 	private UDPReceiver udpReceiver2 = new UDPReceiver(UDPReceiver.UDP_PORT3);
 	private UDPReceiver timeReceiver = new UDPReceiver(UDPReceiver.UDP_PORT2);
@@ -89,8 +90,8 @@ public class Robot extends TimedRobot {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
-	 * This function is run when the robot is first started up and should be used
-	 * for any initialization code.
+	 * This function is run when the robot is first started up and should be
+	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
@@ -127,13 +128,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
-		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
-		m_chooser.addObject("Scale Right", new ScaleRight());
+
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		m_chooser.addObject("Baseline Time", new BaselineTime());
-		m_chooser.addObject("Climb Right", new ClimbRight());
-		m_chooser.addObject("Climb Left", new ClimbLeft());
 
 		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();
@@ -149,9 +147,9 @@ public class Robot extends TimedRobot {
 	}
 
 	/**
-	 * This function is called once each time the robot enters Disabled mode. You
-	 * can use it to reset any subsystem information you want to clear when the
-	 * robot is disabled.
+	 * This function is called once each time the robot enters Disabled mode.
+	 * You can use it to reset any subsystem information you want to clear when
+	 * the robot is disabled.
 	 */
 	@Override
 	public void disabledInit() {
@@ -179,8 +177,9 @@ public class Robot extends TimedRobot {
 		// System.out.println(Robot.elevatorSubsystem.getElevatorCurrentDraw());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
-		//powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
-		//		udp.getValue(Vars.Cube.Double.Roll));
+		// powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch),
+		// udp.getValue(Vars.Cube.Double.Yaw),
+		// udp.getValue(Vars.Cube.Double.Roll));
 		powerUpDashboard.putEncoderData(Robot.driveTrainSubsystem.getLSensorPosition(),
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		Scheduler.getInstance().run();
@@ -190,33 +189,29 @@ public class Robot extends TimedRobot {
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable chooser
-	 * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
-	 * remove all of the chooser code and uncomment the getString code to get the
-	 * auto name from the text box below the Gyro
+	 * between different autonomous modes using the dashboard. The sendable
+	 * chooser code works with the Java SmartDashboard. If you prefer the
+	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
+	 * getString code to get the auto name from the text box below the Gyro
 	 *
 	 * <p>
 	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons to
-	 * the switch structure below with additional strings & commands.
+	 * chooser code above (like the commented example) or additional comparisons
+	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
 		// Robot.driveTrainSubsystem.setBreakMode(true);
 		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		//cameras.startRecording();
+		// cameras.startRecording();
 
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
-		m_chooser.addObject("Scale Left", new ScaleLeft());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
-		m_chooser.addObject("Scale Right", new ScaleRight());
-
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		m_chooser.addObject("Baseline Time", new BaselineTime());
-		m_chooser.addObject("Climb Right", new ClimbRight());
-		m_chooser.addObject("Climb Left", new ClimbLeft());
+
 		Robot.driveTrainSubsystem.setBrakeMode(false);
 
 		// Plate assignment used to determine auto routine
@@ -244,8 +239,9 @@ public class Robot extends TimedRobot {
 		powerUpDashboard.putUDP(udpReceiver.isRunning());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
-		//powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
-		//		udp.getValue(Vars.Cube.Double.Roll));
+		// powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch),
+		// udp.getValue(Vars.Cube.Double.Yaw),
+		// udp.getValue(Vars.Cube.Double.Roll));
 		cameras.setToAutoMode();
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(),
@@ -290,8 +286,9 @@ public class Robot extends TimedRobot {
 				Robot.driveTrainSubsystem.getRSensorPosition());
 		powerUpDashboard.putCubeVision(udp.getValue(Vars.Cube.Double.XAngle), udp.getValue(Vars.Cube.Double.Distance),
 				udp.getValue(Vars.Cube.Double.Rotation), udp.getValue(Vars.Cube.Double.Closest));
-		//powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch), udp.getValue(Vars.Cube.Double.Yaw),
-		//		udp.getValue(Vars.Cube.Double.Roll));
+		// powerUpDashboard.putIMUData(udp.getValue(Vars.Cube.Double.Pitch),
+		// udp.getValue(Vars.Cube.Double.Yaw),
+		// udp.getValue(Vars.Cube.Double.Roll));
 		Scheduler.getInstance().run();
 		powerUpDashboard.putCubeMoveStatus(Robot.cubeMoveSubsystem.isHighPosition(),
 				Robot.cubeMoveSubsystem.isLowPosition());

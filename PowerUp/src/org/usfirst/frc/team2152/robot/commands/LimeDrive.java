@@ -73,7 +73,7 @@ public class LimeDrive extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		if(Robot.driveTrainSubsystem.isReverse() == true){
-			Robot.driveTrainSubsystem.toggleDriveDirection();
+			Robot.driveTrainSubsystem.setNormal();
 		}
 		Robot.driveTrainSubsystem.tankDrive(0, 0);
 	}
@@ -82,7 +82,7 @@ public class LimeDrive extends Command {
 	// subsystems is scheduled to run
 	protected void interrupted() {
 		if(Robot.driveTrainSubsystem.isReverse() == true){
-			Robot.driveTrainSubsystem.toggleDriveDirection();
+			Robot.driveTrainSubsystem.setNormal();
 		}
 		Robot.driveTrainSubsystem.tankDrive(0, 0);
 	}

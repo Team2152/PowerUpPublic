@@ -14,6 +14,8 @@ import org.usfirst.frc.team2152.robot.commands.AcquireCubeLiDAR;
 import org.usfirst.frc.team2152.robot.commands.AcquireCubeSeekLiDAR;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
+import org.usfirst.frc.team2152.robot.commands.ClimbLeft;
+import org.usfirst.frc.team2152.robot.commands.ClimbRight;
 import org.usfirst.frc.team2152.robot.commands.ClimberMove;
 import org.usfirst.frc.team2152.robot.commands.CubeAutoAcquire;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelJoystick;
@@ -241,6 +243,8 @@ public class OI {
 	public void setupDriverXboxButtons() {
 		dButtonBumpL.whenReleased(new AcquireCubeLiDAR());
 		dPOV0.whenReleased(new ToggleDriveDirection());
+		dPOV270.whenReleased(new ClimbLeft());
+		dPOV90.whenReleased(new ClimbRight());
 	}
 
 	public void setupSharedCommands() {
