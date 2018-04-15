@@ -35,7 +35,8 @@ public class MotionMagicMoveTo extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Robot.m_oi.operatorXbox.getRawAxis(1) > 0.1 || timer.get() >= 5) {
+		if (Robot.m_oi.operatorXbox.getRawAxis(1) > 0.1 || timer.get() >= 5
+				|| Robot.elevatorSubsystem.getClosedLoopError() < Robot.elevatorSubsystem.convertToNativeUnits(1)) {
 			return true;
 		} else {
 			return false;

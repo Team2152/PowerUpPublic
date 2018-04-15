@@ -28,6 +28,8 @@ public class ClimbLeft extends CommandGroup {
         // arm.
     	
     	requires(Robot.driveTrainSubsystem);
+    	requires(Robot.elevatorSubsystem);
+
     	addSequential(new MoveByEncoder(4, 4, 0.3, false));
     	addSequential(new PreCannedTurn(-90, false)); // left
     	addSequential(new MoveByEncoder(-20, -20, 0.5, false));

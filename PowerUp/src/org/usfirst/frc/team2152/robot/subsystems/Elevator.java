@@ -38,7 +38,7 @@ public class Elevator extends Subsystem {
 		elevatorTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		elevatorTalon.setSensorPhase(true);
 		elevatorTalon.setNeutralMode(NeutralMode.Brake);
-		elevatorTalon.configOpenloopRamp(0.9, 10);
+		elevatorTalon.configOpenloopRamp(0.5, 10);
 		elevatorTalon.configNominalOutputForward(0, 0);
 		elevatorTalon.configNominalOutputReverse(0, 0);
 		elevatorTalon.configPeakOutputForward(1, 0);
@@ -61,6 +61,10 @@ public class Elevator extends Subsystem {
 		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MIN_LIMIT_DIO_6);
 
 		talonSource = new TalonPIDSource(TalonPIDSource.ELEVATOR_TALON);
+	}
+
+	public double getClosedLoopError() {
+		return elevatorTalon.getClosedLoopError(0);
 	}
 
 	public void goToHeight(double height) {
@@ -125,18 +129,17 @@ public class Elevator extends Subsystem {
 		talonSource.setPIDSourceType(type);
 		return talonSource;
 	}
-	
-	public void setEncoder(int encoderVal){
+
+	public void setEncoder(int encoderVal) {
 		elevatorTalon.setSelectedSensorPosition(encoderVal, 0, 10);
 	}
-	
-	
 
 	@Override
 	protected void initDefaultCommand() {
 
-		//setDefaultCommand(new ElevatorMove(.1, ControllerMap.elevatorJoystick));
-		setDefaultCommand(new MotionMagicElevatorMove(.1, ControllerMap.elevatorJoystick));
+		setDefaultCommand(new ElevatorMove(.1, ControllerMap.elevatorJoystick));
+		// setDefaultCommand(new MotionMagicElevatorMove(.1,
+		// ControllerMap.elevatorJoystick));
 
 	}
 
