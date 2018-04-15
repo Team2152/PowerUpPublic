@@ -23,6 +23,8 @@ import org.usfirst.frc.team2152.robot.auto.SwitchLeft;
 import org.usfirst.frc.team2152.robot.auto.SwitchLeftDirect;
 import org.usfirst.frc.team2152.robot.auto.SwitchRight;
 import org.usfirst.frc.team2152.robot.auto.SwitchRightDirect;
+import org.usfirst.frc.team2152.robot.commands.ClimbLeft;
+import org.usfirst.frc.team2152.robot.commands.ClimbRight;
 import org.usfirst.frc.team2152.robot.network.OdroidsCameraSettings;
 import org.usfirst.frc.team2152.robot.network.UDPHandler;
 import org.usfirst.frc.team2152.robot.network.UDPReceiver;
@@ -130,6 +132,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Scale Right", new ScaleRight());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		m_chooser.addObject("Baseline Time", new BaselineTime());
+		m_chooser.addObject("Climb Right", new ClimbRight());
+		m_chooser.addObject("Climb Left", new ClimbLeft());
 
 		powerUpDashboard.putPositions();
 		powerUpDashboard.putRecording();
@@ -200,7 +204,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		// Robot.driveTrainSubsystem.setBreakMode(true);
 		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		cameras.startRecording();
+		//cameras.startRecording();
 
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
@@ -211,6 +215,8 @@ public class Robot extends TimedRobot {
 
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());
 		m_chooser.addObject("Baseline Time", new BaselineTime());
+		m_chooser.addObject("Climb Right", new ClimbRight());
+		m_chooser.addObject("Climb Left", new ClimbLeft());
 		Robot.driveTrainSubsystem.setBrakeMode(false);
 
 		// Plate assignment used to determine auto routine

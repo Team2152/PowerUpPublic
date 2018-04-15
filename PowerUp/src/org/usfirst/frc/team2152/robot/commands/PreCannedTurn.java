@@ -35,7 +35,8 @@ public class PreCannedTurn extends Command implements PIDOutput {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		timer = new Timer();
-		Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
+		//Robot.driveTrainSubsystem.setRampRate(PIDConstants.AUTO_DRIVE_RAMP_RATE,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
+		Robot.driveTrainSubsystem.setRampRate(0,PIDConstants.AUTO_DRIVE_RAMP_TIMEOUT);
 		timer.reset();
 		timer.start();
 		Robot.navxSubsystem.resetAngle();
@@ -43,7 +44,8 @@ public class PreCannedTurn extends Command implements PIDOutput {
 		pidPCT = new PIDController(PIDConstants.PCT_Kp, PIDConstants.PCT_Ki, PIDConstants.PCT_Kd,
 				Robot.navxSubsystem.getAHRS(), this);
 		pidPCT.disable();
-		pidPCT.setOutputRange(-.75, .75);
+		//pidPCT.setOutputRange(-.75, .75);
+		pidPCT.setOutputRange(-1.0,  1.0);
 		pidPCT.setAbsoluteTolerance(PIDConstants.PCT_TOLERANCE);
 		pidPCT.setContinuous(false);
 		
@@ -59,12 +61,14 @@ public class PreCannedTurn extends Command implements PIDOutput {
 		} else {
 			Robot.driveTrainSubsystem.tankDrive(-0.1, errorFromHeadingPCT);
 		}
-		Robot.driveTrainSubsystem.tankDrive(-errorFromHeadingPCT, errorFromHeadingPCT);
+		Robot.driveTrainSubsystem.tankDrive((1+PIDConstants.PCT_Kldiff)*(-errorFromHeadingPCT), 
+				                            (1+PIDConstants.PCT_Krdiff)*(errorFromHeadingPCT));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE || (timer.get() >= .5 + Math.abs(setPointPCT) / 10)) {
+		if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE || (timer.get() >= 2)) {
+		//if (Math.abs(pidPCT.getError()) <= PIDConstants.PCT_TOLERANCE || (timer.get() >= .5 + Math.abs(setPointPCT) / 10)) {
 			return true;
 		} else {
 			return false;

@@ -1,18 +1,15 @@
-package org.usfirst.frc.team2152.robot.auto;
+package org.usfirst.frc.team2152.robot.commands;
 
 import org.usfirst.frc.team2152.robot.Robot;
-import org.usfirst.frc.team2152.robot.commands.DriveByTime;
-import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
-import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class BaselineTime extends CommandGroup {
+public class ClimbRight extends CommandGroup {
 
-    public BaselineTime() {
+    public ClimbRight() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -30,7 +27,8 @@ public class BaselineTime extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	requires(Robot.driveTrainSubsystem);
-    	addSequential(new DriveByTime(3, -0.4));
-
+    	addSequential(new MoveByEncoder(4, 4, 0.3, false));
+    	addSequential(new PreCannedTurn(-100, false)); // left
+    	addSequential(new MoveByEncoder(20, 20, 0.5, false));
     }
 }
