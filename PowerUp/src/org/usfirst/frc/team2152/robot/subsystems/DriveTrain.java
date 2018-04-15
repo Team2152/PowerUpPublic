@@ -53,12 +53,14 @@ public class DriveTrain extends Subsystem {
 	private TalonPIDSource talonPIDL;
 	private TalonPIDSource talonPIDR;
 
+	private boolean isReverse;
 	private NetworkPIDSourceDistance networkPIDSourceDistance;
 	private NetworkPIDSourceXAngle networkPIDSourceXAngle;
 	private NetworkPIDSourceClosest networkPIDClosest;
 
 	public DriveTrain() {
-
+		
+		isReverse = false;
 		// Create TalonSRX Objects for each of the motors
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_ID);
 		right1.setNeutralMode(NeutralMode.Brake);
@@ -463,6 +465,17 @@ public class DriveTrain extends Subsystem {
 
 	public int getClosedLoopTargetR() {
 		return right1.getClosedLoopTarget(kSlotIdx);
+	}
+	
+	public void toggleDriveDirection(){
+		if (isReverse){
+			isReverse = false;
+		} else {
+			isReverse = true;
+		}
+	}
+	public boolean isReverse(){
+		return isReverse;
 	}
 
 	public void initDefaultCommand() {

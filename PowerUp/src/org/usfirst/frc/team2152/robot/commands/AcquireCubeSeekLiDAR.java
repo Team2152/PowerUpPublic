@@ -32,9 +32,12 @@ public class AcquireCubeSeekLiDAR extends CommandGroup {
 		addSequential(new CubeSetOpen());
 		addSequential(new AutoCubeMoveLow());
     	addSequential(new NavigateToCube(0.50, 2, 5, 0.45, 4, 5));
+    	
     	addParallel(new MoveByEncoder(9, 9, 0.25, false));
 		addSequential(new CubeIntakeSensorLiDAR(0.8));
+		addParallel(new DriveByTime(0.5, 0.4));
 		addSequential(new AutoCubeMoveHigh());
+		
 		addSequential(new CubeIntakeNudgeCheck(0.5));
 
 		System.out.println("ACQ cube ended");

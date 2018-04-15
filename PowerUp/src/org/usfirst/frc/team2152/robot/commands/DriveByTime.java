@@ -10,11 +10,14 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class DriveByTime extends Command {
 	private Timer timer;
-	double time;
-	public DriveByTime(double time) {
+	private double time;
+	private double speed;
+
+	public DriveByTime(double time, double speed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(Robot.driveTrainSubsystem);
+		this.speed = speed;
 		this.time = time;
 	}
 
@@ -23,11 +26,12 @@ public class DriveByTime extends Command {
 		timer = new Timer();
 		timer.reset();
 		timer.start();
+		Robot.driveTrainSubsystem.setRampRate(0, 10);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveTrainSubsystem.arcadeDrive(-0.3, 0);
+		Robot.driveTrainSubsystem.arcadeDrive(speed, 0);
 
 	}
 

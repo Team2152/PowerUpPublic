@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 // Needs to tune for new robot/carpet
 public class LimeDrive extends Command {
-
+	private double inputThrottle = 0;
+	private double inputTurn = 0;
 	public LimeDrive() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -34,8 +35,13 @@ public class LimeDrive extends Command {
 		// 0);
 		double outputThrottle = 0;
 		double outputTurn = 0;
-		double inputThrottle = ControllerMap.limeDriveThrottle.getRawAxis(1);
-		double inputTurn = -ControllerMap.limeDriveTurn.getRawAxis(4);
+		if(Robot.driveTrainSubsystem.isReverse() == false){
+			inputThrottle = ControllerMap.limeDriveThrottle.getRawAxis(1);
+			inputTurn = -ControllerMap.limeDriveTurn.getRawAxis(4);
+		} else {
+			inputThrottle = -ControllerMap.limeDriveThrottle.getRawAxis(1);
+			inputTurn = ControllerMap.limeDriveTurn.getRawAxis(4);
+		}
 
 		outputThrottle = Math.pow(Math.abs(inputThrottle), PIDConstants.DRIVETRAIN_THROTTLE_EXPONET);
 		outputTurn = Math.pow(Math.abs(inputTurn), PIDConstants.DRIVETRAIN_TURN_EXPONET);
@@ -66,12 +72,18 @@ public class LimeDrive extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		if(Robot.driveTrainSubsystem.isReverse() == true){
+			Robot.driveTrainSubsystem.toggleDriveDirection();
+		}
+		Robot.driveTrainSubsystem.tankDrive(0, 0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-
+		if(Robot.driveTrainSubsystem.isReverse() == true){
+			Robot.driveTrainSubsystem.toggleDriveDirection();
+		}
 		Robot.driveTrainSubsystem.tankDrive(0, 0);
 	}
 }

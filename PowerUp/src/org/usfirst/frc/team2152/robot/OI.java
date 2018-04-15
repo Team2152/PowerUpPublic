@@ -9,6 +9,7 @@ package org.usfirst.frc.team2152.robot;
 
 import org.usfirst.frc.team2152.robot.commands.AcquireCube;
 import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchange;
+import org.usfirst.frc.team2152.robot.commands.AcquireCubeExchangeSeekLiDAR;
 import org.usfirst.frc.team2152.robot.commands.AcquireCubeLiDAR;
 import org.usfirst.frc.team2152.robot.commands.AcquireCubeSeekLiDAR;
 import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveHigh;
@@ -32,6 +33,7 @@ import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
 import org.usfirst.frc.team2152.robot.commands.ResetNavx;
 import org.usfirst.frc.team2152.robot.commands.RunAutoInTele;
+import org.usfirst.frc.team2152.robot.commands.ToggleDriveDirection;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 import org.usfirst.frc.team2152.robot.utilities.SharedCommand;
 
@@ -152,6 +154,7 @@ public class OI {
 	private SharedCommand cubeFinesse;
 	private SharedCommand acquireCubeExchange;
 	private SharedCommand acquireCubeSeek;
+	private SharedCommand acquireCubeSeekExchange;
 
 	public OI() {
 		// Setup driver joystick
@@ -205,8 +208,8 @@ public class OI {
 		setupDriverXboxButtons();
 
 		try {
-			expelCube = new SharedCommand(driverXbox, ControllerMap.expelCubeDriver, false, operatorXbox,
-					ControllerMap.expelCubeOperator, false);
+//			expelCube = new SharedCommand(driverXbox, ControllerMap.expelCubeDriver, false, operatorXbox,
+//					ControllerMap.expelCubeOperator, false);
 			raiseCube = new SharedCommand(driverXbox, ControllerMap.raiseCubeDriver, false, operatorXbox,
 					ControllerMap.raiseCubeOperator, false);
 			clampCube = new SharedCommand(driverXbox, ControllerMap.clampCubeDriver, false, operatorXbox,
@@ -219,6 +222,8 @@ public class OI {
 					operatorXbox, ControllerMap.acquireCubeExchangeOperator, false);
 			acquireCubeSeek = new SharedCommand(driverXbox, ControllerMap.acquireCubeSeekDriver, false, 
 					operatorXbox, ControllerMap.acquireCubeSeekOperator, false);
+			acquireCubeSeekExchange = new SharedCommand(driverXbox, ControllerMap.acquireCubeSeekExchangeDriver, false, 
+					operatorXbox, ControllerMap.acquireCubeSeekExchangeOperator, false);
 			setupSharedCommands();
 		} catch (Exception e) {
 			Robot.m_logger.console("OI: Unable to setup shared commands: " + e.toString());
@@ -234,19 +239,19 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-//		dButtonStart.whenReleased(new CubeIntakeSensorLiDAR(1));
-//		dButtonBack.whenReleased(new AcquireCubeSeekLiDAR());
 		dButtonBumpL.whenReleased(new AcquireCubeLiDAR());
-		
+		dPOV0.whenReleased(new ToggleDriveDirection());
 	}
 
 	public void setupSharedCommands() {
-		expelCube.whenPressed(new CubeExpelJoystick(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,operatorXbox, driverXbox));
+		//expelCube.whenPressed(new CubeExpelJoystick(1, ControllerMap.expelCubeDriver, ControllerMap.expelCubeOperator,operatorXbox, driverXbox));
 		raiseCube.whenReleased(new AutoCubeMoveHigh());
 		clampCube.whenReleased(new CubeSolenoidToggle());
 		lowerCube.whenReleased(new AutoCubeMoveLow());
 		cubeFinesse.whenReleased(new CubeFinesse(.25));
 		acquireCubeExchange.whenReleased(new AcquireCubeExchange());
+		acquireCubeSeek.whenReleased(new AcquireCubeSeekLiDAR());
+		acquireCubeSeekExchange.whenReleased(new AcquireCubeExchangeSeekLiDAR());
 	}
 
 }

@@ -35,6 +35,9 @@ public class ControllerMap {
 	public static int acquireCubeSeekDriver = -1;
 	public static int acquireCubeSeekOperator = -1;
 	
+	public static int acquireCubeSeekExchangeDriver = -1;
+	public static int acquireCubeSeekExchangeOperator = -1;
+	
 	
 	
 	public static int acquireCubeExchangeDriver = -1; // OI.POV_180;
@@ -81,6 +84,9 @@ public class ControllerMap {
 		
 		acquireCubeSeekDriver = OI.buttonBid;
 		acquireCubeSeekOperator = OI.buttonStartid;
+		
+		acquireCubeSeekExchangeDriver = OI.buttonStartid;
+		acquireCubeSeekExchangeOperator = OI.buttonBackid;
 		
 		
 

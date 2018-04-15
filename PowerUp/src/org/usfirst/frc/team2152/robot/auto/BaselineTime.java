@@ -28,6 +28,6 @@ public class BaselineTime extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	requires(Robot.driveTrainSubsystem);
-    	addSequential(new DriveByTime(3));
+    	addSequential(new DriveByTime(3, -0.3));
     }
 }

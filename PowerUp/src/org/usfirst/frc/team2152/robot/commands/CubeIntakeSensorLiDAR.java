@@ -48,7 +48,6 @@ public class CubeIntakeSensorLiDAR extends Command {
 		if (lidarDistance <= 10 ){
 			if(lidarSaw == false){
 				lidar.start();
-				 System.out.println("Timer Start");
 				 lidarSaw = true;
 			}
 		} else {
