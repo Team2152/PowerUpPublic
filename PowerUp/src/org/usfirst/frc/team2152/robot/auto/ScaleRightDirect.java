@@ -2,17 +2,12 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
-import org.usfirst.frc.team2152.robot.commands.AutoRampHH;
 import org.usfirst.frc.team2152.robot.commands.AutoStop;
-import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelTime;
 import org.usfirst.frc.team2152.robot.commands.CubeSetClose;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
-import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
 import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
-import org.usfirst.frc.team2152.robot.commands.ScaleScore;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

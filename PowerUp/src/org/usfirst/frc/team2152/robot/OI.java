@@ -17,32 +17,18 @@ import org.usfirst.frc.team2152.robot.commands.AutoCubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.ClimbLeft;
 import org.usfirst.frc.team2152.robot.commands.ClimbRight;
 import org.usfirst.frc.team2152.robot.commands.ClimberMove;
-import org.usfirst.frc.team2152.robot.commands.CubeAutoAcquire;
-import org.usfirst.frc.team2152.robot.commands.CubeExpelJoystick;
 import org.usfirst.frc.team2152.robot.commands.CubeFinesse;
-import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensor;
-import org.usfirst.frc.team2152.robot.commands.CubeIntakeSensorLiDAR;
-import org.usfirst.frc.team2152.robot.commands.CubeMoveLow;
 import org.usfirst.frc.team2152.robot.commands.CubeSolenoidToggle;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
-import org.usfirst.frc.team2152.robot.commands.ElevatorMoveTo;
-import org.usfirst.frc.team2152.robot.commands.LEDTest;
-import org.usfirst.frc.team2152.robot.commands.MoveByEncoder;
-import org.usfirst.frc.team2152.robot.commands.NavigateToCube;
-//import org.usfirst.frc.team2152.robot.commands.MoveByPosition;
-import org.usfirst.frc.team2152.robot.commands.PreCannedTurn;
-import org.usfirst.frc.team2152.robot.commands.ResetEncoders;
-import org.usfirst.frc.team2152.robot.commands.ResetNavx;
-import org.usfirst.frc.team2152.robot.commands.RunAutoInTele;
+import org.usfirst.frc.team2152.robot.commands.MotionMagicMoveTo;
 import org.usfirst.frc.team2152.robot.commands.ToggleDriveDirection;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 import org.usfirst.frc.team2152.robot.utilities.SharedCommand;
-
+//import *;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -237,7 +223,9 @@ public class OI {
 		oPOV180.whenReleased(new ElevatorMoveLow(0.25, 10));
 //		oButtonBumpR.whenPressed(new ClimberMove(-1, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveUPOperator));
 		oButtonBumpL.whenPressed(new ClimberMove(-.25, ControllerMap.climberMoveJoystick, ControllerMap.climberMoveDownOperator));
-		oPOV270.whenReleased(new RunAutoInTele());
+		oPOV270.whenReleased(new MotionMagicMoveTo(56));
+		oPOV90.whenReleased(new MotionMagicMoveTo(68));
+
 	}
 
 	public void setupDriverXboxButtons() {

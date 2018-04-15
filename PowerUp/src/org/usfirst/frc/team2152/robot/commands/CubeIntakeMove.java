@@ -4,7 +4,6 @@ import org.usfirst.frc.team2152.robot.ControllerMap;
 import org.usfirst.frc.team2152.robot.Robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**

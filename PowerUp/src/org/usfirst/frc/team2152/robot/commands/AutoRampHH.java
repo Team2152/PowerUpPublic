@@ -6,7 +6,6 @@ import org.usfirst.frc.team2152.robot.utilities.PIDConstants;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -17,7 +16,6 @@ public class AutoRampHH extends Command implements PIDOutput {
 	double motorSpeed;
 	double distance = 0;
 	float setPointHH = 0.0f;
-	private boolean clearBacklash = false;
 	double watchDogTime = 5;
 	double HHOutput;
 	private double previousLeft = 0;

@@ -29,18 +29,18 @@ public class MotionMagicElevatorMove extends Command {
 	protected void execute() {
 		if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
 			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(86));
-		} else if (Math.abs(joy1.getRawAxis(2)) > 0.01) {
-			if (Math.abs(joy1.getRawAxis(2)) > 0.01) {
-				double targetPos = joy1.getRawAxis(2) * 409.6 * 12;
+		} else if (Math.abs(joy1.getRawAxis(1)) > 0.01) {
+			if (Math.abs(joy1.getRawAxis(1)) > 0.05) {
+				double targetPos = -joy1.getRawAxis(1) * 409.6 * 22;
 				Robot.elevatorSubsystem.goToHeight(targetPos);
 				System.out.println("Enc error: " + (targetPos - Robot.elevatorSubsystem.getEncoder())
-						+ " Joystick Pos: " + joy1.getRawAxis(2));
+						+ " Joystick Pos: " + joy1.getRawAxis(1));
 			} else {
 				Robot.elevatorSubsystem.goToHeight(0);
 			}
 		} else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
 			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(21));
-		}else {
+		} else {
 			Robot.elevatorSubsystem.goToHeight(0);
 		}
 
@@ -53,6 +53,7 @@ public class MotionMagicElevatorMove extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.elevatorSubsystem.goToHeight(0);
 	}
 
 	// Called when another command which requires one or more of the same

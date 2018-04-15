@@ -2,9 +2,6 @@ package org.usfirst.frc.team2152.robot.auto;
 
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
-import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
-import org.usfirst.frc.team2152.robot.commands.CubeExpelSensor;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

@@ -3,7 +3,6 @@ package org.usfirst.frc.team2152.robot.auto;
 import org.usfirst.frc.team2152.robot.Robot;
 import org.usfirst.frc.team2152.robot.commands.AutoRamp;
 import org.usfirst.frc.team2152.robot.commands.AutoStop;
-import org.usfirst.frc.team2152.robot.commands.ClearDriveBackLash;
 import org.usfirst.frc.team2152.robot.commands.CubeExpelTime;
 
 import edu.wpi.first.wpilibj.Timer;
