@@ -11,6 +11,7 @@ import org.usfirst.frc.team2152.robot.subsystems.Climber;
 import org.usfirst.frc.team2152.robot.subsystems.CubeIntake;
 import org.usfirst.frc.team2152.robot.subsystems.CubeMove;
 import org.usfirst.frc.team2152.robot.auto.BaselineCenter;
+import org.usfirst.frc.team2152.robot.auto.BaselineLeft;
 import org.usfirst.frc.team2152.robot.auto.BaselineTime;
 import org.usfirst.frc.team2152.robot.auto.ScaleLeftDirect;
 import org.usfirst.frc.team2152.robot.auto.ScaleRightDirect;
@@ -114,8 +115,8 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putData("Auto mode", m_chooser);
 
-		m_chooser.addDefault("No Auto", null);
-		m_chooser.addObject("BaseLine Center", new BaselineCenter());
+		m_chooser.addObject("No Auto", null);
+		m_chooser.addDefault("BaseLine Encoder", new BaselineLeft());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 
@@ -192,10 +193,10 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		// Robot.driveTrainSubsystem.setBreakMode(true);
 		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		cameras.startRecording();
+		//cameras.startRecording();
 
-		m_chooser.addDefault("No Auto", null);
-		m_chooser.addObject("BaseLine Center", new BaselineCenter());
+		m_chooser.addObject("No Auto", null);
+		m_chooser.addDefault("BaseLine Encoder", new BaselineLeft());
 		m_chooser.addObject("Switch Center", new SwitchCenter());
 		m_chooser.addObject("Scale Left Straight", new ScaleLeftDirect());
 		m_chooser.addObject("Scale Right Straight", new ScaleRightDirect());

@@ -29,6 +29,7 @@ public class AutoCubeMoveLow extends CommandGroup {
     	requires(Robot.cubeIntakeSubsystem);
     	requires(Robot.cubeMoveSubsystem);
     	addSequential(new CubeMoveLowByTime(.5,0.5));
+    	addParallel(new CubeSetOpen());
     	addSequential(new CubeMoveLow(.3));
     }
 }

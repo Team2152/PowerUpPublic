@@ -54,7 +54,7 @@ public class LimeDrive extends Command {
 		}
 		if (Robot.m_oi.driverXbox.getRawButton(9) == false) {
 			if (Robot.elevatorSubsystem.getEleInches() >= 36) {
-				outputThrottle *= 0.25;
+				outputThrottle *= 0.35;
 			}
 		}
 		if (Math.abs(outputThrottle) <= 0.1) {

@@ -59,7 +59,7 @@ public class AutoRamp extends Command {
 		// }else if(steering < -1){
 		// steering = -1;
 		// }
-		timeOut = ((distance / 12) / (power * 13.08)) + 5;
+		timeOut = ((distance / 12) / (power * 13.08)) + 4;
 		this.steering = steering;
 		this.rampRate = rampRate;
 		this.distance = distance;

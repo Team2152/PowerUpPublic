@@ -70,6 +70,7 @@ public class CubeIntakeMove extends Command {
 
 			} else {
 				Robot.cubeIntakeSubsystem.cubeExpelMove(0);
+				Robot.cubeIntakeSubsystem.cubeIntakeMove(0);
 			}
 			// When the inner IR sensor shows NO cube presence then
 			// check then joystick buttons and act on them if they are pressed
