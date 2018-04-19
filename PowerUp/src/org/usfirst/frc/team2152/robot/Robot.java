@@ -93,13 +93,13 @@ public class Robot extends TimedRobot {
 					timeSync.startTimeSync(data[1]);
 				}
 			});
-			timeReceiver.start();
-			encoderSendSystem.start();
+			//timeReceiver.start();
+			//encoderSendSystem.start();
 
 			udpReceiver.setListener(udp);
 			udpReceiver.start();
-			udpReceiver2.setListener(udp2);
-			udpReceiver2.start();
+			//udpReceiver2.setListener(udp2);
+			//udpReceiver2.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -192,7 +192,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		// Robot.driveTrainSubsystem.setBreakMode(true);
 		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		// cameras.startRecording();
+		cameras.startRecording();
 
 		m_chooser.addDefault("No Auto", null);
 		m_chooser.addObject("BaseLine Center", new BaselineCenter());
