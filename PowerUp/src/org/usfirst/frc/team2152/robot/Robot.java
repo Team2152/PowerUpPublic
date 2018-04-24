@@ -193,7 +193,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		// Robot.driveTrainSubsystem.setBreakMode(true);
 		Robot.powerUpDashboard.putPlateAssignment(DriverStation.getInstance().getGameSpecificMessage());
-		//cameras.startRecording();
+		cameras.startRecording();
 
 		m_chooser.addObject("No Auto", null);
 		m_chooser.addDefault("BaseLine Encoder", new BaselineLeft());
