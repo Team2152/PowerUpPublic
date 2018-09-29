@@ -34,11 +34,7 @@ public class ElevatorMove extends Command {
 			System.out.println("output: " + Robot.elevatorSubsystem.getEleOutput() + "encoder: "
 					+ Robot.elevatorSubsystem.getEncoderVelocity());
 		}
-		if (Robot.elevatorSubsystem.getElevatorMaxHeight() == true) {
-			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(86));
-		} else if (Robot.elevatorSubsystem.getElevatorMinHeight() == true) {
-			Robot.elevatorSubsystem.setEncoder((int) Robot.elevatorSubsystem.convertToNativeUnits(21));
-		}
+		
 		double targetPos = joy1.getRawAxis(2) * 409.6 * 10;
 		// Robot.elevatorSubsystem.goToHeight(targetPos);
 		// System.out.println("Enc error: " + (Robot.elevatorSubsystem.getEncoder() -

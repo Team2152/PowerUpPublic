@@ -45,6 +45,7 @@ public class RobotMap {
 	public static final int CUBE_DETECT_DIO_CENTER   = 2; // Distance Sensor inner 
 	public static final int CUBE_LIMIT_DIO_BOTTOM    = 3;
 	public static final int CUBE_LIMIT_DIO_TOP       = 4;
+	
 	public static final int ELEVATOR_MAX_LIMIT_DIO_5 = 5;
 	public static final int ELEVATOR_MIN_LIMIT_DIO_6 = 6;
 
