@@ -52,19 +52,28 @@ public class LimeDrive extends Command {
 		if (inputTurn < 0) {
 			outputTurn *= -1;
 		}
+		
+		/*
 		if (Robot.m_oi.driverXbox.getRawButton(9) == false) {
 			if (Robot.elevatorSubsystem.getEleInches() >= 36) {
 				outputThrottle *= 0.35;
 			}
 		}
+		*/
+		
+		if(Robot.driveTrainSubsystem.getDriveSlow() == true){
+			outputThrottle *= 0.5;
+			outputTurn *= 0.5;
+		}
+		
 		if (Math.abs(outputThrottle) <= 0.1) {
+			
 			if(Robot.driveTrainSubsystem.isReverse()){
-				Robot.driveTrainSubsystem.arcadeDrive(0.0,
-						(outputTurn * -0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * -0.25);
+				Robot.driveTrainSubsystem.arcadeDrive(0.0,(outputTurn * -0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * -0.25);
 			}else{
-			Robot.driveTrainSubsystem.arcadeDrive(0.0,
-					(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.25);
+			Robot.driveTrainSubsystem.arcadeDrive(0.0,(outputTurn * 0.45) + Robot.m_oi.operatorXbox.getRawAxis(0) * 0.25);
 			}
+			
 		} else {
 			Robot.driveTrainSubsystem.arcadeDrive((outputThrottle), -(outputThrottle * outputTurn));
 		}

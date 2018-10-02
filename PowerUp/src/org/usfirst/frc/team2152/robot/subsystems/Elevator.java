@@ -43,6 +43,7 @@ public class Elevator extends Subsystem {
 		elevatorTalon.configNominalOutputReverse(0, 0);
 		elevatorTalon.configPeakOutputForward(1, 0);
 		elevatorTalon.configPeakOutputReverse(-1, 0);
+		elevatorTalon.configForwardSoftLimitEnable(false, 10);
 
 		elevatorTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 10);
 		elevatorTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 10);
@@ -54,14 +55,14 @@ public class Elevator extends Subsystem {
 		elevatorTalon.configAllowableClosedloopError(0, 10, 10);
 		elevatorTalon.configMotionCruiseVelocity(500, 10);
 		elevatorTalon.configMotionAcceleration(650, 10);
-		elevatorTalon.configReverseSoftLimitThreshold(0, 10);
-		elevatorTalon.configReverseSoftLimitEnable(true, 10);
+		elevatorTalon.configReverseSoftLimitEnable(false, 10);
 
 		elevatorMaxHeight = new DigitalInput(RobotMap.ELEVATOR_MAX_LIMIT_DIO_5);
 		elevatorMinHeight = new DigitalInput(RobotMap.ELEVATOR_MIN_LIMIT_DIO_6);
 
 		talonSource = new TalonPIDSource(TalonPIDSource.ELEVATOR_TALON);
 	}
+	
 
 	public double getClosedLoopError() {
 		return elevatorTalon.getClosedLoopError(0);

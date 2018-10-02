@@ -22,6 +22,7 @@ public class CubeIntake extends Subsystem {
 	private DoubleSolenoid cubeSolenoid;
 	private Victor intakeRight;
 	private Victor intakeLeft;
+	
 
 	private DigitalInput cubeDetectOuterRight;
 	private DigitalInput cubeDetectOuterLeft;
@@ -31,6 +32,9 @@ public class CubeIntake extends Subsystem {
 
 		intakeRight = new Victor(RobotMap.CUBE_INTAKE_RIGHT_PWM_0);
 		intakeLeft = new Victor(RobotMap.CUBE_INTAKE_LEFT_PWM_1);
+		
+		intakeRight.setInverted(true);
+		intakeLeft.setInverted(true);
 
 		cubeSolenoid = new DoubleSolenoid(0, 1);
 		cubeSolenoidClose();

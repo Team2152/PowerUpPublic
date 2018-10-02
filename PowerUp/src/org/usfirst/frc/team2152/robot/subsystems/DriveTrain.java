@@ -38,6 +38,7 @@ public class DriveTrain extends Subsystem {
 	private static double kP = 0;
 	private static double kI = 0;
 	private static double kD = 0;
+	
 
 	private WPI_TalonSRX right1;
 	private WPI_TalonSRX right2;
@@ -46,6 +47,8 @@ public class DriveTrain extends Subsystem {
 
 	private int encoderCumulativeTicksL = 0;
 	private int encoderCumulativeTicksR = 0;
+	
+	private boolean driveSlow;
 
 	// === Drive Train Object
 	private DifferentialDrive drive;
@@ -59,7 +62,7 @@ public class DriveTrain extends Subsystem {
 	private NetworkPIDSourceClosest networkPIDClosest;
 
 	public DriveTrain() {
-		
+		driveSlow = false;
 		isReverse = false;
 		// Create TalonSRX Objects for each of the motors
 		right1 = new WPI_TalonSRX(RobotMap.RIGHT_DRIVE_1_CAN_ID);
@@ -108,6 +111,18 @@ public class DriveTrain extends Subsystem {
 		networkPIDSourceXAngle = new NetworkPIDSourceXAngle();
 		networkPIDClosest = new NetworkPIDSourceClosest();
 
+	}
+	
+	public void toggleDriveSlow(){
+		if(driveSlow == true){
+			driveSlow = false;
+		} else {
+			driveSlow = true;
+		}
+	}
+	
+	public boolean getDriveSlow(){
+		return driveSlow;
 	}
 
 	/***

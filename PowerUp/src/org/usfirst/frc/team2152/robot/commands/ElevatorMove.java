@@ -48,7 +48,7 @@ public class ElevatorMove extends Command {
 		if (inputValue <= -0.1 && Robot.elevatorSubsystem.getElevatorMaxHeight() == false) {
 			Robot.elevatorSubsystem.setElevatorRaiseSpeed(inputValue);
 		} else if (inputValue >= -0.1 && Robot.elevatorSubsystem.getElevatorMinHeight() == false) {
-			Robot.elevatorSubsystem.setElevatorLowerSpeed(-inputValue);
+			Robot.elevatorSubsystem.setElevatorLowerSpeed(-inputValue * 0.25);
 		} else {
 			Robot.elevatorSubsystem.setElevatorStop();
 		}

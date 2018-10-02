@@ -23,6 +23,7 @@ import org.usfirst.frc.team2152.robot.commands.ElevatorMoveHigh;
 import org.usfirst.frc.team2152.robot.commands.ElevatorMoveLow;
 import org.usfirst.frc.team2152.robot.commands.MotionMagicMoveTo;
 import org.usfirst.frc.team2152.robot.commands.ToggleDriveDirection;
+import org.usfirst.frc.team2152.robot.commands.ToggleDriveSlow;
 import org.usfirst.frc.team2152.robot.utilities.POV;
 import org.usfirst.frc.team2152.robot.utilities.SharedCommand;
 //import *;
@@ -229,7 +230,7 @@ public class OI {
 	}
 
 	public void setupDriverXboxButtons() {
-		dButtonBumpL.whenReleased(new AcquireCubeLiDAR());
+		dButtonBumpL.whenReleased(new ToggleDriveSlow());
 		dPOV0.whenReleased(new ToggleDriveDirection());
 		dPOV270.whenReleased(new ClimbLeft());
 		dPOV90.whenReleased(new ClimbRight());
